@@ -10,6 +10,15 @@ Legend:
     *nix: Unix (e.g BSD) and Unix-like systems (e.g. Linux)
     macOS/OS X: Apple macOS
 
+3.63.2 (2023-02-23)
+
+- macOS: Several rendering fixes in dark mode
+- macOS: Disable automatic quote/dash substitution in text input fields
+- MSW: Fixed an issue with Drag&Drop to Explorer on systems that use shortened 8.3 pathnames in environment variables
+- MSW: If FileZilla was installed for current user only, updating with the installer now skips the UAC prompt
+- Updated to libfilezilla 0.41.1 to fix a rare crash
+- Official binaries are now built againt GnuTLS 3.8.0
+
 3.63.1 (2023-01-26)
 
 - MSW: Fixed icon sizing issue on high DPI scale factors
