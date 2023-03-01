@@ -524,6 +524,14 @@ void CQueueView::ProcessNotification(t_EngineData *pEngineData, std::unique_ptr<
 		cert_store_.SetSessionResumptionSupport(fz::to_utf8(notification.server_.GetHost()), notification.server_.GetPort(), true, true);
 		break;
 	}
+	case nId_persistent_state: {
+		if (pEngineData->pItem && pEngineData->active) {
+			PersistentStateNotification& notification = static_cast<PersistentStateNotification&>(*pNotification);
+			CFileItem & fileItem = *pEngineData->pItem;
+			fileItem.set_persistent_state(std::move(notification.persistent_state_));
+		}
+		break;
+	}
 	default:
 		break;
 	}
@@ -1249,20 +1257,22 @@ void CQueueView::SendNextCommand(t_EngineData& engineData)
 			RefreshItem(engineData.pItem);
 
 			std::wstring extraFlags;
+			std::string persistentState;
 			auto extraData = fileItem->GetExtraData();
 			if (extraData) {
 				extraFlags = extraData->extraFlags_;
+				persistentState = extraData->persistentState_;
 			}
 
 			int res;
 			if (!fileItem->Download()) {
 				auto cmd = CFileTransferCommand(fz::file_reader_factory(fileItem->GetLocalPath().GetPath() + fileItem->GetLocalFile(), m_pMainFrame->GetEngineContext().GetThreadPool()),
-					fileItem->GetRemotePath(), fileItem->GetRemoteFile(), fileItem->flags(), extraFlags);
+					fileItem->GetRemotePath(), fileItem->GetRemoteFile(), fileItem->flags(), extraFlags, persistentState);
 				res = engineData.pEngine->Execute(cmd);
 			}
 			else {
 				auto cmd = CFileTransferCommand(fz::file_writer_factory(fileItem->GetLocalPath().GetPath() + fileItem->GetLocalFile(), m_pMainFrame->GetEngineContext().GetThreadPool()),
-					fileItem->GetRemotePath(), fileItem->GetRemoteFile(), fileItem->flags(), extraFlags);
+					fileItem->GetRemotePath(), fileItem->GetRemoteFile(), fileItem->flags(), extraFlags, persistentState);
 				res = engineData.pEngine->Execute(cmd);
 			}
 

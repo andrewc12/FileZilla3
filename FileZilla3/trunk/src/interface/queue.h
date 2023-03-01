@@ -161,7 +161,7 @@ public:
 	CFileItem(CServerItem* parent, transfer_flags const& flags,
 		std::wstring const& sourceFile, std::wstring const& targetFile,
 		CLocalPath const& localPath, CServerPath const& remotePath, int64_t size,
-		std::wstring const& extraFlags);
+		std::wstring const& extraFlags, std::string const& persistentState = {});
 
 	virtual ~CFileItem();
 
@@ -172,6 +172,7 @@ public:
 	struct extra_data {
 		std::wstring targetFile_;
 		std::wstring extraFlags_;
+		std::string persistentState_;
 	};
 
 	std::wstring const& GetLocalFile() const { return !Download() ? GetSourceFile() : (extra_data_ && !extra_data_->targetFile_.empty() ? extra_data_->targetFile_ : m_sourceFile); }
@@ -220,6 +221,8 @@ public:
 	virtual bool TryRemoveAll() override final;
 
 	void SetTargetFile(std::wstring const& file);
+
+	void set_persistent_state(std::string && state);
 
 	enum class Status : unsigned char {
 		none,
