@@ -224,8 +224,8 @@ namespace ftp_transfer_flags
 class FZC_PUBLIC_SYMBOL CFileTransferCommand final : public CCommandHelper<CFileTransferCommand, Command::transfer>
 {
 public:
-	CFileTransferCommand(fz::reader_factory_holder const& reader, CServerPath const& remotePath, std::wstring const& remoteFile, transfer_flags const& flags, std::wstring const& extraflags = {});
-	CFileTransferCommand(fz::writer_factory_holder const& writer, CServerPath const& remotePath, std::wstring const& remoteFile, transfer_flags const& flags, std::wstring const& extraFlags = {});
+	CFileTransferCommand(fz::reader_factory_holder const& reader, CServerPath const& remotePath, std::wstring const& remoteFile, transfer_flags const& flags, std::wstring const& extraflags = {}, std::string const& persistentState = {});
+	CFileTransferCommand(fz::writer_factory_holder const& writer, CServerPath const& remotePath, std::wstring const& remoteFile, transfer_flags const& flags, std::wstring const& extraFlags = {}, std::string const& persistentState = {});
 
 	CServerPath GetRemotePath() const;
 	std::wstring GetRemoteFile() const;
@@ -243,8 +243,9 @@ protected:
 	fz::writer_factory_holder const writer_;
 	CServerPath const m_remotePath;
 	std::wstring const m_remoteFile;
-	transfer_flags const flags_;
 	std::wstring const extraFlags_;
+	std::string const persistentState_;
+	transfer_flags const flags_;
 };
 
 class FZC_PUBLIC_SYMBOL CHttpRequestCommand final : public CCommandHelper<CHttpRequestCommand, Command::httprequest>

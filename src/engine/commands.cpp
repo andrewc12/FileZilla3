@@ -56,14 +56,14 @@ bool CListCommand::valid() const
 }
 
 CFileTransferCommand::CFileTransferCommand(fz::reader_factory_holder const& reader,
-	CServerPath const& remotePath, std::wstring const& remoteFile, transfer_flags const& flags, std::wstring const& extraFlags)
-	: reader_(reader), m_remotePath(remotePath), m_remoteFile(remoteFile), flags_(flags), extraFlags_(extraFlags)
+	CServerPath const& remotePath, std::wstring const& remoteFile, transfer_flags const& flags, std::wstring const& extraFlags, std::string const& persistentState)
+	: reader_(reader), m_remotePath(remotePath), m_remoteFile(remoteFile), extraFlags_(extraFlags), persistentState_(persistentState), flags_(flags)
 {
 }
 
 CFileTransferCommand::CFileTransferCommand(fz::writer_factory_holder const& writer,
-	CServerPath const& remotePath, std::wstring const& remoteFile, transfer_flags const& flags, std::wstring const& extraFlags)
-	: writer_(writer), m_remotePath(remotePath), m_remoteFile(remoteFile), flags_(flags), extraFlags_(extraFlags)
+	CServerPath const& remotePath, std::wstring const& remoteFile, transfer_flags const& flags, std::wstring const& extraFlags, std::string const& persistentState)
+	: writer_(writer), m_remotePath(remotePath), m_remoteFile(remoteFile), extraFlags_(extraFlags), persistentState_(persistentState), flags_(flags)
 {
 }
 

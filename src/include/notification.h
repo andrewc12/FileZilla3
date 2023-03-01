@@ -28,14 +28,15 @@
 
 enum NotificationId : unsigned int
 {
-	nId_logmsg,				// notification about new messages for the message log 
-	nId_operation,			// operation reply codes
-	nId_transferstatus,		// transfer information: bytes transferred, transfer speed and such
-	nId_listing,			// directory listings
-	nId_asyncrequest,		// asynchronous request
-	nId_sftp_encryption,	// information about key exchange, encryption algorithms and so on for SFTP
-	nId_local_dir_created,	// local directory has been created
-	nId_serverchange,		// With some protocols, actual server identity isn't known until after logon
+	nId_logmsg,            // notification about new messages for the message log
+	nId_operation,         // operation reply codes
+	nId_transferstatus,    // transfer information: bytes transferred, transfer speed and such
+	nId_listing,           // directory listings
+	nId_asyncrequest,      // asynchronous request
+	nId_sftp_encryption,   // information about key exchange, encryption algorithms and so on for SFTP
+	nId_local_dir_created, // local directory has been created
+	nId_serverchange,      // With some protocols, actual server identity isn't known until after logon
+	nId_persistent_state,  // See PersistentStateNotification
 	nId_ftp_tls_resumption
 };
 
@@ -377,6 +378,25 @@ public:
 
 	CServer const server_;
 	bool allow_{};
+};
+
+// Can be sent by the engine while processing a CFileTransferCommand.
+// Should the transfer fail, the persistent state can be passed in a subsequent
+// transfer command as the "state" member.
+class FZC_PUBLIC_SYMBOL PersistentStateNotification final : public CNotificationHelper<nId_persistent_state>
+{
+public:
+	PersistentStateNotification() = default;
+
+	explicit PersistentStateNotification(std::string && state)
+	    : persistent_state_(std::move(state))
+	{}
+
+	explicit PersistentStateNotification(std::string_view const& state)
+	    : persistent_state_(state)
+	{}
+
+	std::string persistent_state_;
 };
 
 #endif
