@@ -237,11 +237,11 @@ int CQueueItem::GetItemIndex() const
 CFileItem::CFileItem(CServerItem* parent, transfer_flags const& flags,
 					 std::wstring const& sourceFile, std::wstring const& targetFile,
 					 CLocalPath const& localPath, CServerPath const& remotePath, int64_t size,
-					 std::wstring const& extraFlags)
+					 std::wstring const& extraFlags, std::string const& persistentState)
 	: CQueueItem(parent)
 	, flags_(flags)
 	, m_sourceFile(sourceFile)
-	, extra_data_(targetFile.empty() && extraFlags.empty() ? fz::sparse_optional<extra_data>() : fz::sparse_optional<extra_data>({ targetFile, extraFlags }))
+	, extra_data_((targetFile.empty() && extraFlags.empty() && persistentState.empty()) ? fz::sparse_optional<extra_data>() : fz::sparse_optional<extra_data>({ targetFile, extraFlags, persistentState }))
 	, m_localPath(localPath)
 	, m_remotePath(remotePath)
 	, m_size(size)
@@ -316,6 +316,7 @@ void CFileItem::SaveItem(pugi::xml_node& element) const
 	if (extra_data_ && !extra_data_->extraFlags_.empty()) {
 		AddTextElement(file, "ExtraFlags", extra_data_->extraFlags_);
 	}
+	// Intentionally not exporting persistent state.
 }
 
 bool CFileItem::TryRemoveAll()
@@ -330,20 +331,46 @@ bool CFileItem::TryRemoveAll()
 
 void CFileItem::SetTargetFile(std::wstring const& file)
 {
-	std::wstring extraFlags;
-	if (extra_data_) {
-		extraFlags = extra_data_->extraFlags_;
-	}
-
-	if (!file.empty() && file != m_sourceFile) {
-		extra_data_ = fz::sparse_optional<extra_data>({file, extraFlags});
-	}
-	else {
-		if (extraFlags.empty()) {
+	if (file.empty()) {
+		if (!extra_data_) {
+			return;
+		}
+		if (extra_data_->extraFlags_.empty() && extra_data_->persistentState_.empty()) {
 			extra_data_.clear();
 		}
 		else {
-			extra_data_ = fz::sparse_optional<extra_data>({{}, extraFlags});
+			extra_data_->targetFile_.clear();
+		}
+	}
+	else {
+		if (!extra_data_) {
+			extra_data_ = std::move(fz::sparse_optional<extra_data>({file, {}, {}}));
+		}
+		else {
+			extra_data_->targetFile_ = file;
+		}
+	}
+}
+
+void CFileItem::set_persistent_state(std::string && state)
+{
+	if (state.empty()) {
+		if (!extra_data_) {
+			return;
+		}
+		if (extra_data_->extraFlags_.empty() && extra_data_->targetFile_.empty()) {
+			extra_data_.clear();
+		}
+		else {
+			extra_data_->persistentState_.clear();
+		}
+	}
+	else {
+		if (!extra_data_) {
+			extra_data_ = std::move(fz::sparse_optional<extra_data>({{}, {}, std::move(state)}));
+		}
+		else {
+			extra_data_->persistentState_ = std::move(state);
 		}
 	}
 }
