@@ -349,6 +349,9 @@ FunctionEnd
 
 Function ReadSkipUAC
 
+  Push $R0
+  Push $R1
+
   ${GetOptions} $CommandLine "/skipuac" $R1
 
   ${If} ${Errors}
@@ -358,11 +361,35 @@ Function ReadSkipUAC
   ${EndIf}
 
   ${If} $ALL_USERS == 0
+  ${AndIf} $SKIPUAC != 1
     ${If} ${Silent}
     ${OrIf} $PERFORM_UPDATE == 1
-      StrCpy $SKIPUAC 1
+
+      StrCpy $R0 $PREVIOUS_INSTALLDIR
+      ${If} $R0 == ''
+        StrCpy $R0 $INSTDIR
+      ${EndIf}
+
+      ClearErrors
+      ${GetFileAttributes} $R0 "DIRECTORY" $R1
+      ${If} ${Errors}
+        StrCpy $SKIPUAC 1
+      ${Else}
+        ; If the previous installation dir exists, only skip UAC if it is writable.
+        StrCpy $R1 $R0\5h662xgwgxr5k.tmp
+
+        System::Call "kernel32::CreateFileW(w R1, i 0x40000000, i 2, p 0, i 2, i 0x4000002, p 0) p.R1"
+
+        ${If} $R1 != -1
+          StrCpy $SKIPUAC 1
+          System::Call "kernel32::CloseHandle(p R1)"
+        ${EndIf}
+      ${EndIf}
     ${EndIf}
   ${EndIf}
+
+  Pop $R1
+  Pop $R0
 
 FunctionEnd
 
@@ -416,6 +443,8 @@ install64on32:
 
   Call ReadAllUsersCommandline
 
+  Call GetUserInfo
+
   ; Initialize $ALL_USERS with default value
   ${If} $ALL_USERS == ''
     ${If} $PREVIOUS_ALL_USERS != ''
@@ -452,7 +481,7 @@ install64on32:
     SetErrorLevel -1
   ${EndIf}
 
-  ; Must call after UAC
+  ; Must call again after UAC
   Call GetUserInfo
 
   ${If} $PREVIOUS_VERSION != ""
