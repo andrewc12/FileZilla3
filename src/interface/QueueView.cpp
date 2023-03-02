@@ -45,6 +45,8 @@
 #include <powrprof.h>
 #endif
 
+using namespace std::literals;
+
 class CQueueViewDropTarget final : public CFileDropTarget<wxListCtrlEx>
 {
 public:
@@ -217,7 +219,7 @@ CQueueView::CQueueView(CQueue* parent, int index, CMainFrame* pMainFrame, CAsync
 	, m_pAsyncRequestQueue(pAsyncRequestQueue)
 	, cert_store_(certStore)
 {
-	wxGetApp().AddStartupProfileRecord("CQueueView::CQueueView");
+	wxGetApp().AddStartupProfileRecord("CQueueView::CQueueView"sv);
 
 	if (m_pAsyncRequestQueue) {
 		m_pAsyncRequestQueue->SetQueue(this);
@@ -1573,7 +1575,7 @@ void CQueueView::SaveQueue(bool silent)
 
 void CQueueView::LoadQueue()
 {
-	wxGetApp().AddStartupProfileRecord("CQueueView::LoadQueue");
+	wxGetApp().AddStartupProfileRecord("CQueueView::LoadQueue"sv);
 	// We have to synchronize access to queue.xml so that multiple processed don't write
 	// to the same file or one is reading while the other one writes.
 	CInterProcessMutex mutex(MUTEX_QUEUE);

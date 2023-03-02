@@ -32,6 +32,8 @@
 
 #include <wx/menu.h>
 
+using namespace std::literals;
+
 class CLocalListViewDropTarget final : public CFileDropTarget<wxListCtrlEx>
 {
 public:
@@ -277,7 +279,7 @@ CLocalListView::CLocalListView(CView* pParent, CState& state, CQueueView *pQueue
 	CStateEventHandler(state),
 	m_parentView(pParent)
 {
-	wxGetApp().AddStartupProfileRecord("CLocalListView::CLocalListView");
+	wxGetApp().AddStartupProfileRecord("CLocalListView::CLocalListView"sv);
 	m_state.RegisterHandler(this, STATECHANGE_LOCAL_DIR);
 	m_state.RegisterHandler(this, STATECHANGE_APPLYFILTER);
 	m_state.RegisterHandler(this, STATECHANGE_LOCAL_REFRESH_FILE);

@@ -29,6 +29,8 @@
 
 #include <algorithm>
 
+using namespace std::literals;
+
 class CTreeItemData : public wxTreeItemData
 {
 public:
@@ -242,7 +244,7 @@ CLocalTreeView::CLocalTreeView(wxWindow* parent, wxWindowID id, CState& state, C
 	, COptionChangeEventHandler(this)
 	, m_pQueueView(pQueueView)
 {
-	wxGetApp().AddStartupProfileRecord("CLocalTreeView::CLocalTreeView");
+	wxGetApp().AddStartupProfileRecord("CLocalTreeView::CLocalTreeView"sv);
 #ifdef __WXMAC__
 	SetFont(wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT));
 #endif
@@ -414,7 +416,7 @@ wxTreeItemId CLocalTreeView::GetSubdir(wxTreeItemId parent, wxString const& subD
 
 bool CLocalTreeView::DisplayDrives(wxTreeItemId parent)
 {
-	wxGetApp().AddStartupProfileRecord("CLocalTreeView::DisplayDrives");
+	wxGetApp().AddStartupProfileRecord("CLocalTreeView::DisplayDrives"sv);
 
 	std::vector<std::wstring> drives = CVolumeDescriptionEnumeratorThread::GetDrives();
 
@@ -436,7 +438,7 @@ bool CLocalTreeView::DisplayDrives(wxTreeItemId parent)
 	}
 	SortChildren(parent);
 
-	wxGetApp().AddStartupProfileRecord("CLocalTreeView::DisplayDrives adding drives done");
+	wxGetApp().AddStartupProfileRecord("CLocalTreeView::DisplayDrives adding drives done"sv);
 
 	return true;
 }

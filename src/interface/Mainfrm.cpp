@@ -71,6 +71,8 @@
 #include <limits>
 #include <map>
 
+using namespace std::literals;
+
 #ifdef __WXGTK__
 wxDECLARE_EVENT(fzEVT_TASKBAR_CLICK_DELAYED, wxCommandEvent);
 wxDEFINE_EVENT(fzEVT_TASKBAR_CLICK_DELAYED, wxCommandEvent);
@@ -342,7 +344,7 @@ CMainFrame::CMainFrame(COptions& options)
 	, m_engineContext(options, CustomEncodingConverter::Get())
 	, m_comparisonToggleAcceleratorId(wxNewId())
 {
-	wxGetApp().AddStartupProfileRecord("CMainFrame::CMainFrame");
+	wxGetApp().AddStartupProfileRecord("CMainFrame::CMainFrame"sv);
 	wxRect screen_size = CWindowStateManager::GetScreenDimensions();
 
 	wxSize initial_size;
@@ -499,7 +501,7 @@ CMainFrame::CMainFrame(COptions& options)
 	EnableFullScreenView(true, wxFULLSCREEN_NOMENUBAR);
 #endif
 
-	wxGetApp().AddStartupProfileRecord("CMainFrame::CMainFrame pre layout");
+	wxGetApp().AddStartupProfileRecord("CMainFrame::CMainFrame pre layout"sv);
 	m_pWindowStateManager = new CWindowStateManager(this);
 	m_pWindowStateManager->Restore(OPTION_MAINWINDOW_POSITION);
 
@@ -604,7 +606,7 @@ void CMainFrame::OnSize(wxSizeEvent &event)
 
 void CMainFrame::CreateMenus()
 {
-	wxGetApp().AddStartupProfileRecord("CMainFrame::CreateMenus");
+	wxGetApp().AddStartupProfileRecord("CMainFrame::CreateMenus"sv);
 	CMenuBar* old = m_pMenuBar;
 
 	m_pMenuBar = new CMenuBar(*this, options_);
@@ -615,7 +617,7 @@ void CMainFrame::CreateMenus()
 
 void CMainFrame::CreateQuickconnectBar()
 {
-	wxGetApp().AddStartupProfileRecord("CMainFrame::CreateQuickconnectBar");
+	wxGetApp().AddStartupProfileRecord("CMainFrame::CreateQuickconnectBar"sv);
 	delete m_pQuickconnectBar;
 
 	m_pQuickconnectBar = new CQuickconnectBar(*this);
@@ -1133,7 +1135,7 @@ void CMainFrame::OnEngineEvent(CFileZillaEngine* engine)
 
 bool CMainFrame::CreateMainToolBar()
 {
-	wxGetApp().AddStartupProfileRecord("CMainFrame::CreateMainToolBar");
+	wxGetApp().AddStartupProfileRecord("CMainFrame::CreateMainToolBar"sv);
 	if (m_pToolBar) {
 #ifdef __WXMAC__
 		if (m_pToolBar) {
