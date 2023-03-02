@@ -43,7 +43,7 @@ public:
 	const CCommandLine* GetCommandLine() const { return m_pCommandLine.get(); }
 
 	void ShowStartupProfile();
-	void AddStartupProfileRecord(std::string const& msg);
+	void AddStartupProfileRecord(std::string_view const& msg);
 
 protected:
 	void CheckExistsTool(std::wstring const& tool, std::wstring const& buildRelPath, char const* env, engineOptions setting, std::wstring const& description);

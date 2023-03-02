@@ -31,6 +31,8 @@
 
 #include <array>
 
+using namespace std::literals;
+
 wxDECLARE_EVENT(fzEVT_TAB_CLOSING_DEFERRED, wxCommandEvent);
 wxDEFINE_EVENT(fzEVT_TAB_CLOSING_DEFERRED, wxCommandEvent);
 
@@ -77,7 +79,7 @@ bool CContextControl::CreateTab()
 
 bool CContextControl::CreateTab(CLocalPath const& localPath, Site const& site, CServerPath const& remotePath)
 {
-	wxGetApp().AddStartupProfileRecord("CContextControl::CreateTab");
+	wxGetApp().AddStartupProfileRecord("CContextControl::CreateTab"sv);
 
 	if (GetTabCount() >= 200) {
 		wxBell();
@@ -153,7 +155,7 @@ bool CContextControl::CreateTab(CLocalPath const& localPath, Site const& site, C
 
 void CContextControl::CreateContextControls(CState& state)
 {
-	wxGetApp().AddStartupProfileRecord("CContextControl::CreateContextControls");
+	wxGetApp().AddStartupProfileRecord("CContextControl::CreateContextControls"sv);
 	wxWindow* parent = this;
 
 #ifdef __WXGTK__

@@ -35,6 +35,8 @@
 #include "osx_sandbox_userdirs.h"
 #endif
 
+using namespace std::literals;
+
 #if !defined(__WXGTK__) && !defined(__MINGW32__)
 IMPLEMENT_APP(CFileZillaApp)
 #else
@@ -48,7 +50,7 @@ IMPLEMENT_APP_NO_MAIN(CFileZillaApp)
 CFileZillaApp::CFileZillaApp()
 {
 	m_profile_start = fz::monotonic_clock::now();
-	AddStartupProfileRecord("CFileZillaApp::CFileZillaApp()");
+	AddStartupProfileRecord("CFileZillaApp::CFileZillaApp()"sv);
 }
 
 CFileZillaApp::~CFileZillaApp()
@@ -58,6 +60,7 @@ CFileZillaApp::~CFileZillaApp()
 
 void CFileZillaApp::InitLocale()
 {
+	AddStartupProfileRecord("CFileZillaApp::InitLocale()"sv);
 	wxString language = options_->get_string(OPTION_LANGUAGE);
 	const wxLanguageInfo* pInfo = wxLocale::FindLanguageInfo(language);
 	if (!language.empty()) {
@@ -137,7 +140,7 @@ std::wstring translator_pf(char const* const singular, char const* const plural,
 
 bool CFileZillaApp::OnInit()
 {
-	AddStartupProfileRecord("CFileZillaApp::OnInit()");
+	AddStartupProfileRecord("CFileZillaApp::OnInit()"sv);
 
 	SetAppDisplayName("FileZilla");
 
@@ -184,6 +187,7 @@ bool CFileZillaApp::OnInit()
 		return false;
 	}
 
+	AddStartupProfileRecord("CFileZillaApp::OnInit(): Loading options"sv);
 	options_ = std::make_unique<COptions>();
 
 #if USE_MAC_SANDBOX
@@ -293,7 +297,7 @@ int CFileZillaApp::OnExit()
 
 bool CFileZillaApp::LoadResourceFiles()
 {
-	AddStartupProfileRecord("CFileZillaApp::LoadResourceFiles");
+	AddStartupProfileRecord("CFileZillaApp::LoadResourceFiles"sv);
 	m_resourceDir = GetFZDataDir({L"resources/defaultfilters.xml"}, L"share/filezilla");
 
 	wxImage::AddHandler(new wxPNGHandler());
@@ -315,7 +319,7 @@ bool CFileZillaApp::LoadResourceFiles()
 
 bool CFileZillaApp::LoadLocales()
 {
-	AddStartupProfileRecord("CFileZillaApp::LoadLocales");
+	AddStartupProfileRecord("CFileZillaApp::LoadLocales"sv);
 	m_localesDir = GetFZDataDir({L"locales/de/filezilla.mo"}, std::wstring());
 	if (!m_localesDir.empty()) {
 		m_localesDir.AddSegment(_T("locales"));
@@ -415,14 +419,14 @@ CWrapEngine* CFileZillaApp::GetWrapEngine()
 
 void CFileZillaApp::CheckExistsFzsftp()
 {
-	AddStartupProfileRecord("FileZillaApp::CheckExistsFzsftp");
+	AddStartupProfileRecord("FileZillaApp::CheckExistsFzsftp"sv);
 	CheckExistsTool(L"fzsftp", L"../putty/", "FZ_FZSFTP", OPTION_FZSFTP_EXECUTABLE, fztranslate("SFTP support"));
 }
 
 #if ENABLE_STORJ
 void CFileZillaApp::CheckExistsFzstorj()
 {
-	AddStartupProfileRecord("FileZillaApp::CheckExistsFzstorj");
+	AddStartupProfileRecord("FileZillaApp::CheckExistsFzstorj"sv);
 	CheckExistsTool(L"fzstorj", L"../storj/", "FZ_FZSTORJ", OPTION_FZSTORJ_EXECUTABLE, fztranslate("Storj support"));
 }
 #endif
@@ -456,7 +460,7 @@ extern "C" BOOL CALLBACK EnumWindowCallback(HWND hwnd, LPARAM)
 
 int CFileZillaApp::ProcessCommandLine()
 {
-	AddStartupProfileRecord("CFileZillaApp::ProcessCommandLine");
+	AddStartupProfileRecord("CFileZillaApp::ProcessCommandLine"sv);
 	m_pCommandLine = std::make_unique<CCommandLine>(argc, argv);
 	int res = m_pCommandLine->Parse() ? 1 : -1;
 
@@ -483,7 +487,7 @@ int CFileZillaApp::ProcessCommandLine()
 	return res;
 }
 
-void CFileZillaApp::AddStartupProfileRecord(std::string const& msg)
+void CFileZillaApp::AddStartupProfileRecord(std::string_view const& msg)
 {
 	if (!m_profile_start) {
 		return;
@@ -495,7 +499,7 @@ void CFileZillaApp::AddStartupProfileRecord(std::string const& msg)
 void CFileZillaApp::ShowStartupProfile()
 {
 	if (m_profile_start && m_pCommandLine && m_pCommandLine->HasSwitch(CCommandLine::debug_startup)) {
-		AddStartupProfileRecord("CFileZillaApp::ShowStartupProfile");
+		AddStartupProfileRecord("CFileZillaApp::ShowStartupProfile"sv);
 		wxString msg = _T("Profile:\n");
 
 		size_t const max_digits = fz::to_string((m_startupProfile.back().first - m_profile_start).get_milliseconds()).size();
