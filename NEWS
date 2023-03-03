@@ -10,7 +10,7 @@ Legend:
     *nix: Unix (e.g BSD) and Unix-like systems (e.g. Linux)
     macOS/OS X: Apple macOS
 
-3.63.2 (2023-02-23)
+3.63.2.1 (2023-02-23)
 
 - macOS: Several rendering fixes in dark mode
 - macOS: Disable automatic quote/dash substitution in text input fields
