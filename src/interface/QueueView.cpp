@@ -1082,6 +1082,7 @@ void CQueueView::ResetEngine(t_EngineData& data, const ResetReason reason)
 					RemoveItem(data.pItem, false);
 
 					CServerItem* pNewServerItem = pQueueViewSuccessful->CreateServerItem(site);
+					static_cast<CFileItem&>(*data.pItem).set_persistent_state(std::string());
 					data.pItem->UpdateTime();
 					data.pItem->SetParent(pNewServerItem);
 					data.pItem->SetStatusMessage(CFileItem::Status::none);
