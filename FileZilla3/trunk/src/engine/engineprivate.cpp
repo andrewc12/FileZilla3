@@ -930,6 +930,7 @@ CTransferStatus CTransferStatusManager::Get(bool &changed)
 	}
 	else {
 		status_.currentOffset += currentOffset_.exchange(0);
+		status_.madeProgress = made_progress_;
 		if (send_state_ == 2) {
 			changed = true;
 			send_state_ = 1;
