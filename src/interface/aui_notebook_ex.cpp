@@ -67,8 +67,8 @@ void PrepareTabIcon(wxBitmapBundle & active, wxBitmapBundle & disabled, wxString
 {
 	wxBitmap a, d;
 	PrepareTabIcon(a, d, art, size, canvasSize, offset, f, brightness);
-	active = a;
-	disabled = d;
+	active = MakeBmpBundle(a);
+	disabled = MakeBmpBundle(d);
 }
 #endif
 }
