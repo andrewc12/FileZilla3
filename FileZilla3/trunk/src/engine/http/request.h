@@ -48,7 +48,15 @@ private:
 	int ProcessData(unsigned char* data, size_t & len);
 	int FinalizeResponseBody();
 
+	enum class send_state
+	{
+		none = 0,
+		header,
+		body,
+	};
+
 	std::deque<std::shared_ptr<HttpRequestResponseInterface>> requests_;
+	send_state send_state_{};
 
 	size_t send_pos_{};
 

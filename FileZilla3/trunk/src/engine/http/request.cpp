@@ -23,7 +23,7 @@ CHttpRequestOpData::CHttpRequestOpData(CHttpControlSocket & controlSocket, std::
 	: COpData(PrivCommand::http_request, L"CHttpRequestOpData")
 	, CHttpOpData(controlSocket)
 	, fz::event_handler(engine_.event_loop_)
-	, requests_(requests)
+	, requests_(std::move(requests))
 {
 	for (auto & rr : requests_) {
 		rr->request().flags_ &= (HttpRequest::flag_update_transferstatus | HttpRequest::flag_confidential_querystring);
@@ -167,16 +167,16 @@ int CHttpRequestOpData::Send()
 		}
 		else {
 			auto & req = requests_[send_pos_]->request();
-			if (!(req.flags_ & HttpRequest::flag_sent_header)) {
-				if (!(req.flags_ & HttpRequest::flag_sending_header)) {
+			if (send_state_ != send_state::body) {
+				if (send_state_ == send_state::none) {
+					send_state_ = send_state::header;
+
 					dataToSend_ = req.update_content_length();
 
 					if (dataToSend_ == fz::aio_base::nosize) {
 						log(logmsg::error, _("Malformed request header: %s"), _("Invalid Content-Length"));
 						return FZ_REPLY_INTERNALERROR;
 					}
-
-					req.flags_ |= HttpRequest::flag_sending_header;
 
 					// Assemble request and headers
 					std::string command = fz::sprintf("%s %s HTTP/1.1", req.verb_, req.uri_.get_request());
@@ -210,11 +210,11 @@ int CHttpRequestOpData::Send()
 					}
 				}
 
-				req.flags_ |= HttpRequest::flag_sent_header;
 				if (!req.body_) {
 					log(logmsg::debug_info, "Finished sending request header. Request has no body");
 					opState &= ~request_send;
 					++send_pos_;
+					send_state_ = send_state::none;
 					if (send_pos_ < requests_.size()) {
 						if (!req.keep_alive()) {
 							opState |= request_send_wait_for_read;
@@ -226,6 +226,7 @@ int CHttpRequestOpData::Send()
 					}
 					return FZ_REPLY_CONTINUE;
 				}
+				send_state_ = send_state::body;
 
 				log(logmsg::debug_info, "Finished sending request header.");
 				sendLogLevel_ = logmsg::debug_debug;
@@ -294,12 +295,12 @@ int CHttpRequestOpData::Send()
 #endif
 			controlSocket_.socket_->set_flags(fz::socket::flag_nodelay, true);
 
-			req.flags_ |= HttpRequest::flag_sent_body;
 
 			sendLogLevel_ = logmsg::debug_verbose;
 
 			opState &= ~request_send;
 			++send_pos_;
+			send_state_ = send_state::none;
 
 			if (send_pos_ < requests_.size()) {
 				if (!req.keep_alive()) {
@@ -365,23 +366,21 @@ int CHttpRequestOpData::ParseReceiveBuffer()
 		return FinalizeResponseBody();
 	}
 
+	if (!send_pos_ && send_state_ != send_state::body) {
+		if (read_state_.eof_) {
+			log(logmsg::debug_verbose, L"Socket closed before request headers got sent");
+			log(logmsg::error, _("Connection closed by server"));
+			return FZ_REPLY_ERROR | FZ_REPLY_DISCONNECTED;
+		}
+		else if (!recv_buffer_.empty()) {
+			log(logmsg::error, _("Server sent data even before request headers were sent"));
+			return FZ_REPLY_ERROR;
+		}
+	}
+
 	auto & shared_response = requests_.front();
 	if (shared_response) {
-		auto & request = shared_response->request();
-		if (!(request.flags_ & HttpRequest::flag_sent_header)) {
-			if (read_state_.eof_) {
-				log(logmsg::debug_verbose, L"Socket closed before request headers got sent");
-				log(logmsg::error, _("Connection closed by server"));
-				return FZ_REPLY_ERROR | FZ_REPLY_DISCONNECTED;
-			}
-			else if (!recv_buffer_.empty()) {
-				log(logmsg::error, _("Server sent data even before request headers were sent"));
-				return FZ_REPLY_ERROR;
-			}
-		}
-
 		auto & response = shared_response->response();
-
 		if (!response.got_header()) {
 			int res = ParseHeader();
 			if (read_state_.eof_ && res == (FZ_REPLY_WOULDBLOCK | FZ_REPLY_CONTINUE)) {
@@ -940,7 +939,7 @@ void CHttpRequestOpData::OnBufferAvailability(fz::aio_waitable const* w)
 			auto & rr = *requests_[send_pos_];
 			auto & req = rr.request();
 			if (req.body_.get() == w) {
-				if (req.flags_ & HttpRequest::flag_sent_header && !(req.flags_ & HttpRequest::flag_sent_body)) {
+				if (send_state_ == send_state::body) {
 					controlSocket_.SendNextCommand();
 				}
 				return;
