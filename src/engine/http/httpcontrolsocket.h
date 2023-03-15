@@ -66,9 +66,6 @@ public:
 	std::string verb_;
 
 	enum flags {
-		flag_sending_header = 0x01,
-		flag_sent_header = 0x02,
-		flag_sent_body = 0x04,
 		flag_update_transferstatus = 0x08,
 		flag_confidential_querystring = 0x10
 	};
