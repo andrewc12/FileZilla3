@@ -743,7 +743,7 @@ int CRealControlSocket::Send(unsigned char const* buffer, unsigned int len)
 		}
 
 		if (written) {
-			RecordActivity(activity_logger::send, written);
+			SetAlive();
 		}
 
 		if (static_cast<unsigned int>(written) < len) {
