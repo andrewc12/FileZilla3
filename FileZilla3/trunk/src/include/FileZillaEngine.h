@@ -14,6 +14,9 @@ class CNotification;
 class FZC_PUBLIC_SYMBOL CFileZillaEngine final
 {
 public:
+	// notification_cb is called from unspecified engine-internal thread. Do
+	// not call into engine rom it. Use it just to signal the thread that
+	// owns the engine.
 	CFileZillaEngine(CFileZillaEngineContext& engine_context, std::function<void(CFileZillaEngine*)> const& notification_cb);
 	~CFileZillaEngine();
 
