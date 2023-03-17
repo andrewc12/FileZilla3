@@ -3,80 +3,21 @@
 
 #include "../controlsocket.h"
 
-#include "../../include/httpheaders.h"
+#include <libfilezilla/http/request.hpp>
 
 #include <libfilezilla/file.hpp>
-#include <libfilezilla/uri.hpp>
 
 namespace PrivCommand {
 auto const http_request = Command::private1;
 auto const http_connect = Command::private2;
 }
 
-#define HEADER_NAME_CONTENT_LENGTH "Content-Length"
-#define HEADER_NAME_CONTENT_TYPE "Content-Type"
-class WithHeaders
+class HttpRequest : public fz::http::request
 {
 public:
-	virtual ~WithHeaders() = default;
-
-	int64_t get_content_length() const
-	{
-		int64_t result = 0;
-		auto value = get_header(HEADER_NAME_CONTENT_LENGTH);
-		if (!value.empty()) {
-			result = fz::to_integral<int64_t>(value);
-		}
-		return result;
-	}
-
-	void set_content_type(std::string const& content_type)
-	{
-		headers_[HEADER_NAME_CONTENT_TYPE] = content_type;
-	}
-
-	std::string get_header(std::string const& key) const
-	{
-		auto it = headers_.find(key);
-		if (it != headers_.end()) {
-			return it->second;
-		}
-		return std::string();
-	}
-
-	bool keep_alive() const
-	{
-		auto h = fz::str_tolower_ascii(get_header("Connection"));
-		auto tokens = fz::strtok_view(h, ", ");
-		for (auto const& token : tokens) {
-			if (token == "close") {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	HttpHeaders headers_;
-};
-
-class HttpRequest : public WithHeaders
-{
-public:
-	fz::uri uri_;
-	std::string verb_;
-
-	enum flags {
+	enum flags2 {
 		flag_update_transferstatus = 0x08,
-		flag_confidential_querystring = 0x10
 	};
-	int flags_{};
-
-	std::unique_ptr<fz::reader_base> body_;
-	fz::buffer_lease body_buffer_;
-
-	uint64_t update_content_length();
-
-	virtual int reset();
 };
 
 class HttpResponse;
@@ -89,7 +30,7 @@ public:
 	virtual HttpResponse & response() = 0;
 };
 
-class HttpResponse : public WithHeaders
+class HttpResponse : public fz::http::with_headers
 {
 public:
 	// Use a writer if you need more.

@@ -13,7 +13,6 @@ CHttpRequestOpData::CHttpRequestOpData(CHttpControlSocket & controlSocket, std::
 {
 	opState = request_init | request_reading;
 
-	request->request().flags_ &= (HttpRequest::flag_update_transferstatus | HttpRequest::flag_confidential_querystring);
 	request->response().flags_ = 0;
 
 	requests_.emplace_back(request);
@@ -26,7 +25,6 @@ CHttpRequestOpData::CHttpRequestOpData(CHttpControlSocket & controlSocket, std::
 	, requests_(std::move(requests))
 {
 	for (auto & rr : requests_) {
-		rr->request().flags_ &= (HttpRequest::flag_update_transferstatus | HttpRequest::flag_confidential_querystring);
 		rr->response().flags_ = 0;
 	}
 	opState = request_init | request_reading;
@@ -70,7 +68,6 @@ void CHttpRequestOpData::AddRequest(std::shared_ptr<HttpRequestResponseInterface
 			}
 		}
 	}
-	rr->request().flags_ &= (HttpRequest::flag_update_transferstatus | HttpRequest::flag_confidential_querystring);
 	rr->response().flags_ = 0;
 	requests_.push_back(rr);
 }
@@ -100,12 +97,11 @@ int CHttpRequestOpData::Send()
 			return FZ_REPLY_CONTINUE;
 		}
 
-		int res = req.reset();
-		if (res != FZ_REPLY_CONTINUE) {
-			return res;
+		if (!req.reset()) {
+			return FZ_REPLY_ERROR;
 		}
 
-		res = rr.response().reset();
+		int res = rr.response().reset();
 		if (res != FZ_REPLY_CONTINUE) {
 			return res;
 		}
@@ -167,24 +163,23 @@ int CHttpRequestOpData::Send()
 		}
 		else {
 			auto & req = requests_[send_pos_]->request();
-			if (send_state_ != send_state::body) {
+			if (send_state_ < send_state::body) {
 				if (send_state_ == send_state::none) {
 					send_state_ = send_state::header;
 
-					dataToSend_ = req.update_content_length();
-
-					if (dataToSend_ == fz::aio_base::nosize) {
-						log(logmsg::error, _("Malformed request header: %s"), _("Invalid Content-Length"));
-						return FZ_REPLY_INTERNALERROR;
-					}
+					dataToSend_ = req.update_content_length_from_body();
 
 					// Assemble request and headers
 					std::string command = fz::sprintf("%s %s HTTP/1.1", req.verb_, req.uri_.get_request());
-					if (!(req.flags_ & HttpRequest::flag_confidential_querystring)) {
-						log(logmsg::command, "%s", command);
+					if (req.flags_ & HttpRequest::flag_confidential_path) {
+						log(logmsg::command, "%s <confidential> HTTP/1.1", req.verb_);
+					}
+					else if (req.flags_ & HttpRequest::flag_confidential_querystring) {
+						log(logmsg::command, "%s %s HTTP/1.1", req.verb_, req.uri_.get_request(false));
 					}
 					else {
-						log(logmsg::command, "%s %s HTTP/1.1", req.verb_, req.uri_.get_request(false));
+						log(logmsg::command, "%s", command);
+
 					}
 					command += "\r\n";
 
@@ -243,9 +238,9 @@ int CHttpRequestOpData::Send()
 #endif
 			}
 
-			while (dataToSend_) {
+			while (send_state_ == send_state::body) {
 
-				if (req.body_buffer_->empty()) {
+				if (body_buffer_->empty()) {
 					auto [r, buffer] = req.body_->get_buffer(*this);
 					if (r == fz::aio_result::wait) {
 						return FZ_REPLY_WOULDBLOCK;
@@ -253,20 +248,45 @@ int CHttpRequestOpData::Send()
 					else if (r == fz::aio_result::error) {
 						return FZ_REPLY_ERROR;
 					}
-					req.body_buffer_ = std::move(buffer);
+					body_buffer_ = std::move(buffer);
 
-					if (req.body_buffer_->empty() && dataToSend_) {
-						log(logmsg::error, _("Unexpected end-of-file on '%s'"), req.body_->name());
-						return FZ_REPLY_ERROR;
+					if (dataToSend_) {
+						if (body_buffer_->empty() && *dataToSend_) {
+							log(logmsg::error, _("Unexpected end-of-file on '%s'"), req.body_->name());
+							return FZ_REPLY_ERROR;
+						}
+						else if (body_buffer_->size() > *dataToSend_) {
+							log(logmsg::error, _("Excess data read from '%s'"), req.body_->name());
+							return FZ_REPLY_ERROR;
+						}
 					}
-					else if (req.body_buffer_->size() > dataToSend_) {
-						log(logmsg::error, _("Excess data read from '%s'"), req.body_->name());
-						return FZ_REPLY_ERROR;
+					else {
+						if (body_buffer_->empty()) {
+							int result = controlSocket_.Send("0\r\n\r\n", 5);
+							if (result == FZ_REPLY_WOULDBLOCK && !controlSocket_.send_buffer_) {
+								result = FZ_REPLY_CONTINUE;
+							}
+							if (result != FZ_REPLY_CONTINUE) {
+								send_state_ = send_state::done;
+								return result;
+							}
+						}
+						else {
+							// Send chunk-size
+							auto chunk = fz::sprintf("%X\r\n", body_buffer_->size());
+							int result = controlSocket_.Send(chunk.data(), chunk.size());
+							if (result == FZ_REPLY_WOULDBLOCK && !controlSocket_.send_buffer_) {
+								result = FZ_REPLY_CONTINUE;
+							}
+							if (result != FZ_REPLY_CONTINUE) {
+								return result;
+							}
+						}
 					}
 				}
 
 				int error;
-				int written = controlSocket_.active_layer_->write(req.body_buffer_->get(), req.body_buffer_->size(), error);
+				int written = controlSocket_.active_layer_->write(body_buffer_->get(), body_buffer_->size(), error);
 				if (written < 0) {
 					if (error != EAGAIN) {
 						log(logmsg::error, _("Could not write to socket: %s"), fz::socket_error_description(error));
@@ -277,11 +297,22 @@ int CHttpRequestOpData::Send()
 				}
 				else if (written) {
 					controlSocket_.SetAlive();
-					req.body_buffer_->consume(static_cast<size_t>(written));
-					if (req.body_buffer_->empty()) {
-						req.body_buffer_.release();
+					body_buffer_->consume(static_cast<size_t>(written));
+					if (body_buffer_->empty()) {
+						body_buffer_.release();
+						if (!dataToSend_) {
+							int result = controlSocket_.Send("\r\n", 2);
+							if (result == FZ_REPLY_WOULDBLOCK && !controlSocket_.send_buffer_) {
+								result = FZ_REPLY_CONTINUE;
+							}
+							if (result != FZ_REPLY_CONTINUE) {
+								return result;
+							}
+						}
 					}
-					dataToSend_ -= written;
+					if (dataToSend_) {
+						*dataToSend_ -= written;
+					}
 					if (req.flags_ & HttpRequest::flag_update_transferstatus) {
 						engine_.transfer_status_.Update(written);
 					}
@@ -908,6 +939,7 @@ int CHttpRequestOpData::ProcessData(unsigned char* data, size_t & remaining)
 
 int CHttpRequestOpData::Reset(int result)
 {
+	body_buffer_.release();
 	if (result != FZ_REPLY_OK) {
 		controlSocket_.ResetSocket();
 	}

@@ -1,7 +1,7 @@
 #ifndef FILEZILLA_ENGINE_HTTP_DIGEST_HEADER
 #define FILEZILLA_ENGINE_HTTP_DIGEST_HEADER
 
-#include "../../include/httpheaders.h"
+#include <libfilezilla/http/headers.hpp>
 
 namespace fz {
 	class logger_interface;
@@ -9,7 +9,7 @@ namespace fz {
 }
 
 
-typedef HttpHeaders HttpAuthParams;
+typedef fz::http::headers HttpAuthParams;
 typedef std::map<std::string, HttpAuthParams, fz::less_insensitive_ascii> HttpAuthChallenges;
 
 HttpAuthChallenges ParseAuthChallenges(std::string const& header);
