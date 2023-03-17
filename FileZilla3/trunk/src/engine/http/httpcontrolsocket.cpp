@@ -25,43 +25,6 @@ int CHttpConnectOpData::Send()
 	return controlSocket_.buffer_pool_ ? FZ_REPLY_OK : (FZ_REPLY_ERROR | FZ_REPLY_DISCONNECTED);
 }
 
-uint64_t HttpRequest::update_content_length()
-{
-	uint64_t ret{};
-	if (body_) {
-		ret = body_->size();
-		if (ret != fz::aio_base::nosize) {
-			headers_["Content-Length"] = fz::to_string(ret);
-		}
-		else {
-			headers_["Content-Length"] = "0";
-		}
-	}
-	else {
-		if (verb_ == "GET" || verb_ == "HEAD" || verb_ == "OPTIONS") {
-			headers_.erase("Content-Length");
-		}
-		else {
-			headers_["Content-Length"] = "0";
-		}
-	}
-	return ret;
-}
-
-int HttpRequest::reset()
-{
-	flags_ &= (flag_update_transferstatus | flag_confidential_querystring);
-
-	if (body_) {
-		if (!body_->rewind()) {
-			return FZ_REPLY_ERROR;
-		}
-		body_buffer_.release();
-	}
-
-	return FZ_REPLY_CONTINUE;
-}
-
 int HttpResponse::reset()
 {
 	flags_ = 0;

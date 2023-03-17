@@ -53,10 +53,13 @@ private:
 		none = 0,
 		header,
 		body,
+		done
 	};
 
 	std::deque<std::shared_ptr<HttpRequestResponseInterface>> requests_;
 	send_state send_state_{};
+	fz::buffer_lease body_buffer_;
+	std::optional<uint64_t> dataToSend_{};
 
 	size_t send_pos_{};
 
@@ -90,8 +93,6 @@ private:
 		bool eof_{};
 	};
 	read_state read_state_;
-
-	uint64_t dataToSend_{};
 
 #if FZ_WINDOWS
 	fz::timer_id buffer_tuning_timer_{};

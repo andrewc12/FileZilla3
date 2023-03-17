@@ -8,7 +8,6 @@ noinst_HEADERS = \
 	engine_options.h \
 	externalipresolver.h \
 	FileZillaEngine.h \
-	httpheaders.h \
 	libfilezilla_engine.h \
 	local_path.h \
 	logging.h \
