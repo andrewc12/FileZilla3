@@ -349,6 +349,8 @@ public:
 	int DoConnect(std::wstring const& host, unsigned int port);
 
 protected:
+	void CreateSocket(std::wstring const& host);
+
 	virtual int DoClose(int nErrorCode = FZ_REPLY_DISCONNECTED | FZ_REPLY_ERROR) override;
 	virtual void ResetSocket();
 
