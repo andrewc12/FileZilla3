@@ -865,18 +865,12 @@ void CRealControlSocket::OnSocketError(int error)
 	DoClose();
 }
 
-int CRealControlSocket::DoConnect(std::wstring const& host, unsigned int port)
+void CRealControlSocket::CreateSocket(std::wstring const& host)
 {
-	SetWait(true);
-
-	if (currentServer_.GetEncodingType() == ENCODING_CUSTOM) {
-		log(logmsg::debug_info, L"Using custom encoding: %s", currentServer_.GetCustomEncoding());
-	}
-
 	ResetSocket();
 	socket_ = std::make_unique<fz::socket>(engine_.GetThreadPool(), nullptr);
 	activity_logger_layer_ = std::make_unique<activity_logger_layer>(nullptr, *socket_, engine_.activity_logger_);
-	ratelimit_layer_ = std::make_unique<fz::rate_limited_layer>(this, *activity_logger_layer_, &engine_.GetRateLimiter());
+	ratelimit_layer_ = std::make_unique<fz::rate_limited_layer>(nullptr, *activity_logger_layer_, &engine_.GetRateLimiter());
 	active_layer_ = ratelimit_layer_.get();
 
 	const int proxy_type = engine_.GetOptions().get_int(OPTION_PROXY_TYPE);
@@ -885,7 +879,7 @@ int CRealControlSocket::DoConnect(std::wstring const& host, unsigned int port)
 
 		fz::native_string proxy_host = fz::to_native(engine_.GetOptions().get_string(OPTION_PROXY_HOST));
 
-		proxy_layer_ = std::make_unique<CProxySocket>(this, *active_layer_, this, static_cast<ProxyType>(proxy_type),
+		proxy_layer_ = std::make_unique<CProxySocket>(nullptr, *active_layer_, this, static_cast<ProxyType>(proxy_type),
 			proxy_host, engine_.GetOptions().get_int(OPTION_PROXY_PORT),
 			engine_.GetOptions().get_string(OPTION_PROXY_USER),
 			engine_.GetOptions().get_string(OPTION_PROXY_PASS));
@@ -902,7 +896,19 @@ int CRealControlSocket::DoConnect(std::wstring const& host, unsigned int port)
 	}
 
 	SetSocketBufferSizes();
+}
 
+int CRealControlSocket::DoConnect(std::wstring const& host, unsigned int port)
+{
+	SetWait(true);
+
+	if (currentServer_.GetEncodingType() == ENCODING_CUSTOM) {
+		log(logmsg::debug_info, L"Using custom encoding: %s", currentServer_.GetCustomEncoding());
+	}
+
+	CreateSocket(host);
+
+	active_layer_->set_event_handler(this);
 	int res = active_layer_->connect(fz::to_native(ConvertDomainName(host)), port);
 
 	if (res) {

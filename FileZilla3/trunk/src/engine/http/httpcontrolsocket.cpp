@@ -1,9 +1,7 @@
 #include "../filezilla.h"
 
-#include "connect.h"
 #include "filetransfer.h"
 #include "httpcontrolsocket.h"
-#include "internalconnect.h"
 #include "request.h"
 
 #include "../../include/engine_options.h"
@@ -17,23 +15,57 @@
 #include <libfilezilla/local_filesys.hpp>
 #include <libfilezilla/uri.hpp>
 
-#include <assert.h>
-#include <string.h>
-
-int CHttpConnectOpData::Send()
+http_client::http_client(CHttpControlSocket & controlSocket)
+	: fz::http::client::client(controlSocket, *controlSocket.buffer_pool_, controlSocket.logger(), fz::replaced_substrings(PACKAGE_STRING, " ", "/"))
+	, controlSocket_(controlSocket)
 {
-	return controlSocket_.buffer_pool_ ? FZ_REPLY_OK : (FZ_REPLY_ERROR | FZ_REPLY_DISCONNECTED);
 }
 
-int HttpResponse::reset()
+http_client::~http_client()
 {
-	flags_ = 0;
-	code_ = 0;
-	headers_.clear();
-	body_.clear();
-
-	return FZ_REPLY_CONTINUE;
+	stop(false);
 }
+
+fz::socket_interface* http_client::create_socket(fz::native_string const& host, unsigned short, bool tls)
+{
+	controlSocket_.CreateSocket(fz::to_wstring_from_utf8(host));
+
+	if (tls) {
+		controlSocket_.tls_layer_ = std::make_unique<fz::tls_layer>(controlSocket_.event_loop_, nullptr, *controlSocket_.active_layer_, &controlSocket_.engine_.GetContext().GetTlsSystemTrustStore(), controlSocket_.logger_);
+		controlSocket_.active_layer_ = controlSocket_.tls_layer_.get();
+
+		controlSocket_.tls_layer_->set_alpn("http/1.1");
+		controlSocket_.tls_layer_->set_min_tls_ver(get_min_tls_ver(controlSocket_.engine_.GetOptions()));
+		if (!controlSocket_.tls_layer_->client_handshake(&controlSocket_)) {
+			controlSocket_.ResetSocket();
+			return nullptr;
+		}
+	}
+
+	return controlSocket_.active_layer_;
+}
+
+void http_client::destroy_socket()
+{
+	controlSocket_.ResetSocket();
+}
+
+// Connect is special for HTTP: It is done on a per-command basis, so we need
+// to establish a connection before each command.
+// The general connect of the control socket is a NOOP.
+class CHttpConnectOpData final : public COpData, public CHttpOpData
+{
+public:
+	CHttpConnectOpData(CHttpControlSocket & controlSocket)
+	    : COpData(Command::connect, L"CHttpConnectOpData")
+	    , CHttpOpData(controlSocket)
+	{}
+
+	virtual int Send() override {
+		return controlSocket_.buffer_pool_ ? FZ_REPLY_OK : (FZ_REPLY_ERROR | FZ_REPLY_DISCONNECTED);
+	}
+	virtual int ParseResponse() override { return FZ_REPLY_INTERNALERROR; }
+};
 
 void RequestThrottler::throttle(std::string const& hostname, fz::datetime const& backoff)
 {
@@ -90,17 +122,22 @@ fz::duration RequestThrottler::get_throttle(std::string const& hostname)
 	return ret;
 }
 
-RequestThrottler CHttpControlSocket::throttler_;
-
 CHttpControlSocket::CHttpControlSocket(CFileZillaEnginePrivate & engine)
 	: CRealControlSocket(engine)
 {
+	client_.emplace(*this);
 }
 
 CHttpControlSocket::~CHttpControlSocket()
 {
 	remove_handler();
 	DoClose();
+}
+
+int CHttpControlSocket::DoClose(int nErrorCode)
+{
+	client_ = std::nullopt;
+	return CRealControlSocket::DoClose(nErrorCode);
 }
 
 bool CHttpControlSocket::SetAsyncRequestReply(CAsyncRequestNotification *pNotification)
@@ -140,74 +177,6 @@ bool CHttpControlSocket::SetAsyncRequestReply(CAsyncRequestNotification *pNotifi
 	return true;
 }
 
-
-void CHttpControlSocket::OnReceive()
-{
-	if (operations_.empty() || operations_.back()->opId != PrivCommand::http_request) {
-		uint8_t buffer;
-		int error{};
-		int read = active_layer_->read(&buffer, 1, error);
-		if (!read) {
-			log(logmsg::debug_warning, L"Idle socket got closed");
-			ResetSocket();
-		}
-		else if (read == -1) {
-			if (error != EAGAIN) {
-				log(logmsg::debug_warning, L"OnReceive called while not processing http request. Reading fails with error %d, closing socket.", error);
-				ResetSocket();
-			}
-		}
-		else if (read) {
-			log(logmsg::debug_warning, L"Server sent data while not in an active HTTP request, closing socket.");
-			ResetSocket();
-		}
-		return;
-	}
-
-	int res = static_cast<CHttpRequestOpData&>(*operations_.back()).OnReceive(false);
-	if (res == FZ_REPLY_CONTINUE) {
-		SendNextCommand();
-	}
-	else if (res != FZ_REPLY_WOULDBLOCK) {
-		ResetOperation(res);
-	}
-}
-
-void CHttpControlSocket::OnConnect()
-{
-	if (operations_.empty() || operations_.back()->opId != PrivCommand::http_connect || !socket_) {
-		log(logmsg::debug_warning, L"Discarding stale OnConnect");
-		return;
-	}
-
-	socket_->set_flags(fz::socket::flag_nodelay, true);
-
-	auto & data = static_cast<CHttpInternalConnectOpData &>(*operations_.back());
-
-	if (data.tls_) {
-		if (!tls_layer_) {
-			log(logmsg::status, _("Connection established, initializing TLS..."));
-
-			tls_layer_ = std::make_unique<fz::tls_layer>(event_loop_, this, *active_layer_, &engine_.GetContext().GetTlsSystemTrustStore(), logger_);
-			active_layer_ = tls_layer_.get();
-
-			tls_layer_->set_alpn("http/1.1");
-			if (!tls_layer_->client_handshake(&data)) {
-				tls_layer_->set_min_tls_ver(get_min_tls_ver(engine_.GetOptions()));
-				DoClose();
-			}
-		}
-		else {
-			log(logmsg::status, _("TLS connection established, sending HTTP request"));
-			ResetOperation(FZ_REPLY_OK);
-		}
-	}
-	else {
-		log(logmsg::status, _("Connection established, sending HTTP request"));
-		ResetOperation(FZ_REPLY_OK);
-	}
-}
-
 void CHttpControlSocket::FileTransfer(CFileTransferCommand const& cmd)
 {
 	log(logmsg::debug_verbose, L"CHttpControlSocket::FileTransfer()");
@@ -228,7 +197,7 @@ void CHttpControlSocket::FileTransfer(CHttpRequestCommand const& cmd)
 	Push(std::make_unique<CHttpFileTransferOpData>(*this, cmd));
 }
 
-void CHttpControlSocket::Request(std::shared_ptr<HttpRequestResponseInterface> const& request)
+void CHttpControlSocket::Request(std::shared_ptr<fz::http::client::request_response_interface> const& request)
 {
 	log(logmsg::debug_verbose, L"CHttpControlSocket::Request()");
 
@@ -246,51 +215,10 @@ void CHttpControlSocket::Request(std::shared_ptr<HttpRequestResponseInterface> c
 	}
 }
 
-void CHttpControlSocket::Request(std::deque<std::shared_ptr<HttpRequestResponseInterface>> && requests)
+void CHttpControlSocket::Request(std::deque<std::shared_ptr<fz::http::client::request_response_interface>> && requests)
 {
 	log(logmsg::debug_verbose, L"CHttpControlSocket::Request()");
 	Push(std::make_unique<CHttpRequestOpData>(*this, std::move(requests)));
-}
-
-int CHttpControlSocket::InternalConnect(std::wstring const& host, unsigned short port, bool tls, bool allowDisconnect)
-{
-	log(logmsg::debug_verbose, L"CHttpControlSocket::InternalConnect()");
-
-	if (!currentServer_) {
-		return FZ_REPLY_INTERNALERROR;
-	}
-
-	if (active_layer_) {
-		if (host == connected_host_ && port == connected_port_ && tls == connected_tls_) {
-			log(logmsg::debug_verbose, L"Reusing an existing connection");
-			return FZ_REPLY_OK;
-		}
-		if (!allowDisconnect) {
-			return FZ_REPLY_WOULDBLOCK;
-		}
-	}
-
-	ResetSocket();
-	connected_host_ = host;
-	connected_port_ = port;
-	connected_tls_ = tls;
-	Push(std::make_unique<CHttpInternalConnectOpData>(*this, ConvertDomainName(host), port, tls));
-
-	return FZ_REPLY_CONTINUE;
-}
-
-void CHttpControlSocket::OnSocketError(int error)
-{
-	log(logmsg::debug_verbose, L"CHttpControlSocket::OnClose(%d)", error);
-
-	if (operations_.empty() || (operations_.back()->opId != PrivCommand::http_connect && operations_.back()->opId != PrivCommand::http_request)) {
-		log(logmsg::debug_warning, L"Idle socket got closed");
-		ResetSocket();
-		return;
-	}
-
-	log(logmsg::error, _("Disconnected from server: %s"), fz::socket_error_description(error));
-	ResetOperation(FZ_REPLY_ERROR | FZ_REPLY_DISCONNECTED);
 }
 
 void CHttpControlSocket::ResetSocket()
@@ -317,17 +245,6 @@ void CHttpControlSocket::Connect(CServer const& server, Credentials const& crede
 	Push(std::make_unique<CHttpConnectOpData>(*this));
 }
 
-int CHttpControlSocket::OnSend()
-{
-	int res = CRealControlSocket::OnSend();
-	if (res == FZ_REPLY_CONTINUE) {
-		if (!operations_.empty() && operations_.back()->opId == PrivCommand::http_request && (operations_.back()->opState & request_send_mask)) {
-			return SendNextCommand();
-		}
-	}
-	return res;
-}
-
 void CHttpControlSocket::SetSocketBufferSizes()
 {
 	if (!socket_) {
@@ -343,17 +260,27 @@ void CHttpControlSocket::SetSocketBufferSizes()
 	socket_->set_buffer_sizes(size_read, size_write);
 }
 
-std::string get_host_header(fz::uri const& uri)
+void CHttpControlSocket::operator()(fz::event_base const& ev)
 {
-	if (uri.port_ == 0) {
-		return uri.host_;
+	if (fz::dispatch<fz::certificate_verification_event, fz::http::client::done_event>(ev, this, &CHttpControlSocket::OnVerifyCert, &CHttpControlSocket::OnRequestDone)) {
+		return;
 	}
-	else if (uri.port_ == 443 && fz::equal_insensitive_ascii(uri.scheme_, "https")) {
-		return uri.host_;
-	}
-	else if (uri.port_ == 80 && fz::equal_insensitive_ascii(uri.scheme_, "http")) {
-		return uri.host_;
+	CRealControlSocket::operator()(ev);
+}
+
+void CHttpControlSocket::OnVerifyCert(fz::tls_layer* source, fz::tls_session_info& info)
+{
+	if (!tls_layer_ || source != tls_layer_.get()) {
+		return;
 	}
 
-	return uri.host_ + ":" + fz::to_string(uri.port_);
+	SendAsyncRequest(std::make_unique<CCertificateNotification>(std::move(info)));
+}
+
+void CHttpControlSocket::OnRequestDone(uint64_t id, bool success)
+{
+	auto op = dynamic_cast<CHttpRequestOpData*>(operations_.empty() ? nullptr : operations_.back().get());
+	if (op) {
+		op->OnResponse(id, success);
+	}
 }

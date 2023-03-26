@@ -36,7 +36,6 @@ libfzclient_private_la_SOURCES = \
 		http/digest.cpp \
 		http/filetransfer.cpp \
 		http/httpcontrolsocket.cpp \
-		http/internalconnect.cpp \
 		http/request.cpp \
 		local_path.cpp \
 		logging.cpp \
@@ -87,11 +86,9 @@ noinst_HEADERS = \
 		ftp/rawtransfer.h \
 		ftp/rmd.h \
 		ftp/transfersocket.h \
-		http/connect.h \
 		http/digest.h \
 		http/filetransfer.h \
 		http/httpcontrolsocket.h \
-		http/internalconnect.h \
 		http/request.h \
 		logging_private.h \
 		lookup.h \

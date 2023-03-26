@@ -75,7 +75,7 @@ int CHttpFileTransferOpData::Send()
 			rr_.request_.headers_["Range"] = fz::sprintf("bytes=%d-", localFileSize_);
 		}
 
-		rr_.response_.on_header_ = [this](auto const&) { return this->OnHeader(); };
+		rr_.set_on_header([this](auto & srr) { return this->OnHeader(srr); });
 
 		opState = filetransfer_waittransfer;
 		controlSocket_.Request(make_simple_rr(&rr_));
@@ -87,18 +87,18 @@ int CHttpFileTransferOpData::Send()
 	return FZ_REPLY_INTERNALERROR;
 }
 
-int CHttpFileTransferOpData::OnHeader()
+fz::http::continuation CHttpFileTransferOpData::OnHeader(std::shared_ptr<HttpRequestResponse> &)
 {
 	log(logmsg::debug_verbose, L"CHttpFileTransferOpData::OnHeader");
 
 	if (rr_.response_.code_ == 416 && resume_) {
 		resume_ = false;
 		opState = filetransfer_transfer;
-		return FZ_REPLY_ERROR;
+		return fz::http::continuation::error;
 	}
 
 	if (rr_.response_.code_ < 200 || rr_.response_.code_ >= 400) {
-		return FZ_REPLY_ERROR;
+		return fz::http::continuation::error;
 	}
 
 	// Handle any redirects
@@ -106,12 +106,12 @@ int CHttpFileTransferOpData::OnHeader()
 
 		if (++redirectCount_ >= 6) {
 			log(logmsg::error, _("Too many redirects"));
-			return FZ_REPLY_ERROR;
+			return fz::http::continuation::error;
 		}
 
 		if (rr_.response_.code_ == 305) {
 			log(logmsg::error, _("Unsupported redirect"));
-			return FZ_REPLY_ERROR;
+			return fz::http::continuation::error;
 		}
 
 		fz::uri location = fz::uri(rr_.response_.get_header("Location"));
@@ -121,26 +121,25 @@ int CHttpFileTransferOpData::OnHeader()
 
 		if (location.scheme_.empty() || location.host_.empty() || !location.is_absolute()) {
 			log(logmsg::error, _("Redirection to invalid or unsupported URI: %s"), location.to_string());
-			return FZ_REPLY_ERROR;
+			return fz::http::continuation::error;
 		}
 
 		ServerProtocol protocol = CServer::GetProtocolFromPrefix(fz::to_wstring_from_utf8(location.scheme_));
 		if (protocol != HTTP && protocol != HTTPS) {
 			log(logmsg::error, _("Redirection to invalid or unsupported address: %s"), location.to_string());
-			return FZ_REPLY_ERROR;
+			return fz::http::continuation::error;
 		}
 
 		// International domain names
 		std::wstring host = fz::to_wstring_from_utf8(location.host_);
 		if (host.empty()) {
 			log(logmsg::error, _("Invalid hostname: %s"), location.to_string());
-			return FZ_REPLY_ERROR;
+			return fz::http::continuation::error;
 		}
 
 		rr_.request_.uri_ = location;
-
-		opState = filetransfer_transfer;
-		return FZ_REPLY_OK;
+		controlSocket_.Request(make_simple_rr(&rr_));
+		return fz::http::continuation::done;
 	}
 
 	// Check if the server disallowed resume
@@ -151,7 +150,7 @@ int CHttpFileTransferOpData::OnHeader()
 	if (writer_factory_) {
 		auto writer = controlSocket_.OpenWriter(writer_factory_, resume_ ? localFileSize_ : 0, true);
 		if (!writer) {
-			return FZ_REPLY_CRITICALERROR;
+			return fz::http::continuation::error;
 		}
 		rr_.response_.writer_ = std::move(writer);
 	}
@@ -168,7 +167,7 @@ int CHttpFileTransferOpData::OnHeader()
 		engine_.transfer_status_.SetStartTime();
 	}
 
-	return FZ_REPLY_CONTINUE;
+	return fz::http::continuation::next;
 }
 
 int CHttpFileTransferOpData::SubcommandResult(int prevResult, COpData const&)
