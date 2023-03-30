@@ -18,7 +18,7 @@ public:
 	virtual int SubcommandResult(int prevResult, COpData const& previousOperation) override;
 
 private:
-	fz::http::continuation OnHeader(std::shared_ptr<HttpRequestResponse> &);
+	fz::http::continuation OnHeader(std::shared_ptr<HttpRequestResponse> const&);
 
 	HttpRequestResponse rr_;
 

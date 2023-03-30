@@ -75,7 +75,7 @@ int CHttpFileTransferOpData::Send()
 			rr_.request_.headers_["Range"] = fz::sprintf("bytes=%d-", localFileSize_);
 		}
 
-		rr_.set_on_header([this](auto & srr) { return this->OnHeader(srr); });
+		rr_.set_on_header([this](auto const& srr) { return this->OnHeader(srr); });
 
 		opState = filetransfer_waittransfer;
 		controlSocket_.Request(make_simple_rr(&rr_));
@@ -87,7 +87,7 @@ int CHttpFileTransferOpData::Send()
 	return FZ_REPLY_INTERNALERROR;
 }
 
-fz::http::continuation CHttpFileTransferOpData::OnHeader(std::shared_ptr<HttpRequestResponse> &)
+fz::http::continuation CHttpFileTransferOpData::OnHeader(std::shared_ptr<HttpRequestResponse> const&)
 {
 	log(logmsg::debug_verbose, L"CHttpFileTransferOpData::OnHeader");
 
