@@ -33,7 +33,6 @@ libfzclient_private_la_SOURCES = \
 		ftp/rename.cpp \
 		ftp/rmd.cpp \
 		ftp/transfersocket.cpp \
-		http/digest.cpp \
 		http/filetransfer.cpp \
 		http/httpcontrolsocket.cpp \
 		http/request.cpp \
@@ -86,7 +85,6 @@ noinst_HEADERS = \
 		ftp/rawtransfer.h \
 		ftp/rmd.h \
 		ftp/transfersocket.h \
-		http/digest.h \
 		http/filetransfer.h \
 		http/httpcontrolsocket.h \
 		http/request.h \
