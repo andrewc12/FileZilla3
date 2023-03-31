@@ -28,7 +28,11 @@ http_client::~http_client()
 
 fz::socket_interface* http_client::create_socket(fz::native_string const& host, unsigned short, bool tls)
 {
+#if FZ_WINDOWS
+	controlSocket_.CreateSocket(host);
+#else
 	controlSocket_.CreateSocket(fz::to_wstring_from_utf8(host));
+#endif
 
 	if (tls) {
 		controlSocket_.tls_layer_ = std::make_unique<fz::tls_layer>(controlSocket_.event_loop_, nullptr, *controlSocket_.active_layer_, &controlSocket_.engine_.GetContext().GetTlsSystemTrustStore(), controlSocket_.logger_);
