@@ -9,16 +9,9 @@
 
 namespace PrivCommand {
 auto const http_request = Command::private1;
-auto const http_connect = Command::private2;
 }
 
-class HttpRequest : public fz::http::client::request
-{
-public:
-	enum flags2 {
-		flag_update_transferstatus = 0x08,
-	};
-};
+typedef fz::http::client::request HttpRequest;
 typedef fz::http::client::response HttpResponse;
 
 typedef fz::http::client::request_response_holder<HttpRequest, HttpResponse> HttpRequestResponse;
@@ -35,17 +28,6 @@ namespace fz {
 class tls_layer;
 }
 
-class RequestThrottler final
-{
-public:
-	void throttle(std::string const& hostname, fz::datetime const& backoff);
-	fz::duration get_throttle(std::string const& hostname);
-
-private:
-	fz::mutex mtx_{false};
-	std::vector<std::pair<std::string, fz::datetime>> backoff_;
-};
-
 class CHttpControlSocket;
 class http_client : public fz::http::client::client
 {
@@ -56,6 +38,9 @@ public:
 	virtual void destroy_socket() override;
 
 	CHttpControlSocket & controlSocket_;
+
+protected:
+	void on_alive() override;
 };
 
 class CHttpControlSocket : public CRealControlSocket
