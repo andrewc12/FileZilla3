@@ -54,6 +54,11 @@ void http_client::destroy_socket()
 	controlSocket_.ResetSocket();
 }
 
+void http_client::on_alive()
+{
+	controlSocket_.SetAlive();
+}
+
 // Connect is special for HTTP: It is done on a per-command basis, so we need
 // to establish a connection before each command.
 // The general connect of the control socket is a NOOP.
@@ -70,61 +75,6 @@ public:
 	}
 	virtual int ParseResponse() override { return FZ_REPLY_INTERNALERROR; }
 };
-
-void RequestThrottler::throttle(std::string const& hostname, fz::datetime const& backoff)
-{
-	if (hostname.empty() || !backoff) {
-		return;
-	}
-
-	fz::scoped_lock l(mtx_);
-
-	bool found{};
-	auto now = fz::datetime::now();
-	for (size_t i = 0; i < backoff_.size(); ) {
-		auto & entry = backoff_[i];
-		if (entry.first == hostname) {
-			found = true;
-			if (entry.second < backoff) {
-				entry.second = backoff;
-			}
-		}
-		if (entry.second < now) {
-			backoff_[i] = std::move(backoff_.back());
-			backoff_.pop_back();
-		}
-		else {
-			++i;
-		}
-	}
-	if (!found) {
-		backoff_.emplace_back(hostname, backoff);
-	}
-}
-
-fz::duration RequestThrottler::get_throttle(std::string const& hostname)
-{
-	fz::scoped_lock l(mtx_);
-
-	fz::duration ret;
-
-	auto now = fz::datetime::now();
-	for (size_t i = 0; i < backoff_.size(); ) {
-		auto & entry = backoff_[i];
-		if (entry.second < now) {
-			backoff_[i] = std::move(backoff_.back());
-			backoff_.pop_back();
-		}
-		else {
-			if (entry.first == hostname) {
-				ret = entry.second - now;
-			}
-			++i;
-		}
-	}
-
-	return ret;
-}
 
 CHttpControlSocket::CHttpControlSocket(CFileZillaEnginePrivate & engine)
 	: CRealControlSocket(engine)
