@@ -7,7 +7,7 @@
 class LookupOpData final : public COpData, public CProtocolOpData<CControlSocket>
 {
 public:
-	LookupOpData(CControlSocket &controlSocket, CServerPath const &path, std::wstring const &file, CDirentry * entry);
+	LookupOpData(CControlSocket &controlSocket, CServerPath const& path, std::wstring const& file, CDirentry * entry);
 
 	virtual int Send() override;
 	virtual int ParseResponse() override { return FZ_REPLY_INTERNALERROR; }
@@ -26,7 +26,7 @@ private:
 class LookupManyOpData final : public COpData, public CProtocolOpData<CControlSocket>
 {
 public:
-	LookupManyOpData(CControlSocket &controlSocket, CServerPath const &path, std::vector<std::wstring> const &files)
+	LookupManyOpData(CControlSocket &controlSocket, CServerPath const& path, std::vector<std::wstring> const& files)
 		: COpData(Command::lookup, L"LookupManyOpData")
 		, CProtocolOpData(controlSocket)
 		, path_(path)

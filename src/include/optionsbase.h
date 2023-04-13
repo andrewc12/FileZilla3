@@ -70,7 +70,7 @@ struct FZC_PUBLIC_SYMBOL option_def final
 	option_def(std::string_view name, std::wstring_view def, option_flags flags = option_flags::normal, size_t max_len = 10000000);
 	option_def(std::string_view name, std::wstring_view def, option_flags flags, option_type t, size_t max_len = 10000000, bool (*validator)(std::wstring& v) = nullptr);
 	option_def(std::string_view name, std::wstring_view def, option_flags flags, bool (*validator)(pugi::xml_node&));
-	option_def(std::string_view name, int def, option_flags flags = option_flags::normal, int min = -2147483648, int max = 2147483647, bool (*validator)(int& v) = nullptr);
+	option_def(std::string_view name, int def, option_flags flags = option_flags::normal, int min = -2147483648, int max = 2147483647, bool (*validator)(int& v) = nullptr, std::vector<std::wstring_view> mnemonics = {});
 
 	template<typename Bool, std::enable_if_t<std::is_same_v<Bool, bool>, int> = 0> // avoid implicit wchar_t*->bool conversion
 	option_def(std::string_view name, Bool def, option_flags flags = option_flags::normal);
@@ -82,6 +82,11 @@ struct FZC_PUBLIC_SYMBOL option_def final
 	int min() const { return min_; }
 	int max() const { return max_; }
 	void* validator() const { return validator_; }
+	std::vector<std::wstring_view> const& mnemonics() const { return mnemonics_; }
+
+	int val_from_mnemonic(std::wstring_view const& val) const {
+		return std::distance(mnemonics_.begin(), std::find(mnemonics_.begin(), mnemonics_.end(), val));
+	}
 
 private:
 	std::string name_;
@@ -91,6 +96,7 @@ private:
 	int min_{};
 	int max_{};
 	void* validator_{};
+	std::vector<std::wstring_view> mnemonics_;
 };
 
 struct FZC_PUBLIC_SYMBOL option_registrator
@@ -243,6 +249,11 @@ public:
 		bool predefined_{};
 	};
 
+
+	std::wstring get_string(optionsIndex opt);
+	void set(optionsIndex opt, std::wstring_view const& value, bool predefined = false);
+	bool validate(optionsIndex opt, std::wstring_view const& value);
+
 protected:
 	template<typename T>
 	void set(T opt, std::wstring_view const& value, bool predefined)
@@ -253,16 +264,18 @@ protected:
 	void add_missing(fz::scoped_write_lock & l);
 
 	int get_int(optionsIndex opt);
-	std::wstring get_string(optionsIndex opt);
 	pugi::xml_document get_xml(optionsIndex opt);
 
+	bool validate(option_def const& def, int value);
+	bool validate(option_def const& def, std::wstring_view const& value);
+	bool validate(option_def const& def, pugi::xml_document const& value);
+
 	void set(optionsIndex opt, int value);
-	void set(optionsIndex opt, std::wstring_view const& value, bool predefined = false);
 	void set(optionsIndex opt, pugi::xml_node const& value);
 
-	void set(optionsIndex opt, option_def const& def, option_value & val, int value, bool predefined = false);
-	void set(optionsIndex opt, option_def const& def, option_value & val, std::wstring_view const& value, bool predefined = false);
-	void set(optionsIndex opt, option_def const& def, option_value& val, pugi::xml_document && value, bool predefined = false);
+	void set(optionsIndex opt, option_def const& def, option_value& val, int value, bool predefined = false);
+	void set(optionsIndex opt, option_def const& def, option_value& val, std::wstring_view const& value, bool predefined = false);
+	void set(optionsIndex opt, option_def const& def, option_value& val, pugi::xml_document&& value, bool predefined = false);
 
 	void set_changed(optionsIndex opt);
 
