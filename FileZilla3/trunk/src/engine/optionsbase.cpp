@@ -29,7 +29,7 @@ option_def::option_def(std::string_view name, std::wstring_view def, option_flag
 	, validator_(reinterpret_cast<void*>(validator))
 {}
 
-option_def::option_def(std::string_view name, int def, option_flags flags, int min, int max, bool (*validator)(int& v))
+option_def::option_def(std::string_view name, int def, option_flags flags, int min, int max, bool (*validator)(int& v), std::vector<std::wstring_view> mnemonics)
 	: name_(name)
 	, default_(fz::to_wstring(def))
 	, type_(option_type::number)
@@ -37,6 +37,7 @@ option_def::option_def(std::string_view name, int def, option_flags flags, int m
 	, min_(min)
 	, max_(max)
 	, validator_(reinterpret_cast<void*>(validator))
+	, mnemonics_(std::move(mnemonics))
 {}
 
 template<>
@@ -206,6 +207,60 @@ bool COptionsBase::predefined(optionsIndex opt)
 	return val.predefined_;
 }
 
+bool COptionsBase::validate(option_def const& def, int value)
+{
+	if (def.type() == option_type::number) {
+		if (value < def.min() || value > def.max()) {
+			if (!(def.flags() & option_flags::numeric_clamp)) {
+				return false;
+			}
+		}
+		if (def.validator()) {
+			return reinterpret_cast<bool (*)(int&)>(def.validator())(value);
+		}
+	}
+
+	return true;
+}
+
+bool COptionsBase::validate(option_def const& def, std::wstring_view const& value)
+{
+	if (def.type() == option_type::number) {
+		auto v = fz::to_integral<int>(value, std::numeric_limits<int>::min());
+		if (v == std::numeric_limits<int>::min()) {
+			if (def.mnemonics().empty()) {
+				return false;
+			}
+			v = def.val_from_mnemonic(value);
+		}
+		return validate(def, v);
+	}
+	else if (def.type() == option_type::string) {
+		if (def.validator()) {
+			std::wstring v(value);
+			return reinterpret_cast<bool (*)(std::wstring&)>(def.validator())(v);
+		}
+	}
+
+	return true;
+}
+
+bool COptionsBase::validate(optionsIndex opt, std::wstring_view const& value)
+{
+	fz::scoped_read_lock l(mtx_);
+	auto const& def = options_[static_cast<size_t>(opt)];
+	return validate(def, value);
+}
+
+bool COptionsBase::validate(option_def const& def, pugi::xml_document const& value)
+{
+	if (def.validator()) {
+		return reinterpret_cast<bool (*)(pugi::xml_node const&)>(def.validator())(value);
+	}
+
+	return true;
+}
+
 void COptionsBase::set(optionsIndex opt, int value)
 {
 	if (opt == optionsIndex::invalid) {
@@ -248,7 +303,13 @@ void COptionsBase::set(optionsIndex opt, std::wstring_view const& value, bool pr
 
 	// Type conversion
 	if (def.type() == option_type::number) {
-		set(opt, def, val, fz::to_integral<int>(value), predefined);
+		auto v = fz::to_integral<int>(value, std::numeric_limits<int>::min());
+		if (v == std::numeric_limits<int>::min()) {
+			if (!def.mnemonics().empty()) {
+				v = def.val_from_mnemonic(value);
+			}
+		}
+		set(opt, def, val, v, predefined);
 	}
 	else if (def.type() == option_type::boolean) {
 		set(opt, def, val, fz::to_integral<int>(value), predefined);

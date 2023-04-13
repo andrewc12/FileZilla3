@@ -8,7 +8,7 @@ enum {
 	lookup_list
 };
 
-LookupOpData::LookupOpData(CControlSocket &controlSocket, CServerPath const &path, std::wstring const &file, CDirentry * entry)
+LookupOpData::LookupOpData(CControlSocket &controlSocket, CServerPath const& path, std::wstring const& file, CDirentry * entry)
     : COpData(Command::lookup, L"LookupOpData")
     , CProtocolOpData(controlSocket)
 	, path_(path)

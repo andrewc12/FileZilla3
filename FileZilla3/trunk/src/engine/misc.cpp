@@ -118,7 +118,7 @@ std::wstring GetEnv(char const *name)
 	return ret;
 }
 
-bool FileExists(std::wstring const &file)
+bool FileExists(std::wstring const& file)
 {
 	return fz::local_filesys::get_file_type(fz::to_native(file), true) == fz::local_filesys::file;
 }
