@@ -14,6 +14,7 @@ Legend:
 
 - MSW: Additionsl icon sizing fixes on high DPI scale factors
 - Updated to libfilezilla 0.42.0
+- Switched to .tar.xz for source tarballs
 
 3.63.2.1 (2023-02-23)
 
