@@ -53,7 +53,7 @@ void CFtpControlSocket::OnReceive()
 	size_t const max = 65536;
 
 	for (;;) {
-		int error;
+		int error{};
 
 		size_t const toRead = max - receiveBuffer_.size();
 		int read = active_layer_->read(receiveBuffer_.get(toRead), static_cast<unsigned int>(toRead), error);
@@ -146,7 +146,7 @@ void CFtpControlSocket::ParseLine(std::wstring line)
 			}
 		}
 	}
-	//Check for multi-line responses
+	// Check for multi-line responses
 	if (line.size() > 3) {
 		if (!m_MultilineResponseCode.empty()) {
 			if (line.substr(0, 4) == m_MultilineResponseCode) {
@@ -158,7 +158,14 @@ void CFtpControlSocket::ParseLine(std::wstring line)
 				m_MultilineResponseLines.clear();
 			}
 			else {
-				m_MultilineResponseLines.push_back(line);
+				if (m_MultilineResponseLines.size() < 10000) {
+					m_MultilineResponseLines.push_back(line);
+				}
+				else {
+					log(logmsg::error, _("Received multi-line response with more than %u lines."), m_MultilineResponseLines.size());
+					DoClose(FZ_REPLY_ERROR);
+					return;
+				}
 			}
 		}
 		// start of new multi-line
@@ -804,7 +811,7 @@ void CFtpControlSocket::ResetSocket()
 	m_pendingReplies = 0;
 	m_repliesToSkip = 0;
 	m_Response.clear();
-	m_MultilineResponseCode.clear();;
+	m_MultilineResponseCode.clear();
 	m_MultilineResponseLines.clear();
 	m_protectDataChannel = false;
 
