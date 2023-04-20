@@ -68,11 +68,13 @@ void CRemoteRecursiveOperation::do_start_recursive_operation(OperationMode mode,
 }
 
 
-void CRemoteRecursiveOperation::process_command(std::unique_ptr<CCommand> pCommand) {
+void CRemoteRecursiveOperation::process_command(std::unique_ptr<CCommand> pCommand)
+{
 	m_state.m_pCommandQueue->ProcessCommand(pCommand.release(), CCommandQueue::recursiveOperation);
 }
 
-std::wstring CRemoteRecursiveOperation::sanitize_filename(std::wstring const& name) {
+std::wstring CRemoteRecursiveOperation::sanitize_filename(std::wstring const& name)
+{
 	return CQueueView::ReplaceInvalidCharacters(name);
 }
 
@@ -87,12 +89,13 @@ void CRemoteRecursiveOperation::handle_file(std::wstring const& sourceFile, CLoc
 	if (remotePath.GetType() == VMS && COptions::Get()->get_int(OPTION_STRIP_VMS_REVISION)) {
 		file = StripVMSRevision(file);
 	}
-	m_pQueue->QueueFile(!m_immediate, true,	file, (sourceFile == file) ? std::wstring() : file, localPath, remotePath, m_state.GetSite(), size);
+	m_pQueue->QueueFile(!m_immediate, true, sourceFile, (sourceFile == file) ? std::wstring() : file, localPath, remotePath, m_state.GetSite(), size);
 	added_to_queue_ = true;
 }
 
-void CRemoteRecursiveOperation::handle_dir_listing_end() {
-	if(added_to_queue_) {
+void CRemoteRecursiveOperation::handle_dir_listing_end()
+{
+	if (added_to_queue_) {
 		m_pQueue->QueueFile_Finish(m_immediate);
 		added_to_queue_ = false;
 	}
