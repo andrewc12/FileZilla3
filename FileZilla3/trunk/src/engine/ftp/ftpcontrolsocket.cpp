@@ -645,25 +645,20 @@ int CFtpControlSocket::GetExternalIPAddress(std::string& address)
 				log(logmsg::debug_info, _("Retrieving external IP address from %s"), resolverAddress);
 
 				m_pIPResolver = std::make_unique<CExternalIPResolver>(engine_.GetThreadPool(), *this);
-				m_pIPResolver->GetExternalIP(resolverAddress, fz::address_type::ipv4);
-				if (!m_pIPResolver->Done()) {
+				auto res = m_pIPResolver->GetExternalIP(resolverAddress, fz::address_type::ipv4);
+				if (res == fz::http::continuation::wait) {
 					log(logmsg::debug_verbose, L"Waiting for resolver thread");
 					return FZ_REPLY_WOULDBLOCK;
 				}
 			}
-			if (!m_pIPResolver->Successful()) {
-				m_pIPResolver.reset();
-
+			address = m_pIPResolver->GetIP();
+			m_pIPResolver.reset();
+			if (address.empty()) {
 				log(logmsg::debug_warning, _("Failed to retrieve external IP address, using local address"));
 			}
 			else {
 				log(logmsg::debug_info, L"Got external IP address");
-				address = m_pIPResolver->GetIP();
-
 				engine_.GetOptions().set(OPTION_LASTRESOLVEDIP, fz::to_wstring(address));
-
-				m_pIPResolver.reset();
-
 				return FZ_REPLY_OK;
 			}
 		}

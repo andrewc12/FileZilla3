@@ -3,13 +3,13 @@
 
 #include "visibility.h"
 
-#include <libfilezilla/buffer.hpp>
 #include <libfilezilla/socket.hpp>
+#include <libfilezilla/http/client.hpp>
 
 struct external_ip_resolve_event_type;
 typedef fz::simple_event<external_ip_resolve_event_type> CExternalIPResolveEvent;
 
-class FZC_PUBLIC_SYMBOL  CExternalIPResolver final : public fz::event_handler
+class FZC_PUBLIC_SYMBOL CExternalIPResolver final : public fz::event_handler, public fz::http::client::client
 {
 public:
 	CExternalIPResolver(fz::thread_pool & pool, fz::event_handler & handler);
@@ -18,62 +18,25 @@ public:
 	CExternalIPResolver(CExternalIPResolver const&) = delete;
 	CExternalIPResolver& operator=(CExternalIPResolver const&) = delete;
 
-	bool Done() const { return m_done; }
-	bool Successful() const;
 	std::string GetIP() const;
 
-	void GetExternalIP(std::wstring const& resolver, fz::address_type protocol, bool force = false);
+	fz::http::continuation GetExternalIP(std::wstring const& resolver, fz::address_type protocol, bool force = false);
 
 protected:
 
-	void Close(bool successful);
+	virtual fz::socket_interface* create_socket(fz::native_string const& host, unsigned short, bool tls) override;
+	virtual void destroy_socket() override;
 
-	std::wstring m_address;
-	fz::address_type m_protocol{};
-	unsigned long m_port{80};
-	fz::thread_pool & thread_pool_;
-	fz::event_handler * m_handler{};
+	void on_request_done(uint64_t, bool success);
 
-	bool m_done{};
-
-	std::string m_data;
-
-	std::unique_ptr<fz::socket> socket_;
+	fz::http::client::shared_request_response srr_;
 
 	virtual void operator()(fz::event_base const& ev);
-	void OnSocketEvent(fz::socket_event_source* source, fz::socket_event_flag t, int error);
 
-	void OnConnect(int error);
-	void OnReceive();
-	void OnHeader();
-	void OnData(unsigned char* buffer, size_t len);
-	void OnChunkedData();
-	void OnSend();
+	fz::thread_pool & thread_pool_;
+	fz::event_handler & handler_;
 
-	std::string m_sendBuffer;
-
-	fz::buffer recvBuffer_;
-
-	// HTTP data
-	void ResetHttpData();
-	bool m_gotHeader{};
-	int m_responseCode{};
-	std::wstring m_location;
-	int m_redirectCount{};
-
-	enum transferEncodings {
-		identity,
-		chunked,
-		unknown
-	};
-
-	transferEncodings m_transferEncoding{unknown};
-
-	struct t_chunkData {
-		bool getTrailer{};
-		bool terminateChunk{};
-		uint64_t size{};
-	} m_chunkData;
+	std::unique_ptr<fz::socket> socket_;
 };
 
 #endif

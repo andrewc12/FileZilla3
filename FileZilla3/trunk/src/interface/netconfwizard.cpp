@@ -763,15 +763,13 @@ std::wstring CNetConfWizard::GetExternalIPAddress()
 			PrintMessage(fz::sprintf(fztranslate("Retrieving external IP address from %s"), address), 0);
 
 			m_pIPResolver = new CExternalIPResolver(engine_context_.GetThreadPool(), *this);
-			m_pIPResolver->GetExternalIP(address, fz::address_type::ipv4, true);
-			if (!m_pIPResolver->Done()) {
-				return ret;
+			auto res = m_pIPResolver->GetExternalIP(address, fz::address_type::ipv4, true);
+			if (res == fz::http::continuation::wait) {
+				return {};
 			}
 		}
-		if (m_pIPResolver->Successful()) {
-			ret = fz::to_wstring_from_utf8(m_pIPResolver->GetIP());
-		}
-		else {
+		ret = fz::to_wstring_from_utf8(m_pIPResolver->GetIP());
+		if (ret.empty()) {
 			PrintMessage(fztranslate("Failed to retrieve external IP address, aborting."), 1);
 
 			m_testResult = externalfailed;
@@ -791,10 +789,6 @@ void CNetConfWizard::OnExternalIPAddress2(wxCommandEvent&)
 	}
 
 	if (m_state != 3) {
-		return;
-	}
-
-	if (!m_pIPResolver->Done()) {
 		return;
 	}
 
