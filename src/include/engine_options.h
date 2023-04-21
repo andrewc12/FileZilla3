@@ -81,6 +81,8 @@ enum engineOptions : unsigned int
 
 	OPTION_MIN_TLS_VER,
 
+	OPTION_DIRECTORY_LISTING_ITEM_LIMIT,
+
 	OPTIONS_ENGINE_NUM
 };
 
