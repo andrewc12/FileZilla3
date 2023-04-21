@@ -1,6 +1,7 @@
 #include "filezilla.h"
 #include "directorylistingparser.h"
 #include "controlsocket.h"
+#include "../include/engine_options.h"
 
 #include <libfilezilla/format.hpp>
 
@@ -679,6 +680,11 @@ CDirectoryListingParser::CDirectoryListingParser(CControlSocket* pControlSocket,
 		AddData(pData, len + 2);
 	}
 #endif
+
+	if (m_pControlSocket) {
+		limit_ = static_cast<size_t>(m_pControlSocket->GetEngine().GetOptions().get_int(OPTION_DIRECTORY_LISTING_ITEM_LIMIT));
+	}
+
 }
 
 CDirectoryListingParser::~CDirectoryListingParser()
@@ -863,7 +869,17 @@ bool CDirectoryListingParser::ParseLine(CLine &line, ServerType const serverType
 		else {
 			m_maybeMultilineVms = token.Find(';') != -1;
 			if (m_fileListOnly) {
-				m_fileList.emplace_back(token.GetString());
+				if (m_fileList.size() < limit_) {
+					m_fileList.emplace_back(token.GetString());
+				}
+				else {
+					if (!truncated_) {
+						if (m_pControlSocket) {
+							m_pControlSocket->log(logmsg::error, _("Truncating directory listing to %u items, you can increase this limit in the settings file."), limit_);
+						}
+						truncated_ = true;
+					}
+				}
 			}
 		}
 	}
@@ -877,7 +893,7 @@ bool CDirectoryListingParser::ParseLine(CLine &line, ServerType const serverType
 done:
 
 	if (override) {
-		// If SFTP is uses we already have precise data for some fields
+		// If SFTP is used we already have precise data for some fields
 		if (!override->name.empty()) {
 			entry.name = override->name;
 		}
@@ -909,7 +925,18 @@ done:
 		}
 	}
 
-	entries_.emplace_back(std::move(refEntry));
+	if (entries_.size() < limit_) {
+		entries_.emplace_back(std::move(refEntry));
+	}
+	else {
+		if (!truncated_) {
+			if (m_pControlSocket) {
+				m_pControlSocket->log(logmsg::error, _("Truncating directory listing to %u items, you can increase this limit in the settings file."), limit_);
+			}
+			truncated_ = true;
+		}
+	}
+
 
 skip:
 	m_maybeMultilineVms = false;
@@ -2959,6 +2986,7 @@ void CDirectoryListingParser::Reset()
 	m_currentOffset = 0;
 	m_fileListOnly = true;
 	m_maybeMultilineVms = false;
+	truncated_ = false;
 }
 
 bool CDirectoryListingParser::ParseAsZVM(CLine &line, CDirentry &entry)

@@ -149,6 +149,9 @@ protected:
 	fz::duration m_timezoneOffset;
 
 	listingEncoding::type m_listingEncoding;
+
+	size_t limit_{size_t(-1)};
+	bool truncated_{};
 };
 
 #endif

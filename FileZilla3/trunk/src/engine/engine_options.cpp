@@ -78,7 +78,8 @@ unsigned int register_engine_options()
 		{ "Size decimal places", 1, option_flags::numeric_clamp, 0, 3 },
 		{ "TCP Keepalive Interval", 15, option_flags::numeric_clamp, 1, 10000 },
 		{ "Cache TTL", 600, option_flags::numeric_clamp, 30, 60*60*24 },
-		{ "Minimum TLS Version", 2, option_flags::numeric_clamp, 0, 3 }
+		{ "Minimum TLS Version", 2, option_flags::numeric_clamp, 0, 3 },
+		{ "Directory listing item limit", 10000000, option_flags::numeric_clamp, 1000000, 2000000000 }
 	});
 	return value;
 }
