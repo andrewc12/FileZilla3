@@ -31,7 +31,7 @@ protected:
 
 	fz::http::client::shared_request_response srr_;
 
-	virtual void operator()(fz::event_base const& ev);
+	virtual void operator()(fz::event_base const& ev) override;
 
 	fz::thread_pool & thread_pool_;
 	fz::event_handler & handler_;
