@@ -97,13 +97,10 @@ void CExternalIPResolver::operator()(fz::event_base const& ev)
 fz::http::continuation CExternalIPResolver::OnHeader(std::shared_ptr<fz::http::client::request_response_interface> const& srr)
 {
 	auto & res = srr->res();
-	if (res.code_ < 300 || res.code_ >= 400) {
+	if (!res.is_redirect()) {
 		return fz::http::continuation::next;
 	}
 	if (++redirect_count_ >= 6) {
-		return fz::http::continuation::error;
-	}
-	if (res.code_ == 305) {
 		return fz::http::continuation::error;
 	}
 
