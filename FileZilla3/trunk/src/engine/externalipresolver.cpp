@@ -74,13 +74,18 @@ fz::http::continuation CExternalIPResolver::GetExternalIP(std::wstring const& ad
 		req.flags_ |= fz::http::client::request::flag_force_ipv6;
 	}
 
-	srr_->res().max_body_size_ = 1024;
+	auto & res = srr_->res();
+	res.max_body_size_ = 1024;
+	res.on_header_ = [this](auto const& srr) { return OnHeader(srr); };
+
+	redirect_count_ = 0;
 
 	req.uri_.parse(addr);
 	if (!req.uri_ || !add_request(srr_)) {
 		srr_.reset();
 		return fz::http::continuation::error;
 	}
+
 	return fz::http::continuation::wait;
 }
 
@@ -89,9 +94,42 @@ void CExternalIPResolver::operator()(fz::event_base const& ev)
 	fz::dispatch<fz::http::client::done_event>(ev, this, &CExternalIPResolver::on_request_done);
 }
 
-void CExternalIPResolver::on_request_done(uint64_t, bool success)
+fz::http::continuation CExternalIPResolver::OnHeader(std::shared_ptr<fz::http::client::request_response_interface> const& srr)
 {
-	if (!srr_) {
+	auto & res = srr->res();
+	if (res.code_ < 300 || res.code_ >= 400) {
+		return fz::http::continuation::next;
+	}
+	if (++redirect_count_ >= 6) {
+		return fz::http::continuation::error;
+	}
+	if (res.code_ == 305) {
+		return fz::http::continuation::error;
+	}
+
+	auto & req = srr->req();
+
+	fz::uri location = fz::uri(res.get_header("Location"));
+	if (!location.empty()) {
+		location.resolve(req.uri_);
+	}
+
+	if (location.scheme_.empty() || location.host_.empty() || !location.is_absolute()) {
+		return fz::http::continuation::error;
+	}
+
+	req.uri_ = location;
+
+	if (!add_request(srr)) {
+		return fz::http::continuation::error;
+	}
+
+	return fz::http::continuation::done;
+}
+
+void CExternalIPResolver::on_request_done(uint64_t id, bool success)
+{
+	if (!srr_ || id != srr_->request_id_) {
 		return;
 	}
 

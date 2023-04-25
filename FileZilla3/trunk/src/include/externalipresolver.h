@@ -27,6 +27,8 @@ protected:
 	virtual fz::socket_interface* create_socket(fz::native_string const& host, unsigned short, bool tls) override;
 	virtual void destroy_socket() override;
 
+	fz::http::continuation OnHeader(std::shared_ptr<fz::http::client::request_response_interface> const&);
+
 	void on_request_done(uint64_t, bool success);
 
 	fz::http::client::shared_request_response srr_;
@@ -37,6 +39,8 @@ protected:
 	fz::event_handler & handler_;
 
 	std::unique_ptr<fz::socket> socket_;
+
+	uint64_t redirect_count_{};
 };
 
 #endif
