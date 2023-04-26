@@ -10,6 +10,11 @@ Legend:
     *nix: Unix (e.g BSD) and Unix-like systems (e.g. Linux)
     macOS/OS X: Apple macOS
 
+3.64.0 (2023-04-26)
+
+- Fixed refresh of directory trees when filters changing
+- Updated to libfilezilla 0.42.2
+
 3.64.0-rc1 (2023-04-13)
 
 - MSW: Additional icon sizing fixes on high DPI scale factors
