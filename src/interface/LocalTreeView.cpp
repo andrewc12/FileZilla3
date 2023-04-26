@@ -730,7 +730,7 @@ void CLocalTreeView::RefreshListing()
 	for (auto child = GetFirstChild(m_drives, tmp); child; child = GetNextSibling(child)) {
 		if (IsExpanded(child)) {
 			std::wstring drive = GetItemText(child).ToStdWstring();
-			size_t pos = drive.find(' ' );
+			size_t pos = drive.find(' ');
 			if (pos != std::wstring::npos) {
 				drive = drive.substr(0, pos);
 			}
@@ -799,19 +799,21 @@ void CLocalTreeView::RefreshListing()
 		// Step 3: Merge list of subdirectories with subtree.
 		std::vector<wxTreeItemId> toDelete;
 
-		bool inserted = false;
-
 		wxTreeItemIdValue unused;
 		wxTreeItemId child = GetFirstChild(dir.item, unused);
 
+		wxTreeItemId firstInserted{};
 		wxTreeItemId last = GetLastChild(dir.item);
-
+		if (dir.dir == L"D:\\") {
+			int x{};
+			++x;
+		}
 		auto iter = dirs.begin();
 		while (child || iter != dirs.end()) {
 			int cmp;
 			if (child && iter != dirs.end()) {
 				wxString const& childName = GetItemText(child);
-				cmp = sortFunction_(std::wstring_view(childName.data(), childName.size()), *iter);
+				cmp = sortFunction_(*iter, std::wstring_view(childName.data(), childName.size()));
 			}
 			else if (child) {
 				cmp = 1;
@@ -838,6 +840,9 @@ void CLocalTreeView::RefreshListing()
 					dirsToCheck.push_front(subdir);
 				}
 				child = GetNextSibling(child);
+				if (child == firstInserted) {
+					child = wxTreeItemId{};
+				}
 				++iter;
 			}
 			else if (cmp > 0) {
@@ -848,8 +853,13 @@ void CLocalTreeView::RefreshListing()
 				while (sel && sel != child) {
 					sel = GetItemParent(sel);
 				}
-				toDelete.push_back(child);
+				if (!sel) {
+					toDelete.push_back(child);
+				}
 				child = GetNextSibling(child);
+				if (child == firstInserted) {
+					child = wxTreeItemId{};
+				}
 			}
 			else if (cmp < 0) {
 				// New subdirectory, add treeitem
@@ -862,15 +872,18 @@ void CLocalTreeView::RefreshListing()
 #endif
 					);
 
+				if (!firstInserted) {
+					firstInserted = last;
+				}
+
 				CheckSubdirStatus(last, fullname);
 				++iter;
-				inserted = true;
 			}
 		}
 		for (auto it = toDelete.rbegin(); it != toDelete.rend(); ++it) {
 			Delete(*it);
 		}
-		if (inserted) {
+		if (firstInserted) {
 			SortChildren(dir.item);
 		}
 	}

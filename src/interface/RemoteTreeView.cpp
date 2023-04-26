@@ -589,17 +589,25 @@ void CRemoteTreeView::RefreshItem(wxTreeItemId parent, const CDirectoryListing& 
 
 	std::vector<wxTreeItemId> toDelete;
 
-	bool inserted = false;
-
 	wxTreeItemIdValue unused;
 	child = GetFirstChild(parent, unused);
 
+	wxTreeItemId firstInserted;
 	wxTreeItemId last = GetLastChild(parent);
 
 	auto iter = dirs.begin();
-	while (child && iter != dirs.end()) {
-		wxString const& childName = GetItemText(child);
-		int cmp = sortFunction_(std::wstring_view(childName.data(), childName.size()), *iter);
+	while (child || iter != dirs.end()) {
+		int cmp;
+		if (child && iter != dirs.end()) {
+			wxString const& childName = GetItemText(child);
+			cmp = sortFunction_(*iter, std::wstring_view(childName.data(), childName.size()));
+		}
+		else if (child) {
+			cmp = 1;
+		}
+		else {
+			cmp = -1;
+		}
 
 		if (!cmp) {
 			CServerPath childPath = listing.path;
@@ -617,6 +625,9 @@ void CRemoteTreeView::RefreshItem(wxTreeItemId parent, const CDirectoryListing& 
 			}
 
 			child = GetNextSibling(child);
+			if (child == firstInserted) {
+				child = wxTreeItemId{};
+			}
 			++iter;
 		}
 		else if (cmp > 0) {
@@ -629,6 +640,9 @@ void CRemoteTreeView::RefreshItem(wxTreeItemId parent, const CDirectoryListing& 
 				toDelete.push_back(child);
 			}
 			child = GetNextSibling(child);
+			if (child == firstInserted) {
+				child = wxTreeItemId{};
+			}
 		}
 		else if (cmp < 0) {
 			// New directory
@@ -638,66 +652,29 @@ void CRemoteTreeView::RefreshItem(wxTreeItemId parent, const CDirectoryListing& 
 			CDirectoryListing subListing;
 			if (m_state.engine_->CacheLookup(childPath, subListing) == FZ_REPLY_OK) {
 				last = InsertItem(parent, last, *iter, 0, 2, 0);
-				if (last) {
-					SetItemImages(last, false);
-
-					if (HasSubdirs(subListing, filter)) {
-						AppendItem(last, _T(""), -1, -1);
-					}
-				}
-			}
-			else {
-				wxTreeItemId childItem = AppendItem(parent, *iter, 1, 3, 0);
-				if (childItem) {
-					SetItemImages(childItem, true);
-				}
-			}
-
-			++iter;
-			inserted = true;
-		}
-	}
-	while (child) {
-		// Child no longer exists
-		wxTreeItemId sel = GetSelection();
-		while (sel && sel != child) {
-			sel = GetItemParent(sel);
-		}
-		if (!sel || will_select_parent) {
-			toDelete.push_back(child);
-		}
-		child = GetNextSibling(child);
-	}
-	while (iter != dirs.end()) {
-		CServerPath childPath = listing.path;
-		childPath.AddSegment(*iter);
-
-		CDirectoryListing subListing;
-		if (m_state.engine_->CacheLookup(childPath, subListing) == FZ_REPLY_OK) {
-			last = InsertItem(parent, last, *iter, 0, 2, 0);
-			if (last) {
 				SetItemImages(last, false);
 
 				if (HasSubdirs(subListing, filter)) {
 					AppendItem(last, _T(""), -1, -1);
 				}
 			}
-		}
-		else {
-			wxTreeItemId childItem = AppendItem(parent, *iter, 1, 3, 0);
-			if (childItem) {
-				SetItemImages(childItem, true);
+			else {
+				last = InsertItem(parent, last, *iter, 1, 3, 0);
+				SetItemImages(last, true);
 			}
-		}
 
-		++iter;
-		inserted = true;
+			if (!firstInserted) {
+				firstInserted = last;
+			}
+			++iter;
+		}
 	}
+	
 	for (auto it = toDelete.rbegin(); it != toDelete.rend(); ++it) {
 		Delete(*it);
 	}
 
-	if (inserted) {
+	if (firstInserted) {
 		SortChildren(parent);
 	}
 }
@@ -1417,18 +1394,21 @@ void CRemoteTreeView::ApplyFilters(bool resort)
 		}
 
 		CDirectoryListing listing;
-		if (m_state.engine_->CacheLookup(parent.path, listing) == FZ_REPLY_OK)
+		if (m_state.engine_->CacheLookup(parent.path, listing) == FZ_REPLY_OK) {
 			RefreshItem(parent.item, listing, false);
+		}
 		else if (filter.HasActiveFilters()) {
 			for (wxTreeItemId child = GetFirstChild(parent.item, cookie); child; child = GetNextSibling(child)) {
 				CServerPath path = GetPathFromItem(child);
-				if (path.empty())
+				if (path.empty()) {
 					continue;
+				}
 
 				if (filter.FilenameFiltered(GetItemText(child).ToStdWstring(), path.GetPath(), true, -1, false, 0, fz::datetime())) {
 					wxTreeItemId sel = GetSelection();
-					while (sel && sel != child)
+					while (sel && sel != child) {
 						sel = GetItemParent(sel);
+					}
 					if (!sel) {
 						Delete(child);
 						continue;
@@ -1446,8 +1426,9 @@ void CRemoteTreeView::ApplyFilters(bool resort)
 		}
 		for (wxTreeItemId child = GetFirstChild(parent.item, cookie); child; child = GetNextSibling(child)) {
 			CServerPath path = GetPathFromItem(child);
-			if (path.empty())
+			if (path.empty()) {
 				continue;
+			}
 
 			_parents dir;
 			dir.item = child;
