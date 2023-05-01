@@ -134,7 +134,7 @@ public:
 	bool empty() const;
 	int IsActive() const { return m_activeMode; }
 	bool SetActive(bool active = true);
-	bool Quit();
+	bool Quit(bool force = false);
 
 	// This sets the default file exists action for all files currently in queue.
 	void SetDefaultFileExistsAction(CFileExistsNotification::OverwriteAction action, const TransferDirection direction);

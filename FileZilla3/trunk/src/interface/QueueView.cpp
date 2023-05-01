@@ -1399,7 +1399,7 @@ bool CQueueView::SetActive(bool active)
 	return true;
 }
 
-bool CQueueView::Quit()
+bool CQueueView::Quit(bool force)
 {
 	if (!m_quit) {
 		m_quit = 1;
@@ -1419,7 +1419,7 @@ bool CQueueView::Quit()
 		canQuit = false;
 	}
 
-	if (!canQuit) {
+	if (!canQuit && !force) {
 		return false;
 	}
 
