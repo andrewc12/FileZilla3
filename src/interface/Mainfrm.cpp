@@ -542,6 +542,10 @@ CMainFrame::~CMainFrame()
 
 	delete m_pStateEventHandler;
 
+	if (m_pQueueView) {
+		m_pQueueView->Quit(true);
+	}
+
 	delete m_pContextControl;
 	m_pContextControl = 0;
 
