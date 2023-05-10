@@ -73,7 +73,9 @@ libfzclient_commonui_private_mac_la_CPPFLAGS = -I$(top_builddir)/config
 libfzclient_commonui_private_mac_la_CPPFLAGS += $(LIBFILEZILLA_CFLAGS)
 libfzclient_commonui_private_mac_la_CPPFLAGS += -DBUILDING_FZ_COMMONUI
 
-libfzclient_commonui_private_mac_la_CXXFLAGS = -fvisibility=hidden
+libfzclient_commonui_private_mac_la_LIBTOOLFLAGS = --tag=CXX
+
+libfzclient_commonui_private_mac_la_OBJCXXFLAGS = -fvisibility=hidden
 
 libfzclient_commonui_private_mac_la_SOURCES = \
 	fz_paths_osx.mm
