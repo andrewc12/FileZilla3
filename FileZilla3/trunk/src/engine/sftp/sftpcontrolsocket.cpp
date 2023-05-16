@@ -511,17 +511,14 @@ int CSftpControlSocket::DoClose(int nErrorCode)
 	if (input_parser_) {
 		input_parser_.reset();
 
-		auto threadEventsFilter = [&](fz::event_loop::Events::value_type const& ev) -> bool {
-			if (ev.first != this) {
-				return false;
-			}
-			else if (ev.second->derived_type() == CSftpEvent::type() || ev.second->derived_type() == CSftpListEvent::type()) {
+		auto threadEventsFilter = [](fz::event_base const& ev) -> bool {
+			if (ev.derived_type() == CSftpEvent::type() || ev.derived_type() == CSftpListEvent::type()) {
 				return true;
 			}
 			return false;
 		};
 
-		event_loop_.filter_events(threadEventsFilter);
+		filter_events(threadEventsFilter);
 	}
 	process_.reset();
 
