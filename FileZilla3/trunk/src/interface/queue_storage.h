@@ -6,6 +6,7 @@
 #include <string>
 
 class CFileItem;
+class COptionsBase;
 class CServerItem;
 class Site;
 
@@ -14,7 +15,7 @@ class CQueueStorage final
 	class Impl;
 
 public:
-	CQueueStorage();
+	CQueueStorage(COptionsBase & options);
 	~CQueueStorage();
 
 	CQueueStorage(CQueueStorage const&) = delete;
@@ -39,7 +40,7 @@ public:
 
 	int64_t GetFile(CFileItem** pItem, int64_t server);
 
-	static std::wstring GetDatabaseFilename();
+	std::wstring GetDatabaseFilename();
 
 private:
 	Impl* d_;

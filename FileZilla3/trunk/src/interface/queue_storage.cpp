@@ -133,6 +133,10 @@ _column path_table_columns[] = {
 class CQueueStorage::Impl final
 {
 public:
+	Impl(COptionsBase & options)
+		: options_(options)
+	{}
+
 	void CreateTables();
 	std::string CreateColumnDefs(_column const* columns, size_t count);
 
@@ -198,6 +202,8 @@ public:
 
 	std::map<int64_t, CLocalPath> reverseLocalPaths_;
 	std::map<int64_t, CServerPath> reverseRemotePaths_;
+
+	COptionsBase & options_;
 };
 
 
@@ -655,7 +661,7 @@ bool CQueueStorage::Impl::BindBlob(sqlite3_stmt* statement, int index, std::stri
 
 bool CQueueStorage::Impl::SaveServer(CServerItem const& item)
 {
-	bool kiosk_mode = COptions::Get()->get_int(OPTION_DEFAULT_KIOSKMODE) != 0;
+	bool kiosk_mode = options_.get_int(OPTION_DEFAULT_KIOSKMODE) != 0;
 
 	Site const& site = item.GetSite();
 
@@ -1236,8 +1242,8 @@ void CQueueStorage::Impl::Close()
 	db_ = 0;
 }
 
-CQueueStorage::CQueueStorage()
-: d_(new Impl)
+CQueueStorage::CQueueStorage(COptionsBase& options)
+: d_(new Impl(options))
 {
 	int ret = sqlite3_open(fz::to_utf8(GetDatabaseFilename()).c_str(), &d_->db_ );
 	if (ret != SQLITE_OK) {
@@ -1395,7 +1401,7 @@ bool CQueueStorage::Clear()
 
 std::wstring CQueueStorage::GetDatabaseFilename()
 {
-	return COptions::Get()->get_string(OPTION_DEFAULT_SETTINGSDIR) + L"queue.sqlite3";
+	return d_->options_.get_string(OPTION_DEFAULT_SETTINGSDIR) + L"queue.sqlite3";
 }
 
 bool CQueueStorage::BeginTransaction()

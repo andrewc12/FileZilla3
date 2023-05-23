@@ -970,7 +970,7 @@ void CRemoteListView::OnItemActivated(wxListEvent &event)
 				return;
 			}
 
-			std::wstring localFile = CQueueView::ReplaceInvalidCharacters(name);
+			std::wstring localFile = CQueueView::ReplaceInvalidCharacters(options_, name);
 			if (m_pDirectoryListing->path.GetType() == VMS && options_.get_int(OPTION_STRIP_VMS_REVISION)) {
 				localFile = StripVMSRevision(localFile);
 			}
@@ -1265,14 +1265,14 @@ void CRemoteListView::TransferSelectedFiles(const CLocalPath& local_parent, bool
 				continue;
 			}
 			CLocalPath local_path(local_parent);
-			local_path.AddSegment(CQueueView::ReplaceInvalidCharacters(name));
+			local_path.AddSegment(CQueueView::ReplaceInvalidCharacters(options_, name));
 			CServerPath remotePath = m_pDirectoryListing->path;
 			if (remotePath.AddSegment(name)) {
 				root.add_dir_to_visit(m_pDirectoryListing->path, name, local_path, entry.is_link());
 			}
 		}
 		else {
-			std::wstring localFile = CQueueView::ReplaceInvalidCharacters(name);
+			std::wstring localFile = CQueueView::ReplaceInvalidCharacters(options_, name);
 			if (m_pDirectoryListing->path.GetType() == VMS && options_.get_int(OPTION_STRIP_VMS_REVISION)) {
 				localFile = StripVMSRevision(localFile);
 			}
@@ -2634,7 +2634,7 @@ int64_t CRemoteListView::ItemGetSize(int index) const
 void CRemoteListView::LinkIsNotDir(CServerPath const& path, std::wstring const& link)
 {
 	if (m_pLinkResolveState && m_pLinkResolveState->remote_path == path && m_pLinkResolveState->link == link) {
-		std::wstring localFile = CQueueView::ReplaceInvalidCharacters(link);
+		std::wstring localFile = CQueueView::ReplaceInvalidCharacters(options_, link);
 		if (m_pDirectoryListing->path.GetType() == VMS && options_.get_int(OPTION_STRIP_VMS_REVISION)) {
 			localFile = StripVMSRevision(localFile);
 		}

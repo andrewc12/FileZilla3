@@ -229,11 +229,12 @@ EVT_CHAR(CRemoteTreeView::OnChar)
 EVT_MENU(XRCID("ID_GETURL"), CRemoteTreeView::OnMenuGeturl)
 END_EVENT_TABLE()
 
-CRemoteTreeView::CRemoteTreeView(wxWindow* parent, wxWindowID id, CState& state, CQueueView* pQueue)
+CRemoteTreeView::CRemoteTreeView(wxWindow* parent, wxWindowID id, CState& state, CQueueView* pQueue, COptionsBase & options)
 	: wxTreeCtrlEx(parent, id, wxDefaultPosition, wxDefaultSize, DEFAULT_TREE_STYLE | wxTAB_TRAVERSAL | wxTR_EDIT_LABELS | wxNO_BORDER | wxTR_HIDE_ROOT)
 	, CSystemImageList(CThemeProvider::GetIconSize(iconSizeSmall).x)
 	, CStateEventHandler(state)
 	, COptionChangeEventHandler(this)
+	, options_(options)
 {
 #ifdef __WXMAC__
 	SetFont(wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT));
@@ -246,7 +247,7 @@ CRemoteTreeView::CRemoteTreeView(wxWindow* parent, wxWindowID id, CState& state,
 	CreateImageList();
 
 	UpdateSortMode();
-	COptions::Get()->watch(OPTION_FILELIST_NAMESORT, this);
+	options_.watch(OPTION_FILELIST_NAMESORT, this);
 
 	m_pQueue = pQueue;
 	AddRoot(_T(""));
@@ -261,7 +262,7 @@ CRemoteTreeView::CRemoteTreeView(wxWindow* parent, wxWindowID id, CState& state,
 
 CRemoteTreeView::~CRemoteTreeView()
 {
-	COptions::Get()->unwatch_all(this);
+	options_.unwatch_all(this);
 	SetImageList(0);
 	delete m_pImageList;
 }
@@ -781,7 +782,7 @@ CServerPath CRemoteTreeView::GetPathFromItem(const wxTreeItemId& item) const
 
 void CRemoteTreeView::OnBeginDrag(wxTreeEvent& event)
 {
-	if (COptions::Get()->get_int(OPTION_DND_DISABLED) != 0) {
+	if (options_.get_int(OPTION_DND_DISABLED) != 0) {
 		return;
 	}
 
@@ -1061,7 +1062,7 @@ void CRemoteTreeView::OnMenuDownload(wxCommandEvent& event)
 
 	std::wstring const name = GetItemText(m_contextMenuItem).ToStdWstring();
 
-	localDir.AddSegment(CQueueView::ReplaceInvalidCharacters(name));
+	localDir.AddSegment(CQueueView::ReplaceInvalidCharacters(options_, name));
 
 	recursion_root root(path, true);
 	root.add_dir_to_visit(path, std::wstring(), localDir);
@@ -1317,7 +1318,7 @@ CServerPath CRemoteTreeView::MenuMkdir()
 		return CServerPath();
 	}
 
-	transfer_flags const flags = GetMkdirFlags(m_state.GetSite().server, *COptions::Get(), newPath);
+	transfer_flags const flags = GetMkdirFlags(m_state.GetSite().server, options_, newPath);
 	m_state.m_pCommandQueue->ProcessCommand(new CMkdirCommand(newPath, flags));
 
 	return newPath;
@@ -1478,7 +1479,7 @@ void CRemoteTreeView::OnMenuGeturl(wxCommandEvent& event)
 void CRemoteTreeView::UpdateSortMode()
 {
 	NameSortMode sortMode;
-	switch (COptions::Get()->get_int(OPTION_FILELIST_NAMESORT))
+	switch (options_.get_int(OPTION_FILELIST_NAMESORT))
 	{
 	case 0:
 	default:

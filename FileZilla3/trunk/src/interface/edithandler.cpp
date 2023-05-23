@@ -993,7 +993,7 @@ std::vector<std::wstring> CEditHandler::GetCustomAssociation(std::wstring_view c
 
 std::wstring CEditHandler::GetTemporaryFile(std::wstring name)
 {
-	name = CQueueView::ReplaceInvalidCharacters(name, true);
+	name = CQueueView::ReplaceInvalidCharacters(options_, name, true);
 #ifdef __WXMSW__
 	// MAX_PATH - 1 is theoretical limit, we subtract another 4 to allow
 	// editors which create temporary files

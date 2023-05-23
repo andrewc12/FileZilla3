@@ -16,7 +16,7 @@ CQueueViewSuccessful::CQueueViewSuccessful(CQueue* parent, COptionsBase & option
 	std::vector<ColumnId> extraCols({colTime});
 	CreateColumns(extraCols);
 
-	m_autoClear = COptions::Get()->get_int(OPTION_QUEUE_SUCCESSFUL_AUTOCLEAR) ? true : false;
+	m_autoClear = options_.get_int(OPTION_QUEUE_SUCCESSFUL_AUTOCLEAR) ? true : false;
 }
 
 void CQueueViewSuccessful::OnContextMenu(wxContextMenuEvent&)
@@ -47,5 +47,5 @@ void CQueueViewSuccessful::OnContextMenu(wxContextMenuEvent&)
 void CQueueViewSuccessful::OnMenuAutoClear(wxCommandEvent&)
 {
 	m_autoClear = !m_autoClear;
-	COptions::Get()->set(OPTION_QUEUE_SUCCESSFUL_AUTOCLEAR, m_autoClear ? true : false);
+	options_.set(OPTION_QUEUE_SUCCESSFUL_AUTOCLEAR, m_autoClear ? true : false);
 }

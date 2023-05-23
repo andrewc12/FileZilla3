@@ -1489,7 +1489,7 @@ void CSearchDialog::OnDownload(wxCommandEvent&)
 		}
 
 		CServerPath remote_path = entry.path;
-		std::wstring localName = CQueueView::ReplaceInvalidCharacters(entry.name);
+		std::wstring localName = CQueueView::ReplaceInvalidCharacters(options_, entry.name);
 		if (!entry.is_dir() && remote_path.GetType() == VMS && options_.get_int(OPTION_STRIP_VMS_REVISION))
 			localName = StripVMSRevision(localName);
 
@@ -1570,7 +1570,7 @@ void CSearchDialog::OnUpload(wxCommandEvent&)
 		}
 
 		CLocalPath local_path = entry.path;
-		std::wstring localName = CQueueView::ReplaceInvalidCharacters(entry.name);
+		std::wstring localName = CQueueView::ReplaceInvalidCharacters(options_, entry.name);
 
 		m_pQueue->QueueFile(!start, false,
 			entry.name, (localName != entry.name) ? localName : std::wstring(),
