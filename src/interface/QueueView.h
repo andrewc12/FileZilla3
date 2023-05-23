@@ -154,7 +154,7 @@ public:
 
 	void RenameFileInTransfer(CFileZillaEngine *pEngine, std::wstring const& newName, bool local, fz::writer_factory_holder & new_writer);
 
-	static std::wstring ReplaceInvalidCharacters(std::wstring const& filename, bool includeQuotesAndBreaks = false);
+	static std::wstring ReplaceInvalidCharacters(COptionsBase& options, std::wstring const& filename, bool includeQuotesAndBreaks = false);
 
 	std::shared_ptr<CActionAfterBlocker> GetActionAfterBlocker();
 

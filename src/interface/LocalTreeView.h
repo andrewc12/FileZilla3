@@ -19,7 +19,7 @@ class CLocalTreeView final : public wxTreeCtrlEx, CSystemImageList, CStateEventH
 	friend class CLocalTreeViewDropTarget;
 
 public:
-	CLocalTreeView(wxWindow* parent, wxWindowID id, CState& state, CQueueView *pQueueView);
+	CLocalTreeView(wxWindow* parent, wxWindowID id, CState& state, CQueueView *pQueueView, COptionsBase & options);
 	virtual ~CLocalTreeView();
 
 #ifdef __WXMSW__
@@ -93,6 +93,8 @@ protected:
 	wxTreeItemId m_contextMenuItem;
 
 	std::unique_ptr<CWindowTinter> m_windowTinter;
+
+	COptionsBase & options_;
 };
 
 #endif

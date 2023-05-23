@@ -75,7 +75,7 @@ void CRemoteRecursiveOperation::process_command(std::unique_ptr<CCommand> pComma
 
 std::wstring CRemoteRecursiveOperation::sanitize_filename(std::wstring const& name)
 {
-	return CQueueView::ReplaceInvalidCharacters(name);
+	return CQueueView::ReplaceInvalidCharacters(*COptions::Get(), name);
 }
 
 void CRemoteRecursiveOperation::operation_finished()

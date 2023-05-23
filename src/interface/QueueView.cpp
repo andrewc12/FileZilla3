@@ -218,6 +218,7 @@ CQueueView::CQueueView(CQueue* parent, int index, CMainFrame* pMainFrame, CAsync
 	, m_pMainFrame(pMainFrame)
 	, m_pAsyncRequestQueue(pAsyncRequestQueue)
 	, cert_store_(certStore)
+	, m_queue_storage(pMainFrame->GetOptions())
 {
 	wxGetApp().AddStartupProfileRecord("CQueueView::CQueueView"sv);
 
@@ -292,7 +293,7 @@ bool CQueueView::QueueFile(bool const queueOnly, bool const download,
 			flags |= queue_flags::queued;
 		}
 
-		flags |= GetTransferFlags(download, site.server, *COptions::Get(), sourceFile, remotePath);
+		flags |= GetTransferFlags(download, site.server, options_, sourceFile, remotePath);
 		flags -= custom_flags_mask;
 		flags |= custom_flags;
 
@@ -346,7 +347,7 @@ bool CQueueView::QueueFiles(const bool queueOnly, const CLocalPath& localPath, c
 			continue;
 		}
 
-		std::wstring localFile = ReplaceInvalidCharacters(fileInfo.name);
+		std::wstring localFile = ReplaceInvalidCharacters(options_, fileInfo.name);
 		if (dataObject.GetServerPath().GetType() == VMS && options_.get_int(OPTION_STRIP_VMS_REVISION)) {
 			localFile = StripVMSRevision(localFile);
 		}
@@ -356,7 +357,7 @@ bool CQueueView::QueueFiles(const bool queueOnly, const CLocalPath& localPath, c
 			flags |= queue_flags::queued;
 		}
 
-		flags |= GetTransferFlags(true, dataObject.GetSite().server, *COptions::Get(), fileInfo.name, dataObject.GetServerPath());
+		flags |= GetTransferFlags(true, dataObject.GetSite().server, options_, fileInfo.name, dataObject.GetServerPath());
 
 		CFileItem* fileItem = new CFileItem(pServerItem, flags,
 			fileInfo.name, (fileInfo.name != localFile) ? localFile : std::wstring(),
@@ -387,7 +388,7 @@ bool CQueueView::QueueFiles(const bool queueOnly, Site const& site, CLocalRecurs
 				flags |= queue_flags::queued;
 			}
 
-			flags |= GetTransferFlags(false, site.server, *COptions::Get(), file.name, listing.remotePath);
+			flags |= GetTransferFlags(false, site.server, options_, file.name, listing.remotePath);
 			CFileItem* fileItem = new CFileItem(pServerItem, flags,
 				file.name, std::wstring(),
 				listing.localPath, listing.remotePath, file.size, {});
@@ -1643,7 +1644,7 @@ void CQueueView::LoadQueue()
 	m_insertionCount = 0;
 	CommitChanges();
 	if (error) {
-		wxString file = CQueueStorage::GetDatabaseFilename();
+		wxString file = m_queue_storage.GetDatabaseFilename();
 		wxString msg = wxString::Format(_("An error occurred loading the transfer queue from \"%s\".\nSome queue items might not have been restored."), file);
 		wxMessageBoxEx(msg, _("Error loading queue"), wxICON_ERROR);
 	}
@@ -2967,9 +2968,8 @@ void CQueueView::RenameFileInTransfer(CFileZillaEngine *pEngine, std::wstring co
 	RefreshItem(pFile);
 }
 
-std::wstring CQueueView::ReplaceInvalidCharacters(std::wstring const& filename, bool includeQuotesAndBreaks)
+std::wstring CQueueView::ReplaceInvalidCharacters(COptionsBase & options, std::wstring const& filename, bool includeQuotesAndBreaks)
 {
-	auto& options = *COptions::Get();
 	if (!options.get_int(OPTION_INVALID_CHAR_REPLACE_ENABLE)) {
 		return filename;
 	}

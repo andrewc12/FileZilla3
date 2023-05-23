@@ -1027,7 +1027,7 @@ bool CState::DownloadDroppedFiles(const CRemoteDataObject* pRemoteDataObject, co
 		}
 
 		CLocalPath newPath(path);
-		newPath.AddSegment(CQueueView::ReplaceInvalidCharacters(fileInfo.name));
+		newPath.AddSegment(CQueueView::ReplaceInvalidCharacters(m_mainFrame.GetOptions(), fileInfo.name));
 		root.add_dir_to_visit(pRemoteDataObject->GetServerPath(), fileInfo.name, newPath, fileInfo.link);
 	}
 
