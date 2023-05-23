@@ -626,7 +626,7 @@ CSearchDialog::CSearchDialog(wxWindow* parent, CState& state, CQueueView* pQueue
 	, m_pQueue(pQueue)
 	, options_(options)
 {
-	m_pComparisonManager = new CComparisonManager(state);
+	m_pComparisonManager = new CComparisonManager(state, options);
 }
 
 CSearchDialog::~CSearchDialog()
@@ -719,13 +719,13 @@ bool CSearchDialog::Load()
 	resultSizer->Add(new wxListCtrl(this, XRCID("ID_RESULTS"), wxDefaultPosition, wxDefaultSize, wxLC_REPORT), 0, wxGROW);
 	resultSizer->Add(new wxListCtrl(this, XRCID("ID_REMOTE_RESULTS"), wxDefaultPosition, wxDefaultSize, wxLC_REPORT), 0, wxGROW);
 
-	CFilelistStatusBar* pStatusBar = new CFilelistStatusBar(this);
+	CFilelistStatusBar* pStatusBar = new CFilelistStatusBar(this, options_);
 	pStatusBar->SetEmptyString(_("No search results"));
 	pStatusBar->SetConnected(true);
 
 	resultSizer->Add(pStatusBar, 0, wxGROW, lay.border);
 
-	m_remoteStatusBar = new CFilelistStatusBar(this);
+	m_remoteStatusBar = new CFilelistStatusBar(this, options_);
 	m_remoteStatusBar->SetEmptyString(_("No search results"));
 	m_remoteStatusBar->SetConnected(true);
 
@@ -1642,7 +1642,7 @@ void CSearchDialog::OnEdit(wxCommandEvent&)
 	}
 
 	if (selected_files.size() > 10) {
-		CConditionalDialog dlg(this, CConditionalDialog::many_selected_for_edit, CConditionalDialog::yesno);
+		CConditionalDialog dlg(this, CConditionalDialog::many_selected_for_edit, CConditionalDialog::yesno, options_);
 		dlg.SetTitle(_("Confirmation needed"));
 		dlg.AddText(_("You have selected more than 10 files for editing, do you really want to continue?"));
 
@@ -2038,7 +2038,7 @@ void CSearchDialog::OnShowFileManager(wxCommandEvent& event)
 	}
 
 	if (selected_item_list.size() > 10) {
-		CConditionalDialog dlg(this, CConditionalDialog::many_selected_for_edit, CConditionalDialog::yesno);
+		CConditionalDialog dlg(this, CConditionalDialog::many_selected_for_edit, CConditionalDialog::yesno, options_);
 		dlg.SetTitle(_("Confirmation needed"));
 		dlg.AddText(_("You have selected more than 10 files or directories to open, do you really want to continue?"));
 

@@ -1,11 +1,12 @@
 #ifndef FILEZILLA_INTERFACE_STATUSLINECTRL_HEADER
 #define FILEZILLA_INTERFACE_STATUSLINECTRL_HEADER
 
+class COptionsBase;
 class CQueueView;
 class CStatusLineCtrl final : public wxWindow
 {
 public:
-	CStatusLineCtrl(CQueueView* pParent, const t_EngineData* const pEngineData, const wxRect& initialPosition);
+	CStatusLineCtrl(CQueueView* pParent, COptionsBase & options, t_EngineData const* const pEngineData, wxRect const& initialPosition);
 	~CStatusLineCtrl();
 
 	const CFileItem* GetItem() const { return m_pEngineData->pItem; }
@@ -29,6 +30,7 @@ protected:
 	void DrawProgressBar(wxDC& dc, int x, int y, int height, int bar_split, int permill);
 
 	CQueueView* m_pParent;
+	COptionsBase & options_;
 	const t_EngineData* m_pEngineData;
 	CTransferStatus status_;
 

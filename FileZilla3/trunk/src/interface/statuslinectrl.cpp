@@ -19,8 +19,9 @@ wxCoord CStatusLineCtrl::m_textHeight;
 bool CStatusLineCtrl::m_initialized = false;
 int CStatusLineCtrl::m_barWidth = 102;
 
-CStatusLineCtrl::CStatusLineCtrl(CQueueView* pParent, const t_EngineData* const pEngineData, const wxRect& initialPosition)
+CStatusLineCtrl::CStatusLineCtrl(CQueueView* pParent, COptionsBase& options, t_EngineData const* const pEngineData, wxRect const& initialPosition)
 	: m_pParent(pParent)
+	, options_(options)
 	, m_pEngineData(pEngineData)
 {
 	wxASSERT(pEngineData);
@@ -140,7 +141,7 @@ void CStatusLineCtrl::OnPaint(wxPaintEvent&)
 			m_last_elapsed_seconds = elapsed_milli_seconds / 1000;
 		}
 
-		if (COptions::Get()->get_int(OPTION_SPEED_DISPLAY)) {
+		if (options_.get_int(OPTION_SPEED_DISPLAY)) {
 			rate = GetMomentarySpeed();
 		}
 		else {
@@ -164,16 +165,16 @@ void CStatusLineCtrl::OnPaint(wxPaintEvent&)
 			m_last_left = left;
 		}
 
-		const wxString bytestr = CSizeFormat::Format(status_.currentOffset, true, CSizeFormat::bytes, COptions::Get()->get_int(OPTION_SIZE_USETHOUSANDSEP) != 0, 0);
+		const wxString bytestr = CSizeFormat::Format(status_.currentOffset, true, CSizeFormat::bytes, options_.get_int(OPTION_SIZE_USETHOUSANDSEP) != 0, 0);
 		if (elapsed_milli_seconds >= 1000 && rate > -1) {
-			CSizeFormat::_format format = static_cast<CSizeFormat::_format>(COptions::Get()->get_int(OPTION_SIZE_FORMAT));
+			CSizeFormat::_format format = static_cast<CSizeFormat::_format>(options_.get_int(OPTION_SIZE_FORMAT));
 			if (format == CSizeFormat::bytes) {
 				format = CSizeFormat::iec;
 			}
 			const wxString ratestr = CSizeFormat::Format(rate, true,
 														 format,
-														 COptions::Get()->get_int(OPTION_SIZE_USETHOUSANDSEP) != 0,
-														 COptions::Get()->get_int(OPTION_SIZE_DECIMALPLACES));
+														 options_.get_int(OPTION_SIZE_USETHOUSANDSEP) != 0,
+														 options_.get_int(OPTION_SIZE_DECIMALPLACES));
 			bytes_and_rate.Printf(_("%s (%s/s)"), bytestr, ratestr );
 		}
 		else {

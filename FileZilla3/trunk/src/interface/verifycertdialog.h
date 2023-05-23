@@ -12,11 +12,13 @@
 class CertStore final : public xml_cert_store
 {
 public:
-	CertStore();
+	CertStore(bool kiosk_mode);
 
 private:
 	void SavingFileFailed(std::wstring const& file, std::wstring const& msg) override;
-	bool AllowedToSave() const;
+	bool AllowedToSave() const { return !kiosk_mode_; }
+
+	bool const kiosk_mode_{};
 };
 
 class CVerifyCertDialog final : protected wxDialogEx

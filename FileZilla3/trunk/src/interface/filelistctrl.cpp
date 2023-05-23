@@ -491,7 +491,7 @@ template<class CFileData> void CFileListCtrl<CFileData>::OnColumnClicked(wxListE
 		ReleaseCapture();
 		Refresh();
 #endif
-		CConditionalDialog dlg(this, CConditionalDialog::compare_changesorting, CConditionalDialog::yesno);
+		CConditionalDialog dlg(this, CConditionalDialog::compare_changesorting, CConditionalDialog::yesno, options_);
 		dlg.SetTitle(_("Directory comparison"));
 		dlg.AddText(_("Sort order cannot be changed if comparing directories."));
 		dlg.AddText(_("End comparison and change sorting order?"));

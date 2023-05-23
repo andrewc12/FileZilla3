@@ -3,10 +3,10 @@
 #include "settingsdialog.h"
 #include "optionspage.h"
 
-bool COptionsPage::CreatePage(COptions* pOptions, CSettingsDialog* pOwner, wxWindow* parent, wxSize& maxSize)
+bool COptionsPage::CreatePage(COptions & options, CSettingsDialog* pOwner, wxWindow* parent, wxSize& maxSize)
 {
 	m_pOwner = pOwner;
-	m_pOptions = pOptions;
+	m_pOptions = &options;
 
 	if (!CreateControls(parent)) {
 		return false;

@@ -9,8 +9,8 @@ BEGIN_EVENT_TABLE(CConditionalDialog, wxDialog)
 EVT_BUTTON(wxID_ANY, CConditionalDialog::OnButton)
 END_EVENT_TABLE()
 
-CConditionalDialog::CConditionalDialog(wxWindow* parent, DialogType type, Modes mode, bool checked)
-	: wxDialog(parent, wxID_ANY, wxString(), wxDefaultPosition), m_type(type)
+CConditionalDialog::CConditionalDialog(wxWindow* parent, DialogType type, Modes mode, COptionsBase & options, bool checked)
+	: wxDialog(parent, wxID_ANY, wxString(), wxDefaultPosition), m_type(type), options_(options)
 {
 	DialogLayout layout(this);
 
@@ -57,7 +57,7 @@ CConditionalDialog::CConditionalDialog(wxWindow* parent, DialogType type, Modes 
 
 bool CConditionalDialog::Run()
 {
-	wxString dialogs = COptions::Get()->get_string(OPTION_ONETIME_DIALOGS);
+	wxString dialogs = options_.get_string(OPTION_ONETIME_DIALOGS);
 	if (dialogs.size() > static_cast<size_t>(m_type) && dialogs[m_type] == '1') {
 		return true;
 	}
@@ -75,7 +75,7 @@ bool CConditionalDialog::Run()
 			dialogs += _T("0");
 		}
 		dialogs[m_type] = '1';
-		COptions::Get()->set(OPTION_ONETIME_DIALOGS, dialogs.ToStdWstring());
+		options_.set(OPTION_ONETIME_DIALOGS, dialogs.ToStdWstring());
 	}
 
 	if (id == wxID_OK || id == wxID_YES) {

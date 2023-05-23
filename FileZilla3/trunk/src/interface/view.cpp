@@ -5,6 +5,7 @@
 #include "state.h"
 #include "listingcomparison.h"
 #include "conditionaldialog.h"
+#include "Options.h"
 
 #include <algorithm>
 
@@ -78,8 +79,9 @@ void CView::OnSize(wxSizeEvent&)
 void CView::SetHeader(CViewHeader* pWnd)
 {
 	m_pHeader = pWnd;
-	if (m_pHeader && m_pHeader->GetParent() != this)
+	if (m_pHeader && m_pHeader->GetParent() != this) {
 		CViewHeader::Reparent(&m_pHeader, this);
+	}
 	FixTabOrder();
 }
 
@@ -110,12 +112,13 @@ void CView::ShowSearchPanel()
 		if (pState) {
 			CComparisonManager* pComparisonManager = pState->GetComparisonManager();
 			if (pComparisonManager && pComparisonManager->IsComparing()) {
-				CConditionalDialog dlg(this, CConditionalDialog::quick_search, CConditionalDialog::yesno);
+				CConditionalDialog dlg(this, CConditionalDialog::quick_search, CConditionalDialog::yesno, *COptions::Get());
 				dlg.SetTitle(_("Directory comparison"));
 				dlg.AddText(_("Quick search cannot be opened if comparing directories."));
 				dlg.AddText(_("End comparison and open quick search?"));
-				if (!dlg.Run())
+				if (!dlg.Run()) {
 					return;
+				}
 				pComparisonManager->ExitComparisonMode();
 			}		
 		}		

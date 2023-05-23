@@ -2,16 +2,16 @@
 #define FILEZILLA_INTERFACE_SETTINGS_SETTINGSDIALOG_HEADER
 
 #include "../dialogex.h"
-
 #include "../Options.h"
 
+class COptions;
 class COptionsPage;
 class CMainFrame;
 class wxTreeCtrlEx;
 class CSettingsDialog final : public wxDialogEx
 {
 public:
-	CSettingsDialog(CFileZillaEngineContext & engine_context);
+	CSettingsDialog(COptions& options, CFileZillaEngineContext & engine_context);
 	virtual ~CSettingsDialog();
 
 	bool Create(CMainFrame* pMainFrame);
@@ -26,7 +26,7 @@ public:
 protected:
 	bool LoadPages();
 
-	COptions* m_pOptions;
+	COptions & options_;
 
 	wxPanel* pagePanel_{};
 

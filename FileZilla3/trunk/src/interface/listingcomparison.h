@@ -3,6 +3,8 @@
 
 #include <wx/listctrl.h>
 
+class COptionsBase;
+
 enum class NameSortMode
 {
 	case_insensitive,
@@ -56,10 +58,10 @@ private:
 };
 
 class CState;
-class CComparisonManager
+class CComparisonManager final
 {
 public:
-	CComparisonManager(CState& state);
+	CComparisonManager(CState& state, COptionsBase & options);
 
 	bool CompareListings();
 	bool IsComparing() const { return m_isComparing; }
@@ -78,6 +80,7 @@ protected:
 	int CompareFiles(int const dirSortMode, NameSortMode const nameSortMode, std::wstring_view const& local_path, std::wstring_view const& local, std::wstring_view const& remote_path, std::wstring_view const& remote, bool localDir, bool remoteDir);
 
 	CState& m_state;
+	COptionsBase & options_;
 
 	// Left/right, first/second, a/b, doesn't matter
 	CComparableListing* m_pLeft{};

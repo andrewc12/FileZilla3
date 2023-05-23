@@ -7,13 +7,19 @@
 
 struct CSpeedLimitsDialog::impl final
 {
+	impl(COptionsBase & options)
+		: options_(options)
+	{}
+
 	wxCheckBox* enable_{};
 	wxTextCtrlEx* download_{};
 	wxTextCtrlEx* upload_{};
+
+	COptionsBase & options_;
 };
 
-CSpeedLimitsDialog::CSpeedLimitsDialog()
-	: impl_(std::make_unique<impl>())
+CSpeedLimitsDialog::CSpeedLimitsDialog(COptionsBase & options)
+	: impl_(std::make_unique<impl>(options))
 {
 }
 
@@ -24,9 +30,9 @@ CSpeedLimitsDialog::~CSpeedLimitsDialog()
 
 void CSpeedLimitsDialog::Run(wxWindow* parent)
 {
-	int downloadlimit = COptions::Get()->get_int(OPTION_SPEEDLIMIT_INBOUND);
-	int uploadlimit = COptions::Get()->get_int(OPTION_SPEEDLIMIT_OUTBOUND);
-	bool enable = COptions::Get()->get_int(OPTION_SPEEDLIMIT_ENABLE) != 0;
+	int downloadlimit = impl_->options_.get_int(OPTION_SPEEDLIMIT_INBOUND);
+	int uploadlimit = impl_->options_.get_int(OPTION_SPEEDLIMIT_OUTBOUND);
+	bool enable = impl_->options_.get_int(OPTION_SPEEDLIMIT_ENABLE) != 0;
 	if (!downloadlimit && !uploadlimit) {
 		enable = false;
 	}
@@ -110,11 +116,11 @@ void CSpeedLimitsDialog::OnOK(wxCommandEvent&)
 		return;
 	}
 
-	COptions::Get()->set(OPTION_SPEEDLIMIT_INBOUND, download);
-	COptions::Get()->set(OPTION_SPEEDLIMIT_OUTBOUND, upload);
+	impl_->options_.set(OPTION_SPEEDLIMIT_INBOUND, download);
+	impl_->options_.set(OPTION_SPEEDLIMIT_OUTBOUND, upload);
 
 	bool enable = impl_->enable_->GetValue() ? 1 : 0;
-	COptions::Get()->set(OPTION_SPEEDLIMIT_ENABLE, enable && (download || upload));
+	impl_->options_.set(OPTION_SPEEDLIMIT_ENABLE, enable && (download || upload));
 
 	EndDialog(wxID_OK);
 }

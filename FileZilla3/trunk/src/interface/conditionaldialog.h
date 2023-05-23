@@ -3,6 +3,8 @@
 
 #include <wx/dialog.h>
 
+class COptionsBase;
+
 class CConditionalDialog final : public wxDialog
 {
 public:
@@ -26,7 +28,7 @@ public:
 		quick_search
 	};
 
-	CConditionalDialog(wxWindow* parent, DialogType type, Modes mode, bool checked = false);
+	CConditionalDialog(wxWindow* parent, DialogType type, Modes mode, COptionsBase & options, bool checked = false);
 
 	void AddText(const wxString &text);
 
@@ -36,6 +38,8 @@ protected:
 	DialogType m_type;
 
 	wxSizer* m_pTextSizer;
+
+	COptionsBase & options_;
 
 	DECLARE_EVENT_TABLE()
 	void OnButton(wxCommandEvent& event);

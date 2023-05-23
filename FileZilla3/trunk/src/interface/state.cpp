@@ -226,7 +226,7 @@ CState::CState(CMainFrame &mainFrame)
 {
 	m_title = _("Not connected");
 
-	m_pComparisonManager = new CComparisonManager(*this);
+	m_pComparisonManager = new CComparisonManager(*this, m_mainFrame.GetOptions());
 
 	m_pLocalRecursiveOperation = new CLocalRecursiveOperation(*this);
 	m_pRemoteRecursiveOperation = new CRemoteRecursiveOperation(*this);
