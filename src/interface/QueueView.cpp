@@ -760,7 +760,7 @@ bool CQueueView::TryStartNextTransfer()
 		rect.SetHeight(GetLineHeight());
 		m_allowBackgroundErase = false;
 		if (!pEngineData->pStatusLineCtrl) {
-			pEngineData->pStatusLineCtrl = new CStatusLineCtrl(this, pEngineData, rect);
+			pEngineData->pStatusLineCtrl = new CStatusLineCtrl(this, options_, pEngineData, rect);
 		}
 		else {
 			pEngineData->pStatusLineCtrl->ClearTransferStatus();

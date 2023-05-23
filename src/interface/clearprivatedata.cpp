@@ -174,8 +174,8 @@ void CClearPrivateDataDialog::Delete()
 
 bool CClearPrivateDataDialog::ClearReconnect()
 {
-	COptions::Get()->Cleanup();
-	COptions::Get()->Save();
+	m_pMainFrame->GetOptions().Cleanup();
+	m_pMainFrame->GetOptions().Save();
 
 	const std::vector<CState*> *states = CContextManager::Get()->GetAllStates();
 	for (std::vector<CState*>::const_iterator iter = states->begin(); iter != states->end(); ++iter) {
@@ -190,7 +190,7 @@ bool CClearPrivateDataDialog::ClearReconnect()
 
 void CClearPrivateDataDialog::RemoveXmlFile(std::wstring const& name)
 {
-	std::wstring const path = COptions::Get()->get_string(OPTION_DEFAULT_SETTINGSDIR);
+	std::wstring const path = m_pMainFrame->GetOptions().get_string(OPTION_DEFAULT_SETTINGSDIR);
 	if (!name.empty() && !path.empty()) {
 		fz::remove_file(fz::to_native(path + name + L".xml"));
 		fz::remove_file(fz::to_native(path + name + L".xml~"));

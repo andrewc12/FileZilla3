@@ -7,9 +7,10 @@ BEGIN_EVENT_TABLE(CFilelistStatusBar, CFilelistStatusBarBase)
 EVT_TIMER(wxID_ANY, CFilelistStatusBar::OnTimer)
 END_EVENT_TABLE()
 
-CFilelistStatusBar::CFilelistStatusBar(wxWindow* pParent)
+CFilelistStatusBar::CFilelistStatusBar(wxWindow* pParent, COptionsBase & options)
 	: CFilelistStatusBarBase(pParent, wxID_ANY, 0)
 	, COptionChangeEventHandler(this)
+	, options_(options)
 {
 	m_updateTimer.SetOwner(this);
 
@@ -24,14 +25,14 @@ CFilelistStatusBar::CFilelistStatusBar(wxWindow* pParent)
 	}
 #endif
 
-	COptions::Get()->watch(OPTION_SIZE_FORMAT, this);
-	COptions::Get()->watch(OPTION_SIZE_USETHOUSANDSEP, this);
-	COptions::Get()->watch(OPTION_SIZE_DECIMALPLACES, this);
+	options_.watch(OPTION_SIZE_FORMAT, this);
+	options_.watch(OPTION_SIZE_USETHOUSANDSEP, this);
+	options_.watch(OPTION_SIZE_DECIMALPLACES, this);
 }
 
 CFilelistStatusBar::~CFilelistStatusBar()
 {
-	COptions::Get()->unwatch_all(this);
+	options_.unwatch_all(this);
 }
 
 void CFilelistStatusBar::UpdateText()

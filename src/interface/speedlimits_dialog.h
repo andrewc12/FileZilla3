@@ -6,7 +6,7 @@
 class CSpeedLimitsDialog final : public wxDialogEx
 {
 public:
-	CSpeedLimitsDialog();
+	CSpeedLimitsDialog(COptionsBase & options);
 	virtual ~CSpeedLimitsDialog();
 
 	void Run(wxWindow* parent);

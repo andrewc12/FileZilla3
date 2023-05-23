@@ -395,7 +395,7 @@ CMainFrame::CMainFrame(COptions& options)
 		CreateQuickconnectBar();
 	}
 
-	cert_store_ = std::make_unique<CertStore>();
+	cert_store_ = std::make_unique<CertStore>(options_.get_int(OPTION_DEFAULT_KIOSKMODE) == 2);
 	async_request_queue_ = std::make_unique<CAsyncRequestQueue>(this, options_, *cert_store_);
 
 #ifdef __WXMSW__
@@ -422,10 +422,10 @@ CMainFrame::CMainFrame(COptions& options)
 	m_pQueuePane = new CQueue(m_pQueueLogSplitter, this, async_request_queue_.get(), *cert_store_);
 
 	if (message_log_position == 1) {
-		m_pStatusView = new CStatusView(m_pQueueLogSplitter, -1);
+		m_pStatusView = new CStatusView(m_pQueueLogSplitter, options_);
 	}
 	else {
-		m_pStatusView = new CStatusView(m_pTopSplitter, -1);
+		m_pStatusView = new CStatusView(m_pTopSplitter, options_);
 	}
 
 	m_pQueueView = m_pQueuePane->GetQueueView();
@@ -736,7 +736,7 @@ void CMainFrame::OnMenuHandler(wxCommandEvent &event)
 		const wxString &command = dlg.GetValue();
 
 		if (!command.Left(5).CmpNoCase(_T("quote")) || !command.Left(6).CmpNoCase(_T("quote "))) {
-			CConditionalDialog condDlg(this, CConditionalDialog::rawcommand_quote, CConditionalDialog::yesno);
+			CConditionalDialog condDlg(this, CConditionalDialog::rawcommand_quote, CConditionalDialog::yesno, options_);
 			condDlg.SetTitle(_("Raw FTP command"));
 
 			condDlg.AddText(_("'quote' is usually a local command used by commandline clients to send the arguments following 'quote' to the server. You might want to enter the raw command without the leading 'quote'."));
@@ -758,7 +758,7 @@ void CMainFrame::OnMenuHandler(wxCommandEvent &event)
 		OnMenuEditSettings(event);
 	}
 	else if (id == XRCID("ID_MENU_EDIT_NETCONFWIZARD")) {
-		CNetConfWizard wizard(this, &options_, m_engineContext);
+		CNetConfWizard wizard(this, m_engineContext);
 		wizard.Load();
 		wizard.Run();
 	}
@@ -805,7 +805,7 @@ void CMainFrame::OnMenuHandler(wxCommandEvent &event)
 	else if (id == XRCID("ID_MENU_SERVER_VIEWHIDDEN")) {
 		bool showHidden = options_.get_int(OPTION_VIEW_HIDDEN_FILES) ? 0 : 1;
 		if (showHidden) {
-			CConditionalDialog dlg(this, CConditionalDialog::viewhidden, CConditionalDialog::ok, false);
+			CConditionalDialog dlg(this, CConditionalDialog::viewhidden, CConditionalDialog::ok, options_, false);
 			dlg.SetTitle(_("Force showing hidden files"));
 
 			dlg.AddText(_("Note that this feature is only supported using the FTP protocol."));
@@ -847,7 +847,7 @@ void CMainFrame::OnMenuHandler(wxCommandEvent &event)
 	}
 	else if (id == XRCID("ID_MENU_TRANSFER_PRESERVETIMES")) {
 		if (event.IsChecked()) {
-			CConditionalDialog dlg(this, CConditionalDialog::confirm_preserve_timestamps, CConditionalDialog::ok, true);
+			CConditionalDialog dlg(this, CConditionalDialog::confirm_preserve_timestamps, CConditionalDialog::ok, options_, true);
 			dlg.SetTitle(_("Preserving file timestamps"));
 			dlg.AddText(_("Please note that preserving timestamps on uploads on FTP, FTPS and FTPES servers only works if they support the MFMT command."));
 			dlg.Run();
@@ -981,7 +981,7 @@ void CMainFrame::OnMenuHandler(wxCommandEvent &event)
 		const int downloadLimit = options_.get_int(OPTION_SPEEDLIMIT_INBOUND);
 		const int uploadLimit = options_.get_int(OPTION_SPEEDLIMIT_OUTBOUND);
 		if (enable && !downloadLimit && !uploadLimit) {
-			CSpeedLimitsDialog dlg;
+			CSpeedLimitsDialog dlg(options_);
 			dlg.Run(this);
 		}
 		else {
@@ -989,7 +989,7 @@ void CMainFrame::OnMenuHandler(wxCommandEvent &event)
 		}
 	}
 	else if (id == XRCID("ID_MENU_TRANSFER_SPEEDLIMITS_CONFIGURE")) {
-		CSpeedLimitsDialog dlg;
+		CSpeedLimitsDialog dlg(options_);
 		dlg.Run(this);
 	}
 	else if (id == m_comparisonToggleAcceleratorId) {
@@ -1309,7 +1309,7 @@ void CMainFrame::OnClose(wxCloseEvent &event)
 			quit_confirmation_displayed = true;
 
 			if (m_pQueueView && m_pQueueView->IsActive()) {
-				CConditionalDialog dlg(this, CConditionalDialog::confirmexit, CConditionalDialog::yesno);
+				CConditionalDialog dlg(this, CConditionalDialog::confirmexit, CConditionalDialog::yesno, options_);
 				dlg.SetTitle(_("Close FileZilla"));
 
 				dlg.AddText(_("File transfers still in progress."));
@@ -1331,7 +1331,7 @@ void CMainFrame::OnClose(wxCloseEvent &event)
 					pEditHandler->GetFileCount(CEditHandler::none, CEditHandler::upload_and_remove) ||
 					pEditHandler->GetFileCount(CEditHandler::none, CEditHandler::upload_and_remove_failed))
 				{
-					CConditionalDialog dlg(this, CConditionalDialog::confirmexit_edit, CConditionalDialog::yesno);
+					CConditionalDialog dlg(this, CConditionalDialog::confirmexit_edit, CConditionalDialog::yesno, options_);
 					dlg.SetTitle(_("Close FileZilla"));
 
 					dlg.AddText(_("Some files are still being edited or need to be uploaded."));
@@ -1602,7 +1602,7 @@ void CMainFrame::OnProcessQueue(wxCommandEvent& event)
 
 void CMainFrame::OnMenuEditSettings(wxCommandEvent&)
 {
-	CSettingsDialog dlg(m_engineContext);
+	CSettingsDialog dlg(options_, m_engineContext);
 	if (!dlg.Create(this)) {
 		return;
 	}
@@ -1819,7 +1819,7 @@ void CMainFrame::OnCheckForUpdates(wxCommandEvent& event)
 	}
 
 	update_dialog_timer_.Stop();
-	CUpdateDialog dlg(this, *m_pUpdater);
+	CUpdateDialog dlg(this, *m_pUpdater, options_);
 	dlg.ShowModal();
 	update_dialog_timer_.Stop();
 }
@@ -1884,7 +1884,7 @@ void CMainFrame::TriggerUpdateDialog()
 		return;
 	}
 
-	CUpdateDialog dlg(this, *m_pUpdater);
+	CUpdateDialog dlg(this, *m_pUpdater, options_);
 	dlg.ShowModal();
 
 	// In case the timer was started while the dialog was up.
@@ -2446,7 +2446,7 @@ void CMainFrame::OnToolbarComparison(wxCommandEvent&)
 		}
 
 		if ((controls->pLocalListSearchPanel && controls->pLocalListSearchPanel->IsShown()) || (controls->pRemoteListSearchPanel && controls->pRemoteListSearchPanel->IsShown())) {
-			CConditionalDialog dlg(this, CConditionalDialog::quick_search, CConditionalDialog::yesno);
+			CConditionalDialog dlg(this, CConditionalDialog::quick_search, CConditionalDialog::yesno, options_);
 			dlg.SetTitle(_("Directory comparison"));
 			dlg.AddText(_("To compare directories quick search must be closed."));
 			dlg.AddText(_("Close quick search and continue comparing?"));
@@ -2466,7 +2466,7 @@ void CMainFrame::OnToolbarComparison(wxCommandEvent&)
 		if ((controls->pLocalSplitter->IsSplit() && !controls->pRemoteSplitter->IsSplit()) ||
 			(!controls->pLocalSplitter->IsSplit() && controls->pRemoteSplitter->IsSplit()))
 		{
-			CConditionalDialog dlg(this, CConditionalDialog::compare_treeviewmismatch, CConditionalDialog::yesno);
+			CConditionalDialog dlg(this, CConditionalDialog::compare_treeviewmismatch, CConditionalDialog::yesno, options_);
 			dlg.SetTitle(_("Directory comparison"));
 			dlg.AddText(_("To compare directories, both file lists have to be aligned."));
 			dlg.AddText(_("To do this, the directory trees need to be both shown or both hidden."));

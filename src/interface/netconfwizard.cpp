@@ -34,10 +34,10 @@ fztranslate_mark("&Next >");
 fztranslate_mark("< &Back");
 #endif
 
-CNetConfWizard::CNetConfWizard(wxWindow* parent, COptions* pOptions, CFileZillaEngineContext & engine_context)
+CNetConfWizard::CNetConfWizard(wxWindow* parent, CFileZillaEngineContext & engine_context)
 	: fz::event_handler(engine_context.GetEventLoop())
 	, engine_context_(engine_context)
-	, m_parent(parent), m_pOptions(pOptions)
+	, m_parent(parent)
 {
 	m_timer.SetOwner(this);
 
@@ -140,7 +140,7 @@ bool CNetConfWizard::Load()
 
 	// Load values
 
-	switch (m_pOptions->get_int(OPTION_USEPASV))
+	switch (engine_context_.GetOptions().get_int(OPTION_USEPASV))
 	{
 	default:
 	case 1:
@@ -151,9 +151,9 @@ bool CNetConfWizard::Load()
 		break;
 	}
 
-	XRCCTRL(*this, "ID_FALLBACK", wxCheckBox)->SetValue(m_pOptions->get_int(OPTION_ALLOW_TRANSFERMODEFALLBACK) != 0);
+	XRCCTRL(*this, "ID_FALLBACK", wxCheckBox)->SetValue(engine_context_.GetOptions().get_int(OPTION_ALLOW_TRANSFERMODEFALLBACK) != 0);
 
-	switch (m_pOptions->get_int(OPTION_PASVREPLYFALLBACKMODE))
+	switch (engine_context_.GetOptions().get_int(OPTION_PASVREPLYFALLBACKMODE))
 	{
 	default:
 	case 0:
@@ -163,7 +163,7 @@ bool CNetConfWizard::Load()
 		XRCCTRL(*this, "ID_PASSIVE_FALLBACK2", wxRadioButton)->SetValue(true);
 		break;
 	}
-	switch (m_pOptions->get_int(OPTION_EXTERNALIPMODE))
+	switch (engine_context_.GetOptions().get_int(OPTION_EXTERNALIPMODE))
 	{
 	default:
 	case 0:
@@ -176,7 +176,7 @@ bool CNetConfWizard::Load()
 		XRCCTRL(*this, "ID_ACTIVEMODE3", wxRadioButton)->SetValue(true);
 		break;
 	}
-	switch (m_pOptions->get_int(OPTION_LIMITPORTS))
+	switch (engine_context_.GetOptions().get_int(OPTION_LIMITPORTS))
 	{
 	default:
 	case 0:
@@ -186,11 +186,11 @@ bool CNetConfWizard::Load()
 		XRCCTRL(*this, "ID_ACTIVE_PORTMODE2", wxRadioButton)->SetValue(true);
 		break;
 	}
-	XRCCTRL(*this, "ID_ACTIVE_PORTMIN", wxTextCtrl)->SetValue(wxString::Format(_T("%d"), m_pOptions->get_int(OPTION_LIMITPORTS_LOW)));
-	XRCCTRL(*this, "ID_ACTIVE_PORTMAX", wxTextCtrl)->SetValue(wxString::Format(_T("%d"), m_pOptions->get_int(OPTION_LIMITPORTS_HIGH)));
-	XRCCTRL(*this, "ID_ACTIVEIP", wxTextCtrl)->SetValue(m_pOptions->get_string(OPTION_EXTERNALIP));
-	XRCCTRL(*this, "ID_ACTIVERESOLVER", wxTextCtrl)->SetValue(m_pOptions->get_string(OPTION_EXTERNALIPRESOLVER));
-	XRCCTRL(*this, "ID_NOEXTERNALONLOCAL", wxCheckBox)->SetValue(m_pOptions->get_int(OPTION_NOEXTERNALONLOCAL) != 0);
+	XRCCTRL(*this, "ID_ACTIVE_PORTMIN", wxTextCtrl)->SetValue(wxString::Format(_T("%d"), engine_context_.GetOptions().get_int(OPTION_LIMITPORTS_LOW)));
+	XRCCTRL(*this, "ID_ACTIVE_PORTMAX", wxTextCtrl)->SetValue(wxString::Format(_T("%d"), engine_context_.GetOptions().get_int(OPTION_LIMITPORTS_HIGH)));
+	XRCCTRL(*this, "ID_ACTIVEIP", wxTextCtrl)->SetValue(engine_context_.GetOptions().get_string(OPTION_EXTERNALIP));
+	XRCCTRL(*this, "ID_ACTIVERESOLVER", wxTextCtrl)->SetValue(engine_context_.GetOptions().get_string(OPTION_EXTERNALIPRESOLVER));
+	XRCCTRL(*this, "ID_NOEXTERNALONLOCAL", wxCheckBox)->SetValue(engine_context_.GetOptions().get_int(OPTION_NOEXTERNALONLOCAL) != 0);
 
 	return true;
 }
@@ -905,27 +905,27 @@ void CNetConfWizard::OnFinish(wxWizardEvent&)
 		}
 	}
 
-	m_pOptions->set(OPTION_USEPASV, XRCCTRL(*this, "ID_PASSIVE", wxRadioButton)->GetValue() ? 1 : 0);
-	m_pOptions->set(OPTION_ALLOW_TRANSFERMODEFALLBACK, XRCCTRL(*this, "ID_FALLBACK", wxCheckBox)->GetValue() ? 1 : 0);
+	engine_context_.GetOptions().set(OPTION_USEPASV, XRCCTRL(*this, "ID_PASSIVE", wxRadioButton)->GetValue() ? 1 : 0);
+	engine_context_.GetOptions().set(OPTION_ALLOW_TRANSFERMODEFALLBACK, XRCCTRL(*this, "ID_FALLBACK", wxCheckBox)->GetValue() ? 1 : 0);
 
-	m_pOptions->set(OPTION_PASVREPLYFALLBACKMODE, XRCCTRL(*this, "ID_PASSIVE_FALLBACK1", wxRadioButton)->GetValue() ? 0 : 1);
+	engine_context_.GetOptions().set(OPTION_PASVREPLYFALLBACKMODE, XRCCTRL(*this, "ID_PASSIVE_FALLBACK1", wxRadioButton)->GetValue() ? 0 : 1);
 
 	if (XRCCTRL(*this, "ID_ACTIVEMODE1", wxRadioButton)->GetValue()) {
-		m_pOptions->set(OPTION_EXTERNALIPMODE, 0);
+		engine_context_.GetOptions().set(OPTION_EXTERNALIPMODE, 0);
 	}
 	else {
-		m_pOptions->set(OPTION_EXTERNALIPMODE, XRCCTRL(*this, "ID_ACTIVEMODE2", wxRadioButton)->GetValue() ? 1 : 2);
+		engine_context_.GetOptions().set(OPTION_EXTERNALIPMODE, XRCCTRL(*this, "ID_ACTIVEMODE2", wxRadioButton)->GetValue() ? 1 : 2);
 	}
 
-	m_pOptions->set(OPTION_LIMITPORTS, XRCCTRL(*this, "ID_ACTIVE_PORTMODE1", wxRadioButton)->GetValue() ? 0 : 1);
+	engine_context_.GetOptions().set(OPTION_LIMITPORTS, XRCCTRL(*this, "ID_ACTIVE_PORTMODE1", wxRadioButton)->GetValue() ? 0 : 1);
 
 	long tmp;
-	XRCCTRL(*this, "ID_ACTIVE_PORTMIN", wxTextCtrl)->GetValue().ToLong(&tmp); m_pOptions->set(OPTION_LIMITPORTS_LOW, tmp);
-	XRCCTRL(*this, "ID_ACTIVE_PORTMAX", wxTextCtrl)->GetValue().ToLong(&tmp); m_pOptions->set(OPTION_LIMITPORTS_HIGH, tmp);
+	XRCCTRL(*this, "ID_ACTIVE_PORTMIN", wxTextCtrl)->GetValue().ToLong(&tmp); engine_context_.GetOptions().set(OPTION_LIMITPORTS_LOW, tmp);
+	XRCCTRL(*this, "ID_ACTIVE_PORTMAX", wxTextCtrl)->GetValue().ToLong(&tmp); engine_context_.GetOptions().set(OPTION_LIMITPORTS_HIGH, tmp);
 
-	m_pOptions->set(OPTION_EXTERNALIP, XRCCTRL(*this, "ID_ACTIVEIP", wxTextCtrl)->GetValue().ToStdWstring());
-	m_pOptions->set(OPTION_EXTERNALIPRESOLVER, XRCCTRL(*this, "ID_ACTIVERESOLVER", wxTextCtrl)->GetValue().ToStdWstring());
-	m_pOptions->set(OPTION_NOEXTERNALONLOCAL, XRCCTRL(*this, "ID_NOEXTERNALONLOCAL", wxCheckBox)->GetValue());
+	engine_context_.GetOptions().set(OPTION_EXTERNALIP, XRCCTRL(*this, "ID_ACTIVEIP", wxTextCtrl)->GetValue().ToStdWstring());
+	engine_context_.GetOptions().set(OPTION_EXTERNALIPRESOLVER, XRCCTRL(*this, "ID_ACTIVERESOLVER", wxTextCtrl)->GetValue().ToStdWstring());
+	engine_context_.GetOptions().set(OPTION_NOEXTERNALONLOCAL, XRCCTRL(*this, "ID_NOEXTERNALONLOCAL", wxCheckBox)->GetValue());
 }
 
 int CNetConfWizard::CreateListenSocket()

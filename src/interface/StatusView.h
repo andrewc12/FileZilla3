@@ -15,7 +15,7 @@ class CFastTextCtrl;
 class CStatusView final : public wxNavigationEnabled<wxWindow>, public COptionChangeEventHandler
 {
 public:
-	CStatusView(wxWindow* parent, wxWindowID id);
+	CStatusView(wxWindow* parent, COptionsBase & options);
 	virtual ~CStatusView();
 
 	void AddToLog(CLogmsgNotification && pNotification);
@@ -74,6 +74,8 @@ private:
 
 	// Re-using the same string to format the message in avoids uneeded allocations
 	std::wstring m_formattedMessage;
+
+	COptionsBase & options_;
 };
 
 #endif

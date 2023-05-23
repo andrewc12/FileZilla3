@@ -9,7 +9,7 @@ class CSettingsDialog;
 class COptionsPage : public wxPanel
 {
 public:
-	virtual bool CreatePage(COptions* pOptions, CSettingsDialog* pOwner, wxWindow* parent, wxSize& maxSize);
+	virtual bool CreatePage(COptions & options, CSettingsDialog* pOwner, wxWindow* parent, wxSize& maxSize);
 
 	void UpdateMaxPageSize(wxSize& maxSize);
 

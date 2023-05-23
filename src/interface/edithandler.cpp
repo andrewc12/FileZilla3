@@ -1119,7 +1119,7 @@ bool CEditHandler::Edit(CEditHandler::fileType type, std::vector<FileData> const
 	}
 
 	if (data.size() > 10) {
-		CConditionalDialog dlg(parent, CConditionalDialog::many_selected_for_edit, CConditionalDialog::yesno);
+		CConditionalDialog dlg(parent, CConditionalDialog::many_selected_for_edit, CConditionalDialog::yesno, options_);
 		dlg.SetTitle(_("Confirmation needed"));
 		dlg.AddText(_("You have selected more than 10 files for editing, do you really want to continue?"));
 

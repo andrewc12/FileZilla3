@@ -39,7 +39,7 @@ bool COptionsPageConnectionFTP::CreateControls(wxWindow* parent)
 		auto run = new wxButton(box, nullID, _("&Run configuration wizard now..."));
 		inner->Add(run);
 		run->Bind(wxEVT_BUTTON, [this](wxCommandEvent const&) {
-			CNetConfWizard wizard(GetParent(), m_pOptions, m_pOwner->GetEngineContext());
+			CNetConfWizard wizard(GetParent(), m_pOwner->GetEngineContext());
 			if (!wizard.Load()) {
 				return;
 			}

@@ -250,7 +250,7 @@ void CContextControl::CreateContextControls(CState& state)
 
 	bool show_filelist_statusbars = m_mainFrame.GetOptions().get_int(OPTION_FILELIST_STATUSBAR) != 0;
 
-	CFilelistStatusBar* pLocalFilelistStatusBar = new CFilelistStatusBar(context_controls.pLocalListViewPanel);
+	CFilelistStatusBar* pLocalFilelistStatusBar = new CFilelistStatusBar(context_controls.pLocalListViewPanel, m_mainFrame.GetOptions());
 	if (!show_filelist_statusbars) {
 		pLocalFilelistStatusBar->Hide();
 	}
@@ -260,7 +260,7 @@ void CContextControl::CreateContextControls(CState& state)
 	}
 	pLocalFilelistStatusBar->SetConnected(true);
 
-	CFilelistStatusBar* pRemoteFilelistStatusBar = new CFilelistStatusBar(context_controls.pRemoteListViewPanel);
+	CFilelistStatusBar* pRemoteFilelistStatusBar = new CFilelistStatusBar(context_controls.pRemoteListViewPanel, m_mainFrame.GetOptions());
 	if (!show_filelist_statusbars) {
 		pRemoteFilelistStatusBar->Hide();
 	}

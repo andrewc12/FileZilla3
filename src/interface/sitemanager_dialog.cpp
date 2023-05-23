@@ -1053,7 +1053,7 @@ void CSiteManagerDialog::OnDelete(wxCommandEvent&)
 		return;
 	}
 
-	CConditionalDialog dlg(this, CConditionalDialog::sitemanager_confirmdelete, CConditionalDialog::yesno);
+	CConditionalDialog dlg(this, CConditionalDialog::sitemanager_confirmdelete, CConditionalDialog::yesno, options_);
 	dlg.SetTitle(_("Delete Site Manager entries"));
 
 	dlg.AddText(_("Do you really want to delete the selected entries?"));

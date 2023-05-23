@@ -8,6 +8,7 @@
 
 #include <wx/timer.h>
 
+class COptionsBase;
 class wxPanel;
 class wxWindow;
 
@@ -16,7 +17,7 @@ class wxHyperlinkEvent;
 class CUpdateDialog final : public wxDialogEx, protected CUpdateHandler
 {
 public:
-	CUpdateDialog(wxWindow* parent, CUpdater& updater);
+	CUpdateDialog(wxWindow* parent, CUpdater& updater, COptionsBase & options);
 	virtual ~CUpdateDialog();
 
 	virtual int ShowModal();
@@ -39,6 +40,8 @@ protected:
 	std::vector<wxPanel*> panels_;
 
 	wxTimer timer_;
+
+	COptionsBase & options_;
 
 	DECLARE_EVENT_TABLE()
 	void OnInstall(wxCommandEvent& ev);

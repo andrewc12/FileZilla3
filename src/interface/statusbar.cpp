@@ -538,7 +538,7 @@ void CStatusBar::OnHandleLeftClick(wxWindow* pWnd)
 		}
 	}
 	else if (pWnd == m_pSpeedLimitsIndicator) {
-		CSpeedLimitsDialog dlg;
+		CSpeedLimitsDialog dlg(options_);
 		dlg.Run(m_pParent);
 	}
 	else if (pWnd == m_pDataTypeIndicator) {
@@ -672,7 +672,7 @@ void CStatusBar::OnSpeedLimitsEnable(wxCommandEvent&)
 	bool enable = options_.get_int(OPTION_SPEEDLIMIT_ENABLE) == 0;
 	if (enable) {
 		if (!downloadlimit && !uploadlimit) {
-			CSpeedLimitsDialog dlg;
+			CSpeedLimitsDialog dlg(options_);
 			dlg.Run(m_pParent);
 		}
 		else {
@@ -686,7 +686,7 @@ void CStatusBar::OnSpeedLimitsEnable(wxCommandEvent&)
 
 void CStatusBar::OnSpeedLimitsConfigure(wxCommandEvent&)
 {
-	CSpeedLimitsDialog dlg;
+	CSpeedLimitsDialog dlg(options_);
 	dlg.Run(m_pParent);
 }
 

@@ -40,9 +40,10 @@ enum type {
 
 static int refcount = 0;
 
-CUpdateDialog::CUpdateDialog(wxWindow* parent, CUpdater& updater)
+CUpdateDialog::CUpdateDialog(wxWindow* parent, CUpdater& updater, COptionsBase & options)
 	: parent_(parent)
 	, updater_(updater)
+	, options_(options)
 {
 	timer_.SetOwner(this);
 	++refcount;
@@ -248,7 +249,7 @@ void CUpdateDialog::InitFooter()
 		}
 	}
 
-	if (CBuildInfo::GetBuildType() == _T("official") && !COptions::Get()->get_bool(OPTION_DISABLE_UPDATE_FOOTER)) {
+	if (CBuildInfo::GetBuildType() == _T("official") && !options_.get_bool(OPTION_DISABLE_UPDATE_FOOTER)) {
 		wxString const resources = updater_.GetResources(resource_type::update_dialog);
 		if (!resources.empty()) {
 			wxLogNull null;
@@ -388,7 +389,7 @@ void CUpdateDialog::UpdaterStateChanged(UpdaterState s, build const& v)
 			bool const outdated = s == UpdaterState::newversion_stale;
 			bool const manual = s == UpdaterState::newversion || outdated;
 			bool const dlfail = s == UpdaterState::newversion && !v.url_.empty();
-			bool const disabled = COptions::Get()->get_int(OPTION_DEFAULT_DISABLEUPDATECHECK) != 0 || !COptions::Get()->get_int(OPTION_UPDATECHECK);
+			bool const disabled = options_.get_int(OPTION_DEFAULT_DISABLEUPDATECHECK) != 0 || !options_.get_int(OPTION_UPDATECHECK);
 
 			XRCCTRL(*this, "ID_OUTDATED", wxStaticText)->Show(outdated);
 			XRCCTRL(*this, "ID_DISABLED_CHECK", wxStaticText)->Show(outdated && disabled);
@@ -414,7 +415,7 @@ void CUpdateDialog::OnInstall(wxCommandEvent&)
 	if (f.empty()) {
 		return;
 	}
-	COptions::Get()->set(OPTION_GREETINGRESOURCES, updater_.GetResources(resource_type::update_dialog));
+	options_.set(OPTION_GREETINGRESOURCES, updater_.GetResources(resource_type::update_dialog));
 #ifdef __WXMSW__
 	std::vector<std::wstring> cmd_with_args;
 	cmd_with_args.push_back(f);

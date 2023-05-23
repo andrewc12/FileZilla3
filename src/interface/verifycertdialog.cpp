@@ -17,8 +17,9 @@
 
 #include <cassert>
 
-CertStore::CertStore()
+CertStore::CertStore(bool kiosk_mode)
 	: xml_cert_store(wxGetApp().GetSettingsFile(L"trustedcerts"))
+	, kiosk_mode_(kiosk_mode)
 {
 }
 
@@ -27,11 +28,6 @@ void CertStore::SavingFileFailed(std::wstring const& file, std::wstring const& e
 	assert(!error.empty());
 	wxString msg = wxString::Format(_("Could not write \"%s\":"), file);
 	wxMessageBoxEx(msg + _T("\n") + error, _("Error writing xml file"), wxICON_ERROR);
-}
-
-bool CertStore::AllowedToSave() const
-{
-	return COptions::Get()->get_int(OPTION_DEFAULT_KIOSKMODE) != 2;
 }
 
 struct CVerifyCertDialog::impl final

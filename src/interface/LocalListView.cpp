@@ -1901,7 +1901,7 @@ void CLocalListView::OnMenuOpen(wxCommandEvent&)
 	}
 
 	if (selected_item_list.size() > 10) {
-		CConditionalDialog dlg(this, CConditionalDialog::many_selected_for_edit, CConditionalDialog::yesno);
+		CConditionalDialog dlg(this, CConditionalDialog::many_selected_for_edit, CConditionalDialog::yesno, options_);
 		dlg.SetTitle(_("Confirmation needed"));
 		dlg.AddText(_("You have selected more than 10 files or directories to open, do you really want to continue?"));
 

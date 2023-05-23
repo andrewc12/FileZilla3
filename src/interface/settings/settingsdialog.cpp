@@ -1,6 +1,5 @@
 #include "../filezilla.h"
 #include "settingsdialog.h"
-#include "../Options.h"
 #include "optionspage.h"
 #include "optionspage_connection.h"
 #include "optionspage_connection_ftp.h"
@@ -28,10 +27,10 @@
 #include "../Mainfrm.h"
 #include "../treectrlex.h"
 
-CSettingsDialog::CSettingsDialog(CFileZillaEngineContext & engine_context)
-	: m_engine_context(engine_context)
+CSettingsDialog::CSettingsDialog(COptions & options, CFileZillaEngineContext & engine_context)
+	: options_(options)
+	, m_engine_context(engine_context)
 {
-	m_pOptions = COptions::Get();
 }
 
 CSettingsDialog::~CSettingsDialog()
@@ -139,7 +138,7 @@ bool CSettingsDialog::LoadPages()
 	AddPage(_("File editing"), new COptionsPageEdit, 0);
 	AddPage(_("Filetype associations"), new COptionsPageEditAssociations, 1);
 #if FZ_MANUALUPDATECHECK && FZ_AUTOUPDATECHECK
-	if (!m_pOptions->get_int(OPTION_DEFAULT_DISABLEUPDATECHECK)) {
+	if (!options_.get_int(OPTION_DEFAULT_DISABLEUPDATECHECK)) {
 		AddPage(_("Updates"), new COptionsPageUpdateCheck, 0);
 	}
 #endif //FZ_MANUALUPDATECHECK && FZ_AUTOUPDATECHECK
@@ -168,7 +167,7 @@ bool CSettingsDialog::LoadPages()
 	size = wxSize();
 
 	for (auto const& page : m_pages) {
-		if (!page.page->CreatePage(m_pOptions, this, pagePanel_, size)) {
+		if (!page.page->CreatePage(options_, this, pagePanel_, size)) {
 			return false;
 		}
 	}
@@ -297,7 +296,7 @@ void CSettingsDialog::OnCancel(wxCommandEvent&)
 	EndModal(wxID_CANCEL);
 
 	for (auto const& saved : m_oldValues) {
-		m_pOptions->set(saved.first, saved.second);
+		options_.set(saved.first, saved.second);
 	}
 }
 
@@ -314,5 +313,5 @@ void CSettingsDialog::OnPageChanging(wxTreeEvent& event)
 
 void CSettingsDialog::RememberOldValue(interfaceOptions option)
 {
-	m_oldValues[option] = m_pOptions->get_string(option);
+	m_oldValues[option] = options_.get_string(option);
 }
