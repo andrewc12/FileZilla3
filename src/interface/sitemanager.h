@@ -20,13 +20,13 @@ public:
 	static void ClearIdMap();
 	static std::unique_ptr<Site> GetSiteById(int id);
 
-	static std::pair<std::unique_ptr<Site>, Bookmark> GetSiteByPath(std::wstring const& sitePath, bool printErrors = true);
+	static std::pair<std::unique_ptr<Site>, Bookmark> GetSiteByPath(COptionsBase & options, std::wstring const& sitePath, bool printErrors = true);
 
 	static std::wstring AddServer(Site site);
 	static bool AddBookmark(std::wstring sitePath, wxString const& name, wxString const& local_dir, CServerPath const& remote_dir, bool sync, bool comparison);
 	static bool ClearBookmarks(std::wstring sitePath);
 
-	static void Rewrite(CLoginManager & loginManager, bool on_failure_set_to_ask);
+	static void Rewrite(CLoginManager & loginManager, COptionsBase& options, bool on_failure_set_to_ask);
 
 	static bool HasSites();
 
@@ -38,8 +38,7 @@ public:
 protected:
 	static bool ImportSites(pugi::xml_node sitesToImport, pugi::xml_node existingSites);
 
-	static void Rewrite(CLoginManager & loginManager, pugi::xml_node element, bool on_failure_set_to_ask);
-	static void Save(pugi::xml_node element, Site const& site);
+	static void Rewrite(CLoginManager & loginManager, COptionsBase& options, pugi::xml_node element, bool on_failure_set_to_ask);
 
 	static std::map<int, std::unique_ptr<Site>> m_idMap;
 

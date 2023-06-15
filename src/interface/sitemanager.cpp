@@ -254,11 +254,11 @@ std::unique_ptr<Site> CSiteManager::GetSiteById(int id)
 	return pData;
 }
 
-std::pair<std::unique_ptr<Site>, Bookmark> CSiteManager::GetSiteByPath(std::wstring const& sitePath, bool printErrors)
+std::pair<std::unique_ptr<Site>, Bookmark> CSiteManager::GetSiteByPath(COptionsBase & options, std::wstring const& sitePath, bool printErrors)
 {
 	std::wstring error;
 
-	CLocalPath settings_path{COptions::Get()->get_string(OPTION_DEFAULT_SETTINGSDIR)};
+	CLocalPath settings_path{options.get_string(OPTION_DEFAULT_SETTINGSDIR)};
 	app_paths paths{settings_path, GetDefaultsDir()};
 	auto ret = site_manager::GetSiteByPath(paths, sitePath, error);
 	if (!ret.first && printErrors) {
@@ -510,12 +510,12 @@ wxString CSiteManager::GetColourName(int i)
 	return wxGetTranslation(background_colors[i].name);
 }
 
-void CSiteManager::Rewrite(CLoginManager & loginManager, pugi::xml_node element, bool on_failure_set_to_ask)
+void CSiteManager::Rewrite(CLoginManager & loginManager, COptionsBase& options, pugi::xml_node element, bool on_failure_set_to_ask)
 {
-	bool const forget = COptions::Get()->get_int(OPTION_DEFAULT_KIOSKMODE) != 0;
+	bool const forget = options.get_int(OPTION_DEFAULT_KIOSKMODE) != 0;
 	for (auto child = element.first_child(); child; child = child.next_sibling()) {
 		if (!strcmp(child.name(), "Folder")) {
-			Rewrite(loginManager, child, on_failure_set_to_ask);
+			Rewrite(loginManager, options, child, on_failure_set_to_ask);
 		}
 		else if (!strcmp(child.name(), "Server")) {
 			auto site = ReadServerElement(child);
@@ -525,15 +525,15 @@ void CSiteManager::Rewrite(CLoginManager & loginManager, pugi::xml_node element,
 					unprotect(site->credentials, loginManager.GetDecryptor(site->credentials.encrypted_), on_failure_set_to_ask);
 				}
 				protect(site->credentials);
-				Save(child, *site);
+				site_manager::Save(child, *site, loginManager, options);
 			}
 		}
 	}
 }
 
-void CSiteManager::Rewrite(CLoginManager & loginManager, bool on_failure_set_to_ask)
+void CSiteManager::Rewrite(CLoginManager & loginManager, COptionsBase& options, bool on_failure_set_to_ask)
 {
-	if (COptions::Get()->get_int(OPTION_DEFAULT_KIOSKMODE) == 2) {
+	if (options.get_int(OPTION_DEFAULT_KIOSKMODE) == 2) {
 		return;
 	}
 	CInterProcessMutex mutex(MUTEX_SITEMANAGER);
@@ -550,14 +550,9 @@ void CSiteManager::Rewrite(CLoginManager & loginManager, bool on_failure_set_to_
 		return;
 	}
 
-	Rewrite(loginManager, element, on_failure_set_to_ask);
+	Rewrite(loginManager, options, element, on_failure_set_to_ask);
 
 	SaveWithErrorDialog(file);
-}
-
-void CSiteManager::Save(pugi::xml_node element, Site const& site)
-{
-	site_manager::Save(element, site, CLoginManager::Get(), *COptions::Get());
 }
 
 namespace {
@@ -661,7 +656,7 @@ bool CSiteManager::ImportSites(pugi::xml_node sitesToImport, pugi::xml_node exis
 		protect(site->credentials);
 
 		auto xsite = existingSites.append_child("Server");
-		Save(xsite, *site);
+		site_manager::Save(xsite, *site, loginManager, *COptions::Get());
 	}
 
 	return true;

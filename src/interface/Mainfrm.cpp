@@ -830,7 +830,7 @@ void CMainFrame::OnMenuHandler(wxCommandEvent &event)
 	}
 	else if (id == XRCID("ID_IMPORT")) {
 		CImportDialog dlg(this, m_pQueueView);
-		dlg.Run();
+		dlg.Run(options_);
 	}
 	else if (id == XRCID("ID_MENU_FILE_EDITED")) {
 		CEditHandlerStatusDialog dlg(this);
@@ -950,16 +950,16 @@ void CMainFrame::OnMenuHandler(wxCommandEvent &event)
 		// controls->last_bookmark_path can get modified if it's empty now
 		int res;
 		if (id == XRCID("ID_BOOKMARK_ADD")) {
-			CNewBookmarkDialog dlg(this, sitePath, old_site ? &old_site : 0);
+			CNewBookmarkDialog dlg(this, options_, sitePath, old_site ? &old_site : 0);
 			res = dlg.Run(pState->GetLocalDir().GetPath(), pState->GetRemotePath());
 		}
 		else {
-			CBookmarksDialog dlg(this, sitePath, old_site ? &old_site : 0);
+			CBookmarksDialog dlg(this, options_, sitePath, old_site ? &old_site : 0);
 			res = dlg.Run();
 		}
 		if (res == wxID_OK) {
 			if (!sitePath.empty()) {
-				std::unique_ptr<Site> site = CSiteManager::GetSiteByPath(sitePath, false).first;
+				std::unique_ptr<Site> site = CSiteManager::GetSiteByPath(options_, sitePath, false).first;
 				if (site) {
 					for (int i = 0; i < m_pContextControl->GetTabCount(); ++i) {
 						CContextControl::_context_controls *tab_controls = m_pContextControl->GetControlsFromTabIndex(i);
@@ -2618,7 +2618,7 @@ void CMainFrame::ProcessCommandLine()
 		}
 	}
 	else if (!(site = pCommandLine->GetOption(CCommandLine::site)).empty()) {
-		auto const data = CSiteManager::GetSiteByPath(site);
+		auto const data = CSiteManager::GetSiteByPath(options_, site);
 
 		if (data.first) {
 			ConnectToSite(*data.first, data.second);

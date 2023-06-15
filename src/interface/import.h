@@ -6,12 +6,13 @@
 #include "xmlfunctions.h"
 
 class CQueueView;
+class XmlOptions;
 class CImportDialog final : public wxDialogEx
 {
 public:
 	CImportDialog(wxWindow* parent, CQueueView* pQueueView);
 
-	void Run();
+	void Run(XmlOptions & options);
 
 protected:
 

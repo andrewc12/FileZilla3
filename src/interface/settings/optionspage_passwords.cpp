@@ -184,7 +184,7 @@ bool COptionsPagePasswords::SavePage()
 
 	m_pOptions->Cleanup();
 
-	CSiteManager::Rewrite(loginManager, true);
+	CSiteManager::Rewrite(loginManager, *m_pOptions, true);
 
 	CContextManager::Get()->NotifyGlobalHandlers(STATECHANGE_REWRITE_CREDENTIALS, std::wstring(), &loginManager);
 

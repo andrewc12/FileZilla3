@@ -4,15 +4,17 @@
 #include "dialogex.h"
 #include "serverdata.h"
 
+class COptionsBase;
 class CNewBookmarkDialog final : public wxDialogEx
 {
 public:
-	CNewBookmarkDialog(wxWindow* parent, std::wstring& site_path, Site const* site);
+	CNewBookmarkDialog(wxWindow* parent, COptionsBase & options, std::wstring& site_path, Site const* site);
 
 	int Run(wxString const& local_path, CServerPath const& remote_path);
 
 protected:
 	wxWindow* m_parent;
+	COptionsBase & options_;
 	std::wstring &m_site_path;
 	Site const* site_;
 
@@ -25,7 +27,7 @@ class wxTreeCtrlEx;
 class CBookmarksDialog final : public wxDialogEx
 {
 public:
-	CBookmarksDialog(wxWindow* parent, std::wstring& site_path, Site const* site);
+	CBookmarksDialog(wxWindow* parent, COptionsBase & options, std::wstring& site_path, Site const* site);
 
 	int Run();
 
@@ -45,6 +47,7 @@ protected:
 	void SaveGlobalBookmarks();
 
 	wxWindow* m_parent{};
+	COptionsBase & options_;
 	std::wstring &m_site_path;
 	Site const* site_{};
 
