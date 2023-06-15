@@ -538,7 +538,7 @@ void CControlSocket::OnTimer(fz::timer_id)
 	if (timeout > 0) {
 		fz::duration elapsed = fz::monotonic_clock::now() - m_lastActivity;
 
-		if ((operations_.empty() || !operations_.back()->waitForAsyncRequest) && !opLockManager_.Waiting(this)) {
+		if ((operations_.empty() || operations_.back()->async_request_state_ == async_request_state::none) && !opLockManager_.Waiting(this)) {
 			if (elapsed > fz::duration::from_seconds(timeout)) {
 				log(logmsg::error, fztranslate("Connection timed out after %d second of inactivity", "Connection timed out after %d seconds of inactivity", timeout), timeout);
 				DoClose(FZ_REPLY_TIMEOUT);
@@ -591,7 +591,7 @@ int CControlSocket::SendNextCommand()
 
 	while (!operations_.empty()) {
 		auto & data = *operations_.back();
-		if (data.waitForAsyncRequest) {
+		if (data.async_request_state_ == async_request_state::waiting) {
 			log(logmsg::debug_info, L"Waiting for async request, ignoring SendNextCommand...");
 			return FZ_REPLY_WOULDBLOCK;
 		}
@@ -692,7 +692,7 @@ fz::duration CControlSocket::GetInferredTimezoneOffset() const
 	return ret;
 }
 
-void CControlSocket::SendAsyncRequest(std::unique_ptr<CAsyncRequestNotification> && notification)
+void CControlSocket::SendAsyncRequest(std::unique_ptr<CAsyncRequestNotification> && notification, bool wait)
 {
 	if (!notification || operations_.empty()) {
 		return;
@@ -700,7 +700,7 @@ void CControlSocket::SendAsyncRequest(std::unique_ptr<CAsyncRequestNotification>
 	notification->requestNumber = engine_.GetNextAsyncRequestNumber();
 
 	if (!operations_.empty()) {
-		operations_.back()->waitForAsyncRequest = true;
+		operations_.back()->async_request_state_ = wait ? async_request_state::waiting : async_request_state::parallel;
 	}
 	engine_.AddNotification(std::move(notification));
 }
@@ -1162,12 +1162,12 @@ void CControlSocket::SendDirectoryListingNotification(CServerPath const& path, b
 
 void CControlSocket::CallSetAsyncRequestReply(CAsyncRequestNotification *pNotification)
 {
-	if (operations_.empty() || !operations_.back()->waitForAsyncRequest) {
+	if (operations_.empty() || operations_.back()->async_request_state_ == async_request_state::none) {
 		log(logmsg::debug_info, L"Not waiting for request reply, ignoring request reply %d", pNotification->GetRequestID());
 		return;
 	}
 
-	operations_.back()->waitForAsyncRequest = false;
+	operations_.back()->async_request_state_ = async_request_state::none;
 
 	SetAlive();
 	SetAsyncRequestReply(pNotification);
