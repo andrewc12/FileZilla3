@@ -12,6 +12,12 @@
 #include <libfilezilla/buffer.hpp>
 #include <libfilezilla/socket.hpp>
 
+enum class async_request_state : unsigned {
+	none,
+	waiting,
+	parallel
+};
+
 class COpData
 {
 public:
@@ -49,7 +55,7 @@ public:
 	logmsg::type sendLogLevel_{logmsg::debug_verbose};
 
 	bool topLevelOperation_{}; // If set to true, if this command finishes, any other commands on the stack do not get a SubCommandResult
-	bool waitForAsyncRequest{};
+	async_request_state async_request_state_{};
 };
 
 template<typename T>
@@ -216,7 +222,7 @@ public:
 
 	Command GetCurrentCommandId() const;
 
-	void SendAsyncRequest(std::unique_ptr<CAsyncRequestNotification> && notification);
+	void SendAsyncRequest(std::unique_ptr<CAsyncRequestNotification> && notification, bool wait = true);
 	void CallSetAsyncRequestReply(CAsyncRequestNotification *pNotification);
 	bool SetFileExistsAction(CFileExistsNotification *pFileExistsNotification);
 
