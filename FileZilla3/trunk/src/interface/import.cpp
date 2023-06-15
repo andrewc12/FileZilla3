@@ -16,7 +16,7 @@ CImportDialog::CImportDialog(wxWindow* parent, CQueueView* pQueueView)
 {
 }
 
-void CImportDialog::Run()
+void CImportDialog::Run(XmlOptions & options)
 {
 	wxFileDialog dlg(m_parent, _("Select file to import settings from"), wxString(),
 					_T("FileZilla.xml"), _T("XML files (*.xml)|*.xml"),
@@ -29,7 +29,7 @@ void CImportDialog::Run()
 
 	wxFileName fn(dlg.GetPath());
 	wxString const path = fn.GetPath();
-	wxString const settingsDir(COptions::Get()->get_string(OPTION_DEFAULT_SETTINGSDIR));
+	wxString const settingsDir(options.get_string(OPTION_DEFAULT_SETTINGSDIR));
 	if (path == settingsDir) {
 		wxMessageBoxEx(_("You cannot import settings from FileZilla's own settings directory."), _("Error importing"), wxICON_ERROR, m_parent);
 		return;
@@ -83,7 +83,7 @@ void CImportDialog::Run()
 
 			if (settings && xrc_call(*this, "ID_SETTINGS", &wxCheckBox::IsChecked)) {
 				auto settings = fz3Root.child("Settings");
-				COptions::Get()->Import(settings);
+				options.Import(settings);
 				wxMessageBoxEx(_("The settings have been imported. You have to restart FileZilla for all settings to have effect."), _("Import successful"), wxOK, this);
 			}
 

@@ -7,6 +7,7 @@
 #include "drop_target_ex.h"
 #include "filezillaapp.h"
 #include "inputdialog.h"
+#include "loginmanager.h"
 #include "Options.h"
 #include "sitemanager_site.h"
 #include "themeprovider.h"
@@ -841,7 +842,7 @@ bool CSiteManagerDialog::SaveChild(pugi::xml_node element, wxTreeItemId child)
 			bookmarkChild = tree_->GetNextChild(child, cookie);
 		}
 
-		CSiteManager::Save(node, *data->m_site);
+		CSiteManager::Save(node, *data->m_site, CLoginManager::Get(), options_);
 
 		if (data->connected_item != -1) {
 			(*m_connected_sites)[data->connected_item].site = *data->m_site;

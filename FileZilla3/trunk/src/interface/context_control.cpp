@@ -755,7 +755,7 @@ void CContextControl::RestoreTabs()
 
 				std::unique_ptr<Site> ssite;
 				if (!last_site_path.empty()) {
-					auto ssite = CSiteManager::GetSiteByPath(last_site_path, false).first;
+					auto ssite = CSiteManager::GetSiteByPath(m_mainFrame.GetOptions(), last_site_path, false).first;
 					if (ssite && ssite->SameResource(site)) {
 						site = *ssite;
 					}

@@ -31,8 +31,9 @@ EVT_TREE_BEGIN_LABEL_EDIT(XRCID("ID_TREE"), CBookmarksDialog::OnBeginLabelEdit)
 EVT_TREE_END_LABEL_EDIT(XRCID("ID_TREE"), CBookmarksDialog::OnEndLabelEdit)
 END_EVENT_TABLE()
 
-CNewBookmarkDialog::CNewBookmarkDialog(wxWindow* parent, std::wstring& site_path, Site const* site)
+CNewBookmarkDialog::CNewBookmarkDialog(wxWindow* parent, COptionsBase & options, std::wstring& site_path, Site const* site)
 	: m_parent(parent)
+	, options_(options)
 	, m_site_path(site_path)
 	, site_(site)
 {
@@ -96,7 +97,7 @@ void CNewBookmarkDialog::OnOK(wxCommandEvent&)
 	if (!global && site_) {
 		std::unique_ptr<Site> site;
 		if (!m_site_path.empty()) {
-			site = CSiteManager::GetSiteByPath(m_site_path).first;
+			site = CSiteManager::GetSiteByPath(options_, m_site_path).first;
 		}
 		if (!site) {
 			if (wxMessageBoxEx(_("Site-specific bookmarks require the server to be stored in the Site Manager.\nAdd current connection to the site manager?"), _("New bookmark"), wxYES_NO | wxICON_QUESTION, this) != wxYES) {
@@ -161,8 +162,9 @@ public:
 	bool m_comparison{};
 };
 
-CBookmarksDialog::CBookmarksDialog(wxWindow* parent, std::wstring& site_path, Site const* site)
+CBookmarksDialog::CBookmarksDialog(wxWindow* parent, COptionsBase & options, std::wstring& site_path, Site const* site)
 	: m_parent(parent)
+	, options_(options)
 	, m_site_path(site_path)
 	, site_(site)
 {
@@ -225,7 +227,7 @@ void CBookmarksDialog::LoadSiteSpecificBookmarks()
 		return;
 	}
 
-	auto const site = CSiteManager::GetSiteByPath(m_site_path).first;
+	auto const site = CSiteManager::GetSiteByPath(options_, m_site_path).first;
 	if (!site) {
 		return;
 	}
@@ -604,7 +606,7 @@ void CBookmarksDialog::OnNewBookmark(wxCommandEvent&)
 
 		std::unique_ptr<Site> site;
 		if (!m_site_path.empty()) {
-			site = CSiteManager::GetSiteByPath(m_site_path).first;
+			site = CSiteManager::GetSiteByPath(options_, m_site_path).first;
 		}
 
 		if (!site) {
