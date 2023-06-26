@@ -40,8 +40,9 @@ public:
 	bool bTriedPasv{};
 	bool bTriedActive{};
 
+private:
 	std::wstring host_;
-	int port_{};
+	unsigned short port_{};
 };
 
 #endif

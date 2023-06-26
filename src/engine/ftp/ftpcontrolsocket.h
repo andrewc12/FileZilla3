@@ -5,8 +5,6 @@
 #include "../controlsocket.h"
 #include "../rtt.h"
 
-#include <regex>
-
 namespace PrivCommand {
 auto const cwd = Command::private1;
 auto const rawtransfer = Command::private2;
@@ -128,8 +126,6 @@ protected:
 
 	void OnExternalIPAddress();
 	void OnTimer(fz::timer_id id);
-
-	std::unique_ptr<std::wregex> m_pasvReplyRegex; // Have it as class member to avoid recompiling the regex on each transfer or listing
 
 	friend class CProtocolOpData<CFtpControlSocket>;
 	friend class CFtpChangeDirOpData;

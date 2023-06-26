@@ -483,7 +483,7 @@ void CTransferSocket::OnSocketError(int error)
 	TransferEnd(TransferEndReason::transfer_failure);
 }
 
-bool CTransferSocket::SetupPassiveTransfer(std::wstring const& host, int port)
+bool CTransferSocket::SetupPassiveTransfer(std::wstring const& host, unsigned short port)
 {
 	std::string ip = fz::to_utf8(host);
 
