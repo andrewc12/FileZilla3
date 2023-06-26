@@ -326,44 +326,72 @@ bool CFtpRawTransferOpData::ParseEpsvResponse()
 
 bool CFtpRawTransferOpData::ParsePasvResponse()
 {
-	// Validate ip address
-	if (!controlSocket_.m_pasvReplyRegex) {
-		std::wstring digit = L"0*[0-9]{1,3}";
-		wchar_t const* const  dot = L",";
-		std::wstring exp = L"( |\\()(" + digit + dot + digit + dot + digit + dot + digit + dot + digit + dot + digit + L")( |\\)|$)";
-		controlSocket_.m_pasvReplyRegex = std::make_unique<std::wregex>(exp);
-	}
+	auto & r = controlSocket_.m_Response;
+	size_t pos{2};
+	while (true) {
+		pos = r.find_first_of(L" ([{<", pos + 1);
+		if (pos == std::string::npos) {
+			return false;
+		}
+		size_t end = r.find_first_not_of(L"0123456789,", pos + 1);
+		switch (r[pos]) {
+		case ' ':
+			if (end != std::string::npos && r[end] != ' ') {
+				continue;
+			}
+			break;
+		case '(':
+			if (end == std::string::npos || r[end] != ')') {
+				continue;
+			}
+			break;
+		case '{':
+			if (end == std::string::npos || r[end] != '}') {
+				continue;
+			}
+			break;
+		case '[':
+			if (end == std::string::npos || r[end] != ']') {
+				continue;
+			}
+			break;
+		case '<':
+			if (end == std::string::npos || r[end] != '>') {
+				continue;
+			}
+			break;
+		default:
+			continue;
+		}
+		auto match = std::wstring_view(r).substr(pos + 1);
+		if (end != std::string::npos) {
+			match = match.substr(0, end - pos - 1);
+		}
+		auto tokens = fz::strtok_view(match, ',', false);
+		if (tokens.size() != 6) {
+			continue;
+		}
+		unsigned short nums[6]{};
+		bool valid = true;
+		for (size_t i = 0; i < 6; ++i) {
+			if (tokens[i].empty() || tokens[i].size() > 3) {
+				valid = false;
+				break;
+			}
+			nums[i] = fz::to_integral<unsigned short>(tokens[i]);
+			if (nums[i] > 255) {
+				valid = false;
+				break;
+			}
+		}
+		if (!valid) {
+			continue;
+		}
 
-	std::wsmatch m;
-	if (!std::regex_search(controlSocket_.m_Response, m, *controlSocket_.m_pasvReplyRegex)) {
-		return false;
+		host_ = fz::sprintf(L"%d.%d.%d.%d", nums[0], nums[1], nums[2], nums[3]);
+		port_ = nums[4] * 256 + nums[5];
+		break;
 	}
-
-	host_ = m[2].str();
-
-	size_t i = host_.rfind(',');
-	if (i == std::wstring::npos) {
-		return false;
-	}
-	auto number = fz::to_integral<unsigned int>(host_.substr(i + 1));
-	if (number > 255) {
-		return false;
-	}
-
-	port_ = number; //get ls byte of server socket
-	host_ = host_.substr(0, i);
-	i = host_.rfind(',');
-	if (i == std::string::npos) {
-		return false;
-	}
-	number = fz::to_integral<unsigned int>(host_.substr(i + 1));
-	if (number > 255) {
-		return false;
-	}
-
-	port_ += 256 * number; //add ms byte of server socket
-	host_ = host_.substr(0, i);
-	fz::replace_substrings(host_, L",", L".");
 
 	if (controlSocket_.proxy_layer_) {
 		// We do not have any information about the proxy's inner workings
