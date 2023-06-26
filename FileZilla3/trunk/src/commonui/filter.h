@@ -5,7 +5,7 @@
 #include <libfilezilla/time.hpp>
 
 #include <memory>
-#include <regex>
+
 #include <vector>
 
 enum t_filterType
@@ -34,7 +34,7 @@ public:
 	std::wstring lowerValue; // Name and path matches
 	fz::datetime date; // If type is date
 	int64_t value{}; // If type is size
-	std::shared_ptr<std::wregex> pRegEx;
+	std::shared_ptr<void> pRegEx;
 
 	t_filterType type{filter_name};
 	int condition{};
@@ -109,5 +109,7 @@ void FZCUI_PUBLIC_SYMBOL load_filters(pugi::xml_node& element, filter_data& data
 
 void FZCUI_PUBLIC_SYMBOL save_filter(pugi::xml_node& element, CFilter const& filter);
 void FZCUI_PUBLIC_SYMBOL save_filters(pugi::xml_node& element, filter_data const& data);
+
+bool FZCUI_PUBLIC_SYMBOL valid_regex(std::wstring const& r);
 
 #endif

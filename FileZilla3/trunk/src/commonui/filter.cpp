@@ -10,6 +10,46 @@
 
 #include <array>
 
+#ifdef HAVE_CONFIG_H
+#undef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+#if USE_BOOST_REGEX
+#define BOOST_REGEX_STANDALONE
+#include <boost/regex.hpp>
+namespace regex_ns = boost;
+#else
+#include <regex>
+namespace regex_ns = std;
+#endif
+
+namespace {
+std::shared_ptr<regex_ns::wregex> compile_regex(std::wstring const& r, bool matchCase)
+{
+	if (r.size() > 2000) {
+		return {};
+	}
+
+	try {
+		regex_ns::regex_constants::syntax_option_type flags = regex_ns::regex_constants::ECMAScript;
+		if (!matchCase) {
+			flags |= regex_ns::regex_constants::icase;
+		}
+		return std::make_shared<regex_ns::wregex>(r, flags);
+	}
+	catch (regex_ns::regex_error const&) {
+		return {};
+	}
+}
+}
+
+bool valid_regex(std::wstring const& r)
+{
+	return compile_regex(r, true) != nullptr;
+}
+
+
 std::array<std::wstring, 4> const matchTypeXmlNames =
 	{ L"All", L"Any", L"None", L"Not all" };
 
@@ -29,17 +69,8 @@ bool CFilterCondition::set(t_filterType t, std::wstring const& v, int c, bool ma
 	case filter_name:
 	case filter_path:
 		if (condition == 4) {
-			if (strValue.size() > 2000) {
-				return false;
-			}
-			try {
-				auto flags = std::regex_constants::ECMAScript;
-				if (!matchCase) {
-					flags |= std::regex_constants::icase;
-				}
-				pRegEx = std::make_shared<std::wregex>(strValue, flags);
-			}
-			catch (std::regex_error const&) {
+			pRegEx = compile_regex(strValue, matchCase);
+			if (!pRegEx) {
 				return false;
 			}
 		}
@@ -143,7 +174,7 @@ static bool StringMatch(std::wstring const& subject, CFilterCondition const& con
 		}
 		break;
 	case 4:
-		if (condition.pRegEx && std::regex_search(subject, *condition.pRegEx)) {
+		if (condition.pRegEx && regex_ns::regex_search(subject, *std::static_pointer_cast<regex_ns::wregex>(condition.pRegEx))) {
 			match = true;
 		}
 		break;
