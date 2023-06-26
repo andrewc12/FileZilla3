@@ -73,6 +73,9 @@ if ! test "$localesonly" = "yes"; then
   # std::atomic on PPC seems to require -latomic
   CHECK_ATOMIC
 
+  # GCC bug 86164
+  CHECK_REGEX
+
   # Add build information to config.h
   # ---------------------------------
 
