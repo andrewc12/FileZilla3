@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Filezilla italian translation v. 13.01.2023\n"
+"Project-Id-Version: Filezilla italian translation v. 25.04.2023\n"
 "Report-Msgid-Bugs-To: https://trac.filezilla-project.org/\n"
-"POT-Creation-Date: 2023-02-23 09:00+0100\n"
-"PO-Revision-Date: 2023-01-13 16:08+0100\n"
+"POT-Creation-Date: 2023-06-28 16:00+0200\n"
+"PO-Revision-Date: 2023-04-25 21:05+0200\n"
 "Last-Translator: bovirus <bovirus@gmail.com>\n"
 "Language-Team: bovirus - Andrea Sanavia - Vincenzo Reale - Riccardo Vianello "
 "<bovirus@gmail.com>\n"
@@ -16,14 +16,14 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. @translator: This is a date/time formatting specifier. See https://wiki.filezilla-project.org/Date_and_Time_formatting
-#: ../src/interface/statuslinectrl.cpp:59
-#: ../src/interface/statuslinectrl.cpp:220
+#: ../src/interface/statuslinectrl.cpp:60
+#: ../src/interface/statuslinectrl.cpp:221
 msgid "%H:%M:%S elapsed"
 msgstr "Trascorsi %H:%M:%S"
 
 #. @translator: This is a date/time formatting specifier. See https://wiki.filezilla-project.org/Date_and_Time_formatting
-#: ../src/interface/statuslinectrl.cpp:64
-#: ../src/interface/statuslinectrl.cpp:226
+#: ../src/interface/statuslinectrl.cpp:65
+#: ../src/interface/statuslinectrl.cpp:227
 msgid "%H:%M:%S left"
 msgstr "Rimanenti %H:%M:%S"
 
@@ -36,9 +36,9 @@ msgstr ""
 "%a - Account (le linee che contengono questo verranno omesse se non si usa "
 "il tipo di connessione Normale)"
 
-#: ../src/interface/filelist_statusbar.cpp:58
-#: ../src/interface/filelist_statusbar.cpp:70
-#: ../src/interface/filelist_statusbar.cpp:83
+#: ../src/interface/filelist_statusbar.cpp:59
+#: ../src/interface/filelist_statusbar.cpp:71
+#: ../src/interface/filelist_statusbar.cpp:84
 #, c-format
 msgid "%d directory"
 msgid_plural "%d directories"
@@ -53,8 +53,8 @@ msgid_plural "%d directories with their contents"
 msgstr[0] "%d cartella con il suo contenuto"
 msgstr[1] "%d cartelle con il loro contenuto"
 
-#: ../src/interface/filelist_statusbar.cpp:57
-#: ../src/interface/filelist_statusbar.cpp:82
+#: ../src/interface/filelist_statusbar.cpp:58
+#: ../src/interface/filelist_statusbar.cpp:83
 #: ../src/interface/RemoteListView.cpp:1420 ../src/interface/search.cpp:1288
 #: ../src/interface/search.cpp:1690
 #, c-format
@@ -63,14 +63,14 @@ msgid_plural "%d files"
 msgstr[0] "%d file"
 msgstr[1] "%d file"
 
-#: ../src/interface/filelist_statusbar.cpp:78
+#: ../src/interface/filelist_statusbar.cpp:79
 #, c-format
 msgid "%d file. Total size: %s"
 msgid_plural "%d files. Total size: %s"
 msgstr[0] "%d file - dimensione totale: %s"
 msgstr[1] "%d file - dimensione totale: %s"
 
-#: ../src/interface/filelist_statusbar.cpp:75
+#: ../src/interface/filelist_statusbar.cpp:76
 #, c-format
 msgid "%d file. Total size: At least %s"
 msgid_plural "%d files. Total size: At least %s"
@@ -107,12 +107,12 @@ msgstr[1] "%llu file"
 msgid "%p - Password"
 msgstr "%p - Password"
 
-#: ../src/interface/statuslinectrl.cpp:177
+#: ../src/interface/statuslinectrl.cpp:178
 #, c-format
 msgid "%s (%s/s)"
 msgstr "%s (%s/s)"
 
-#: ../src/interface/statuslinectrl.cpp:180
+#: ../src/interface/statuslinectrl.cpp:181
 #, c-format
 msgid "%s (? B/s)"
 msgstr "%s (? B/s)"
@@ -128,12 +128,12 @@ msgstr "%s (non sicuro)"
 msgid "%s - Proxy user"
 msgstr "%s - Utente proxy"
 
-#: ../src/interface/filelist_statusbar.cpp:89
+#: ../src/interface/filelist_statusbar.cpp:90
 #, c-format
 msgid "%s and %s. Total size: %s"
 msgstr "%s e %s. Dimensione totale: %s"
 
-#: ../src/interface/filelist_statusbar.cpp:86
+#: ../src/interface/filelist_statusbar.cpp:87
 #, c-format
 msgid "%s and %s. Total size: At least %s"
 msgstr "%s e %s. Dimensione totale: almeno %s"
@@ -145,7 +145,7 @@ msgid_plural "%s bytes"
 msgstr[0] "%s byte"
 msgstr[1] "%s byte"
 
-#: ../src/interface/FileZilla.cpp:439
+#: ../src/interface/FileZilla.cpp:443
 #, c-format
 msgid ""
 "%s could not be found. Without this component of FileZilla, %s will not "
@@ -163,12 +163,12 @@ msgstr ""
 "- Imposta il percorso completo di %s nella variabile ambiente %s."
 
 #. @translator: Example: RSA with 2048 bits
-#: ../src/interface/verifycertdialog.cpp:107
+#: ../src/interface/verifycertdialog.cpp:103
 #, c-format
 msgid "%s with %d bits"
 msgstr "%s con %d bit"
 
-#: ../src/interface/verifycertdialog.cpp:359
+#: ../src/interface/verifycertdialog.cpp:355
 #, c-format
 msgid "%s:%d - Hostname does not match certificate"
 msgstr "%s:%d - Il nome host non corrisponde al certificato"
@@ -218,11 +218,11 @@ msgstr "&Attiva"
 msgid "&Add bookmark..."
 msgstr "&Aggiungi preferito..."
 
-#: ../src/interface/osx_sandbox_userdirs.cpp:301
+#: ../src/interface/osx_sandbox_userdirs.cpp:304
 msgid "&Add directory..."
 msgstr "&Aggiungi cartella..."
 
-#: ../src/interface/LocalListView.cpp:813
+#: ../src/interface/LocalListView.cpp:815
 #: ../src/interface/RemoteListView.cpp:1052
 msgid "&Add files to queue"
 msgstr "&Aggiungi file alla coda"
@@ -231,8 +231,8 @@ msgstr "&Aggiungi file alla coda"
 msgid "&Add key file..."
 msgstr "&aggiungi file chiave..."
 
-#: ../src/interface/LocalTreeView.cpp:1108
-#: ../src/interface/RemoteTreeView.cpp:922
+#: ../src/interface/LocalTreeView.cpp:1124
+#: ../src/interface/RemoteTreeView.cpp:900
 msgid "&Add to queue"
 msgstr "&Aggiungi alla coda"
 
@@ -240,20 +240,20 @@ msgstr "&Aggiungi alla coda"
 msgid "&Adjust server time, offset by:"
 msgstr "Regol&a il fuso orario del server:"
 
-#: ../src/interface/verifycertdialog.cpp:700
+#: ../src/interface/verifycertdialog.cpp:696
 msgid ""
 "&Always allow insecure data connections for this server in future sessions."
 msgstr ""
 "Permetti sempre comunic&azione non sicure per questo server nelle future "
 "sessioni."
 
-#: ../src/interface/verifycertdialog.cpp:632
+#: ../src/interface/verifycertdialog.cpp:628
 #, c-format
 msgid "&Always allow insecure plain %s for this server."
 msgstr ""
 "Permetti sempre comunicazione in chiaro non sicur&a %s per questo server."
 
-#: ../src/interface/verifycertdialog.cpp:385
+#: ../src/interface/verifycertdialog.cpp:381
 msgid "&Always trust this certificate in future sessions."
 msgstr "&Accetta sempre questo certificato nelle future sessioni."
 
@@ -316,7 +316,7 @@ msgstr "&Sfoglia"
 #: ../src/interface/edithandler.cpp:1807
 #: ../src/interface/settings/optionspage_edit.cpp:71
 #: ../src/interface/sitemanager_controls.cpp:924
-#: ../src/interface/sitemanager_dialog.cpp:276
+#: ../src/interface/sitemanager_dialog.cpp:277
 msgid "&Browse..."
 msgstr "&Sfoglia..."
 
@@ -328,7 +328,7 @@ msgstr "Tolleranza &burst:"
 msgid "&Cancel"
 msgstr "A&nnulla"
 
-#: ../src/interface/verifycertdialog.cpp:247
+#: ../src/interface/verifycertdialog.cpp:243
 msgid "&Certificate in chain:"
 msgstr "&Certificato nella catena:"
 
@@ -336,15 +336,15 @@ msgstr "&Certificato nella catena:"
 msgid "&Clear private data..."
 msgstr "&Elimina dati personali..."
 
-#: ../src/interface/update_dialog.cpp:93
+#: ../src/interface/update_dialog.cpp:94
 msgid "&Close"
 msgstr "&Chiudi"
 
-#: ../src/interface/QueueView.cpp:1801
+#: ../src/interface/QueueView.cpp:1815
 msgid "&Close FileZilla"
 msgstr "&Chiudi FileZilla"
 
-#: ../src/interface/QueueView.cpp:1804
+#: ../src/interface/QueueView.cpp:1818
 msgid "&Close FileZilla once"
 msgstr "&Chiudi FileZilla"
 
@@ -356,7 +356,7 @@ msgstr "&Configura limiti velocità..."
 msgid "&Configure..."
 msgstr "&Configura..."
 
-#: ../src/interface/sitemanager_dialog.cpp:341
+#: ../src/interface/sitemanager_dialog.cpp:342
 msgid "&Connect"
 msgstr "&Connetti"
 
@@ -364,18 +364,18 @@ msgstr "&Connetti"
 msgid "&Copy current connection to Site Manager..."
 msgstr "&Copia connessione attuale in Gestione siti..."
 
-#: ../src/interface/aboutdialog.cpp:126 ../src/interface/StatusView.cpp:449
+#: ../src/interface/aboutdialog.cpp:126 ../src/interface/StatusView.cpp:450
 msgid "&Copy to clipboard"
 msgstr "&Copia negli Appunti"
 
-#: ../src/interface/LocalListView.cpp:823
-#: ../src/interface/LocalTreeView.cpp:1116
+#: ../src/interface/LocalListView.cpp:825
+#: ../src/interface/LocalTreeView.cpp:1132
 #: ../src/interface/RemoteListView.cpp:1059
-#: ../src/interface/RemoteTreeView.cpp:927
+#: ../src/interface/RemoteTreeView.cpp:905
 msgid "&Create directory"
 msgstr "&Crea cartella"
 
-#: ../src/interface/context_control.cpp:499
+#: ../src/interface/context_control.cpp:501
 msgid "&Create new tab"
 msgstr "&Crea nuova scheda"
 
@@ -391,7 +391,7 @@ msgstr "Informazioni di &debug nel registro messaggi:"
 msgid "&Default editor:"
 msgstr "E&ditor predefinito:"
 
-#: ../src/interface/menu_bar.cpp:95 ../src/interface/QueueView.cpp:1786
+#: ../src/interface/menu_bar.cpp:95 ../src/interface/QueueView.cpp:1800
 msgid "&Default file exists action..."
 msgstr "Azione &predefinita per i file esistenti..."
 
@@ -399,10 +399,10 @@ msgstr "Azione &predefinita per i file esistenti..."
 msgid "&Delay between failed login attempts:"
 msgstr "Ritar&do tra i tentativi di accesso falliti:"
 
-#: ../src/interface/bookmarks_dialog.cpp:276
-#: ../src/interface/filteredit.cpp:100 ../src/interface/LocalListView.cpp:828
-#: ../src/interface/LocalTreeView.cpp:1120
-#: ../src/interface/sitemanager_dialog.cpp:333
+#: ../src/interface/bookmarks_dialog.cpp:278
+#: ../src/interface/filteredit.cpp:100 ../src/interface/LocalListView.cpp:830
+#: ../src/interface/LocalTreeView.cpp:1136
+#: ../src/interface/sitemanager_dialog.cpp:334
 msgid "&Delete"
 msgstr "&Elimina"
 
@@ -474,7 +474,7 @@ msgid "&Double-click action on files:"
 msgstr "Azione &doppio clic sui file:"
 
 #: ../src/interface/RemoteListView.cpp:1049
-#: ../src/interface/RemoteTreeView.cpp:919
+#: ../src/interface/RemoteTreeView.cpp:897
 msgid "&Download"
 msgstr "&Scarica"
 
@@ -495,7 +495,7 @@ msgstr "&Download:"
 msgid "&Duplicate"
 msgstr "&Duplica"
 
-#: ../src/interface/LocalListView.cpp:820 ../src/interface/menu_bar.cpp:50
+#: ../src/interface/LocalListView.cpp:822 ../src/interface/menu_bar.cpp:50
 msgid "&Edit"
 msgstr "&Modifica"
 
@@ -503,7 +503,7 @@ msgstr "&Modifica"
 msgid "&Edit filter rules..."
 msgstr "&Modifica regole filtri..."
 
-#: ../src/interface/Mainfrm.cpp:2493 ../src/interface/menu_bar.cpp:71
+#: ../src/interface/Mainfrm.cpp:2499 ../src/interface/menu_bar.cpp:71
 #: ../src/interface/menu_bar.cpp:110 ../src/interface/statusbar.cpp:564
 msgid "&Enable"
 msgstr "&Abilita"
@@ -513,7 +513,7 @@ msgid "&Enable compression"
 msgstr "Abilita compr&essione"
 
 #: ../src/interface/settings/optionspage_transfer.cpp:73
-#: ../src/interface/speedlimits_dialog.cpp:49
+#: ../src/interface/speedlimits_dialog.cpp:55
 msgid "&Enable speed limits"
 msgstr "&Abilita limiti velocità"
 
@@ -525,7 +525,7 @@ msgstr "&Codifica:"
 msgid "&Encryption:"
 msgstr "&Criptazione:"
 
-#: ../src/interface/StatusView.cpp:445
+#: ../src/interface/StatusView.cpp:446
 msgid "&Enter custom command..."
 msgstr "&Esegui comando personalizzato..."
 
@@ -542,7 +542,7 @@ msgid "&Export Site Manager entries"
 msgstr "&Esporta le voci del Gestione siti"
 
 #: ../src/interface/menu_bar.cpp:39
-#: ../src/interface/sitemanager_dialog.cpp:1896
+#: ../src/interface/sitemanager_dialog.cpp:1897
 msgid "&Export..."
 msgstr "&Esporta..."
 
@@ -554,7 +554,7 @@ msgstr "&Torna in modalità attiva"
 msgid "&File"
 msgstr "&File"
 
-#: ../src/interface/RemoteTreeView.cpp:940
+#: ../src/interface/RemoteTreeView.cpp:918
 msgid "&File Attributes..."
 msgstr "&Attributi file..."
 
@@ -632,12 +632,12 @@ msgstr "Metodo connessione &HTTP/1.1"
 msgid "&Help"
 msgstr "&Aiuto"
 
-#: ../src/interface/Mainfrm.cpp:2500 ../src/interface/menu_bar.cpp:76
+#: ../src/interface/Mainfrm.cpp:2506 ../src/interface/menu_bar.cpp:76
 #: ../src/interface/search.cpp:705
 msgid "&Hide identical files"
 msgstr "&Nascondi file identici"
 
-#: ../src/interface/QueueView.cpp:1790
+#: ../src/interface/QueueView.cpp:1804
 msgid "&Highest"
 msgstr "&Massima"
 
@@ -663,7 +663,7 @@ msgstr "&ISO 8601 (esempio: 2007-09-15)"
 msgid "&Import..."
 msgstr "&Importa..."
 
-#: ../src/interface/update_dialog.cpp:172
+#: ../src/interface/update_dialog.cpp:173
 msgid "&Install new version"
 msgstr "&Installa nuova versione"
 
@@ -696,7 +696,7 @@ msgid "&Local directory tree"
 msgstr "Struttura cartella &locale"
 
 #: ../src/interface/resources/xrc/dialogs.xrc:593
-#: ../src/interface/sitemanager_dialog.cpp:270
+#: ../src/interface/sitemanager_dialog.cpp:271
 msgid "&Local directory:"
 msgstr "Cartella &locale:"
 
@@ -712,7 +712,7 @@ msgstr "Registro eventi ne&l file"
 msgid "&Logon Type:"
 msgstr "&Tipo di accesso:"
 
-#: ../src/interface/QueueView.cpp:1793
+#: ../src/interface/QueueView.cpp:1807
 msgid "&Low"
 msgstr "&Bassa"
 
@@ -760,11 +760,11 @@ msgstr "Configurazione guidata &rete..."
 msgid "&New"
 msgstr "&Nuovo"
 
-#: ../src/interface/sitemanager_dialog.cpp:329
+#: ../src/interface/sitemanager_dialog.cpp:330
 msgid "&New site"
 msgstr "&Nuovo sito"
 
-#: ../src/interface/Mainfrm.cpp:1853
+#: ../src/interface/Mainfrm.cpp:1859
 msgid "&New version available!"
 msgstr "&Nuova versione disponibile!"
 
@@ -776,13 +776,13 @@ msgstr "&Avanti >"
 msgid "&No"
 msgstr "&No"
 
-#: ../src/interface/QueueView.cpp:1798
+#: ../src/interface/QueueView.cpp:1812
 #: ../src/interface/settings/optionspage_ftpproxy.cpp:49
 #: ../src/interface/settings/optionspage_proxy.cpp:48
 msgid "&None"
 msgstr "&Nessuno"
 
-#: ../src/interface/QueueView.cpp:1792
+#: ../src/interface/QueueView.cpp:1806
 msgid "&Normal"
 msgstr "&Normale"
 
@@ -791,7 +791,7 @@ msgid "&Numeric value:"
 msgstr "&Valore numerico:"
 
 #: ../src/interface/asksavepassworddialog.cpp:65
-#: ../src/interface/bookmarks_dialog.cpp:281
+#: ../src/interface/bookmarks_dialog.cpp:283
 #: ../src/interface/chmoddialog.cpp:155
 #: ../src/interface/clearprivatedata.cpp:52
 #: ../src/interface/defaultfileexistsdlg.cpp:72
@@ -799,11 +799,11 @@ msgstr "&Valore numerico:"
 #: ../src/interface/loginmanager.cpp:71 ../src/interface/loginmanager.cpp:237
 #: ../src/interface/loginmanager.cpp:348
 #: ../src/interface/manual_transfer.cpp:179
-#: ../src/interface/osx_sandbox_userdirs.cpp:308
-#: ../src/interface/sitemanager_dialog.cpp:345
-#: ../src/interface/speedlimits_dialog.cpp:71
-#: ../src/interface/verifycertdialog.cpp:637
-#: ../src/interface/verifycertdialog.cpp:705
+#: ../src/interface/osx_sandbox_userdirs.cpp:311
+#: ../src/interface/sitemanager_dialog.cpp:346
+#: ../src/interface/speedlimits_dialog.cpp:77
+#: ../src/interface/verifycertdialog.cpp:633
+#: ../src/interface/verifycertdialog.cpp:701
 msgid "&OK"
 msgstr "&OK"
 
@@ -811,8 +811,8 @@ msgstr "&OK"
 msgid "&OPEN"
 msgstr "&OPEN"
 
-#: ../src/interface/LocalListView.cpp:819
-#: ../src/interface/LocalTreeView.cpp:1113
+#: ../src/interface/LocalListView.cpp:821
+#: ../src/interface/LocalTreeView.cpp:1129
 msgid "&Open"
 msgstr "&Apri"
 
@@ -828,7 +828,7 @@ msgstr "&Passiva"
 msgid "&Password:"
 msgstr "&Password:"
 
-#: ../src/interface/QueueView.cpp:1803
+#: ../src/interface/QueueView.cpp:1817
 msgid "&Play sound"
 msgstr "&Riproduci suono"
 
@@ -873,7 +873,7 @@ msgstr "&Riconnetti"
 msgid "&Reconnect information"
 msgstr "Informazioni &riconnessione"
 
-#: ../src/interface/context_control.cpp:506 ../src/interface/menu_bar.cpp:62
+#: ../src/interface/context_control.cpp:508 ../src/interface/menu_bar.cpp:62
 msgid "&Refresh"
 msgstr "Aggio&rna"
 
@@ -886,7 +886,7 @@ msgid "&Remember password until FileZilla is closed"
 msgstr "&Ricorda la password fino a che Filezilla non viene chiuso"
 
 #: ../src/interface/resources/xrc/dialogs.xrc:620
-#: ../src/interface/sitemanager_dialog.cpp:278
+#: ../src/interface/sitemanager_dialog.cpp:279
 msgid "&Remote directory:"
 msgstr "Cartella &remota:"
 
@@ -906,17 +906,17 @@ msgstr "&Rimuovi"
 msgid "&Remove key"
 msgstr "&Rimuovi chiave"
 
-#: ../src/interface/osx_sandbox_userdirs.cpp:303
-#: ../src/interface/QueueView.cpp:1785
+#: ../src/interface/osx_sandbox_userdirs.cpp:306
+#: ../src/interface/QueueView.cpp:1799
 msgid "&Remove selected"
 msgstr "&Rimuovi selezionato"
 
-#: ../src/interface/bookmarks_dialog.cpp:275
-#: ../src/interface/filteredit.cpp:101 ../src/interface/LocalListView.cpp:829
-#: ../src/interface/LocalTreeView.cpp:1121
+#: ../src/interface/bookmarks_dialog.cpp:277
+#: ../src/interface/filteredit.cpp:101 ../src/interface/LocalListView.cpp:831
+#: ../src/interface/LocalTreeView.cpp:1137
 #: ../src/interface/RemoteListView.cpp:1066
-#: ../src/interface/RemoteTreeView.cpp:932
-#: ../src/interface/sitemanager_dialog.cpp:332
+#: ../src/interface/RemoteTreeView.cpp:910
+#: ../src/interface/sitemanager_dialog.cpp:333
 msgid "&Rename"
 msgstr "&Rinomina"
 
@@ -940,7 +940,7 @@ msgstr "&Sostituisci i caratteri non validi con:"
 msgid "&Report a bug..."
 msgstr "&Riporta un errore..."
 
-#: ../src/interface/QueueView.cpp:1800
+#: ../src/interface/QueueView.cpp:1814
 msgid "&Request attention"
 msgstr "&Richiede attenzione"
 
@@ -956,7 +956,7 @@ msgstr "&Riavvia la procedura guidata"
 msgid "&Resume"
 msgstr "&Ripristina"
 
-#: ../src/interface/QueueView.cpp:1802
+#: ../src/interface/QueueView.cpp:1816
 msgid "&Run command..."
 msgstr "&Esegui comando..."
 
@@ -988,7 +988,7 @@ msgstr "&Cerca i file remoti..."
 msgid "&Select a key:"
 msgstr "&Seleziona una chiave:"
 
-#: ../src/interface/sitemanager_dialog.cpp:320
+#: ../src/interface/sitemanager_dialog.cpp:321
 msgid "&Select entry:"
 msgstr "&Seleziona elemento:"
 
@@ -1024,7 +1024,7 @@ msgstr "&Impostazioni..."
 msgid "&Show debug menu"
 msgstr "Vi&sualizza il menu di debug"
 
-#: ../src/interface/StatusView.cpp:448
+#: ../src/interface/StatusView.cpp:449
 msgid "&Show detailed log"
 msgstr "Vi&sualizza registro dettagliato"
 
@@ -1093,7 +1093,7 @@ msgstr "Coda &trasferimento"
 msgid "&Treat dotfiles as ASCII files"
 msgstr "&Tratta i file che iniziano con un punto come file ASCII"
 
-#: ../src/interface/verifycertdialog.cpp:388
+#: ../src/interface/verifycertdialog.cpp:384
 msgid "&Trust this certificate on the listed alternative hostnames."
 msgstr ""
 "Considera a&ttendibile questo certificato nell'elenco alternativo nomi host."
@@ -1106,8 +1106,8 @@ msgstr "Ann&ulla modifiche"
 msgid "&Update cached key for this host"
 msgstr "&Aggiorna la chiave in cache per questo host"
 
-#: ../src/interface/LocalListView.cpp:810
-#: ../src/interface/LocalTreeView.cpp:1105
+#: ../src/interface/LocalListView.cpp:812
+#: ../src/interface/LocalTreeView.cpp:1121
 msgid "&Upload"
 msgstr "&Upload"
 
@@ -1163,7 +1163,7 @@ msgstr "&Utente:"
 msgid "&Username:"
 msgstr "Nome &utente:"
 
-#: ../src/interface/Mainfrm.cpp:1847
+#: ../src/interface/Mainfrm.cpp:1853
 #, c-format
 msgid "&Version %s"
 msgstr "&Versione %s"
@@ -1221,7 +1221,7 @@ msgstr ""
 "I tipi di accesso 'Normale' e 'Account' non sono disponibili. L'elemento è "
 "stato modificato in 'Richiedi password'."
 
-#: ../src/interface/Mainfrm.cpp:736
+#: ../src/interface/Mainfrm.cpp:742
 msgid ""
 "'quote' is usually a local command used by commandline clients to send the "
 "arguments following 'quote' to the server. You might want to enter the raw "
@@ -1231,15 +1231,15 @@ msgstr ""
 "inviare al server i parametri che seguono 'quote'. Puoi inserire il comando "
 "senza farlo precedere da 'quote'."
 
-#: ../src/interface/filelist_statusbar.cpp:94
-#: ../src/interface/filelist_statusbar.cpp:101
+#: ../src/interface/filelist_statusbar.cpp:95
+#: ../src/interface/filelist_statusbar.cpp:102
 #, c-format
 msgid "(%d object filtered)"
 msgid_plural "(%d objects filtered)"
 msgstr[0] "(%d oggetto filtrato)"
 msgstr[1] "(%d oggetti filtrati)"
 
-#: ../src/interface/update_dialog.cpp:458
+#: ../src/interface/update_dialog.cpp:459
 #, c-format
 msgid "(%u%% downloaded)"
 msgstr "(%u%% scaricato)"
@@ -1275,8 +1275,8 @@ msgstr "(esempio: %Y-%m-%d)"
 
 #: ../src/interface/settings/optionspage_transfer.cpp:84
 #: ../src/interface/settings/optionspage_transfer.cpp:92
-#: ../src/interface/speedlimits_dialog.cpp:61
-#: ../src/interface/speedlimits_dialog.cpp:65
+#: ../src/interface/speedlimits_dialog.cpp:67
+#: ../src/interface/speedlimits_dialog.cpp:71
 #, c-format
 msgid "(in %s/s)"
 msgstr "(in %s/s)"
@@ -1299,7 +1299,7 @@ msgstr ""
 "- Negli argomenti, %%f è un segnaposto per il file da aprire. Usa %%%% per "
 "percentuali letterali"
 
-#: ../src/interface/statuslinectrl.cpp:229
+#: ../src/interface/statuslinectrl.cpp:230
 msgid "--:--:-- left"
 msgstr "--:--:-- alla fine"
 
@@ -1383,7 +1383,7 @@ msgstr "Sistema a 64bit"
 msgid "< &Back"
 msgstr "< &Indietro"
 
-#: ../src/interface/bookmarks_dialog.cpp:116
+#: ../src/interface/bookmarks_dialog.cpp:117
 msgid ""
 "A bookmark with the entered name already exists. Please enter an unused name."
 msgstr ""
@@ -1422,7 +1422,7 @@ msgid ""
 "A file with that name is still being edited. Please close it and try again."
 msgstr "Si sta già modificando un file con questo nome. Chiuderlo e riprovare."
 
-#: ../src/interface/FileZilla.cpp:408
+#: ../src/interface/FileZilla.cpp:412
 msgid ""
 "A local filename could not be decoded.\n"
 "Please make sure the LC_CTYPE (or LC_ALL) environment variable is set "
@@ -1446,11 +1446,11 @@ msgstr ""
 "Una password principale persa non può essere recuperata! Memorizza la "
 "password in un posto sicuro."
 
-#: ../src/interface/update_dialog.cpp:152
+#: ../src/interface/update_dialog.cpp:153
 msgid "A new version of FileZilla is available:"
 msgstr "È disponibile una nuova versione di FileZilla:"
 
-#: ../src/interface/Mainfrm.cpp:806
+#: ../src/interface/Mainfrm.cpp:812
 msgid ""
 "A proper server always shows all files, but some broken servers hide files "
 "from the user. Use this option to force the server to show all files."
@@ -1547,7 +1547,7 @@ msgstr "L'accesso ad alcune cartelle locali non può essere ripristinato:"
 msgid "Account"
 msgstr "Account"
 
-#: ../src/interface/QueueView.cpp:1797
+#: ../src/interface/QueueView.cpp:1811
 msgid "Action after queue &completion"
 msgstr "&Azione dopo il complemento della coda"
 
@@ -1563,7 +1563,7 @@ msgstr "Azione da eseguire:"
 msgid "Action:"
 msgstr "Azione:"
 
-#: ../src/interface/settings/settingsdialog.cpp:124
+#: ../src/interface/settings/settingsdialog.cpp:123
 msgid "Active mode"
 msgstr "Modalità attiva"
 
@@ -1601,12 +1601,12 @@ msgstr "IP in modalità attiva"
 msgid "Add files to &queue only"
 msgstr "&Aggiungi solo i file alla coda"
 
-#: ../src/interface/LocalTreeView.cpp:1108
-#: ../src/interface/RemoteTreeView.cpp:922
+#: ../src/interface/LocalTreeView.cpp:1124
+#: ../src/interface/RemoteTreeView.cpp:900
 msgid "Add selected directory to the transfer queue"
 msgstr "Aggiungi le cartelle selezionate alla coda di trasferimento"
 
-#: ../src/interface/LocalListView.cpp:813
+#: ../src/interface/LocalListView.cpp:815
 #: ../src/interface/RemoteListView.cpp:1052
 msgid "Add selected files and folders to the transfer queue"
 msgstr "Aggiungi i file e cartelle selezionati alla coda di trasferimento"
@@ -1651,7 +1651,7 @@ msgstr "Algoritmo:"
 msgid "All files"
 msgstr "Tutti i file"
 
-#: ../src/interface/QueueView.cpp:2689
+#: ../src/interface/QueueView.cpp:2703
 msgid "All files have been successfully transferred"
 msgstr "Tutti i file sono stati trasferiti correttamente"
 
@@ -1661,7 +1661,7 @@ msgstr ""
 "Tutte le porte nell'intervallo specificato devono essere comprese tra 1024 e "
 "65535."
 
-#: ../src/interface/QueueView.cpp:2685
+#: ../src/interface/QueueView.cpp:2699
 #, c-format
 msgid "All transfers have finished. %d file could not be transferred."
 msgid_plural "All transfers have finished. %d files could not be transferred."
@@ -1686,7 +1686,7 @@ msgstr ""
 msgid "Already connected"
 msgstr "Già connesso"
 
-#: ../src/interface/verifycertdialog.cpp:147
+#: ../src/interface/verifycertdialog.cpp:143
 msgid "Alternative name:"
 msgid_plural "Alternative names:"
 msgstr[0] "Nome alternativo:"
@@ -1708,7 +1708,7 @@ msgstr ""
 "È possibile alternativamente usare il vostro agente SSH di sistema. Per fare "
 "ciò assicurati che la variabile SSH_AUTH_SOCK sia impostata."
 
-#: ../src/interface/update_dialog.cpp:185
+#: ../src/interface/update_dialog.cpp:186
 msgid ""
 "Alternatively, you can also download the latest version from the FileZilla "
 "website:"
@@ -1716,7 +1716,7 @@ msgstr ""
 "Alternativamente, puoi anche scaricare la versione aggiornata dal sito web "
 "FileZilla:"
 
-#: ../src/interface/QueueView.cpp:1634
+#: ../src/interface/QueueView.cpp:1648
 #, c-format
 msgid ""
 "An error occurred loading the transfer queue from \"%s\".\n"
@@ -1726,7 +1726,7 @@ msgstr ""
 "\".\n"
 "Alcuni elementi della coda potrebbero non essere stati ripristinati."
 
-#: ../src/interface/QueueView.cpp:1559
+#: ../src/interface/QueueView.cpp:1573
 #, c-format
 msgid ""
 "An error occurred saving the transfer queue to \"%s\".\n"
@@ -1736,7 +1736,7 @@ msgstr ""
 "\".\n"
 "Alcuni elementi della coda potrebbero non essere stati ripristinati."
 
-#: ../src/interface/sitemanager_dialog.cpp:1681
+#: ../src/interface/sitemanager_dialog.cpp:1682
 msgid ""
 "An item with the same name as the dragged item already exists at the target "
 "location."
@@ -1754,7 +1754,7 @@ msgid ""
 msgstr ""
 "Un'altra operazione remota è in corso. Impossibile cambiare la cartella ora."
 
-#: ../src/interface/sitemanager_dialog.cpp:774
+#: ../src/interface/sitemanager_dialog.cpp:775
 msgid "Any changes made in the Site Manager could not be saved."
 msgstr "Qualsiasi modifica relativa a Gestione siti non sarà salvata."
 
@@ -1882,25 +1882,18 @@ msgstr "Lavagna"
 msgid "Blue"
 msgstr "Blu"
 
-#: ../src/interface/bookmarks_dialog.cpp:315 ../src/interface/menu_bar.cpp:426
-#: ../src/interface/sitemanager_dialog.cpp:387
+#: ../src/interface/bookmarks_dialog.cpp:317 ../src/interface/menu_bar.cpp:426
+#: ../src/interface/sitemanager_dialog.cpp:388
 msgid "Bookmark"
 msgstr "Preferito"
 
-#: ../src/interface/bookmarks_dialog.cpp:264
+#: ../src/interface/bookmarks_dialog.cpp:266
 msgid "Bookmark:"
 msgstr "Preferito:"
 
-#: ../src/interface/bookmarks_dialog.cpp:246
+#: ../src/interface/bookmarks_dialog.cpp:248
 msgid "Bookmarks"
 msgstr "Preferiti"
-
-#: ../src/engine/http/request.cpp:598
-msgid ""
-"Broken server, it claims to have processed a request before it got fully set"
-msgstr ""
-"Server guasto. Il server afferma di aver elaborato una richiesta prima che "
-"fosse completamente impostata"
 
 #: ../src/interface/sitemanager_controls.cpp:146
 msgid "Browse..."
@@ -1914,7 +1907,7 @@ msgstr "Data build:"
 msgid "Build information"
 msgstr "Info compilazione"
 
-#: ../src/interface/verifycertdialog.cpp:508
+#: ../src/interface/verifycertdialog.cpp:504
 msgid "Business category:"
 msgstr "Categoria business:"
 
@@ -1933,7 +1926,7 @@ msgstr ""
 msgid "C&ancel current operation"
 msgstr "A&nnulla operazione attuale"
 
-#: ../src/interface/StatusView.cpp:450
+#: ../src/interface/StatusView.cpp:451
 msgid "C&lear all"
 msgstr "&Cancella tutto"
 
@@ -1942,12 +1935,12 @@ msgid "C&omparative search"
 msgstr "Ricerca c&omparativa"
 
 #: ../src/interface/RemoteListView.cpp:1067
-#: ../src/interface/RemoteTreeView.cpp:933 ../src/interface/search.cpp:1245
+#: ../src/interface/RemoteTreeView.cpp:911 ../src/interface/search.cpp:1245
 msgid "C&opy URL(s) to clipboard"
 msgstr "C&opia URL negli Appunti"
 
 #: ../src/interface/RemoteListView.cpp:1068
-#: ../src/interface/RemoteTreeView.cpp:934 ../src/interface/search.cpp:1242
+#: ../src/interface/RemoteTreeView.cpp:912 ../src/interface/search.cpp:1242
 msgid "C&opy URL(s) with password to clipboard"
 msgstr "C&opia le URL con le password negli Appunti"
 
@@ -1981,7 +1974,7 @@ msgstr "Calcolo scostamento fuso orario del server..."
 #: ../src/interface/resources/xrc/dialogs.xrc:999
 #: ../src/interface/resources/xrc/dialogs.xrc:1054
 #: ../src/interface/asksavepassworddialog.cpp:69
-#: ../src/interface/bookmarks_dialog.cpp:285
+#: ../src/interface/bookmarks_dialog.cpp:287
 #: ../src/interface/chmoddialog.cpp:160
 #: ../src/interface/clearprivatedata.cpp:56
 #: ../src/interface/defaultfileexistsdlg.cpp:76
@@ -1991,13 +1984,13 @@ msgstr "Calcolo scostamento fuso orario del server..."
 #: ../src/interface/listctrlex.cpp:744 ../src/interface/loginmanager.cpp:75
 #: ../src/interface/loginmanager.cpp:241 ../src/interface/loginmanager.cpp:353
 #: ../src/interface/manual_transfer.cpp:184
-#: ../src/interface/osx_sandbox_userdirs.cpp:312
-#: ../src/interface/settings/settingsdialog.cpp:76
-#: ../src/interface/sitemanager_dialog.cpp:348
-#: ../src/interface/speedlimits_dialog.cpp:76
-#: ../src/interface/verifycertdialog.cpp:397
-#: ../src/interface/verifycertdialog.cpp:644
-#: ../src/interface/verifycertdialog.cpp:712
+#: ../src/interface/osx_sandbox_userdirs.cpp:315
+#: ../src/interface/settings/settingsdialog.cpp:75
+#: ../src/interface/sitemanager_dialog.cpp:349
+#: ../src/interface/speedlimits_dialog.cpp:82
+#: ../src/interface/verifycertdialog.cpp:393
+#: ../src/interface/verifycertdialog.cpp:640
+#: ../src/interface/verifycertdialog.cpp:708
 msgid "Cancel"
 msgstr "Annulla"
 
@@ -2016,7 +2009,7 @@ msgstr ""
 "Non è possibile accedere a '%s'. Nessun supporto inserito o dispositivo non "
 "pronto."
 
-#: ../src/interface/Mainfrm.cpp:707
+#: ../src/interface/Mainfrm.cpp:713
 msgid "Cannot add server to Site Manager"
 msgstr "Impossibile aggiungere il server in Gestione siti"
 
@@ -2028,7 +2021,7 @@ msgstr ""
 "Impossibile cambiare cartella. C'è già in corso una operazione di "
 "navigazione sincronizzata."
 
-#: ../src/interface/context_control.cpp:429
+#: ../src/interface/context_control.cpp:431
 msgid ""
 "Cannot close tab while busy.\n"
 "Cancel current operation and close tab?"
@@ -2049,16 +2042,16 @@ msgid "Cannot create new filter"
 msgstr "Non è possibile creare un nuovo filtro"
 
 #: ../src/interface/edithandler.cpp:1111 ../src/interface/edithandler.cpp:1337
-#: ../src/interface/LocalListView.cpp:1938 ../src/interface/search.cpp:1634
+#: ../src/interface/LocalListView.cpp:1940 ../src/interface/search.cpp:1634
 #: ../src/interface/search.cpp:2078
 msgid "Cannot edit file"
 msgstr "Non è possibile modificare il file"
 
-#: ../src/interface/LocalListView.cpp:1817
+#: ../src/interface/LocalListView.cpp:1819
 msgid "Cannot edit file, not connected to any server."
 msgstr "Impossibile modificare il file. Non connesso a nessun server."
 
-#: ../src/interface/LocalListView.cpp:1826
+#: ../src/interface/LocalListView.cpp:1828
 msgid "Cannot edit file, remote path unknown."
 msgstr "Impossibile modificare il file. Percorso remoto sconosciuto."
 
@@ -2074,8 +2067,8 @@ msgstr ""
 msgid "Cannot load key file"
 msgstr "Impossibile caricare il file della chiave"
 
-#: ../src/interface/bookmarks_dialog.cpp:777
-#: ../src/interface/sitemanager_dialog.cpp:1006
+#: ../src/interface/bookmarks_dialog.cpp:779
+#: ../src/interface/sitemanager_dialog.cpp:1007
 msgid "Cannot rename entry"
 msgstr "Non è possibile rinominare la voce"
 
@@ -2130,7 +2123,7 @@ msgstr "Controllo maiuscolo/minuscolo (predefinito)"
 msgid "Categories to clear"
 msgstr "Categorie da azzerare"
 
-#: ../src/interface/verifycertdialog.cpp:276
+#: ../src/interface/verifycertdialog.cpp:272
 msgid "Certificate"
 msgstr "Certificato"
 
@@ -2138,7 +2131,7 @@ msgstr "Certificato"
 msgid "Certificate and session data are not available yet."
 msgstr "Certificato e dati sessione non ancora disponibili."
 
-#: ../src/interface/verifycertdialog.cpp:217
+#: ../src/interface/verifycertdialog.cpp:213
 msgid "Certificate details"
 msgstr "Dettagli certificato"
 
@@ -2151,7 +2144,7 @@ msgid "Change file attributes"
 msgstr "Cambia gli attributi del file"
 
 #: ../src/interface/RemoteListView.cpp:1069
-#: ../src/interface/RemoteTreeView.cpp:940
+#: ../src/interface/RemoteTreeView.cpp:918
 msgid "Change the file permissions."
 msgstr "Modifica i permessi del file."
 
@@ -2159,7 +2152,7 @@ msgstr "Modifica i permessi del file."
 msgid "Changing logfile settings requires restart of FileZilla."
 msgstr "Le modifiche al file del registro richiedono il riavvio di FileZilla."
 
-#: ../src/interface/FileZilla.cpp:408
+#: ../src/interface/FileZilla.cpp:412
 msgid "Character encoding issue"
 msgstr "Problema di codifica del carattere"
 
@@ -2175,7 +2168,7 @@ msgstr "Controlla &aggiornamenti..."
 msgid "Check for FileZilla &updates automatically:"
 msgstr "Verifica a&utomaticamente aggiornamenti Filezilla:"
 
-#: ../src/interface/update_dialog.cpp:69
+#: ../src/interface/update_dialog.cpp:70
 msgid "Check for Updates"
 msgstr "Controllo aggiornamenti"
 
@@ -2183,7 +2176,7 @@ msgstr "Controllo aggiornamenti"
 msgid "Check for newer versions of FileZilla"
 msgstr "Controlla l'esistenza di versioni più recenti di FileZilla"
 
-#: ../src/interface/update_dialog.cpp:65
+#: ../src/interface/update_dialog.cpp:66
 msgid "Check for updates failed"
 msgstr "Controllo aggiornamenti non riuscito"
 
@@ -2203,11 +2196,11 @@ msgstr ""
 "Verifica le credenziali di accesso. Il nome inserito inizia o finisce con "
 "uno spazio."
 
-#: ../src/interface/netconfwizard.cpp:820
+#: ../src/interface/netconfwizard.cpp:814
 msgid "Checking for correct external IP address"
 msgstr "Controllo di correttezza dell'IP esterno"
 
-#: ../src/interface/update_dialog.cpp:112
+#: ../src/interface/update_dialog.cpp:113
 msgid "Checking for updates..."
 msgstr "Controllo disponibilità aggiornamenti..."
 
@@ -2229,21 +2222,17 @@ msgstr "Scegli un file chiave"
 msgid "Choose the default local directory"
 msgstr "Seleziona la cartella locale predefinita"
 
-#: ../src/interface/bookmarks_dialog.cpp:139
-#: ../src/interface/bookmarks_dialog.cpp:430
-#: ../src/interface/sitemanager_dialog.cpp:1964
+#: ../src/interface/bookmarks_dialog.cpp:140
+#: ../src/interface/bookmarks_dialog.cpp:432
+#: ../src/interface/sitemanager_dialog.cpp:1965
 msgid "Choose the local directory"
 msgstr "Seleziona la cartella locale"
 
-#: ../src/engine/http/request.cpp:797
-msgid "Chunk data improperly terminated"
-msgstr "Blocco di dati terminato non appropriatamente"
-
-#: ../src/interface/verifycertdialog.cpp:372
+#: ../src/interface/verifycertdialog.cpp:368
 msgid "Cipher:"
 msgstr "Cipher:"
 
-#: ../src/interface/context_control.cpp:502 ../src/interface/menu_bar.cpp:37
+#: ../src/interface/context_control.cpp:504 ../src/interface/menu_bar.cpp:37
 msgid "Cl&ose tab"
 msgstr "C&hiudi scheda"
 
@@ -2292,11 +2281,11 @@ msgstr "Client a server cipher:"
 msgid "Close"
 msgstr "Chiudi"
 
-#: ../src/interface/context_control.cpp:503
+#: ../src/interface/context_control.cpp:505
 msgid "Close &all other tabs"
 msgstr "Chiudi &tutte le altre schede"
 
-#: ../src/interface/Mainfrm.cpp:1307 ../src/interface/Mainfrm.cpp:1329
+#: ../src/interface/Mainfrm.cpp:1313 ../src/interface/Mainfrm.cpp:1335
 #: ../src/interface/menu_bar.cpp:46
 msgid "Close FileZilla"
 msgstr "Chiudi FileZilla"
@@ -2305,7 +2294,7 @@ msgstr "Chiudi FileZilla"
 msgid "Close all running instances of FileZilla"
 msgstr "Chiudi tutte le istanze in esecuzione di FileZilla"
 
-#: ../src/interface/Mainfrm.cpp:2446
+#: ../src/interface/Mainfrm.cpp:2452
 msgid "Close quick search and continue comparing?"
 msgstr "Vuoi chiudere la ricerca rapida e continuare la comparazione?"
 
@@ -2344,8 +2333,8 @@ msgstr "Comando non supportato"
 msgid "Command not supported by this protocol"
 msgstr "Comando non supportato da questo protocollo"
 
-#: ../src/engine/logging.cpp:122 ../src/interface/StatusView.cpp:303
-#: ../src/interface/StatusView.cpp:372
+#: ../src/engine/logging.cpp:122 ../src/interface/StatusView.cpp:304
+#: ../src/interface/StatusView.cpp:373
 msgid "Command:"
 msgstr "Comando:"
 
@@ -2353,7 +2342,7 @@ msgstr "Comando:"
 msgid "Comment"
 msgstr "Commento"
 
-#: ../src/interface/verifycertdialog.cpp:506
+#: ../src/interface/verifycertdialog.cpp:502
 msgid "Common name:"
 msgstr "Nome comune:"
 
@@ -2362,15 +2351,15 @@ msgstr "Nome comune:"
 msgid "Communication tainted by router or firewall"
 msgstr "Comunicazione corrotta dal router"
 
-#: ../src/interface/Mainfrm.cpp:2497 ../src/interface/menu_bar.cpp:74
+#: ../src/interface/Mainfrm.cpp:2503 ../src/interface/menu_bar.cpp:74
 msgid "Compare &modification time"
 msgstr "Confronta data &modifica"
 
-#: ../src/interface/Mainfrm.cpp:2496 ../src/interface/menu_bar.cpp:73
+#: ../src/interface/Mainfrm.cpp:2502 ../src/interface/menu_bar.cpp:73
 msgid "Compare file&size"
 msgstr "Confronta dimen&sione file"
 
-#: ../src/interface/verifycertdialog.cpp:238
+#: ../src/interface/verifycertdialog.cpp:234
 msgid ""
 "Compare the displayed fingerprint with the certificate fingerprint you have "
 "received from your server administrator or server hosting provider."
@@ -2440,9 +2429,9 @@ msgid "Confirm deletion"
 msgstr "Conferma cancellazione"
 
 #: ../src/interface/edithandler.cpp:1123 ../src/interface/file_utils.h:43
-#: ../src/interface/LocalListView.cpp:1903
+#: ../src/interface/LocalListView.cpp:1905
 #: ../src/interface/RemoteListView.cpp:1425
-#: ../src/interface/RemoteTreeView.cpp:1114 ../src/interface/search.cpp:1646
+#: ../src/interface/RemoteTreeView.cpp:1092 ../src/interface/search.cpp:1646
 #: ../src/interface/search.cpp:2042
 msgid "Confirmation needed"
 msgstr "Richiedi conferma"
@@ -2472,17 +2461,17 @@ msgstr "Connetti in una nuova scheda"
 msgid "Connect to specified Site Manager site"
 msgstr "Connetti al sito specificato in Gestione siti"
 
-#: ../src/interface/queue.cpp:364
+#: ../src/interface/queue.cpp:391
 msgid "Connecting"
 msgstr "Connessione"
 
 #: ../src/interface/netconfwizard.cpp:276
-#: ../src/interface/statuslinectrl.cpp:268
+#: ../src/interface/statuslinectrl.cpp:269
 #, c-format
 msgid "Connecting to %s"
 msgstr "Connessione a %s"
 
-#: ../src/engine/controlsocket.cpp:884 ../src/engine/ftp/logon.cpp:103
+#: ../src/engine/controlsocket.cpp:878 ../src/engine/ftp/logon.cpp:103
 #, c-format
 msgid "Connecting to %s through %s proxy"
 msgstr "Connessione a %s attraverso proxy %s"
@@ -2493,11 +2482,11 @@ msgstr "Connessione a %s attraverso proxy %s"
 msgid "Connecting to %s..."
 msgstr "Connessione a %s..."
 
-#: ../src/interface/settings/settingsdialog.cpp:122
+#: ../src/interface/settings/settingsdialog.cpp:121
 msgid "Connection"
 msgstr "Connessione"
 
-#: ../src/interface/queue.cpp:365
+#: ../src/interface/queue.cpp:392
 msgid "Connection attempt failed"
 msgstr "Tentativo di connessione non riuscito"
 
@@ -2521,26 +2510,19 @@ msgstr "Tentativo di connessione interrotto dall'utente"
 msgid "Connection closed"
 msgstr "Connessione chiusa"
 
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:73 ../src/engine/http/request.cpp:374
-#: ../src/engine/http/request.cpp:389 ../src/engine/http/request.cpp:400
-#: ../src/engine/http/request.cpp:411
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:73
 msgid "Connection closed by server"
 msgstr "Connessione chiusa dal server"
 
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:187
-#: ../src/engine/http/httpcontrolsocket.cpp:226
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:194
 msgid "Connection established, initializing TLS..."
 msgstr "Connessione stabilita, inizializzazione TLS..."
-
-#: ../src/engine/http/httpcontrolsocket.cpp:243
-msgid "Connection established, sending HTTP request"
-msgstr "Connessione stabilita, invio richiesta HTTP"
 
 #: ../src/interface/netconfwizard.cpp:392
 msgid "Connection established, waiting for welcome message."
 msgstr "Connessione stabilita, in attesa del messaggio di benvenuto."
 
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:210
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:217
 msgid "Connection established, waiting for welcome message..."
 msgstr "Connessione stabilita, in attesa del messaggio di benvenuto..."
 
@@ -2563,7 +2545,7 @@ msgid_plural "Connection timed out after %d seconds of inactivity"
 msgstr[0] "Timeout connessione dopo %d secondo di inattività"
 msgstr[1] "Timeout connessione dopo %d secondi di inattività"
 
-#: ../src/interface/netconfwizard.cpp:1123
+#: ../src/interface/netconfwizard.cpp:1117
 msgid "Connection timed out."
 msgstr "Tempo scaduto per la connessione."
 
@@ -2592,24 +2574,24 @@ msgstr "Considerare l'uso del tipo di accesso interattivo."
 msgid "Convert key file"
 msgstr "Converti file della chiave"
 
-#: ../src/interface/bookmarks_dialog.cpp:720
+#: ../src/interface/bookmarks_dialog.cpp:722
 #, c-format
 msgid "Copy (%d) of %s"
 msgstr "Copia (%d) di %s"
 
-#: ../src/interface/bookmarks_dialog.cpp:699
+#: ../src/interface/bookmarks_dialog.cpp:701
 #, c-format
 msgid "Copy of %s"
 msgstr "Copia di %s"
 
 #: ../src/interface/RemoteListView.cpp:1068
-#: ../src/interface/RemoteTreeView.cpp:934
+#: ../src/interface/RemoteTreeView.cpp:912
 msgid "Copy the URLs of the selected items to clipboard, including password."
 msgstr ""
 "Copia le URL degli elementi selezionati negli Appunti, incluse le password."
 
 #: ../src/interface/RemoteListView.cpp:1067
-#: ../src/interface/RemoteTreeView.cpp:933
+#: ../src/interface/RemoteTreeView.cpp:911
 msgid "Copy the URLs of the selected items to clipboard."
 msgstr "Copia gli URL degli elementi selezionati negli Appunti."
 
@@ -2623,8 +2605,8 @@ msgstr "Impossibile accettare la connessione: %s"
 msgid "Could not access path %s"
 msgstr "Impossibile accedere al percorso %s"
 
-#: ../src/interface/bookmarks_dialog.cpp:108
-#: ../src/interface/bookmarks_dialog.cpp:617
+#: ../src/interface/bookmarks_dialog.cpp:109
+#: ../src/interface/bookmarks_dialog.cpp:619
 msgid "Could not add connection to Site Manager"
 msgstr "Impossibile aggiungere il sito in Gestione siti"
 
@@ -2636,7 +2618,7 @@ msgstr "Impossibile completare l'operazione"
 msgid "Could not connect to server"
 msgstr "Impossibile collegarsi al server"
 
-#: ../src/engine/controlsocket.cpp:909
+#: ../src/engine/controlsocket.cpp:915
 #, c-format
 msgid "Could not connect to server: %s"
 msgstr "Impossibile collegarsi al server: %s"
@@ -2653,8 +2635,8 @@ msgstr "Impossibile convertire comando alla codifica del server"
 msgid "Could not convert private key"
 msgstr "Impossibile convertire la chiave privata"
 
-#: ../src/interface/RemoteListView.cpp:2682
-#: ../src/interface/RemoteTreeView.cpp:1479 ../src/interface/search.cpp:1934
+#: ../src/interface/RemoteListView.cpp:2685
+#: ../src/interface/RemoteTreeView.cpp:1461 ../src/interface/search.cpp:1934
 msgid "Could not copy URLs"
 msgstr "Impossibile copiare gli URL"
 
@@ -2683,7 +2665,7 @@ msgid "Could not create logging mutex: %s"
 msgstr "Impossibile creare il file accesso mutex %s"
 
 #: ../src/interface/osx_sandbox_userdirs.cpp:179
-#: ../src/interface/osx_sandbox_userdirs.cpp:222
+#: ../src/interface/osx_sandbox_userdirs.cpp:225
 msgid "Could not create security-scoped bookmark from URL:"
 msgstr "Impossibile creare segnalibro scopo sicurezza da URL:"
 
@@ -2692,12 +2674,12 @@ msgid "Could not create temporary file name."
 msgstr "Impossibile creare nome file temporaneo."
 
 #: ../src/interface/RemoteListView.cpp:2319
-#: ../src/interface/RemoteTreeView.cpp:901
+#: ../src/interface/RemoteTreeView.cpp:879
 msgid "Could not determine the target of the Drag&Drop operation."
 msgstr "Impossibile determinare la destinazione dell'operazione drag&drop."
 
 #: ../src/interface/RemoteListView.cpp:2317
-#: ../src/interface/RemoteTreeView.cpp:899
+#: ../src/interface/RemoteTreeView.cpp:877
 msgid ""
 "Could not determine the target of the Drag&Drop operation.\n"
 "Either the shell extension is not installed properly or you didn't drop the "
@@ -2712,7 +2694,7 @@ msgstr ""
 msgid "Could not establish connection to server"
 msgstr "Impossibile stabilire una connessione al server"
 
-#: ../src/interface/FileZilla.cpp:302
+#: ../src/interface/FileZilla.cpp:306
 msgid ""
 "Could not find the resource files for FileZilla, closing FileZilla.\n"
 "You can specify the data directory of FileZilla by setting the FZ_DATADIR "
@@ -2740,7 +2722,7 @@ msgid "Could not get native path from CFURL"
 msgstr "Impossibile ottenere percorso nativo da CFURL"
 
 #: ../src/interface/osx_sandbox_userdirs.cpp:185
-#: ../src/interface/osx_sandbox_userdirs.cpp:228
+#: ../src/interface/osx_sandbox_userdirs.cpp:231
 msgid "Could not get path from URL"
 msgstr "Impossibile ottenere percorso dall'URL"
 
@@ -2761,11 +2743,11 @@ msgstr "Impossibile ottenere la dimensione di \"%s\""
 msgid "Could not get temporary directory to download file into."
 msgstr "Impossibile creare la cartella temporanea per il download del file."
 
-#: ../src/interface/LocalListView.cpp:400
+#: ../src/interface/LocalListView.cpp:402
 msgid "Could not list directory contents"
 msgstr "Impossibile visualizzare elenco cartella"
 
-#: ../src/interface/sitemanager.cpp:604
+#: ../src/interface/sitemanager.cpp:599
 #, c-format
 msgid ""
 "Could not load \"%s\", please make sure the file is valid and can be "
@@ -2835,8 +2817,8 @@ msgid "Could not open '%s'"
 msgstr "Impossibile aprire '%s'"
 
 #: ../src/interface/aboutdialog.cpp:220
-#: ../src/interface/RemoteListView.cpp:2682
-#: ../src/interface/RemoteTreeView.cpp:1479 ../src/interface/search.cpp:1934
+#: ../src/interface/RemoteListView.cpp:2685
+#: ../src/interface/RemoteTreeView.cpp:1461 ../src/interface/search.cpp:1934
 msgid "Could not open clipboard"
 msgstr "Impossibile aprire gli Appunti"
 
@@ -2847,7 +2829,7 @@ msgstr "Impossibile aprire gli Appunti"
 msgid "Could not open log file: %s"
 msgstr "Impossibile aprire il file registro: %s"
 
-#: ../src/interface/bookmarks_dialog.cpp:78
+#: ../src/interface/bookmarks_dialog.cpp:79
 msgid "Could not parse remote path."
 msgstr "Impossibile analizzare il percorso remoto."
 
@@ -2860,11 +2842,11 @@ msgstr "Impossibile analizzare l'indirizzo del server:"
 msgid "Could not read from '%s'"
 msgstr "Impossibile leggere dal '%s'"
 
-#: ../src/interface/netconfwizard.cpp:1044
+#: ../src/interface/netconfwizard.cpp:1038
 msgid "Could not read from data socket."
 msgstr "Impossibile leggere dal socket dati."
 
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:62 ../src/engine/http/request.cpp:446
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:62
 #, c-format
 msgid "Could not read from socket: %s"
 msgstr "Impossibile leggere dal socket: %s"
@@ -2881,7 +2863,7 @@ msgstr "Impossibile ripristinare accesso alla cartella"
 msgid "Could not send command to fzputtygen."
 msgstr "Impossibile inviare comando a fzputtygen."
 
-#: ../src/engine/sftp/sftpcontrolsocket.cpp:652
+#: ../src/engine/sftp/sftpcontrolsocket.cpp:649
 msgid "Could not send command to fzsftp executable"
 msgstr "Impossibile inviare il comando all'eseguibile fzsftp"
 
@@ -2889,12 +2871,12 @@ msgstr "Impossibile inviare il comando all'eseguibile fzsftp"
 msgid "Could not send command to fzstorj."
 msgstr "Impossibile inviare comando a fzstorj."
 
-#: ../src/interface/queue.cpp:370
+#: ../src/interface/queue.cpp:397
 msgid "Could not start transfer"
 msgstr "Impossibile avviare il trasferimento"
 
 #: ../src/interface/sitemanager.cpp:329
-#: ../src/interface/sitemanager_dialog.cpp:797
+#: ../src/interface/sitemanager_dialog.cpp:798
 #, c-format
 msgid ""
 "Could not write \"%s\", any changes to the Site Manager could not be saved: "
@@ -2903,26 +2885,26 @@ msgstr ""
 "Impossibile scrivere \"%s\". Le modifiche effettuate in Gestione siti non "
 "saranno salvate: %s"
 
-#: ../src/interface/bookmarks_dialog.cpp:930
+#: ../src/interface/bookmarks_dialog.cpp:932
 #, c-format
 msgid "Could not write \"%s\", the bookmark could not be added: %s"
 msgstr "Impossibile scrivere \"%s\", il preferito %s non potrà essere aggiunto"
 
-#: ../src/interface/bookmarks_dialog.cpp:375
+#: ../src/interface/bookmarks_dialog.cpp:377
 #, c-format
 msgid "Could not write \"%s\", the global bookmarks could no be saved: %s"
 msgstr ""
 "Impossibile scrivere \"%s\". I preferiti globali non saranno salvati: %s"
 
 #: ../src/interface/sitemanager.cpp:422 ../src/interface/sitemanager.cpp:479
-#: ../src/interface/sitemanager_dialog.cpp:1947
+#: ../src/interface/sitemanager_dialog.cpp:1948
 #, c-format
 msgid "Could not write \"%s\", the selected sites could not be exported: %s"
 msgstr ""
 "Impossibile scrivere su \"%s\". Il sito selezionato non può essere "
 "esportato: %s"
 
-#: ../src/interface/Options.cpp:182 ../src/interface/verifycertdialog.cpp:28
+#: ../src/interface/Options.cpp:182 ../src/interface/verifycertdialog.cpp:29
 #: ../src/interface/xmlfunctions.cpp:16
 #, c-format
 msgid "Could not write \"%s\":"
@@ -2933,7 +2915,7 @@ msgstr "Impossibile scrivere su \"%s\":"
 msgid "Could not write key file: %s"
 msgstr "Impossibile scrivere il file della chiave: %s"
 
-#: ../src/interface/queue.cpp:369
+#: ../src/interface/queue.cpp:396
 msgid "Could not write to local file"
 msgstr "Impossibile scrivere nel file locale"
 
@@ -2943,12 +2925,11 @@ msgid "Could not write to log file: %s"
 msgstr "Impossibile scrivere nel file registro: %s"
 
 #: ../src/engine/controlsocket.cpp:738 ../src/engine/controlsocket.cpp:836
-#: ../src/engine/http/request.cpp:271
 #, c-format
 msgid "Could not write to socket: %s"
 msgstr "Impossibile scrivere nel socket: %s"
 
-#: ../src/interface/verifycertdialog.cpp:511
+#: ../src/interface/verifycertdialog.cpp:507
 msgid "Country:"
 msgstr "Nazione:"
 
@@ -2964,17 +2945,17 @@ msgstr "Crea la cartella locale &mancante e entra nella cartella"
 msgid "Create &missing remote directory and enter it"
 msgstr "Crea la cartella re&mota mancante e entra nella cartella"
 
-#: ../src/interface/LocalListView.cpp:823
-#: ../src/interface/LocalTreeView.cpp:1116
+#: ../src/interface/LocalListView.cpp:825
+#: ../src/interface/LocalTreeView.cpp:1132
 #: ../src/interface/RemoteListView.cpp:1059
-#: ../src/interface/RemoteTreeView.cpp:927
+#: ../src/interface/RemoteTreeView.cpp:905
 msgid "Create a new subdirectory in the current directory"
 msgstr "Creare una nuova sotto-cartella nella cartella attuale"
 
-#: ../src/interface/LocalListView.cpp:824
-#: ../src/interface/LocalTreeView.cpp:1117
+#: ../src/interface/LocalListView.cpp:826
+#: ../src/interface/LocalTreeView.cpp:1133
 #: ../src/interface/RemoteListView.cpp:1060
-#: ../src/interface/RemoteTreeView.cpp:928
+#: ../src/interface/RemoteTreeView.cpp:906
 msgid "Create a new subdirectory in the current directory and change into it"
 msgstr ""
 "Creare una nuova sotto-cartella nella cartella attuale e entra nella sotto-"
@@ -2984,25 +2965,25 @@ msgstr ""
 msgid "Create a new, empty file in the current directory"
 msgstr "Crea un nuovo file vuoto nella libreria attuale"
 
-#: ../src/interface/LocalListView.cpp:824
-#: ../src/interface/LocalTreeView.cpp:1117
+#: ../src/interface/LocalListView.cpp:826
+#: ../src/interface/LocalTreeView.cpp:1133
 #: ../src/interface/RemoteListView.cpp:1060
-#: ../src/interface/RemoteTreeView.cpp:928
+#: ../src/interface/RemoteTreeView.cpp:906
 msgid "Create director&y and enter it"
 msgstr "Crea la &cartella e entra in essa"
 
-#: ../src/interface/LocalListView.cpp:994
-#: ../src/interface/LocalTreeView.cpp:1235
+#: ../src/interface/LocalListView.cpp:996
+#: ../src/interface/LocalTreeView.cpp:1251
 #: ../src/interface/RemoteListView.cpp:1322
-#: ../src/interface/RemoteTreeView.cpp:1313
+#: ../src/interface/RemoteTreeView.cpp:1291
 msgid "Create directory"
 msgstr "Nuova cartella"
 
-#: ../src/interface/RemoteListView.cpp:2771
+#: ../src/interface/RemoteListView.cpp:2774
 msgid "Create empty file"
 msgstr "Crea un file vuoto"
 
-#: ../src/interface/queue.cpp:372
+#: ../src/interface/queue.cpp:399
 msgid "Creating directory"
 msgstr "Creazione cartella"
 
@@ -3110,7 +3091,7 @@ msgid "D&efault"
 msgstr "Pred&efinita"
 
 #: ../src/interface/RemoteListView.cpp:1065
-#: ../src/interface/RemoteTreeView.cpp:931 ../src/interface/search.cpp:1231
+#: ../src/interface/RemoteTreeView.cpp:909 ../src/interface/search.cpp:1231
 #: ../src/interface/search.cpp:1239
 msgid "D&elete"
 msgstr "&Elimina"
@@ -3128,7 +3109,7 @@ msgstr "D&isabilita tutto"
 msgid "D&o not save passwords"
 msgstr "N&on salvare la password"
 
-#: ../src/interface/bookmarks_dialog.cpp:277
+#: ../src/interface/bookmarks_dialog.cpp:279
 msgid "D&uplicate"
 msgstr "D&uplica"
 
@@ -3140,8 +3121,8 @@ msgstr "Tipo DOS con percorso virtuale"
 msgid "Data"
 msgstr "Data"
 
-#: ../src/interface/netconfwizard.cpp:1038
-#: ../src/interface/netconfwizard.cpp:1105
+#: ../src/interface/netconfwizard.cpp:1032
+#: ../src/interface/netconfwizard.cpp:1099
 msgid "Data socket closed too early."
 msgstr "Data socket chiuso troppo presto."
 
@@ -3153,7 +3134,7 @@ msgstr "Data"
 msgid "Date formatting"
 msgstr "Formato data"
 
-#: ../src/interface/settings/settingsdialog.cpp:135
+#: ../src/interface/settings/settingsdialog.cpp:134
 msgid "Date/time format"
 msgstr "Formato data/ora"
 
@@ -3161,7 +3142,7 @@ msgstr "Formato data/ora"
 msgid "Date/time unknown"
 msgstr "Data/ora sconosciute"
 
-#: ../src/interface/settings/settingsdialog.cpp:147
+#: ../src/interface/settings/settingsdialog.cpp:146
 msgid "Debug"
 msgstr "Debug"
 
@@ -3242,16 +3223,16 @@ msgstr[1] ""
 "Ritardo di connessione di %d secondi dovuto a precedenti tentativi di "
 "connessione falliti..."
 
-#: ../src/interface/sitemanager_dialog.cpp:1057
+#: ../src/interface/sitemanager_dialog.cpp:1058
 msgid "Delete Site Manager entries"
 msgstr "Elimina elementi Gestione siti"
 
-#: ../src/interface/LocalTreeView.cpp:1120
-#: ../src/interface/RemoteTreeView.cpp:931
+#: ../src/interface/LocalTreeView.cpp:1136
+#: ../src/interface/RemoteTreeView.cpp:909
 msgid "Delete selected directory"
 msgstr "Elimina le cartelle selezionate"
 
-#: ../src/interface/LocalListView.cpp:828
+#: ../src/interface/LocalListView.cpp:830
 #: ../src/interface/RemoteListView.cpp:1065
 msgid "Delete selected files and directories"
 msgstr "Elimina i file e cartelle selezionate"
@@ -3270,12 +3251,12 @@ msgstr "Eliminazione di %u file da \"%s\""
 msgid "Deleting symbolic link"
 msgstr "Elimina collegamento simbolico"
 
-#: ../src/interface/LocalTreeView.cpp:1030
+#: ../src/interface/LocalTreeView.cpp:1046
 msgid "Desktop"
 msgstr "Desktop"
 
 #: ../src/interface/resources/xrc/dialogs.xrc:30
-#: ../src/interface/verifycertdialog.cpp:331
+#: ../src/interface/verifycertdialog.cpp:327
 msgid "Details"
 msgstr "Dettagli"
 
@@ -3283,7 +3264,7 @@ msgstr "Dettagli"
 msgid "Details for new key:"
 msgstr "Dettagli per la nuova chiave:"
 
-#: ../src/interface/import.cpp:71 ../src/interface/sitemanager_dialog.cpp:722
+#: ../src/interface/import.cpp:71 ../src/interface/sitemanager_dialog.cpp:723
 msgid "Detected newer version of FileZilla"
 msgstr "È disponibile una nuova versione di Filezilla"
 
@@ -3291,7 +3272,7 @@ msgstr "È disponibile una nuova versione di Filezilla"
 msgid "Dire&ctories"
 msgstr "&Cartelle"
 
-#: ../src/interface/queue.cpp:1295
+#: ../src/interface/queue.cpp:1322
 msgid "Direction"
 msgstr "Direzione"
 
@@ -3299,16 +3280,16 @@ msgstr "Direzione"
 msgid "Directory"
 msgstr "Cartella"
 
-#: ../src/interface/osx_sandbox_userdirs.cpp:282
+#: ../src/interface/osx_sandbox_userdirs.cpp:285
 msgid "Directory access permissions"
 msgstr "Permessi accesso cartella"
 
-#: ../src/interface/filelistctrl.cpp:495 ../src/interface/Mainfrm.cpp:2444
-#: ../src/interface/Mainfrm.cpp:2464
+#: ../src/interface/filelistctrl.cpp:495 ../src/interface/Mainfrm.cpp:2450
+#: ../src/interface/Mainfrm.cpp:2470
 #: ../src/interface/settings/optionspage_filelists.cpp:64
 #: ../src/interface/sitemanager_controls.cpp:939
-#: ../src/interface/sitemanager_dialog.cpp:282 ../src/interface/toolbar.cpp:116
-#: ../src/interface/view.cpp:114
+#: ../src/interface/sitemanager_dialog.cpp:283 ../src/interface/toolbar.cpp:116
+#: ../src/interface/view.cpp:116
 msgid "Directory comparison"
 msgstr "Comparazione cartelle"
 
@@ -3358,7 +3339,7 @@ msgstr ""
 "Vuoi disabilitare la navigazione sincronizzata e continuare le modifiche "
 "della cartella remota?"
 
-#: ../src/interface/Mainfrm.cpp:808
+#: ../src/interface/Mainfrm.cpp:814
 msgid ""
 "Disable this option again if you will not be able to see the correct "
 "directory contents anymore."
@@ -3372,18 +3353,16 @@ msgstr "Disconnetti dal server"
 
 #: ../src/engine/controlsocket.cpp:54 ../src/engine/controlsocket.cpp:739
 #: ../src/engine/controlsocket.cpp:838
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:64 ../src/engine/http/request.cpp:272
-#: ../src/interface/queue.cpp:363
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:64 ../src/interface/queue.cpp:390
 msgid "Disconnected from server"
 msgstr "Disconnesso dal server"
 
 #: ../src/engine/controlsocket.cpp:863
-#: ../src/engine/http/httpcontrolsocket.cpp:329
 #, c-format
 msgid "Disconnected from server: %s"
 msgstr "Disconnesso dal server: %s"
 
-#: ../src/interface/queue.cpp:362 ../src/interface/statuslinectrl.cpp:262
+#: ../src/interface/queue.cpp:389 ../src/interface/statuslinectrl.cpp:263
 msgid "Disconnecting from previous server"
 msgstr "Disconnessione dal server precedente"
 
@@ -3403,7 +3382,7 @@ msgstr "&Non usare il programma predefinito"
 msgid "Do the same with &all selected files already being edited"
 msgstr "Fai lo stesso con &tutti i file selezionati già modificati"
 
-#: ../src/interface/Mainfrm.cpp:1310 ../src/interface/Mainfrm.cpp:1333
+#: ../src/interface/Mainfrm.cpp:1316 ../src/interface/Mainfrm.cpp:1339
 msgid "Do you really want to close FileZilla?"
 msgstr "Vuoi chiudere FileZilla?"
 
@@ -3417,7 +3396,7 @@ msgstr ""
 msgid "Do you really want to delete all Site Manager entries?"
 msgstr "Vuoi eliminare tutte le voci della Gestione siti?"
 
-#: ../src/interface/sitemanager_dialog.cpp:1059
+#: ../src/interface/sitemanager_dialog.cpp:1060
 msgid "Do you really want to delete the selected entries?"
 msgstr "Vuoi veramente eliminare gli elementi selezionati?"
 
@@ -3425,7 +3404,7 @@ msgstr "Vuoi veramente eliminare gli elementi selezionati?"
 msgid "Do you really want to delete the transfer queue?"
 msgstr "Vuoi svuotare la coda di trasferimento?"
 
-#: ../src/interface/Mainfrm.cpp:737
+#: ../src/interface/Mainfrm.cpp:743
 #, c-format
 msgid "Do you really want to send '%s' to the server?"
 msgstr "Vuoi inviare '%s' al server?"
@@ -3459,7 +3438,7 @@ msgid "Download"
 msgstr "Download"
 
 #: ../src/interface/settings/optionspage_transfer.cpp:78
-#: ../src/interface/speedlimits_dialog.cpp:58
+#: ../src/interface/speedlimits_dialog.cpp:64
 msgid "Download &limit:"
 msgstr "Limite &download:"
 
@@ -3477,7 +3456,7 @@ msgstr "Limite download: nessuno"
 msgid "Download search results"
 msgstr "Download risultati ricerca"
 
-#: ../src/interface/RemoteTreeView.cpp:919
+#: ../src/interface/RemoteTreeView.cpp:897
 msgid "Download selected directory"
 msgstr "Scarica le cartelle selezionate"
 
@@ -3494,17 +3473,17 @@ msgstr "Download: %s/s"
 msgid "Downloading"
 msgstr "Download"
 
-#: ../src/engine/http/httpcontrolsocket.cpp:253
+#: ../src/engine/http/httpcontrolsocket.cpp:139
 #, c-format
 msgid "Downloading %s"
 msgstr "Download di %s"
 
-#: ../src/interface/update_dialog.cpp:160
+#: ../src/interface/update_dialog.cpp:161
 msgid "Downloading update..."
 msgstr "Download aggiornamento..."
 
-#: ../src/interface/LocalListView.cpp:117
-#: ../src/interface/LocalTreeView.cpp:114 ../src/interface/QueueView.cpp:101
+#: ../src/interface/LocalListView.cpp:119
+#: ../src/interface/LocalTreeView.cpp:116 ../src/interface/QueueView.cpp:103
 #: ../src/interface/RemoteListView.cpp:118
 #: ../src/interface/RemoteTreeView.cpp:91
 msgid ""
@@ -3514,8 +3493,8 @@ msgstr ""
 "La funzione &Trascina e rilascia tra diverse istanze di FileZilla non è "
 "stata ancora implementata."
 
-#: ../src/interface/LocalListView.cpp:122
-#: ../src/interface/LocalTreeView.cpp:120 ../src/interface/QueueView.cpp:115
+#: ../src/interface/LocalListView.cpp:124
+#: ../src/interface/LocalTreeView.cpp:122 ../src/interface/QueueView.cpp:117
 #: ../src/interface/RemoteListView.cpp:123
 #: ../src/interface/RemoteTreeView.cpp:96
 msgid "Drag&drop between different servers has not been implemented yet."
@@ -3527,7 +3506,7 @@ msgstr ""
 msgid "Dropbox for Business:"
 msgstr "Dropbox for Business:"
 
-#: ../src/interface/sitemanager_dialog.cpp:334
+#: ../src/interface/sitemanager_dialog.cpp:335
 msgid "Dupl&icate"
 msgstr "Dupl&ica"
 
@@ -3535,7 +3514,7 @@ msgstr "Dupl&ica"
 msgid "E&nable all"
 msgstr "A&bilita tutto"
 
-#: ../src/interface/LocalListView.cpp:816
+#: ../src/interface/LocalListView.cpp:818
 #: ../src/interface/RemoteListView.cpp:1055
 msgid "E&nter directory"
 msgstr "I&nserisci cartella"
@@ -3548,12 +3527,12 @@ msgstr "Ese&cuzione"
 msgid "E&xit"
 msgstr "&Esci"
 
-#: ../src/interface/QueueView.cpp:1811 ../src/interface/queueview_failed.cpp:38
+#: ../src/interface/QueueView.cpp:1825 ../src/interface/queueview_failed.cpp:38
 #: ../src/interface/queueview_successful.cpp:34
 msgid "E&xport..."
 msgstr "E&sporta..."
 
-#: ../src/interface/verifycertdialog.cpp:516
+#: ../src/interface/verifycertdialog.cpp:512
 msgid "E-Mail:"
 msgstr "Email:"
 
@@ -3565,7 +3544,7 @@ msgstr "Ogni filtro richiede almeno una condizione."
 msgid "Edit filters"
 msgstr "Modifica filtri"
 
-#: ../src/interface/LocalListView.cpp:820
+#: ../src/interface/LocalListView.cpp:822
 msgid ""
 "Edit the file with the configured editor and upload changes to the server."
 msgstr ""
@@ -3575,8 +3554,8 @@ msgstr ""
 msgid "Editing directories is not supported"
 msgstr "La modifica delle cartelle non è supportata"
 
-#: ../src/interface/LocalListView.cpp:1817
-#: ../src/interface/LocalListView.cpp:1826
+#: ../src/interface/LocalListView.cpp:1819
+#: ../src/interface/LocalListView.cpp:1828
 msgid "Editing failed"
 msgstr "Modifica non riuscita"
 
@@ -3584,7 +3563,7 @@ msgstr "Modifica non riuscita"
 msgid "Editing search results"
 msgstr "Modifica risultati ricerca"
 
-#: ../src/interface/update_dialog.cpp:176
+#: ../src/interface/update_dialog.cpp:177
 msgid ""
 "Either you or your system administrator has disabled checking for updates. "
 "Please re-enable checking for updates to obtain more information."
@@ -3597,7 +3576,7 @@ msgstr ""
 msgid "Email:"
 msgstr "Email:"
 
-#: ../src/interface/QueueView.cpp:1891
+#: ../src/interface/QueueView.cpp:1905
 msgid "Empty command"
 msgstr "Comando vuoto"
 
@@ -3605,7 +3584,7 @@ msgstr "Comando vuoto"
 msgid "Empty directory listing"
 msgstr "Elenco cartella vuoto"
 
-#: ../src/interface/filelist_statusbar.cpp:16
+#: ../src/interface/filelist_statusbar.cpp:17
 msgid "Empty directory."
 msgstr "Cartella vuota."
 
@@ -3654,7 +3633,7 @@ msgstr "Password criptazione non impostata"
 msgid "End comparison and change sorting order?"
 msgstr "Fine comparazione e cambio ordine visualizzazione?"
 
-#: ../src/interface/view.cpp:116
+#: ../src/interface/view.cpp:118
 msgid "End comparison and open quick search?"
 msgstr "Vuoi chiudere la comparazione e aprire la ricerca rapida?"
 
@@ -3662,15 +3641,15 @@ msgstr "Vuoi chiudere la comparazione e aprire la ricerca rapida?"
 msgid "Enter &custom command..."
 msgstr "&Esegui comando personalizzato..."
 
-#: ../src/interface/speedlimits_dialog.cpp:67
+#: ../src/interface/speedlimits_dialog.cpp:73
 msgid "Enter 0 for unlimited speed."
 msgstr "Inserisci 0 per velocità illimitata."
 
-#: ../src/interface/QueueView.cpp:1885
+#: ../src/interface/QueueView.cpp:1899
 msgid "Enter command"
 msgstr "Inserisci comando"
 
-#: ../src/interface/Mainfrm.cpp:719
+#: ../src/interface/Mainfrm.cpp:725
 msgid "Enter custom command"
 msgstr "Inserisci comando personalizzato"
 
@@ -3699,7 +3678,7 @@ msgstr "Inserisci il nome per il gruppo di filtri"
 msgid "Enter password"
 msgstr "Inserisci password"
 
-#: ../src/interface/LocalListView.cpp:816
+#: ../src/interface/LocalListView.cpp:818
 #: ../src/interface/RemoteListView.cpp:1055
 msgid "Enter selected directory"
 msgstr "Inserisci la cartella selezionata"
@@ -3786,15 +3765,15 @@ msgstr "Errore esportazione impostazioni"
 msgid "Error importing"
 msgstr "Errore importazione"
 
-#: ../src/interface/QueueView.cpp:1635
+#: ../src/interface/QueueView.cpp:1649
 msgid "Error loading queue"
 msgstr "Errore caricamento della coda"
 
-#: ../src/interface/bookmarks_dialog.cpp:178
-#: ../src/interface/bookmarks_dialog.cpp:340
-#: ../src/interface/bookmarks_dialog.cpp:796
-#: ../src/interface/bookmarks_dialog.cpp:836
-#: ../src/interface/bookmarks_dialog.cpp:889
+#: ../src/interface/bookmarks_dialog.cpp:180
+#: ../src/interface/bookmarks_dialog.cpp:342
+#: ../src/interface/bookmarks_dialog.cpp:798
+#: ../src/interface/bookmarks_dialog.cpp:838
+#: ../src/interface/bookmarks_dialog.cpp:891
 #: ../src/interface/filter_manager.cpp:527
 #: ../src/interface/filter_manager.cpp:570 ../src/interface/Options.cpp:153
 #: ../src/interface/osx_sandbox_userdirs.cpp:67
@@ -3802,14 +3781,14 @@ msgstr "Errore caricamento della coda"
 #: ../src/interface/search.cpp:1790 ../src/interface/search.cpp:1824
 #: ../src/interface/sitemanager.cpp:44 ../src/interface/sitemanager.cpp:281
 #: ../src/interface/sitemanager.cpp:358 ../src/interface/sitemanager.cpp:446
-#: ../src/interface/sitemanager.cpp:544 ../src/interface/sitemanager.cpp:605
-#: ../src/interface/sitemanager_dialog.cpp:715
-#: ../src/interface/sitemanager_dialog.cpp:775
+#: ../src/interface/sitemanager.cpp:544 ../src/interface/sitemanager.cpp:600
+#: ../src/interface/sitemanager_dialog.cpp:716
+#: ../src/interface/sitemanager_dialog.cpp:776
 #: ../src/interface/wrapengine.cpp:946
 msgid "Error loading xml file"
 msgstr "Errore di caricamento file XML"
 
-#: ../src/interface/QueueView.cpp:1560
+#: ../src/interface/QueueView.cpp:1574
 msgid "Error saving queue"
 msgstr "Errore nel salvataggio della coda"
 
@@ -3820,19 +3799,19 @@ msgstr "Errore nel salvataggio della coda"
 msgid "Error starting program"
 msgstr "Errore nell'avvio del programma"
 
-#: ../src/interface/bookmarks_dialog.cpp:376
-#: ../src/interface/bookmarks_dialog.cpp:931 ../src/interface/Options.cpp:187
+#: ../src/interface/bookmarks_dialog.cpp:378
+#: ../src/interface/bookmarks_dialog.cpp:933 ../src/interface/Options.cpp:187
 #: ../src/interface/sitemanager.cpp:330 ../src/interface/sitemanager.cpp:423
 #: ../src/interface/sitemanager.cpp:480
-#: ../src/interface/sitemanager_dialog.cpp:798
-#: ../src/interface/sitemanager_dialog.cpp:1948
-#: ../src/interface/verifycertdialog.cpp:29
+#: ../src/interface/sitemanager_dialog.cpp:799
+#: ../src/interface/sitemanager_dialog.cpp:1949
+#: ../src/interface/verifycertdialog.cpp:30
 #: ../src/interface/xmlfunctions.cpp:20
 msgid "Error writing xml file"
 msgstr "Errore di scrittura file XML"
 
-#: ../src/engine/logging.cpp:121 ../src/interface/StatusView.cpp:301
-#: ../src/interface/StatusView.cpp:368
+#: ../src/engine/logging.cpp:121 ../src/interface/StatusView.cpp:302
+#: ../src/interface/StatusView.cpp:369
 msgid "Error:"
 msgstr "Errore:"
 
@@ -3844,22 +3823,17 @@ msgstr "Esempio: png \"C:\\Programmi\\Paint\\Paint.exe\" -open"
 msgid "Examples"
 msgstr "Esempi"
 
-#: ../src/engine/http/request.cpp:262
-#, c-format
-msgid "Excess data read from '%s'"
-msgstr "Dati in eccesso letti da '%s'"
-
 #: ../src/interface/chmoddialog.cpp:95
 msgid "Exe&cute"
 msgstr "Esecu&zione"
 
-#: ../src/interface/update_dialog.cpp:65
+#: ../src/interface/update_dialog.cpp:66
 msgid "Executable contains no version info, cannot check for updates."
 msgstr ""
 "Il file eseguibile non contiene informazioni sulla versione. Non è possibile "
 "verificare gli aggiornamenti."
 
-#: ../src/interface/verifycertdialog.cpp:88
+#: ../src/interface/verifycertdialog.cpp:84
 msgid "Expired!"
 msgstr "Scaduta!"
 
@@ -3887,7 +3861,7 @@ msgstr "Impostazioni esportazione"
 msgid "F&ilter name:"
 msgstr "Nome f&iltro:"
 
-#: ../src/interface/settings/settingsdialog.cpp:123
+#: ../src/interface/settings/settingsdialog.cpp:122
 msgid "FTP"
 msgstr "FTP"
 
@@ -3908,7 +3882,7 @@ msgid "FTP Keep-alive"
 msgstr "Mantieni attiva connessione FTP"
 
 #: ../src/interface/settings/optionspage_ftpproxy.cpp:44
-#: ../src/interface/settings/settingsdialog.cpp:126
+#: ../src/interface/settings/settingsdialog.cpp:125
 msgid "FTP Proxy"
 msgstr "Proxy FTP"
 
@@ -3924,7 +3898,7 @@ msgstr ""
 "L'FTP usa connessioni secondarie per il trasferimento dei dati. Queste "
 "connessioni aggiuntive possono essere stabilite in due modi."
 
-#: ../src/interface/settings/settingsdialog.cpp:130
+#: ../src/interface/settings/settingsdialog.cpp:129
 msgid "FTP: File Types"
 msgstr "FTP: tipi di file"
 
@@ -3936,21 +3910,21 @@ msgstr "FTPES - FTP su TLS esplicito"
 msgid "FTPS - FTP over implicit TLS"
 msgstr "FTPS - FTP su TLS implicito"
 
-#: ../src/interface/LocalListView.cpp:565
-#: ../src/interface/LocalListView.cpp:638
-#: ../src/interface/LocalListView.cpp:981
-#: ../src/interface/LocalListView.cpp:2021
-#: ../src/interface/LocalTreeView.cpp:898
-#: ../src/interface/LocalTreeView.cpp:1208 ../src/interface/viewheader.cpp:515
+#: ../src/interface/LocalListView.cpp:567
+#: ../src/interface/LocalListView.cpp:640
+#: ../src/interface/LocalListView.cpp:983
+#: ../src/interface/LocalListView.cpp:2023
+#: ../src/interface/LocalTreeView.cpp:914
+#: ../src/interface/LocalTreeView.cpp:1224 ../src/interface/viewheader.cpp:515
 msgid "Failed to change directory"
 msgstr "Non è stato possibile cambiare la cartella"
 
-#: ../src/interface/FileZilla.cpp:97 ../src/interface/FileZilla.cpp:112
-#: ../src/interface/FileZilla.cpp:115
+#: ../src/interface/FileZilla.cpp:100 ../src/interface/FileZilla.cpp:115
+#: ../src/interface/FileZilla.cpp:118
 msgid "Failed to change language"
 msgstr "Errore durante la modifica della lingua"
 
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:304
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:311
 msgid "Failed to convert command to 8 bit charset"
 msgstr "Impossibile convertire il comando nel set caratteri 8bit"
 
@@ -3959,7 +3933,7 @@ msgstr "Impossibile convertire il comando nel set caratteri 8bit"
 msgid "Failed to convert reply to local character set."
 msgstr "Conversione della risposta in set di caratteri locali non riuscita."
 
-#: ../src/interface/sitemanager_dialog.cpp:1681
+#: ../src/interface/sitemanager_dialog.cpp:1682
 msgid "Failed to copy or move sites"
 msgstr "Impossibile copiare o spostare siti"
 
@@ -3967,7 +3941,7 @@ msgstr "Impossibile copiare o spostare siti"
 msgid "Failed to create backup copy of xml file"
 msgstr "Non è stato possibile creare una copia di backup del file XML"
 
-#: ../src/interface/netconfwizard.cpp:853
+#: ../src/interface/netconfwizard.cpp:847
 #, c-format
 msgid "Failed to create listen socket on port %d, aborting."
 msgstr "Impossibile creare socket ascolto sulla porta %d. Annullamento."
@@ -3982,27 +3956,27 @@ msgstr ""
 msgid "Failed to decrypt server password."
 msgstr "Decriptazione fallita password server."
 
-#: ../src/interface/LocalTreeView.cpp:646
+#: ../src/interface/LocalTreeView.cpp:649
 msgid "Failed to get 'My Documents' path"
 msgstr "Non è possibile recuperare il percorso 'Documenti'"
 
-#: ../src/interface/LocalTreeView.cpp:632
+#: ../src/interface/LocalTreeView.cpp:635
 msgid "Failed to get desktop path"
 msgstr "Non è stato possibile recuperare il percorso del desktop"
 
-#: ../src/interface/netconfwizard.cpp:1014
+#: ../src/interface/netconfwizard.cpp:1008
 msgid "Failed to get peer address of control connection, connection closed."
 msgstr ""
 "Non è stato possibile recuperare l'indirizzo esterno del controllo "
 "connessione. Connessione terminata."
 
-#: ../src/interface/netconfwizard.cpp:1020
+#: ../src/interface/netconfwizard.cpp:1014
 msgid "Failed to get peer address of data connection, connection closed."
 msgstr ""
 "Non è stato possibile recuperare l'indirizzo esterno della connessione dati. "
 "Connessione terminata."
 
-#: ../src/interface/settings/settingsdialog.cpp:177
+#: ../src/interface/settings/settingsdialog.cpp:176
 msgid "Failed to load panels, invalid resource files?"
 msgstr ""
 "Non è stato possibile caricare il menu principale. File risorse non valido?"
@@ -4017,7 +3991,7 @@ msgstr "Impossibile caricare chiave privata: %s"
 msgid "Failed to parse returned path."
 msgstr "Impossibile analizzare il percorso ritornato."
 
-#: ../src/interface/netconfwizard.cpp:1070
+#: ../src/interface/netconfwizard.cpp:1064
 msgid "Failed to receive data"
 msgstr "Non è stato possibile ricevere i dati"
 
@@ -4025,11 +3999,11 @@ msgstr "Non è stato possibile ricevere i dati"
 msgid "Failed to retrieve directory listing"
 msgstr "Non è stato possibile leggere il contenuto della cartella"
 
-#: ../src/interface/netconfwizard.cpp:775
+#: ../src/interface/netconfwizard.cpp:773
 msgid "Failed to retrieve external IP address, aborting."
 msgstr "Impossibile ottenere l'indirizzo IP esterno. Annullamento."
 
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:650
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:657
 msgid "Failed to retrieve external IP address, using local address"
 msgstr "Impossibile ottenere l'indirizzo IP esterno. Uso indirizzo locale"
 
@@ -4037,7 +4011,7 @@ msgstr "Impossibile ottenere l'indirizzo IP esterno. Uso indirizzo locale"
 msgid "Failed to retrieve local IP address, aborting."
 msgstr "Impossibile ottenere l'indirizzo IP locale. Annullamento."
 
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:668
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:670
 msgid "Failed to retrieve local IP address."
 msgstr "Impossibile ottenere l'indirizzo IP locale."
 
@@ -4049,14 +4023,14 @@ msgstr "Non è stato possibile leggere l'indirizzo IP esterno."
 msgid "Failed to send command."
 msgstr "Non è stato possibile inviare il comando."
 
-#: ../src/interface/FileZilla.cpp:112
+#: ../src/interface/FileZilla.cpp:115
 #, c-format
 msgid "Failed to set language to %s (%s), using default system language"
 msgstr ""
 "Non è stato possibile impostare la lingua %s (%s). Sarà usata la lingua "
 "predefinita"
 
-#: ../src/interface/FileZilla.cpp:89
+#: ../src/interface/FileZilla.cpp:92
 #, c-format
 msgid ""
 "Failed to set language to %s (%s), using default system language (%s, %s)."
@@ -4064,28 +4038,28 @@ msgstr ""
 "Non è stato possibile impostare la lingua a %s (%s). Sarà usata la lingua di "
 "sistema predefinita %s (%s)."
 
-#: ../src/interface/FileZilla.cpp:76
+#: ../src/interface/FileZilla.cpp:79
 #, c-format
 msgid "Failed to set language to %s (%s), using default system language."
 msgstr ""
 "Non è stato possibile impostare la lingua a %s (%s). Sarà usata la lingua di "
 "sistema predefinita."
 
-#: ../src/interface/FileZilla.cpp:115
+#: ../src/interface/FileZilla.cpp:118
 #, c-format
 msgid "Failed to set language to %s, using default system language"
 msgstr ""
 "Non è stato possibile impostare la lingua a %s. Sarà usata la lingua "
 "predefinita"
 
-#: ../src/interface/FileZilla.cpp:84
+#: ../src/interface/FileZilla.cpp:87
 #, c-format
 msgid "Failed to set language to %s, using default system language (%s, %s)."
 msgstr ""
 "Non è stato possibile impostare la lingua a %s. Sarà usata la lingua "
 "predefinita %s (%s)."
 
-#: ../src/interface/FileZilla.cpp:72
+#: ../src/interface/FileZilla.cpp:75
 #, c-format
 msgid "Failed to set language to %s, using default system language."
 msgstr ""
@@ -4128,7 +4102,7 @@ msgstr "File"
 msgid "File does not contain any importable data."
 msgstr "Il file non contiene dati importabili."
 
-#: ../src/interface/settings/settingsdialog.cpp:139
+#: ../src/interface/settings/settingsdialog.cpp:138
 msgid "File editing"
 msgstr "Modifica file"
 
@@ -4136,7 +4110,7 @@ msgstr "Modifica file"
 msgid "File exists"
 msgstr "Il file esiste"
 
-#: ../src/interface/settings/settingsdialog.cpp:131
+#: ../src/interface/settings/settingsdialog.cpp:130
 msgid "File exists action"
 msgstr "Azione per file esistenti"
 
@@ -4144,11 +4118,11 @@ msgstr "Azione per file esistenti"
 msgid "File has changed"
 msgstr "File modificato"
 
-#: ../src/interface/settings/settingsdialog.cpp:137
+#: ../src/interface/settings/settingsdialog.cpp:136
 msgid "File lists"
 msgstr "Elenchi file"
 
-#: ../src/interface/edithandler.cpp:1918 ../src/interface/FileZilla.cpp:440
+#: ../src/interface/edithandler.cpp:1918 ../src/interface/FileZilla.cpp:444
 #: ../src/interface/settings/optionspage_edit.cpp:194
 msgid "File not found"
 msgstr "File non trovato"
@@ -4190,11 +4164,11 @@ msgstr "Trasferimento file completato"
 msgid "File transfer successful, transferred %s in %s"
 msgstr "Trasferimento file completato; trasferiti %s in %s"
 
-#: ../src/interface/Mainfrm.cpp:1309
+#: ../src/interface/Mainfrm.cpp:1315
 msgid "File transfers still in progress."
 msgstr "Trasferimento file ancora in corso."
 
-#: ../src/interface/FileZilla.cpp:303
+#: ../src/interface/FileZilla.cpp:307
 msgid "FileZilla Error"
 msgstr "Errore di FileZilla"
 
@@ -4210,7 +4184,7 @@ msgstr ""
 msgid "FileZilla is already connected to a server."
 msgstr "FileZilla è già connesso a un server."
 
-#: ../src/interface/Mainfrm.cpp:1621
+#: ../src/interface/Mainfrm.cpp:1627
 msgid "FileZilla needs to be restarted for the language change to take effect."
 msgstr ""
 "Per rendere effettivo il cambio di lingua FileZilla deve essere riavviato."
@@ -4225,7 +4199,7 @@ msgstr "&Barra stato elenco file"
 
 #: ../src/interface/edithandler.cpp:1406
 #: ../src/interface/filter_conditions_dialog.cpp:100
-#: ../src/interface/LocalListView.cpp:288
+#: ../src/interface/LocalListView.cpp:290
 #: ../src/interface/RemoteListView.cpp:338 ../src/interface/search.cpp:175
 #: ../src/interface/settings/optionspage_connection_sftp.cpp:85
 msgid "Filename"
@@ -4271,21 +4245,21 @@ msgstr ""
 "delle cartelle."
 
 #: ../src/interface/filter_conditions_dialog.cpp:104
-#: ../src/interface/LocalListView.cpp:289
+#: ../src/interface/LocalListView.cpp:291
 #: ../src/interface/RemoteListView.cpp:339 ../src/interface/search.cpp:177
 msgid "Filesize"
 msgstr "Dimensione file"
 
-#: ../src/interface/settings/settingsdialog.cpp:136
+#: ../src/interface/settings/settingsdialog.cpp:135
 msgid "Filesize format"
 msgstr "Dimensione file"
 
-#: ../src/interface/LocalListView.cpp:290
+#: ../src/interface/LocalListView.cpp:292
 #: ../src/interface/RemoteListView.cpp:340 ../src/interface/search.cpp:178
 msgid "Filetype"
 msgstr "Tipo file"
 
-#: ../src/interface/settings/settingsdialog.cpp:140
+#: ../src/interface/settings/settingsdialog.cpp:139
 msgid "Filetype associations"
 msgstr "Associazioni tipi di file"
 
@@ -4340,11 +4314,11 @@ msgstr "Trova &file"
 msgid "Find d&irectories"
 msgstr "Trova &cartelle"
 
-#: ../src/interface/verifycertdialog.cpp:297
+#: ../src/interface/verifycertdialog.cpp:293
 msgid "Fingerprint (SHA-1):"
 msgstr "Fingerprint (SHA-1):"
 
-#: ../src/interface/verifycertdialog.cpp:294
+#: ../src/interface/verifycertdialog.cpp:290
 msgid "Fingerprint (SHA-256):"
 msgstr "Fingerprint (SHA-256):"
 
@@ -4392,7 +4366,7 @@ msgstr "Forza &UTF-8"
 msgid "Force showing &hidden files"
 msgstr "Visualizza file &nascosti"
 
-#: ../src/interface/Mainfrm.cpp:803
+#: ../src/interface/Mainfrm.cpp:809
 msgid "Force showing hidden files"
 msgstr "Visualizza file nascosti"
 
@@ -4412,7 +4386,7 @@ msgid "Found new %s %s\n"
 msgstr "Trovato nuovo %s %s\n"
 
 #. @translator: Placeholders will be filled with dates
-#: ../src/interface/verifycertdialog.cpp:80
+#: ../src/interface/verifycertdialog.cpp:76
 #, c-format
 msgid "From %s to %s"
 msgstr "Da %s a %s"
@@ -4435,7 +4409,7 @@ msgid "General SOCKS server failure"
 msgstr "Errore generico server SOCKS"
 
 #: ../src/interface/settings/optionspage_proxy.cpp:43
-#: ../src/interface/settings/settingsdialog.cpp:128
+#: ../src/interface/settings/settingsdialog.cpp:127
 msgid "Generic proxy"
 msgstr "Proxy generico"
 
@@ -4452,7 +4426,7 @@ msgstr "Ottieni aiuto"
 msgid "Given filterset name already exists, overwrite filter set?"
 msgstr "Un set di filtri con questo nome è già presente. Vuoi sovrascriverlo?"
 
-#: ../src/interface/bookmarks_dialog.cpp:305
+#: ../src/interface/bookmarks_dialog.cpp:307
 msgid "Global bookmarks"
 msgstr "Preferiti globali"
 
@@ -4476,7 +4450,7 @@ msgstr "Verde"
 msgid "Group permissions"
 msgstr "Permessi di gruppo"
 
-#: ../src/interface/QueueView.cpp:1791
+#: ../src/interface/QueueView.cpp:1805
 msgid "H&igh"
 msgstr "&Alto"
 
@@ -4492,12 +4466,12 @@ msgstr "Hash:"
 msgid "Hidden"
 msgstr "Nascosto"
 
-#: ../src/interface/queue.cpp:1017 ../src/interface/queue.cpp:1079
+#: ../src/interface/queue.cpp:1044 ../src/interface/queue.cpp:1106
 #: ../src/interface/settings/optionspage_transfer.cpp:97
 msgid "High"
 msgstr "Alto"
 
-#: ../src/interface/queue.cpp:1019 ../src/interface/queue.cpp:1081
+#: ../src/interface/queue.cpp:1046 ../src/interface/queue.cpp:1108
 msgid "Highest"
 msgstr "Massima"
 
@@ -4538,9 +4512,9 @@ msgstr "Host non raggiungibile"
 #: ../src/interface/resources/xrc/dialogs.xrc:37
 #: ../src/interface/resources/xrc/dialogs.xrc:158
 #: ../src/interface/loginmanager.cpp:37 ../src/interface/loginmanager.cpp:165
-#: ../src/interface/verifycertdialog.cpp:354
-#: ../src/interface/verifycertdialog.cpp:627
-#: ../src/interface/verifycertdialog.cpp:695
+#: ../src/interface/verifycertdialog.cpp:350
+#: ../src/interface/verifycertdialog.cpp:623
+#: ../src/interface/verifycertdialog.cpp:691
 msgid "Host:"
 msgstr "Host:"
 
@@ -4704,11 +4678,11 @@ msgstr ""
 "Facendo clic su [Test], FileZilla si connetterà a probe.filezilla-project."
 "org ed effettuerà alcuni semplici test."
 
-#: ../src/interface/Mainfrm.cpp:1332
+#: ../src/interface/Mainfrm.cpp:1338
 msgid "If you close FileZilla, your changes will be lost."
 msgstr "Se FileZilla verrà chiuso, i cambiamenti andranno persi."
 
-#: ../src/interface/verifycertdialog.cpp:691
+#: ../src/interface/verifycertdialog.cpp:687
 msgid ""
 "If you continue, transferred files may be intercepted or their contents "
 "replaced by an attacker."
@@ -4716,7 +4690,7 @@ msgstr ""
 "Se continui, i file trasferiti potrebbero essere intercettati o il loro "
 "contenuto sostituito da un utente malintenzionato."
 
-#: ../src/interface/verifycertdialog.cpp:622
+#: ../src/interface/verifycertdialog.cpp:618
 msgid ""
 "If you continue, your password and files will be sent in clear over the "
 "internet."
@@ -4836,11 +4810,11 @@ msgstr ""
 "FileZilla chiede una porta al server e si connette alla porta indicata. Non "
 "sono richieste altre configurazioni speciali."
 
-#: ../src/interface/queue.cpp:360
+#: ../src/interface/queue.cpp:387
 msgid "Incorrect password"
 msgstr "Password non corretta"
 
-#: ../src/interface/update_dialog.cpp:132
+#: ../src/interface/update_dialog.cpp:133
 msgid ""
 "Information about the latest version of FileZilla could not be retrieved. "
 "Please try again later."
@@ -4852,16 +4826,16 @@ msgstr ""
 msgid "Initializing TLS..."
 msgstr "Inizializzazione TLS..."
 
-#: ../src/interface/verifycertdialog.cpp:598
+#: ../src/interface/verifycertdialog.cpp:594
 #, c-format
 msgid "Insecure %s connection"
 msgstr "Connessione non sicura %s"
 
-#: ../src/interface/verifycertdialog.cpp:675
+#: ../src/interface/verifycertdialog.cpp:671
 msgid "Insecure FTP data connection"
 msgstr "Connessione dati FTP non sicura"
 
-#: ../src/interface/verifycertdialog.cpp:170
+#: ../src/interface/verifycertdialog.cpp:166
 msgid "Insecure algorithm!"
 msgstr "Algoritmo non sicuro!"
 
@@ -4873,25 +4847,17 @@ msgstr "Server non sicuro. Non supporta FTP su TLS."
 msgid "Interactive"
 msgstr "Interattivo"
 
-#: ../src/interface/settings/settingsdialog.cpp:132
+#: ../src/interface/settings/settingsdialog.cpp:131
 msgid "Interface"
 msgstr "Interfaccia"
 
-#: ../src/interface/verifycertdialog.cpp:263
+#: ../src/interface/verifycertdialog.cpp:259
 msgid "Intermediate certificate"
 msgstr "Certificato intermedio"
 
-#: ../src/engine/controlsocket.cpp:215 ../src/interface/queue.cpp:366
+#: ../src/engine/controlsocket.cpp:215 ../src/interface/queue.cpp:393
 msgid "Interrupted by user"
 msgstr "Interrotto dall'utente"
-
-#: ../src/engine/http/request.cpp:175 ../src/engine/http/request.cpp:706
-msgid "Invalid Content-Length"
-msgstr "Lunghezza contenuti non valida"
-
-#: ../src/engine/http/request.cpp:577
-msgid "Invalid HTTP Response"
-msgstr "Risposta HTTP non valida"
 
 #: ../src/engine/controlsocket.cpp:486
 msgid ""
@@ -4901,10 +4867,6 @@ msgstr ""
 "Ricevuta una sequenza di caratteri non valida, UTF-8 disabilitato. Seleziona "
 "l'opzione UTF-8 in Gestione siti per forzare UTF-8."
 
-#: ../src/engine/http/request.cpp:828
-msgid "Invalid chunk size"
-msgstr "Dimensione blocco non valido"
-
 #: ../src/interface/netconfwizard.cpp:423
 #: ../src/interface/netconfwizard.cpp:433
 #: ../src/interface/netconfwizard.cpp:441
@@ -4912,7 +4874,7 @@ msgstr "Dimensione blocco non valido"
 msgid "Invalid data received"
 msgstr "Ricevuti dati non validi"
 
-#: ../src/interface/verifycertdialog.cpp:76
+#: ../src/interface/verifycertdialog.cpp:72
 msgid "Invalid date"
 msgstr "Data non valida"
 
@@ -4943,10 +4905,6 @@ msgstr "Nome host non valido: %s"
 #: ../src/interface/loginmanager.cpp:378
 msgid "Invalid input"
 msgstr "Input non valido"
-
-#: ../src/engine/http/request.cpp:618
-msgid "Invalid line"
-msgstr "Linea non valida"
 
 #: ../src/engine/storj/mkd.cpp:18 ../src/engine/storj/rmd.cpp:21
 msgid "Invalid path"
@@ -4979,13 +4937,9 @@ msgstr ""
 "Nome computer proxy non valido. Dopo la parentesi quadra di chiusura può "
 "esserci solo virgola e numero porta."
 
-#: ../src/interface/filter_conditions_dialog.cpp:499
+#: ../src/interface/filter_conditions_dialog.cpp:488
 msgid "Invalid regular expression"
 msgstr "Espressione regolare non valida"
-
-#: ../src/engine/http/request.cpp:586
-msgid "Invalid response code"
-msgstr "Codice di risposta non valido"
 
 #: ../src/interface/search.cpp:1039
 #, c-format
@@ -4997,7 +4951,7 @@ msgstr "Condizioni non valide di ricerca: %s"
 msgid "Invalid site path"
 msgstr "Percorso sito non valido"
 
-#: ../src/interface/filter_conditions_dialog.cpp:514
+#: ../src/interface/filter_conditions_dialog.cpp:503
 msgid "Invalid size in condition"
 msgstr "Dimensione non valida nella condizione"
 
@@ -5009,19 +4963,19 @@ msgstr "Nome utente fornito non valido."
 msgid "Invert Filter"
 msgstr "Inverti filtro"
 
-#: ../src/interface/verifycertdialog.cpp:319
+#: ../src/interface/verifycertdialog.cpp:315
 msgid "Issuer"
 msgstr "Emittente"
 
-#: ../src/interface/verifycertdialog.cpp:520
+#: ../src/interface/verifycertdialog.cpp:516
 msgid "Jurisdiction country:"
 msgstr "Nazione giurisdizione:"
 
-#: ../src/interface/verifycertdialog.cpp:522
+#: ../src/interface/verifycertdialog.cpp:518
 msgid "Jurisdiction locality:"
 msgstr "Località giurisdizione:"
 
-#: ../src/interface/verifycertdialog.cpp:521
+#: ../src/interface/verifycertdialog.cpp:517
 msgid "Jurisdiction state or province:"
 msgstr "Provincia giurisdizione:"
 
@@ -5029,7 +4983,7 @@ msgstr "Provincia giurisdizione:"
 msgid "Keep directories on top"
 msgstr "Mantieni le cartelle in cima"
 
-#: ../src/interface/Mainfrm.cpp:807
+#: ../src/interface/Mainfrm.cpp:813
 msgid ""
 "Keep in mind that not all servers support this feature and may return "
 "incorrect listings if this option is enabled. Although FileZilla performs "
@@ -5044,7 +4998,7 @@ msgstr ""
 msgid "Key exchange"
 msgstr "Scambio chiave"
 
-#: ../src/interface/verifycertdialog.cpp:375
+#: ../src/interface/verifycertdialog.cpp:371
 msgid "Key exchange:"
 msgstr "Scambio chiave:"
 
@@ -5056,19 +5010,19 @@ msgstr "File chiave"
 msgid "Key identifier:"
 msgstr "Identificatore chiave:"
 
-#: ../src/interface/QueueView.cpp:1794
+#: ../src/interface/QueueView.cpp:1808
 msgid "L&owest"
 msgstr "Inferi&ore"
 
-#: ../src/interface/settings/settingsdialog.cpp:138
+#: ../src/interface/settings/settingsdialog.cpp:137
 msgid "Language"
 msgstr "Lingua"
 
-#: ../src/interface/Mainfrm.cpp:1621
+#: ../src/interface/Mainfrm.cpp:1627
 msgid "Language changed"
 msgstr "Lingua modificata"
 
-#: ../src/interface/LocalListView.cpp:291
+#: ../src/interface/LocalListView.cpp:293
 #: ../src/interface/RemoteListView.cpp:341 ../src/interface/search.cpp:179
 msgid "Last modified"
 msgstr "Ultima modifica"
@@ -5107,10 +5061,6 @@ msgstr "Dimensione limite file registro"
 msgid "Limit:"
 msgstr "Limite:"
 
-#: ../src/engine/http/request.cpp:786
-msgid "Line length exceeded"
-msgstr "Lunghezza riga in eccesso"
-
 #: ../src/interface/aboutdialog.cpp:78
 msgid "Linked against"
 msgstr "Librerie collegate"
@@ -5119,8 +5069,8 @@ msgstr "Librerie collegate"
 msgid "Listen socket closed"
 msgstr "Socket di ascolto chiuso"
 
-#: ../src/engine/logging.cpp:128 ../src/interface/StatusView.cpp:315
-#: ../src/interface/StatusView.cpp:402
+#: ../src/engine/logging.cpp:128 ../src/interface/StatusView.cpp:316
+#: ../src/interface/StatusView.cpp:403
 msgid "Listing:"
 msgstr "Elenco:"
 
@@ -5183,7 +5133,7 @@ msgid "Local size of '%s' does not match expected size: %d != %d"
 msgstr ""
 "La dimensione locale di '%s' non corrisponde alla dimensione attesa %d != %d"
 
-#: ../src/interface/verifycertdialog.cpp:513
+#: ../src/interface/verifycertdialog.cpp:509
 msgid "Locality:"
 msgstr "Località:"
 
@@ -5196,7 +5146,7 @@ msgid "Logged in"
 msgstr "Accesso effettuato"
 
 #: ../src/interface/settings/optionspage_logging.cpp:40
-#: ../src/interface/settings/settingsdialog.cpp:146
+#: ../src/interface/settings/settingsdialog.cpp:145
 msgid "Logging"
 msgstr "Connessione"
 
@@ -5238,11 +5188,11 @@ msgstr ""
 "Logontype può essere usato insieme ad una URL FTP. L'argomento deve essere o "
 "'%s' o '%s'"
 
-#: ../src/interface/queue.cpp:1012 ../src/interface/queue.cpp:1074
+#: ../src/interface/queue.cpp:1039 ../src/interface/queue.cpp:1101
 msgid "Low"
 msgstr "Basso"
 
-#: ../src/interface/queue.cpp:1010 ../src/interface/queue.cpp:1072
+#: ../src/interface/queue.cpp:1037 ../src/interface/queue.cpp:1099
 msgid "Lowest"
 msgstr "Minimo"
 
@@ -5255,7 +5205,7 @@ msgstr ""
 msgid "MFA D&evice Serial:"
 msgstr "S&eriale dispositivo MFA:"
 
-#: ../src/interface/verifycertdialog.cpp:377
+#: ../src/interface/verifycertdialog.cpp:373
 msgid "Mac:"
 msgstr "Mac:"
 
@@ -5266,30 +5216,6 @@ msgstr "Magenta"
 #: ../src/commonui/xml_file.cpp:81
 msgid "Make sure the file can be accessed and is a well-formed XML document."
 msgstr "Assicurarsi che il file sia accessibile e sia un documento XML valido."
-
-#: ../src/engine/http/request.cpp:773 ../src/engine/http/request.cpp:779
-#: ../src/engine/http/request.cpp:786 ../src/engine/http/request.cpp:797
-#: ../src/engine/http/request.cpp:828
-#, c-format
-msgid "Malformed chunk data: %s"
-msgstr "Blocco dati non corretto: %s"
-
-#: ../src/engine/http/request.cpp:175
-#, c-format
-msgid "Malformed request header: %s"
-msgstr "Intestazione richiesta mal formattata: %s"
-
-#: ../src/engine/http/request.cpp:546 ../src/engine/http/request.cpp:552
-#: ../src/engine/http/request.cpp:618 ../src/engine/http/request.cpp:669
-#: ../src/engine/http/request.cpp:706
-#, c-format
-msgid "Malformed response header: %s"
-msgstr "Intestazione risposta mal formattata: %s"
-
-#: ../src/engine/http/request.cpp:507 ../src/engine/http/request.cpp:525
-#, c-format
-msgid "Malformed response: %s"
-msgstr "Risposta non corretta: %s"
 
 #: ../src/interface/manual_transfer.cpp:57
 #: ../src/interface/manual_transfer.cpp:358
@@ -5331,7 +5257,7 @@ msgstr "Non controllare corrispondenza dei seguenti"
 msgid "Maximum simultaneous &transfers:"
 msgstr "&Trasferimenti massimi simultanei:"
 
-#: ../src/interface/Mainfrm.cpp:470 ../src/interface/Mainfrm.cpp:1949
+#: ../src/interface/Mainfrm.cpp:472 ../src/interface/Mainfrm.cpp:1955
 msgid "Message log"
 msgstr "Registro messaggi"
 
@@ -5363,17 +5289,17 @@ msgstr "Sposta &giù"
 msgid "Move &up"
 msgstr "Sposta &su"
 
-#: ../src/interface/LocalTreeView.cpp:1047
+#: ../src/interface/LocalTreeView.cpp:1063
 msgid "My Computer"
 msgstr "Risorse del computer"
 
-#: ../src/interface/LocalTreeView.cpp:1038
+#: ../src/interface/LocalTreeView.cpp:1054
 msgid "My Documents"
 msgstr "Documenti"
 
 #: ../src/interface/sitemanager.cpp:203
-#: ../src/interface/sitemanager_dialog.cpp:701
-#: ../src/interface/sitemanager_dialog.cpp:704
+#: ../src/interface/sitemanager_dialog.cpp:702
+#: ../src/interface/sitemanager_dialog.cpp:705
 msgid "My Sites"
 msgstr "I miei siti"
 
@@ -5390,12 +5316,12 @@ msgstr "N/d"
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/interface/bookmarks_dialog.cpp:777
-#: ../src/interface/sitemanager_dialog.cpp:1006
+#: ../src/interface/bookmarks_dialog.cpp:779
+#: ../src/interface/sitemanager_dialog.cpp:1007
 msgid "Name already exists"
 msgstr "Nome già presente"
 
-#: ../src/interface/bookmarks_dialog.cpp:901
+#: ../src/interface/bookmarks_dialog.cpp:903
 #: ../src/interface/sitemanager.cpp:389
 msgid "Name of bookmark already exists."
 msgstr "Nome del segnalibro già presente."
@@ -5405,7 +5331,7 @@ msgid "Name or email address"
 msgstr "Nome o indirizzo email"
 
 #: ../src/interface/loginmanager.cpp:29 ../src/interface/loginmanager.cpp:161
-#: ../src/interface/verifycertdialog.cpp:519
+#: ../src/interface/verifycertdialog.cpp:515
 msgid "Name:"
 msgstr "Nome:"
 
@@ -5441,7 +5367,7 @@ msgstr "Rete non raggiungibile"
 msgid "Never"
 msgstr "Mai"
 
-#: ../src/interface/sitemanager_dialog.cpp:330
+#: ../src/interface/sitemanager_dialog.cpp:331
 msgid "New &folder"
 msgstr "Nuova &cartella"
 
@@ -5449,33 +5375,33 @@ msgstr "Nuova &cartella"
 msgid "New &tab"
 msgstr "Nuova &scheda"
 
-#: ../src/interface/bookmarks_dialog.cpp:274
-#: ../src/interface/sitemanager_dialog.cpp:331
+#: ../src/interface/bookmarks_dialog.cpp:276
+#: ../src/interface/sitemanager_dialog.cpp:332
 msgid "New Book&mark"
 msgstr "Nuovo &preferito"
 
 #: ../src/interface/resources/xrc/dialogs.xrc:522
-#: ../src/interface/bookmarks_dialog.cpp:65
-#: ../src/interface/bookmarks_dialog.cpp:78
-#: ../src/interface/bookmarks_dialog.cpp:84
-#: ../src/interface/bookmarks_dialog.cpp:90
-#: ../src/interface/bookmarks_dialog.cpp:102
-#: ../src/interface/bookmarks_dialog.cpp:108
-#: ../src/interface/bookmarks_dialog.cpp:116
-#: ../src/interface/bookmarks_dialog.cpp:510
-#: ../src/interface/bookmarks_dialog.cpp:611
-#: ../src/interface/bookmarks_dialog.cpp:617
-#: ../src/interface/bookmarks_dialog.cpp:623
-#: ../src/interface/bookmarks_dialog.cpp:644
-#: ../src/interface/bookmarks_dialog.cpp:901
+#: ../src/interface/bookmarks_dialog.cpp:66
+#: ../src/interface/bookmarks_dialog.cpp:79
+#: ../src/interface/bookmarks_dialog.cpp:85
+#: ../src/interface/bookmarks_dialog.cpp:91
+#: ../src/interface/bookmarks_dialog.cpp:103
+#: ../src/interface/bookmarks_dialog.cpp:109
+#: ../src/interface/bookmarks_dialog.cpp:117
+#: ../src/interface/bookmarks_dialog.cpp:512
+#: ../src/interface/bookmarks_dialog.cpp:613
+#: ../src/interface/bookmarks_dialog.cpp:619
+#: ../src/interface/bookmarks_dialog.cpp:625
+#: ../src/interface/bookmarks_dialog.cpp:646
+#: ../src/interface/bookmarks_dialog.cpp:903
 #: ../src/interface/sitemanager.cpp:389
-#: ../src/interface/sitemanager_dialog.cpp:1865
+#: ../src/interface/sitemanager_dialog.cpp:1866
 msgid "New bookmark"
 msgstr "Nuovo preferito"
 
-#: ../src/interface/LocalTreeView.cpp:1239
+#: ../src/interface/LocalTreeView.cpp:1255
 #: ../src/interface/RemoteListView.cpp:1335
-#: ../src/interface/RemoteTreeView.cpp:1327
+#: ../src/interface/RemoteTreeView.cpp:1305
 msgid "New directory"
 msgstr "Nuova cartella"
 
@@ -5488,12 +5414,12 @@ msgstr "Nuove funzionalità e miglioramenti in %s"
 msgid "New filter"
 msgstr "Nuovo filtro"
 
-#: ../src/interface/sitemanager_dialog.cpp:875
+#: ../src/interface/sitemanager_dialog.cpp:876
 msgid "New folder"
 msgstr "Nuova cartella"
 
 #: ../src/interface/sitemanager.cpp:301 ../src/interface/sitemanager.cpp:315
-#: ../src/interface/sitemanager_dialog.cpp:1838
+#: ../src/interface/sitemanager_dialog.cpp:1839
 msgid "New site"
 msgstr "Nuovo sito"
 
@@ -5513,20 +5439,20 @@ msgstr "Nessuna categoria da esportare selezionata"
 msgid "No code given."
 msgstr "Nessun codice fornito."
 
-#: ../src/interface/QueueView.cpp:1891
+#: ../src/interface/QueueView.cpp:1905
 msgid "No command given, aborting."
 msgstr "Nessun comando ottenuto, annullamento in corso."
 
-#: ../src/interface/osx_sandbox_userdirs.cpp:325
+#: ../src/interface/osx_sandbox_userdirs.cpp:328
 msgid "No directory added"
 msgstr "Nessuna cartella aggiunta"
 
-#: ../src/interface/sitemanager_dialog.cpp:1427
+#: ../src/interface/sitemanager_dialog.cpp:1428
 #, c-format
 msgid "No entries found matching '%s'."
 msgstr "Nessun elemento corrispondente '%s'."
 
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:623
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:630
 msgid "No external IP address set, trying default."
 msgstr "Nessun IP esterno impostato, sarà provato quello predefinito."
 
@@ -5603,8 +5529,7 @@ msgstr "Nessun nome fornito."
 
 #: ../src/interface/settings/optionspage_filelists.cpp:84
 #: ../src/interface/settings/optionspage_filelists.cpp:90
-#: ../src/interface/sitemanager.cpp:25
-#: ../src/interface/verifycertdialog.cpp:102
+#: ../src/interface/sitemanager.cpp:25 ../src/interface/verifycertdialog.cpp:98
 msgid "None"
 msgstr "Nessuno"
 
@@ -5613,7 +5538,7 @@ msgid "None selected yet"
 msgstr "Nessun elemento selezionato"
 
 #: ../src/engine/server.cpp:736 ../src/engine/server.cpp:766
-#: ../src/interface/queue.cpp:1015 ../src/interface/queue.cpp:1077
+#: ../src/interface/queue.cpp:1042 ../src/interface/queue.cpp:1104
 #: ../src/interface/settings/optionspage_transfer.cpp:96
 msgid "Normal"
 msgstr "Normale"
@@ -5636,19 +5561,19 @@ msgstr "Non connesso"
 msgid "Not connected to any server"
 msgstr "Nessun server collegato"
 
-#: ../src/interface/Mainfrm.cpp:707
+#: ../src/interface/Mainfrm.cpp:713
 msgid "Not connected to any server."
 msgstr "Nessun server collegato."
 
-#: ../src/interface/filelist_statusbar.cpp:17
+#: ../src/interface/filelist_statusbar.cpp:18
 msgid "Not connected."
 msgstr "Non connesso."
 
-#: ../src/interface/verifycertdialog.cpp:84
+#: ../src/interface/verifycertdialog.cpp:80
 msgid "Not yet valid!"
 msgstr "Non ancora valido!"
 
-#: ../src/interface/Mainfrm.cpp:805
+#: ../src/interface/Mainfrm.cpp:811
 msgid "Note that this feature is only supported using the FTP protocol."
 msgstr ""
 "Attenzione che questa caratteristica è supportata solo usando il protocollo "
@@ -5663,10 +5588,6 @@ msgid "Note: Using a generic proxy forces passive mode on FTP connections."
 msgstr ""
 "Nota: usando un proxy generico si forza la modalità passiva nelle "
 "connessioni FTP."
-
-#: ../src/engine/http/request.cpp:552 ../src/engine/http/request.cpp:779
-msgid "Null character in line"
-msgstr "Caratteri nulli nella linea"
 
 #: ../src/interface/settings/optionspage_sizeformatting.cpp:64
 msgid "Number of decimal places:"
@@ -5689,8 +5610,8 @@ msgstr "Il numero di nuovi tentativi deve essere compreso tra 0 e 99."
 #: ../src/interface/edithandler.cpp:1503 ../src/interface/edithandler.cpp:1812
 #: ../src/interface/filteredit.cpp:140 ../src/interface/filter_manager.cpp:123
 #: ../src/interface/listctrlex.cpp:741
-#: ../src/interface/settings/settingsdialog.cpp:72
-#: ../src/interface/verifycertdialog.cpp:393
+#: ../src/interface/settings/settingsdialog.cpp:71
+#: ../src/interface/verifycertdialog.cpp:389
 #: ../src/interface/welcome_dialog.cpp:119
 msgid "OK"
 msgstr "OK"
@@ -5723,7 +5644,7 @@ msgstr "Una volta al giorno"
 msgid "Once a week"
 msgstr "Una volta la settimana"
 
-#: ../src/interface/verifycertdialog.cpp:685
+#: ../src/interface/verifycertdialog.cpp:681
 msgid ""
 "Only continue after you have spoken to the server administrator or server "
 "hosting provider."
@@ -5739,7 +5660,7 @@ msgstr "Usa solo FTP in chiaro (non sicuro)"
 msgid "Op&en file"
 msgstr "Apri fil&e"
 
-#: ../src/interface/LocalTreeView.cpp:1113
+#: ../src/interface/LocalTreeView.cpp:1129
 msgid "Open directory in system's file manager"
 msgstr "Apri cartella nel gestore file di sistema"
 
@@ -5763,7 +5684,7 @@ msgstr ""
 "Apri la finestra di dialogo dei permessi di accesso delle cartelle per "
 "impostare le cartelle locali a cui Filezilla avrà accesso."
 
-#: ../src/interface/LocalListView.cpp:819
+#: ../src/interface/LocalListView.cpp:821
 msgid "Open the file."
 msgstr "Apri file."
 
@@ -5776,8 +5697,8 @@ msgid "Opened as:"
 msgstr "Aperto come:"
 
 #: ../src/interface/edithandler.cpp:380 ../src/interface/edithandler.cpp:1331
-#: ../src/interface/LocalListView.cpp:1933
-#: ../src/interface/LocalListView.cpp:1945 ../src/interface/search.cpp:2073
+#: ../src/interface/LocalListView.cpp:1935
+#: ../src/interface/LocalListView.cpp:1947 ../src/interface/search.cpp:2073
 #: ../src/interface/search.cpp:2084
 msgid "Opening failed"
 msgstr "Apertura non riuscita"
@@ -5813,7 +5734,7 @@ msgstr "Opzioni:"
 msgid "Orange"
 msgstr "Arancio"
 
-#: ../src/interface/verifycertdialog.cpp:507
+#: ../src/interface/verifycertdialog.cpp:503
 msgid "Organization:"
 msgstr "Organizzazione:"
 
@@ -5821,12 +5742,12 @@ msgstr "Organizzazione:"
 msgid "Other SFTP options"
 msgstr "Altre opzioni SFTP"
 
-#: ../src/interface/verifycertdialog.cpp:535
+#: ../src/interface/verifycertdialog.cpp:531
 msgid "Other:"
 msgstr "Altro:"
 
 #: ../src/interface/settings/optionspage_connection_ftp.cpp:37
-#: ../src/interface/verifycertdialog.cpp:287
+#: ../src/interface/verifycertdialog.cpp:283
 msgid "Overview"
 msgstr "Descrizione generale"
 
@@ -5905,7 +5826,7 @@ msgstr "File PPK"
 msgid "Pa&ssive (recommended)"
 msgstr "Pa&ssiva (consigliata)"
 
-#: ../src/interface/Mainfrm.cpp:2638
+#: ../src/interface/Mainfrm.cpp:2644
 msgid "Parameter not a valid URL"
 msgstr "Il parametro non è una URL valida"
 
@@ -5925,7 +5846,7 @@ msgid "Passive (recommended)"
 msgstr "Passiva (consigliata)"
 
 #: ../src/interface/settings/optionspage_connection_passive.cpp:32
-#: ../src/interface/settings/settingsdialog.cpp:125
+#: ../src/interface/settings/settingsdialog.cpp:124
 msgid "Passive mode"
 msgstr "Modalità passiva"
 
@@ -5942,7 +5863,7 @@ msgid "Password required"
 msgstr "È richiesta la password"
 
 #: ../src/interface/settings/optionspage_passwords.cpp:41
-#: ../src/interface/settings/settingsdialog.cpp:133
+#: ../src/interface/settings/settingsdialog.cpp:132
 msgid "Passwords"
 msgstr "Password"
 
@@ -5959,7 +5880,7 @@ msgstr ""
 "Il percorso non può essere costruito per la cartella %s e la sotto-cartella "
 "%s"
 
-#: ../src/interface/Mainfrm.cpp:2596
+#: ../src/interface/Mainfrm.cpp:2602
 msgid "Path not found:"
 msgstr "Percorso non trovato:"
 
@@ -5992,7 +5913,7 @@ msgstr "L'FTP in chiaro non è sicuro. Passa a FTP su TLS."
 msgid "Platform:"
 msgstr "Piattaforma:"
 
-#: ../src/interface/osx_sandbox_userdirs.cpp:325
+#: ../src/interface/osx_sandbox_userdirs.cpp:328
 msgid ""
 "Please add at least one directory you want to download files into or to "
 "upload files from."
@@ -6000,7 +5921,7 @@ msgstr ""
 "Aggiungi almeno una cartella da cui vuoi scaricare file o in cui vuoi "
 "uploadare file."
 
-#: ../src/interface/osx_sandbox_userdirs.cpp:293
+#: ../src/interface/osx_sandbox_userdirs.cpp:296
 msgid "Please add the local directories you want to use FileZilla with."
 msgstr "Aggiungi le cartelle locali che vuoi usare con Filezilla."
 
@@ -6048,13 +5969,13 @@ msgstr "Inserisci un formato data personalizzato."
 msgid "Please enter a custom time format."
 msgstr "Inserisci un formato ora personalizzato."
 
-#: ../src/interface/filter_conditions_dialog.cpp:528
+#: ../src/interface/filter_conditions_dialog.cpp:517
 msgid ""
 "Please enter a date of the form YYYY-MM-DD such as for example 2010-07-18."
 msgstr "Inserisci una data nella forma AAAA-MM-GG come ad esempio 2010-07-18."
 
 #: ../src/interface/settings/optionspage_transfer.cpp:200
-#: ../src/interface/speedlimits_dialog.cpp:103
+#: ../src/interface/speedlimits_dialog.cpp:109
 #, c-format
 msgid "Please enter a download speed limit greater or equal to 0 %s/s."
 msgstr ""
@@ -6122,13 +6043,13 @@ msgid "Please enter an URL where to get your external address from"
 msgstr "Inserisci l'URL da cui ricavare l'indirizzo IP esterno"
 
 #: ../src/interface/settings/optionspage_transfer.cpp:205
-#: ../src/interface/speedlimits_dialog.cpp:109
+#: ../src/interface/speedlimits_dialog.cpp:115
 #, c-format
 msgid "Please enter an upload speed limit greater or equal to 0 %s/s."
 msgstr ""
 "Inserisci un limite di velocità per l'upload superiore o pari a 0 %s/s."
 
-#: ../src/interface/Mainfrm.cpp:719
+#: ../src/interface/Mainfrm.cpp:725
 msgid ""
 "Please enter raw FTP command.\n"
 "Using raw ftp commands will clear the directory cache."
@@ -6140,7 +6061,7 @@ msgstr ""
 msgid "Please enter the 2FA code for this server:"
 msgstr "Inserisci il codice 2FA per questo server:"
 
-#: ../src/interface/QueueView.cpp:1885
+#: ../src/interface/QueueView.cpp:1899
 msgid ""
 "Please enter the complete path of a program and its arguments. This command "
 "will be executed when the queue has finished processing.\n"
@@ -6154,14 +6075,14 @@ msgstr ""
 "È necessario quotare correttamente i comandi e i loro argomenti se "
 "contengono spazi."
 
-#: ../src/interface/LocalListView.cpp:994
-#: ../src/interface/LocalTreeView.cpp:1235
+#: ../src/interface/LocalListView.cpp:996
+#: ../src/interface/LocalTreeView.cpp:1251
 #: ../src/interface/RemoteListView.cpp:1322
-#: ../src/interface/RemoteTreeView.cpp:1313
+#: ../src/interface/RemoteTreeView.cpp:1291
 msgid "Please enter the name of the directory which should be created:"
 msgstr "Inserisci il nome della cartella che deve essere creata:"
 
-#: ../src/interface/RemoteListView.cpp:2771
+#: ../src/interface/RemoteListView.cpp:2774
 msgid "Please enter the name of the file which should be created:"
 msgstr "Inserisci il nome del file che deve essere creato:"
 
@@ -6213,7 +6134,7 @@ msgstr ""
 "Assicuratevi che a FileZilla sia permesso stabilire connessioni in uscita e "
 "che l'indirizzo del risolutore di indirizzi sia stato scritto correttamente."
 
-#: ../src/interface/FileZilla.cpp:96
+#: ../src/interface/FileZilla.cpp:99
 msgid "Please make sure the requested locale is installed on your system."
 msgstr "Assicurati che la lingua richiesta sia installata nel sistema."
 
@@ -6241,7 +6162,7 @@ msgstr ""
 "usata da virus o altro malware. Eventuali falsi allarmi di questo tipo "
 "possono essere ignorati senza problemi."
 
-#: ../src/interface/Mainfrm.cpp:846
+#: ../src/interface/Mainfrm.cpp:852
 msgid ""
 "Please note that preserving timestamps on uploads on FTP, FTPS and FTPES "
 "servers only works if they support the MFMT command."
@@ -6317,12 +6238,12 @@ msgstr ""
 "game'. Cose come 'analisi protocollo' o 'specifiche fixup protocollo' devono "
 "essere disabilitati"
 
-#: ../src/interface/verifycertdialog.cpp:629
-#: ../src/interface/verifycertdialog.cpp:697
+#: ../src/interface/verifycertdialog.cpp:625
+#: ../src/interface/verifycertdialog.cpp:693
 msgid "Port:"
 msgstr "Porta:"
 
-#: ../src/interface/verifycertdialog.cpp:514
+#: ../src/interface/verifycertdialog.cpp:510
 msgid "Postal code:"
 msgstr "CAP:"
 
@@ -6335,11 +6256,11 @@ msgid "Preallocation"
 msgstr "Preallocazione"
 
 #: ../src/interface/sitemanager.cpp:202
-#: ../src/interface/sitemanager_dialog.cpp:1515
+#: ../src/interface/sitemanager_dialog.cpp:1516
 msgid "Predefined Sites"
 msgstr "Siti predefiniti"
 
-#: ../src/interface/Mainfrm.cpp:845
+#: ../src/interface/Mainfrm.cpp:851
 msgid "Preserving file timestamps"
 msgstr "Preserva data e ora file"
 
@@ -6359,7 +6280,7 @@ msgstr "Invia informazioni versione a stdout e esci"
 msgid "Prioritize directories (default)"
 msgstr "Cartelle prioritizzate (predefinito)"
 
-#: ../src/interface/queue.cpp:1295
+#: ../src/interface/queue.cpp:1322
 msgid "Priority"
 msgstr "Priorità"
 
@@ -6392,7 +6313,7 @@ msgstr "Pro&tocollo:"
 msgid "Pro&xy password:"
 msgstr "Password pro&xy:"
 
-#: ../src/interface/menu_bar.cpp:93 ../src/interface/QueueView.cpp:1781
+#: ../src/interface/menu_bar.cpp:93 ../src/interface/QueueView.cpp:1795
 msgid "Process &Queue"
 msgstr "Elabora co&da"
 
@@ -6411,7 +6332,7 @@ msgstr "Profilo"
 msgid "Project (or tenant) name or ID"
 msgstr "Nome progetto (o ospite) o ID"
 
-#: ../src/interface/verifycertdialog.cpp:369
+#: ../src/interface/verifycertdialog.cpp:365
 msgid "Protocol:"
 msgstr "Protocollo:"
 
@@ -6473,7 +6394,7 @@ msgstr "Proxy impostato ma proxy o porta proxy non validi"
 msgid "Public Key Authentication"
 msgstr "Autenticazione con chiave pubblica"
 
-#: ../src/interface/verifycertdialog.cpp:340
+#: ../src/interface/verifycertdialog.cpp:336
 msgid "Public key algorithm:"
 msgstr "Algoritmo chiave pubblica:"
 
@@ -6481,7 +6402,7 @@ msgstr "Algoritmo chiave pubblica:"
 msgid "Public permissions"
 msgstr "Permessi pubblici"
 
-#: ../src/interface/QueueView.cpp:2811
+#: ../src/interface/QueueView.cpp:2825
 msgid "Queue has been fully processed"
 msgstr "Coda elaborata completamente"
 
@@ -6499,7 +6420,7 @@ msgstr "Coda: %s%s"
 msgid "Queue: empty"
 msgstr "Coda: vuota"
 
-#: ../src/interface/QueueView.cpp:214
+#: ../src/interface/QueueView.cpp:216
 msgid "Queued files"
 msgstr "File in coda"
 
@@ -6512,7 +6433,7 @@ msgstr "In coda:"
 msgid "Quick Search:"
 msgstr "Ricerca rapida:"
 
-#: ../src/interface/view.cpp:115
+#: ../src/interface/view.cpp:117
 msgid "Quick search cannot be opened if comparing directories."
 msgstr ""
 "La ricerca rapida non può essere aperta se stai comparando le cartelle."
@@ -6524,7 +6445,7 @@ msgstr ""
 msgid "Quoting rules"
 msgstr "Regole quotatura"
 
-#: ../src/interface/QueueView.cpp:1806
+#: ../src/interface/QueueView.cpp:1820
 msgid "R&eboot system once"
 msgstr "Riavvia il sist&ema"
 
@@ -6537,7 +6458,7 @@ msgstr "Struttura cartella r&emota"
 msgid "R&eset and requeue selected files"
 msgstr "Ripristina e m&etti in coda i file selezionati"
 
-#: ../src/interface/Mainfrm.cpp:734
+#: ../src/interface/Mainfrm.cpp:740
 msgid "Raw FTP command"
 msgstr "Comando FTP"
 
@@ -6545,7 +6466,7 @@ msgstr "Comando FTP"
 msgid "Re&ad"
 msgstr "Le&ttura"
 
-#: ../src/interface/LocalListView.cpp:825
+#: ../src/interface/LocalListView.cpp:827
 #: ../src/interface/RemoteListView.cpp:1062
 msgid "Re&fresh"
 msgstr "Aggio&rna"
@@ -6579,7 +6500,7 @@ msgstr "Sola lettura"
 msgid "Reading from '%s' failed."
 msgstr "Lettura da \"%s\" non riuscita."
 
-#: ../src/interface/Mainfrm.cpp:1191
+#: ../src/interface/Mainfrm.cpp:1197
 msgid "Really cancel current operation?"
 msgstr "Vuoi annullare l'operazione attiva?"
 
@@ -6603,7 +6524,7 @@ msgstr[1] "Vuoi eliminare %d file nel server?"
 msgid "Really delete %s and %s from the server?"
 msgstr "Vuoi eliminare %s e %s nel server?"
 
-#: ../src/interface/RemoteTreeView.cpp:1114
+#: ../src/interface/RemoteTreeView.cpp:1092
 msgid "Really delete all selected files and/or directories from the server?"
 msgstr "Vuoi eliminare tutti i file e/o cartelle selezionati nel server?"
 
@@ -6611,11 +6532,11 @@ msgstr "Vuoi eliminare tutti i file e/o cartelle selezionati nel server?"
 msgid "Really delete all selected files and/or directories from your computer?"
 msgstr "Vuoi eliminare tutti i file e/o cartelle selezionati nel computer?"
 
-#: ../src/interface/queue.cpp:1295
+#: ../src/interface/queue.cpp:1322
 msgid "Reason"
 msgstr "Motivo"
 
-#: ../src/interface/QueueView.cpp:2804
+#: ../src/interface/QueueView.cpp:2818
 msgid "Reboot now"
 msgstr "Riavvia adesso"
 
@@ -6623,24 +6544,29 @@ msgstr "Riavvia adesso"
 msgid "Rec&urse into subdirectories"
 msgstr "&Includi sottocartelle"
 
-#: ../src/engine/directorylistingparser.cpp:3206
+#: ../src/engine/directorylistingparser.cpp:3234
 msgid "Received a directory listing which appears to be encoded in EBCDIC."
 msgstr "Ricevuto un elenco di cartella che appare codificato in EBCDIC."
 
-#: ../src/engine/directorylistingparser.cpp:2160
-#: ../src/engine/directorylistingparser.cpp:2177
+#: ../src/engine/directorylistingparser.cpp:2187
+#: ../src/engine/directorylistingparser.cpp:2204
 msgid "Received a line exceeding 10000 characters, aborting."
 msgstr "Ricevuta una linea eccedente i 10000 caratteri, interruzione."
 
-#: ../src/interface/netconfwizard.cpp:1056
-#: ../src/interface/netconfwizard.cpp:1064
-#: ../src/interface/netconfwizard.cpp:1088
+#: ../src/interface/netconfwizard.cpp:1050
+#: ../src/interface/netconfwizard.cpp:1058
+#: ../src/interface/netconfwizard.cpp:1082
 msgid "Received data tainted"
 msgstr "Ricevuti dati corrotti"
 
 #: ../src/commonui/updater.cpp:603
 msgid "Received invalid character in version information"
 msgstr "Ricevuti caratteri non validi nell'informazione versione"
+
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:165
+#, c-format
+msgid "Received multi-line response with more than %u lines."
+msgstr "Ricevuta risposta in più linee con più di %u linee."
 
 #: ../src/engine/ftp/ftpcontrolsocket.cpp:110 ../src/engine/sftp/list.cpp:129
 msgid "Received too long response line from server, closing connection."
@@ -6706,7 +6632,7 @@ msgstr "Vuoi memorizzare la password?"
 msgid "Remote"
 msgstr "Remoto"
 
-#: ../src/interface/manual_transfer.cpp:101 ../src/interface/queue.cpp:1295
+#: ../src/interface/manual_transfer.cpp:101 ../src/interface/queue.cpp:1322
 msgid "Remote file"
 msgstr "File remoto"
 
@@ -6722,7 +6648,7 @@ msgstr "File remoti:"
 msgid "Remote path"
 msgstr "Percorso remoto"
 
-#: ../src/interface/bookmarks_dialog.cpp:486
+#: ../src/interface/bookmarks_dialog.cpp:488
 #, c-format
 msgid ""
 "Remote path cannot be parsed. Make sure it is a valid absolute path and is "
@@ -6732,7 +6658,7 @@ msgstr ""
 "un percorso assoluto valido e supportato dal tipo di server (%s) attualmente "
 "attivo."
 
-#: ../src/interface/sitemanager_dialog.cpp:922
+#: ../src/interface/sitemanager_dialog.cpp:923
 #, c-format
 msgid ""
 "Remote path cannot be parsed. Make sure it is a valid absolute path and is "
@@ -6741,9 +6667,9 @@ msgstr ""
 "Il percorso remoto non può essere analizzato. Assicurati che sia un percorso "
 "assoluto valido e supportato dal tipo di server (%s) selezionato."
 
-#: ../src/interface/bookmarks_dialog.cpp:489
-#: ../src/interface/bookmarks_dialog.cpp:494
-#: ../src/interface/sitemanager_dialog.cpp:925
+#: ../src/interface/bookmarks_dialog.cpp:491
+#: ../src/interface/bookmarks_dialog.cpp:496
+#: ../src/interface/sitemanager_dialog.cpp:926
 msgid "Remote path cannot be parsed. Make sure it is a valid absolute path."
 msgstr ""
 "Il percorso remoto non può essere analizzato. Assicurati che sia un percorso "
@@ -6785,12 +6711,12 @@ msgstr "Rimuovi gli elementi &selezionati"
 msgid "Rename file"
 msgstr "Rinomina file"
 
-#: ../src/interface/LocalTreeView.cpp:1121
-#: ../src/interface/RemoteTreeView.cpp:932
+#: ../src/interface/LocalTreeView.cpp:1137
+#: ../src/interface/RemoteTreeView.cpp:910
 msgid "Rename selected directory"
 msgstr "Rinomina le cartelle selezionate"
 
-#: ../src/interface/LocalListView.cpp:829
+#: ../src/interface/LocalListView.cpp:831
 #: ../src/interface/RemoteListView.cpp:1066
 msgid "Rename selected files and directories"
 msgstr "Rinomina i file e cartelle selezionate"
@@ -6825,7 +6751,7 @@ msgstr ""
 msgid "Request rejected or failed"
 msgstr "Richiesta rifiutata o fallita"
 
-#: ../src/engine/http/httpcontrolsocket.cpp:263
+#: ../src/engine/http/httpcontrolsocket.cpp:149
 #, c-format
 msgid "Requesting %s"
 msgstr "Richiesta di %s"
@@ -6842,13 +6768,13 @@ msgstr "Richiedi FTP implicito su TLS"
 msgid "Reset and requeue &all"
 msgstr "Ripristina e rimetti in cod&a tutti i file"
 
-#: ../src/engine/controlsocket.cpp:895 ../src/engine/controlsocket.cpp:900
+#: ../src/engine/controlsocket.cpp:889 ../src/engine/controlsocket.cpp:894
 #, c-format
 msgid "Resolving address of %s"
 msgstr "Risoluzione dell'indirizzo IP %s in corso"
 
 #: ../src/engine/logging.cpp:123 ../src/interface/netconfwizard.cpp:474
-#: ../src/interface/StatusView.cpp:307 ../src/interface/StatusView.cpp:381
+#: ../src/interface/StatusView.cpp:308 ../src/interface/StatusView.cpp:382
 msgid "Response:"
 msgstr "Risposta:"
 
@@ -6883,7 +6809,7 @@ msgstr "Recupero elenco cartella di \"%s\"..."
 msgid "Retrieving directory listing..."
 msgstr "Lettura elenco cartelle..."
 
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:638
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:645
 #: ../src/interface/netconfwizard.cpp:763
 #, c-format
 msgid "Retrieving external IP address from %s"
@@ -6893,7 +6819,7 @@ msgstr "È in corso la lettura dell'indirizzo IP esterno da %s"
 msgid "Ro&le ARN:"
 msgstr "Ruo&lo ARN:"
 
-#: ../src/interface/verifycertdialog.cpp:260
+#: ../src/interface/verifycertdialog.cpp:256
 msgid "Root certificate"
 msgstr "Certificato principale"
 
@@ -6911,7 +6837,7 @@ msgstr "Visualizza i file in cui &sono in corso modifiche..."
 msgid "S&how the Site Manager on startup"
 msgstr "&Visualizza Gestione siti all'avvio"
 
-#: ../src/interface/QueueView.cpp:1807
+#: ../src/interface/QueueView.cpp:1821
 msgid "S&hutdown system once"
 msgstr "&Arresta il sistema"
 
@@ -6923,7 +6849,7 @@ msgstr "Avvia normalmen&te"
 msgid "S&top"
 msgstr "&Ferma"
 
-#: ../src/interface/QueueView.cpp:1808
+#: ../src/interface/QueueView.cpp:1822
 msgid "S&uspend system once"
 msgstr "S&ospendi il sistema"
 
@@ -6931,11 +6857,11 @@ msgstr "S&ospendi il sistema"
 msgid "S&ynchronized browsing"
 msgstr "Navigazione s&incronizzata"
 
-#: ../src/interface/settings/settingsdialog.cpp:127
+#: ../src/interface/settings/settingsdialog.cpp:126
 msgid "SFTP"
 msgstr "SFTP"
 
-#: ../src/interface/FileZilla.cpp:419
+#: ../src/interface/FileZilla.cpp:423
 msgid "SFTP support"
 msgstr "Supporto SFTP"
 
@@ -6959,7 +6885,7 @@ msgstr "SQLite:"
 msgid "Sa&ve passwords protected by a master password"
 msgstr "Sal&va le password protette dalla password principale"
 
-#: ../src/interface/verifycertdialog.cpp:153
+#: ../src/interface/verifycertdialog.cpp:149
 msgid "Same as subject, certificate is self-signed"
 msgstr "Come l'oggetto, il certificato è auto-firmato"
 
@@ -6972,7 +6898,7 @@ msgstr "Satellite:"
 msgid "Sav&e passwords"
 msgstr "Sal&va password"
 
-#: ../src/interface/netconfwizard.cpp:909
+#: ../src/interface/netconfwizard.cpp:903
 msgid "Save settings?"
 msgstr "Vuoi salvare le impostazioni?"
 
@@ -6998,7 +6924,7 @@ msgstr "Cerca &condizioni:"
 msgid "Search &directory:"
 msgstr "Cerca &cartella:"
 
-#: ../src/interface/sitemanager_dialog.cpp:1384
+#: ../src/interface/sitemanager_dialog.cpp:1385
 msgid "Search for entries containing the entered text."
 msgstr "Ricerca elementi contenenti il testo inserito."
 
@@ -7006,7 +6932,7 @@ msgstr "Ricerca elementi contenenti il testo inserito."
 msgid "Search for files recursively."
 msgstr "Ricerca ricorsiva file."
 
-#: ../src/interface/sitemanager_dialog.cpp:1427
+#: ../src/interface/sitemanager_dialog.cpp:1428
 msgid "Search result"
 msgstr "Risultati ricerca"
 
@@ -7014,7 +6940,7 @@ msgstr "Risultati ricerca"
 msgid "Search server for files"
 msgstr "Cerca nei server i file"
 
-#: ../src/interface/sitemanager_dialog.cpp:1384
+#: ../src/interface/sitemanager_dialog.cpp:1385
 msgid "Search sites"
 msgstr "Siti ricerca"
 
@@ -7044,7 +6970,7 @@ msgstr "Vedi anche: https://wiki.filezilla-project.org/Network_Configuration"
 msgid "Sele&ct server"
 msgstr "Sele&ziona server"
 
-#: ../src/interface/settings/settingsdialog.cpp:66
+#: ../src/interface/settings/settingsdialog.cpp:65
 msgid "Select &page:"
 msgstr "Seleziona &pagina:"
 
@@ -7090,7 +7016,7 @@ msgstr "Seleziona il file per l'esportazione dei dati"
 msgid "Select file for exported filters"
 msgstr "Seleziona file per filtri esportati"
 
-#: ../src/interface/export.cpp:42 ../src/interface/queue.cpp:1581
+#: ../src/interface/export.cpp:42 ../src/interface/queue.cpp:1608
 msgid "Select file for exported queue"
 msgstr "Seleziona il file per l'esportazione delle code"
 
@@ -7098,7 +7024,7 @@ msgstr "Seleziona il file per l'esportazione delle code"
 msgid "Select file for exported settings"
 msgstr "Seleziona il file per l'esportazione delle impostazioni"
 
-#: ../src/interface/export.cpp:39 ../src/interface/sitemanager_dialog.cpp:1908
+#: ../src/interface/export.cpp:39 ../src/interface/sitemanager_dialog.cpp:1909
 msgid "Select file for exported sites"
 msgstr "Seleziona il file per l'esportazione dei siti"
 
@@ -7141,7 +7067,7 @@ msgid_plural "Selected %d directories with their contents for transfer."
 msgstr[0] "Selezionato per il trasferimento %d cartella con il suo contenuto."
 msgstr[1] "Selezionato per il trasferimento %d cartelle con il loro contenuto."
 
-#: ../src/interface/filelist_statusbar.cpp:45
+#: ../src/interface/filelist_statusbar.cpp:46
 #, c-format
 msgid "Selected %d directory."
 msgid_plural "Selected %d directories."
@@ -7155,14 +7081,14 @@ msgid_plural "Selected %d files for transfer."
 msgstr[0] "Selezionato %d file per il trasferimento."
 msgstr[1] "Selezionati %d file per il trasferimento."
 
-#: ../src/interface/filelist_statusbar.cpp:53
+#: ../src/interface/filelist_statusbar.cpp:54
 #, c-format
 msgid "Selected %d file. Total size: %s"
 msgid_plural "Selected %d files. Total size: %s"
 msgstr[0] "Selezionato %d file. Dimensione totale: %s"
 msgstr[1] "Selezionati %d file. Dimensione totale: %s"
 
-#: ../src/interface/filelist_statusbar.cpp:50
+#: ../src/interface/filelist_statusbar.cpp:51
 #, c-format
 msgid "Selected %d file. Total size: At least %s"
 msgid_plural "Selected %d files. Total size: At least %s"
@@ -7174,12 +7100,12 @@ msgstr[1] "Selezionati %d file. Dimensione totale: almeno %s"
 msgid "Selected %s and %s for transfer."
 msgstr "Selezionati %s e %s per il trasferimento."
 
-#: ../src/interface/filelist_statusbar.cpp:64
+#: ../src/interface/filelist_statusbar.cpp:65
 #, c-format
 msgid "Selected %s and %s. Total size: %s"
 msgstr "Selezionati %s e %s. Dimensione totale: %s"
 
-#: ../src/interface/filelist_statusbar.cpp:61
+#: ../src/interface/filelist_statusbar.cpp:62
 #, c-format
 msgid "Selected %s and %s. Total size: At least %s"
 msgstr "Selezionati %s e %s. Dimensione totale: almeno %s"
@@ -7226,7 +7152,7 @@ msgstr "La porta selezionata di solito viene usata da un protocollo diverso."
 msgid "Selected protocol has no concept of usernames."
 msgstr "Il protocollo selezionato non ha il concetto di nomi utente."
 
-#: ../src/interface/verifycertdialog.cpp:253
+#: ../src/interface/verifycertdialog.cpp:249
 msgid "Self-signed server certificate"
 msgstr "Certificato del server auto-firmato"
 
@@ -7238,15 +7164,15 @@ msgstr "Invia coman&di FTP per mantenere attiva la connessione"
 msgid "Send custom command to the server otherwise not available"
 msgstr "Invia al server un comando personalizzato altrimenti non disponibile"
 
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:728
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:730
 msgid "Sending keep-alive command"
 msgstr "Invia comando per mantenere connessione attiva"
 
-#: ../src/interface/verifycertdialog.cpp:517
+#: ../src/interface/verifycertdialog.cpp:513
 msgid "Serial number:"
 msgstr "Numero seriale:"
 
-#: ../src/interface/verifycertdialog.cpp:337
+#: ../src/interface/verifycertdialog.cpp:333
 msgid "Serial:"
 msgstr "Seriale:"
 
@@ -7258,7 +7184,7 @@ msgstr "&Tipo server:"
 msgid "Server Side Encryption:"
 msgstr "Criptazione lato server:"
 
-#: ../src/interface/verifycertdialog.cpp:256
+#: ../src/interface/verifycertdialog.cpp:252
 msgid "Server certificate"
 msgstr "Certificato server"
 
@@ -7292,13 +7218,6 @@ msgstr "Il server non supporta il ripristino di file > 4GB."
 msgid "Server host key"
 msgstr "Chiave server host"
 
-#: ../src/engine/http/request.cpp:97
-#, c-format
-msgid "Server instructed us to wait %d seconds before sending next request"
-msgstr ""
-"Il server ha indicato di attendere %d secondi prima di inviare la richiesta "
-"successiva"
-
 #: ../src/engine/ftp/filetransfer.cpp:201
 #, c-format
 msgid ""
@@ -7315,21 +7234,6 @@ msgid ""
 msgstr ""
 "Il server richiede un account. Specifica un account usando Gestione siti"
 
-#: ../src/engine/http/request.cpp:546
-msgid "Server not sending proper line endings"
-msgstr "Il server non ha inviato la terminazione riga corretta"
-
-#: ../src/engine/http/digest.cpp:252
-#, c-format
-msgid "Server requested unsupported digest authentication algorithm: %s"
-msgstr ""
-"Il server ha richiesto un algoritmo di autentificazione non supportato: %s"
-
-#: ../src/engine/http/digest.cpp:260
-#, c-format
-msgid "Server requested unsupported quality-of-protection: %s"
-msgstr "Il server ha richiesto una tipologia di protezione non supportata: %s"
-
 #: ../src/engine/controlsocket.cpp:348
 msgid "Server returned empty path."
 msgstr "Il server ha ritornato un percorso vuoto."
@@ -7342,29 +7246,19 @@ msgstr ""
 "Il server ha inviato una richiesta addizionale di login. È necessario usare "
 "un tipo di login interattivo."
 
-#: ../src/engine/http/request.cpp:378
-msgid "Server sent data even before request headers were sent"
-msgstr ""
-"Il server ha inviato dei dati prima che sia stata inviata l'intestazione "
-"della richiesta"
-
-#: ../src/engine/ftp/rawtransfer.cpp:381
+#: ../src/engine/ftp/rawtransfer.cpp:409
 msgid "Server sent passive reply with unroutable address. Passive mode failed."
 msgstr ""
 "Il server ha inviato una risposta passiva contenente un indirizzo non "
 "raggiungibile. Modalità passiva non riuscita."
 
-#: ../src/engine/ftp/rawtransfer.cpp:376
+#: ../src/engine/ftp/rawtransfer.cpp:404
 msgid ""
 "Server sent passive reply with unroutable address. Using server address "
 "instead."
 msgstr ""
 "Il server ha inviato una risposta passiva contenente un indirizzo non "
 "raggiungibile. Sarà usato l'indirizzo del server."
-
-#: ../src/engine/http/request.cpp:507 ../src/engine/http/request.cpp:525
-msgid "Server sent too much data."
-msgstr "Il server ha inviato troppi dati."
 
 #: ../src/interface/netconfwizard.cpp:481
 #: ../src/interface/netconfwizard.cpp:487
@@ -7386,7 +7280,7 @@ msgstr "Server a client MAC:"
 msgid "Server to client cipher:"
 msgstr "Server a client cipher:"
 
-#: ../src/interface/queue.cpp:1295
+#: ../src/interface/queue.cpp:1322
 msgid "Server/Local file"
 msgstr "File server/locale"
 
@@ -7395,11 +7289,11 @@ msgstr "File server/locale"
 msgid "Server:"
 msgstr "Server:"
 
-#: ../src/interface/verifycertdialog.cpp:350
+#: ../src/interface/verifycertdialog.cpp:346
 msgid "Session details"
 msgstr "Dettagli sessione"
 
-#: ../src/interface/QueueView.cpp:1789
+#: ../src/interface/QueueView.cpp:1803
 msgid "Set &Priority"
 msgstr "Imposta &priorità"
 
@@ -7408,7 +7302,7 @@ msgstr "Imposta &priorità"
 msgid "Setting permissions of '%s' to '%s'"
 msgstr "Impostazione permessi di '%s' a '%s'"
 
-#: ../src/interface/settings/settingsdialog.cpp:54
+#: ../src/interface/settings/settingsdialog.cpp:53
 msgid "Settings"
 msgstr "Impostazioni"
 
@@ -7416,7 +7310,7 @@ msgstr "Impostazioni"
 msgid "Settings directory:"
 msgstr "Cartella impostazioni:"
 
-#: ../src/interface/QueueView.cpp:1799
+#: ../src/interface/QueueView.cpp:1813
 msgid "Sh&ow notification bubble"
 msgstr "Visualizza fumett&o notifica"
 
@@ -7428,13 +7322,13 @@ msgstr "Visualizza elenco ca&rtelle"
 msgid "Show &welcome dialog..."
 msgstr "Visualizza finestra di &benvenuto..."
 
-#: ../src/interface/Mainfrm.cpp:2467
+#: ../src/interface/Mainfrm.cpp:2473
 msgid "Show both directory trees and continue comparing?"
 msgstr ""
 "Visualizzare entrambi gli alberi delle cartelle e continuare la comparazione?"
 
-#: ../src/interface/update_dialog.cpp:136
-#: ../src/interface/update_dialog.cpp:183
+#: ../src/interface/update_dialog.cpp:137
+#: ../src/interface/update_dialog.cpp:184
 msgid "Show details"
 msgstr "Visualizza dettagli"
 
@@ -7454,11 +7348,11 @@ msgstr "Visualizza crittografie TLS disponibili"
 msgid "Shows this help dialog"
 msgstr "Visualizza questa finestra di aiuto"
 
-#: ../src/interface/QueueView.cpp:2800
+#: ../src/interface/QueueView.cpp:2814
 msgid "Shutdown now"
 msgstr "Arresta il sistema"
 
-#: ../src/interface/verifycertdialog.cpp:343
+#: ../src/interface/verifycertdialog.cpp:339
 msgid "Signature algorithm:"
 msgstr "Algoritmo firma:"
 
@@ -7470,7 +7364,7 @@ msgstr "Registrazione"
 msgid "Site &Manager entries"
 msgstr "Voci &Gestione siti"
 
-#: ../src/interface/sitemanager_dialog.cpp:302
+#: ../src/interface/sitemanager_dialog.cpp:303
 msgid "Site Manager"
 msgstr "Gestione siti"
 
@@ -7493,13 +7387,13 @@ msgstr "Gestione siti - non memorizzare le password"
 #: ../src/interface/sitemanager_controls.cpp:1402
 #: ../src/interface/sitemanager_controls.cpp:1414
 #: ../src/interface/sitemanager_controls.cpp:1428
-#: ../src/interface/sitemanager_dialog.cpp:927
-#: ../src/interface/sitemanager_dialog.cpp:936
-#: ../src/interface/sitemanager_dialog.cpp:943
+#: ../src/interface/sitemanager_dialog.cpp:928
+#: ../src/interface/sitemanager_dialog.cpp:937
+#: ../src/interface/sitemanager_dialog.cpp:944
 msgid "Site Manager - Invalid data"
 msgstr "Gestione siti - dati non validi"
 
-#: ../src/interface/sitemanager_dialog.cpp:292
+#: ../src/interface/sitemanager_dialog.cpp:293
 msgid "Site Manager already open"
 msgstr "Gestione siti già aperto"
 
@@ -7512,12 +7406,12 @@ msgstr "Il sito non esiste."
 msgid "Site path is malformed."
 msgstr "Percorso sito non valido."
 
-#: ../src/interface/bookmarks_dialog.cpp:309
+#: ../src/interface/bookmarks_dialog.cpp:311
 msgid "Site-specific bookmarks"
 msgstr "Preferiti specifici per sito"
 
-#: ../src/interface/bookmarks_dialog.cpp:102
-#: ../src/interface/bookmarks_dialog.cpp:611
+#: ../src/interface/bookmarks_dialog.cpp:103
+#: ../src/interface/bookmarks_dialog.cpp:613
 msgid ""
 "Site-specific bookmarks require the server to be stored in the Site "
 "Manager.\n"
@@ -7527,7 +7421,7 @@ msgstr ""
 "siti.\n"
 "Vuoi aggiungere la connessione attuale in Gestione siti?"
 
-#: ../src/interface/queue.cpp:1295
+#: ../src/interface/queue.cpp:1322
 msgid "Size"
 msgstr "Dimensione"
 
@@ -7544,8 +7438,8 @@ msgstr "Dimensione sconosciuta"
 msgid "Skip file"
 msgstr "Ignora file"
 
-#: ../src/engine/controlsocket.cpp:968 ../src/engine/controlsocket.cpp:985
-#: ../src/engine/controlsocket.cpp:1011 ../src/engine/controlsocket.cpp:1074
+#: ../src/engine/controlsocket.cpp:974 ../src/engine/controlsocket.cpp:991
+#: ../src/engine/controlsocket.cpp:1017 ../src/engine/controlsocket.cpp:1080
 #, c-format
 msgid "Skipping download of %s"
 msgstr "Salta il download di %s"
@@ -7555,13 +7449,13 @@ msgstr "Salta il download di %s"
 msgid "Skipping non-existing key file \"%s\""
 msgstr "Salta file chiave non esistente \"%s\""
 
-#: ../src/engine/controlsocket.cpp:971 ../src/engine/controlsocket.cpp:988
-#: ../src/engine/controlsocket.cpp:1014 ../src/engine/controlsocket.cpp:1077
+#: ../src/engine/controlsocket.cpp:977 ../src/engine/controlsocket.cpp:994
+#: ../src/engine/controlsocket.cpp:1020 ../src/engine/controlsocket.cpp:1083
 #, c-format
 msgid "Skipping upload of %s"
 msgstr "Salta l'invio di %s"
 
-#: ../src/interface/Mainfrm.cpp:1331
+#: ../src/interface/Mainfrm.cpp:1337
 msgid "Some files are still being edited or need to be uploaded."
 msgstr ""
 "Sono in corso modifiche ad alcuni file remoti oppure dei file hanno bisogno "
@@ -7610,13 +7504,13 @@ msgstr "Sorgente e destinazione dell'operazione trascina e rilascia coincidono"
 msgid "Source file:"
 msgstr "File sorgente:"
 
-#: ../src/interface/speedlimits_dialog.cpp:103
 #: ../src/interface/speedlimits_dialog.cpp:109
+#: ../src/interface/speedlimits_dialog.cpp:115
 msgid "Speed Limits"
 msgstr "Limiti di velocità"
 
 #: ../src/interface/settings/optionspage_transfer.cpp:71
-#: ../src/interface/speedlimits_dialog.cpp:34
+#: ../src/interface/speedlimits_dialog.cpp:40
 msgid "Speed limits"
 msgstr "Limiti di velocità"
 
@@ -7669,20 +7563,20 @@ msgstr "Avvio upload di %s"
 msgid "Starts the local site in the given path"
 msgstr "Avvia il sito locale nel percorso indicato"
 
-#: ../src/interface/verifycertdialog.cpp:512
+#: ../src/interface/verifycertdialog.cpp:508
 msgid "State or province:"
 msgstr "Provincia:"
 
-#: ../src/interface/edithandler.cpp:1409 ../src/interface/queue.cpp:1295
+#: ../src/interface/edithandler.cpp:1409 ../src/interface/queue.cpp:1322
 msgid "Status"
 msgstr "Stato"
 
-#: ../src/engine/logging.cpp:120 ../src/interface/StatusView.cpp:319
-#: ../src/interface/StatusView.cpp:411
+#: ../src/engine/logging.cpp:120 ../src/interface/StatusView.cpp:320
+#: ../src/interface/StatusView.cpp:412
 msgid "Status:"
 msgstr "Stato:"
 
-#: ../src/interface/QueueView.cpp:1782
+#: ../src/interface/QueueView.cpp:1796
 msgid "Stop and remove &all"
 msgstr "Ferm&a e rimuovi tutto"
 
@@ -7703,15 +7597,15 @@ msgstr "Storj (usa chiave API compatibile)"
 msgid "Storj - Decentralized Cloud Storage"
 msgstr "Storj - Storage cloud decentralizzato"
 
-#: ../src/interface/FileZilla.cpp:426
+#: ../src/interface/FileZilla.cpp:430
 msgid "Storj support"
 msgstr "Supporto storj"
 
-#: ../src/interface/verifycertdialog.cpp:515
+#: ../src/interface/verifycertdialog.cpp:511
 msgid "Street:"
 msgstr "Via:"
 
-#: ../src/interface/verifycertdialog.cpp:307
+#: ../src/interface/verifycertdialog.cpp:303
 msgid "Subject"
 msgstr "Oggetto"
 
@@ -7723,7 +7617,7 @@ msgstr "Trasferimenti completati"
 msgid "Summary of test results:"
 msgstr "Riepilogo dei risultati del test:"
 
-#: ../src/interface/QueueView.cpp:2808
+#: ../src/interface/QueueView.cpp:2822
 msgid "Suspend now"
 msgstr "Sospendi ora"
 
@@ -7757,8 +7651,8 @@ msgstr "Errore di sintassi"
 
 #: ../src/interface/cmdline.cpp:83 ../src/interface/cmdline.cpp:88
 #: ../src/interface/cmdline.cpp:93 ../src/interface/cmdline.cpp:100
-#: ../src/interface/cmdline.cpp:105 ../src/interface/Mainfrm.cpp:2598
-#: ../src/interface/Mainfrm.cpp:2640
+#: ../src/interface/cmdline.cpp:105 ../src/interface/Mainfrm.cpp:2604
+#: ../src/interface/Mainfrm.cpp:2646
 msgid "Syntax error in command line"
 msgstr "Errore di sintassi nella linea di comando"
 
@@ -7774,15 +7668,11 @@ msgstr "Dettagli sistema"
 msgid "T&oolbar"
 msgstr "&Barra strumenti"
 
-#: ../src/engine/http/httpcontrolsocket.cpp:238
-msgid "TLS connection established, sending HTTP request"
-msgstr "Connessione TSL stabilita. Invio richiesta HTTP"
-
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:201
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:208
 msgid "TLS connection established, waiting for welcome message..."
 msgstr "Connessione TLS stabilita. In attesa del messaggio di benvenuto..."
 
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:205
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:212
 msgid "TLS connection established."
 msgstr "Connessione TLS stabilita."
 
@@ -7790,7 +7680,7 @@ msgstr "Connessione TLS stabilita."
 msgid "TLS options"
 msgstr "Opzioni TLS"
 
-#: ../src/engine/ftp/ftpcontrolsocket.cpp:444
+#: ../src/engine/ftp/ftpcontrolsocket.cpp:451
 msgid ""
 "TLS session resumption on data connection failed. Closing control connection "
 "to start over."
@@ -7798,7 +7688,7 @@ msgstr ""
 "La ripresa della sessione TLS della connessione dati non è riuscita. Chiudi "
 "la connessione di controllo per ricominciare."
 
-#: ../src/interface/verifycertdialog.cpp:690
+#: ../src/interface/verifycertdialog.cpp:686
 msgid ""
 "TLS session resumption on the data connection is an important security "
 "feature to protect against data connection stealing attacks."
@@ -7819,7 +7709,7 @@ msgstr "Il file destinazione esiste già"
 msgid "Target file:"
 msgstr "File destinazione:"
 
-#: ../src/interface/RemoteListView.cpp:2789
+#: ../src/interface/RemoteListView.cpp:2792
 msgid "Target filename already exists!"
 msgstr "Il file destinazione esiste già!"
 
@@ -7827,7 +7717,7 @@ msgstr "Il file destinazione esiste già!"
 msgid "Target filename already exists, really continue?"
 msgstr "Il file destinazione esiste già. Vuoi continuare?"
 
-#: ../src/interface/verifycertdialog.cpp:518
+#: ../src/interface/verifycertdialog.cpp:514
 msgid "Telephone number:"
 msgstr "Numero di telefono:"
 
@@ -7847,11 +7737,11 @@ msgstr "Verifica del supporto al ripristino trasferimenti sul server"
 msgid "The &following files are currently being edited:"
 msgstr "Sono in corso modifiche ai seguenti &file remoti:"
 
-#: ../src/interface/sitemanager_dialog.cpp:714
+#: ../src/interface/sitemanager_dialog.cpp:715
 msgid "The Site Manager cannot be used unless the file gets repaired."
 msgstr "Gestione siti non può essere usato a meno che il file venga sistemato."
 
-#: ../src/interface/sitemanager_dialog.cpp:291
+#: ../src/interface/sitemanager_dialog.cpp:292
 msgid ""
 "The Site Manager is opened in another instance of FileZilla 3.\n"
 "Do you want to continue? Any changes made in the Site Manager won't be saved "
@@ -7878,7 +7768,7 @@ msgstr "L'indirizzo inserito è: %s"
 msgid "The associated program could not be found."
 msgstr "Il programma associato non è stato trovato."
 
-#: ../src/interface/bookmarks_dialog.cpp:888
+#: ../src/interface/bookmarks_dialog.cpp:890
 #: ../src/interface/sitemanager.cpp:357
 msgid "The bookmark could not be added."
 msgstr "Impossibile aggiungere il preferito."
@@ -7948,7 +7838,7 @@ msgstr ""
 "Inserisci un nuovo nome:"
 
 #: ../src/interface/edithandler.cpp:1336
-#: ../src/interface/LocalListView.cpp:1937 ../src/interface/search.cpp:2077
+#: ../src/interface/LocalListView.cpp:1939 ../src/interface/search.cpp:2077
 #, c-format
 msgid ""
 "The file '%s' cannot be opened:\n"
@@ -7981,7 +7871,7 @@ msgid "The file '%s' could not be loaded."
 msgstr "Impossibile caricare il file '%s'."
 
 #: ../src/interface/edithandler.cpp:1331
-#: ../src/interface/LocalListView.cpp:1933 ../src/interface/search.cpp:2073
+#: ../src/interface/LocalListView.cpp:1935 ../src/interface/search.cpp:2073
 #, c-format
 msgid ""
 "The file '%s' could not be opened:\n"
@@ -7990,7 +7880,7 @@ msgstr ""
 "Non è stato possibile aprire il file '%s':\n"
 "Nessun programma è stato associato sul vostro sistema con questo file."
 
-#: ../src/interface/edithandler.cpp:380 ../src/interface/LocalListView.cpp:1945
+#: ../src/interface/edithandler.cpp:380 ../src/interface/LocalListView.cpp:1947
 #: ../src/interface/search.cpp:2084
 #, c-format
 msgid ""
@@ -8000,7 +7890,7 @@ msgstr ""
 "Non è stato possibile aprire il file '%s':\n"
 "Il comando associato è fallito"
 
-#: ../src/interface/import.cpp:70 ../src/interface/sitemanager_dialog.cpp:721
+#: ../src/interface/import.cpp:70 ../src/interface/sitemanager_dialog.cpp:722
 #, c-format
 msgid ""
 "The file '%s' has been created by a more recent version of FileZilla.\n"
@@ -8047,7 +7937,7 @@ msgstr "I seguenti caratteri saranno sostituiti: %s"
 msgid "The free open source FTP solution"
 msgstr "La soluzione FTP open source gratuita"
 
-#: ../src/interface/bookmarks_dialog.cpp:339
+#: ../src/interface/bookmarks_dialog.cpp:341
 msgid "The global bookmarks could not be saved."
 msgstr "I preferiti globali non possono essere salvati."
 
@@ -8099,11 +7989,11 @@ msgstr ""
 msgid "The master password needs to be at least 8 characters long."
 msgstr "La password principale deve contenere almeno 8 caratteri."
 
-#: ../src/interface/update_dialog.cpp:177
+#: ../src/interface/update_dialog.cpp:178
 msgid "The new version could not be downloaded, please retry later."
 msgstr "La nuova versione non può essere scaricata. Riprova più tardi."
 
-#: ../src/interface/update_dialog.cpp:171
+#: ../src/interface/update_dialog.cpp:172
 msgid "The new version has been saved in your Downloads directory."
 msgstr "La nuova versione è stata salvata nella cartella dei download."
 
@@ -8154,7 +8044,7 @@ msgstr "Il server ha inviato una risposta inaspettata o sconosciuta."
 msgid "The server uses following charset encoding for filenames:"
 msgstr "Il server usa la seguente codifica per i nomi di file:"
 
-#: ../src/interface/verifycertdialog.cpp:234
+#: ../src/interface/verifycertdialog.cpp:230
 msgid ""
 "The server's certificate is unknown. Please carefully examine the "
 "certificate to make sure the server can be trusted."
@@ -8188,11 +8078,11 @@ msgstr ""
 "Le impostazioni sono state importate. FileZilla deve essere riavviato per "
 "rendere effettive le nuove impostazioni."
 
-#: ../src/interface/QueueView.cpp:2803
+#: ../src/interface/QueueView.cpp:2817
 msgid "The system will soon reboot unless you click Cancel."
 msgstr "Il sistema sarà riavviato a meno che non fai clic su [Annulla]."
 
-#: ../src/interface/QueueView.cpp:2799
+#: ../src/interface/QueueView.cpp:2813
 msgid "The system will soon shut down unless you click Cancel."
 msgstr "Il sistema si chiuderà a meno che non fai clic su [Annulla]."
 
@@ -8204,7 +8094,7 @@ msgstr ""
 "Il file destinazione esiste già.\n"
 "Scegli un'azione."
 
-#: ../src/interface/netconfwizard.cpp:909
+#: ../src/interface/netconfwizard.cpp:903
 msgid "The test did not succeed. Do you really want to save the settings?"
 msgstr "Il test ha avuto esito negativo. Salvare comunque le impostazioni?"
 
@@ -8213,7 +8103,7 @@ msgstr "Il test ha avuto esito negativo. Salvare comunque le impostazioni?"
 msgid "The valid backup file %s could not be restored"
 msgstr "Il file %s (backup valido) non può essere ripristinato"
 
-#: ../src/interface/settings/settingsdialog.cpp:134
+#: ../src/interface/settings/settingsdialog.cpp:133
 msgid "Themes"
 msgstr "Temi"
 
@@ -8225,7 +8115,7 @@ msgstr "Questo gruppo di filtri non può essere eliminato."
 msgid "This filter set cannot be renamed."
 msgstr "Questo gruppo di filtri non può essere rinominato."
 
-#: ../src/interface/verifycertdialog.cpp:608
+#: ../src/interface/verifycertdialog.cpp:604
 msgid ""
 "This may be the result of a downgrade attack, only continue after you have "
 "spoken to the server administrator or server hosting provider."
@@ -8251,11 +8141,11 @@ msgstr ""
 "(senza router), in caso contrario il valore restituito sarà l'indirizzo di "
 "rete interno."
 
-#: ../src/interface/verifycertdialog.cpp:616
+#: ../src/interface/verifycertdialog.cpp:612
 msgid "This server does not support FTP over TLS."
 msgstr "Questo server non supporta FTP su TLS."
 
-#: ../src/interface/verifycertdialog.cpp:688
+#: ../src/interface/verifycertdialog.cpp:684
 msgid ""
 "This server does not support TLS session resumption on the data connection."
 msgstr ""
@@ -8270,7 +8160,7 @@ msgstr ""
 "Questa procedura guidata vi aiuterà a configurare correttamente router e "
 "firewall e a testare le nuove impostazioni di connessione."
 
-#: ../src/interface/queue.cpp:1295
+#: ../src/interface/queue.cpp:1322
 msgid "Time"
 msgstr "Ora"
 
@@ -8282,25 +8172,25 @@ msgstr "Formato ora"
 msgid "Time&out in seconds:"
 msgstr "Timeout in sec&ondi:"
 
-#: ../src/interface/queue.cpp:361
+#: ../src/interface/queue.cpp:388
 #: ../src/interface/settings/optionspage_connection.cpp:39
 msgid "Timeout"
 msgstr "Timeout"
 
-#: ../src/interface/verifycertdialog.cpp:510
+#: ../src/interface/verifycertdialog.cpp:506
 msgid "Title:"
 msgstr "Titolo:"
 
-#: ../src/interface/Mainfrm.cpp:2445
+#: ../src/interface/Mainfrm.cpp:2451
 msgid "To compare directories quick search must be closed."
 msgstr "Per comparare le cartelle, la ricerca rapida deve essere chiusa."
 
-#: ../src/interface/Mainfrm.cpp:2465
+#: ../src/interface/Mainfrm.cpp:2471
 msgid "To compare directories, both file lists have to be aligned."
 msgstr ""
 "Per comparare le cartelle, entrambi gli elenchi file devono essere allineati."
 
-#: ../src/interface/Mainfrm.cpp:2466
+#: ../src/interface/Mainfrm.cpp:2472
 msgid "To do this, the directory trees need to be both shown or both hidden."
 msgstr ""
 "Per fare ciò, gli alberi delle cartelle devono essere entrambi visibili o "
@@ -8362,16 +8252,12 @@ msgstr "Visualizza o nasconde l'albero delle cartelle remote"
 msgid "Toggles the display of the transfer queue"
 msgstr "Visualizza o nasconde la finestra della coda di trasferimento"
 
-#: ../src/engine/http/request.cpp:559
-msgid "Too long header line"
-msgstr "Riga di intestazione troppo lunga"
-
 #: ../src/engine/http/filetransfer.cpp:108
 msgid "Too many redirects"
 msgstr "Troppi re-indirizzamenti"
 
-#: ../src/engine/logging.cpp:124 ../src/interface/StatusView.cpp:311
-#: ../src/interface/StatusView.cpp:393
+#: ../src/engine/logging.cpp:124 ../src/interface/StatusView.cpp:312
+#: ../src/interface/StatusView.cpp:394
 msgid "Trace:"
 msgstr "Traccia:"
 
@@ -8409,15 +8295,15 @@ msgstr "Connessione interrotta: %s"
 msgid "Transferred data got tainted."
 msgstr "I dati trasferiti sono stati alterati."
 
-#: ../src/interface/queue.cpp:371 ../src/interface/statuslinectrl.cpp:271
+#: ../src/interface/queue.cpp:398 ../src/interface/statuslinectrl.cpp:272
 msgid "Transferring"
 msgstr "Trasferimento in corso"
 
-#: ../src/interface/settings/settingsdialog.cpp:129
+#: ../src/interface/settings/settingsdialog.cpp:128
 msgid "Transfers"
 msgstr "Trasferimenti"
 
-#: ../src/interface/QueueView.cpp:2681
+#: ../src/interface/QueueView.cpp:2695
 msgid "Transfers finished"
 msgstr "Trasferimenti completati"
 
@@ -8428,6 +8314,16 @@ msgstr "&I file senza estensione saranno interpretati come file ASCII"
 #: ../src/interface/settings/optionspage_filetype.cpp:59
 msgid "Treat the &following filetypes as ASCII files:"
 msgstr "I seguenti tipi di &file saranno interpretati come file ASCII:"
+
+#: ../src/engine/directorylistingparser.cpp:878
+#: ../src/engine/directorylistingparser.cpp:934
+#, c-format
+msgid ""
+"Truncating directory listing to %u items, you can increase this limit in the "
+"settings file."
+msgstr ""
+"Troncato l'elenco delle cartelle a %u elementi, puoi aumentare questo limite "
+"nel file delle impostazioni."
 
 #: ../src/engine/sftp/sftpcontrolsocket.cpp:390
 msgid "Trust changed Hostkey:"
@@ -8443,7 +8339,7 @@ msgstr ""
 "Considerari come attendibile la nuova chiave e vuoi procedere con la "
 "connessione?"
 
-#: ../src/interface/verifycertdialog.cpp:383
+#: ../src/interface/verifycertdialog.cpp:379
 msgid "Trust the server certificate and carry on connecting?"
 msgstr "Ti fidi del certificato del server e vuoi continuare a connetterti?"
 
@@ -8453,8 +8349,8 @@ msgstr ""
 "Consideri come attendibile questo computer e vuoi procedere con la "
 "connessione?"
 
-#: ../src/interface/update_dialog.cpp:133
-#: ../src/interface/update_dialog.cpp:182
+#: ../src/interface/update_dialog.cpp:134
+#: ../src/interface/update_dialog.cpp:183
 msgid "Try again"
 msgstr "Riprova"
 
@@ -8475,7 +8371,7 @@ msgstr "Tipo di proxy generico:"
 msgid "U&pload"
 msgstr "&Invia"
 
-#: ../src/interface/speedlimits_dialog.cpp:62
+#: ../src/interface/speedlimits_dialog.cpp:68
 msgid "U&pload limit:"
 msgstr "Limite &upload:"
 
@@ -8492,17 +8388,12 @@ msgstr "USER@&HOST"
 msgid "Unassigned error code %d"
 msgstr "Codice errore non assegnato %d"
 
-#: ../src/engine/http/request.cpp:258
-#, c-format
-msgid "Unexpected end-of-file on '%s'"
-msgstr "File del file inaspettata in '%s'"
-
-#: ../src/interface/update_dialog.cpp:175
+#: ../src/interface/update_dialog.cpp:176
 msgid "Unfortunately information about the new update could not be retrieved."
 msgstr ""
 "Non è stato possibile recuperare le informazioni sul nuovo aggiornamento."
 
-#: ../src/interface/verifycertdialog.cpp:509
+#: ../src/interface/verifycertdialog.cpp:505
 msgid "Unit:"
 msgstr "Unità:"
 
@@ -8526,7 +8417,7 @@ msgstr "Tipo proxy FTP sconosciuto. Impossibile generare sequenza accesso."
 msgid "Unknown SOCKS protocol version: %d"
 msgstr "Versione protocollo SOCK sconosciuta: %d"
 
-#: ../src/interface/verifycertdialog.cpp:217
+#: ../src/interface/verifycertdialog.cpp:213
 msgid "Unknown certificate"
 msgstr "Certificato sconosciuto"
 
@@ -8566,11 +8457,7 @@ msgid ""
 "Unknown root element, the file does not appear to be generated by FileZilla."
 msgstr "Elemento root sconosciuto. Il file non sembra generato da FileZilla."
 
-#: ../src/engine/http/request.cpp:669
-msgid "Unknown transfer encoding"
-msgstr "Codifica trasferimento sconosciuta"
-
-#: ../src/interface/Mainfrm.cpp:1847
+#: ../src/interface/Mainfrm.cpp:1853
 msgid "Unknown version"
 msgstr "Versione sconosciuta"
 
@@ -8600,7 +8487,7 @@ msgid "Up&load and unedit"
 msgstr "Invia e annulla le modifi&che"
 
 #: ../src/interface/settings/optionspage_updatecheck.cpp:98
-#: ../src/interface/settings/settingsdialog.cpp:143
+#: ../src/interface/settings/settingsdialog.cpp:142
 msgid "Updates"
 msgstr "Aggiornamenti"
 
@@ -8630,11 +8517,11 @@ msgstr "Limite upload: nessuno"
 msgid "Upload search results"
 msgstr "Carica risultati ricerca"
 
-#: ../src/interface/LocalTreeView.cpp:1105
+#: ../src/interface/LocalTreeView.cpp:1121
 msgid "Upload selected directory"
 msgstr "Invia le cartelle selezionate"
 
-#: ../src/interface/LocalListView.cpp:810
+#: ../src/interface/LocalListView.cpp:812
 msgid "Upload selected files and directories"
 msgstr "Invia file e cartelle selezionate"
 
@@ -8681,7 +8568,7 @@ msgid "Use &default editor for text files"
 msgstr "Usa programma pre&definito per i file di testo"
 
 #: ../src/interface/resources/xrc/dialogs.xrc:636
-#: ../src/interface/sitemanager_dialog.cpp:281
+#: ../src/interface/sitemanager_dialog.cpp:282
 msgid "Use &synchronized browsing"
 msgstr "Usa navigazione &sincronizzata"
 
@@ -8765,7 +8652,7 @@ msgstr ""
 msgid "Using insecure HTTP"
 msgstr "Usa HTTP non sicuro"
 
-#: ../src/interface/verifycertdialog.cpp:619
+#: ../src/interface/verifycertdialog.cpp:615
 #, c-format
 msgid "Using plain %s is insecure."
 msgstr "L'uso di %s in chiaro non è sicuro."
@@ -8782,7 +8669,7 @@ msgstr ""
 "nella visualizzazione dei nomi di file."
 
 #. @translator: Period as in a span of time with a start and end date
-#: ../src/interface/verifycertdialog.cpp:301
+#: ../src/interface/verifycertdialog.cpp:297
 msgid "Validity period:"
 msgstr "Periodo validità:"
 
@@ -8810,15 +8697,15 @@ msgstr "Colonne visibili"
 msgid "W&rite"
 msgstr "S&crittura"
 
-#: ../src/interface/queue.cpp:367
+#: ../src/interface/queue.cpp:394
 msgid "Waiting for browsing connection"
 msgstr "In attesa di connessione"
 
-#: ../src/interface/queue.cpp:368
+#: ../src/interface/queue.cpp:395
 msgid "Waiting for password"
 msgstr "In attesa della password"
 
-#: ../src/interface/statuslinectrl.cpp:265
+#: ../src/interface/statuslinectrl.cpp:266
 msgid "Waiting for transfer to be cancelled"
 msgstr "In attesa che il trasferimento venga annullato"
 
@@ -8826,7 +8713,7 @@ msgstr "In attesa che il trasferimento venga annullato"
 msgid "Waiting to retry..."
 msgstr "In attesa di un nuovo tentativo..."
 
-#: ../src/interface/verifycertdialog.cpp:684
+#: ../src/interface/verifycertdialog.cpp:680
 msgid ""
 "Warning! You have previously connected to this server and it has supported "
 "TLS session resumption on the data connection."
@@ -8834,7 +8721,7 @@ msgstr ""
 "Attenzione! Ti sei precedentemente connesso a questo server che supporta la "
 "ripresa della sessione TLS per la connessione dati."
 
-#: ../src/interface/verifycertdialog.cpp:607
+#: ../src/interface/verifycertdialog.cpp:603
 msgid ""
 "Warning! You have previously connected to this server using FTP over TLS, "
 "yet the server has now rejected FTP over TLS."
@@ -8842,13 +8729,13 @@ msgstr ""
 "Attenzione! In precedenza, ti sei connesso a questo server tramite FTP su "
 "TLS, ma il server ha ora rifiutato l'FTP su TLS."
 
-#: ../src/interface/verifycertdialog.cpp:611
+#: ../src/interface/verifycertdialog.cpp:607
 msgid "Warning! You have previously connected to this server using TLS."
 msgstr ""
 "Attenzione! In precedenza hai effettuato una connessione a questo server "
 "usando TLS."
 
-#: ../src/interface/netconfwizard.cpp:1026
+#: ../src/interface/netconfwizard.cpp:1020
 msgid "Warning, ignoring data connection from wrong IP."
 msgstr "Avvertimento: connessione dati da IP sbagliato ignorata."
 
@@ -8891,7 +8778,7 @@ msgstr "Benvenuto in FileZilla"
 msgid "What's new"
 msgstr "Novità"
 
-#: ../src/interface/update_dialog.cpp:155
+#: ../src/interface/update_dialog.cpp:156
 msgid "What's new:"
 msgstr "Novità:"
 
@@ -8938,10 +8825,6 @@ msgstr "ALPN errato nella connessione dati"
 msgid "Wrong external IP address"
 msgstr "Indirizzo IP esterno non valido"
 
-#: ../src/engine/http/request.cpp:773
-msgid "Wrong line endings"
-msgstr "Terminazioni di riga non corrette"
-
 #: ../src/interface/loginmanager.cpp:378
 msgid ""
 "Wrong master password entered, it cannot be used to decrypt the stored "
@@ -8964,7 +8847,7 @@ msgstr "Giallo"
 msgid "Yes"
 msgstr "Sì"
 
-#: ../src/interface/netconfwizard.cpp:826
+#: ../src/interface/netconfwizard.cpp:820
 msgid ""
 "You appear to be using an IPv6-only host. This wizard does not support this "
 "environment."
@@ -8972,7 +8855,7 @@ msgstr ""
 "Sembra che tu stia usando un host solo IPv6. Questa procedura guidata non "
 "supporta questa configurazione."
 
-#: ../src/interface/update_dialog.cpp:201
+#: ../src/interface/update_dialog.cpp:202
 msgid "You are using the latest version of FileZilla."
 msgstr "La versione di FileZilla installata è aggiornata."
 
@@ -8981,8 +8864,8 @@ msgid "You can always open this dialog again through the help menu."
 msgstr ""
 "E' possibile aprire questa finestra di dialogo dal menu della Guida in linea."
 
-#: ../src/interface/update_dialog.cpp:140
-#: ../src/interface/update_dialog.cpp:186
+#: ../src/interface/update_dialog.cpp:141
+#: ../src/interface/update_dialog.cpp:187
 msgid "You can download the latest version from the FileZilla website:"
 msgstr "Puoi scaricare la versione più recente di FileZilla dal sito web:"
 
@@ -9020,7 +8903,7 @@ msgid "You did not enter a new name for the file. Overwrite the file instead?"
 msgstr ""
 "Non è stato inserito un nuovo nome per il file. Vuoi sovrascrivere il file?"
 
-#: ../src/interface/LocalListView.cpp:397
+#: ../src/interface/LocalListView.cpp:399
 msgid "You do not have permission to list this directory"
 msgstr "Non hai i permessi per visualizzare questa cartella"
 
@@ -9035,7 +8918,7 @@ msgid ""
 msgstr ""
 "Sono stati selezionati più di 10 file per le modifiche. Vuoi continuare?"
 
-#: ../src/interface/LocalListView.cpp:1904 ../src/interface/search.cpp:2043
+#: ../src/interface/LocalListView.cpp:1906 ../src/interface/search.cpp:2043
 msgid ""
 "You have selected more than 10 files or directories to open, do you really "
 "want to continue?"
@@ -9099,7 +8982,7 @@ msgstr ""
 msgid "You need to enter a master password."
 msgstr "Devi inserire la password principale."
 
-#: ../src/interface/bookmarks_dialog.cpp:65
+#: ../src/interface/bookmarks_dialog.cpp:66
 msgid "You need to enter a name for the bookmark."
 msgstr "Inserisci il nome per il preferito."
 
@@ -9128,17 +9011,17 @@ msgstr "Devi inserire un valore."
 msgid "You need to enter an access grant."
 msgstr "È necessario garantire l'accesso."
 
-#: ../src/interface/bookmarks_dialog.cpp:84
-#: ../src/interface/bookmarks_dialog.cpp:504
-#: ../src/interface/sitemanager_dialog.cpp:936
+#: ../src/interface/bookmarks_dialog.cpp:85
+#: ../src/interface/bookmarks_dialog.cpp:506
+#: ../src/interface/sitemanager_dialog.cpp:937
 msgid "You need to enter at least one path, empty bookmarks are not supported."
 msgstr ""
 "È necessario inserire almeno un percorso, i preferiti vuoti non sono "
 "supportati."
 
-#: ../src/interface/bookmarks_dialog.cpp:90
-#: ../src/interface/bookmarks_dialog.cpp:510
-#: ../src/interface/sitemanager_dialog.cpp:943
+#: ../src/interface/bookmarks_dialog.cpp:91
+#: ../src/interface/bookmarks_dialog.cpp:512
+#: ../src/interface/sitemanager_dialog.cpp:944
 msgid ""
 "You need to enter both a local and a remote path to enable synchronized "
 "browsing for this bookmark."
@@ -9154,7 +9037,7 @@ msgstr ""
 "È necessario inserire sia il percorso locale che quello remoto per abilitare "
 "la navigazione sincronizzata per questo sito."
 
-#: ../src/interface/osx_sandbox_userdirs.cpp:292
+#: ../src/interface/osx_sandbox_userdirs.cpp:295
 msgid ""
 "You need to grant FileZilla access to the directories you want to download "
 "files into or to upload files from."
@@ -9186,7 +9069,7 @@ msgstr ""
 "Non si dovrebbero avere problemi di connessione ad altri server, i "
 "trasferimenti dei file dovrebbero funzionare correttamente."
 
-#: ../src/interface/QueueView.cpp:2807
+#: ../src/interface/QueueView.cpp:2821
 msgid "Your computer will suspend unless you click Cancel."
 msgstr "Il sistema sarà messo in sospensione a meno fai clic su [Annulla]."
 
