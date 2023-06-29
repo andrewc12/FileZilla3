@@ -9,6 +9,7 @@
 #include "optionspage.h"
 #include "../update_dialog.h"
 
+#include <wx/hyperlink.h>
 #include <wx/statbox.h>
 
 struct COptionsPageUpdateCheck::impl final
@@ -63,7 +64,10 @@ bool COptionsPageUpdateCheck::CreateControls(wxWindow* parent)
 	inner->Add(run, lay.halign);
 	run->Bind(wxEVT_BUTTON, &COptionsPageUpdateCheck::OnRunUpdateCheck, this);
 
-	inner->Add(new wxStaticText(box, nullID, _("Privacy policy: Only your version of FileZilla, your used operating system and your CPU architecture will be submitted to the server.")));
+	inner->AddSpacer(0);
+
+	inner->Add(new wxStaticText(box, nullID, _("To check for updates, information such as the version of FileZilla, your operating system and your CPU architecture needs to be submitted. Only necessary data is submitted. It is collected in anonymized, aggregate form only.")));
+	inner->Add(new wxHyperlinkCtrl(box, nullID, _("Privacy policy"), L"https://filezilla-project.org/privacy.php"));
 
 	return true;
 }
