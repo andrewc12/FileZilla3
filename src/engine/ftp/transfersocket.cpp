@@ -146,7 +146,9 @@ void CTransferSocket::OnSocketEvent(fz::socket_event_source* source, fz::socket_
 			OnSocketError(error);
 		}
 		else {
-			OnReceive();
+			if (OnReceive()) {
+				resend_current_event();
+			}
 		}
 		break;
 	case fz::socket_event_flag::write:
@@ -154,7 +156,9 @@ void CTransferSocket::OnSocketEvent(fz::socket_event_source* source, fz::socket_
 			OnSocketError(error);
 		}
 		else {
-			OnSend();
+			if (OnSend()) {
+				resend_current_event();
+			}
 		}
 		break;
 	default:
@@ -259,73 +263,37 @@ void CTransferSocket::OnConnect()
 		TriggerPostponedEvents();
 	}
 
-	OnSend();
+	if (OnSend()) {
+		send_event<fz::socket_event>(active_layer_, fz::socket_event_flag::write, 0);
+	}
 }
 
-void CTransferSocket::OnReceive()
+bool CTransferSocket::OnReceive()
 {
 	controlSocket_.log(logmsg::debug_debug, L"CTransferSocket::OnReceive(), m_transferMode=%d", m_transferMode);
 
 	if (activity_block_) {
 		controlSocket_.log(logmsg::debug_verbose, L"Postponing receive, m_bActive was false.");
 		m_postponedReceive = true;
-		return;
+		return false;
 	}
 
 	if (m_transferEndReason == TransferEndReason::none) {
 		if (m_transferMode == TransferMode::list) {
-			// See comment in download loop
-			for (int i = 0; i < 100; ++i) {
-				char *pBuffer = new char[4096];
-				int error;
-				int numread = active_layer_->read(pBuffer, 4096, error);
-				if (numread < 0) {
-					delete [] pBuffer;
-					if (error != EAGAIN) {
-						controlSocket_.log(logmsg::error, L"Could not read from transfer socket: %s", fz::socket_error_description(error));
-						TransferEnd(TransferEndReason::transfer_failure);
-					}
-					return;
-				}
-
-				if (numread > 0) {
-					if (!m_pDirectoryListingParser->AddData(pBuffer, numread)) {
-						TransferEnd(TransferEndReason::transfer_failure);
-						return;
-					}
-
-					controlSocket_.SetAlive();
-					if (!m_madeProgress) {
-						m_madeProgress = 2;
-						engine_.transfer_status_.SetMadeProgress();
-					}
-					engine_.transfer_status_.Update(numread);
-				}
-				else {
-					delete [] pBuffer;
-					TransferEnd(TransferEndReason::successful);
-					return;
+			char *pBuffer = new char[4096];
+			int error;
+			int numread = active_layer_->read(pBuffer, 4096, error);
+			if (numread < 0) {
+				delete [] pBuffer;
+				if (error != EAGAIN) {
+					controlSocket_.log(logmsg::error, L"Could not read from transfer socket: %s", fz::socket_error_description(error));
+					TransferEnd(TransferEndReason::transfer_failure);
 				}
 			}
-			send_event<fz::socket_event>(active_layer_, fz::socket_event_flag::read, 0);
-			return;
-		}
-		else if (m_transferMode == TransferMode::download) {
-			int error;
-			int numread;
-
-			// Only do a certain number of iterations in one go to keep the event loop going.
-			// Otherwise this behaves like a livelock on very large files written to a very fast
-			// SSD downloaded from a very fast server.
-			for (int i = 0; i < 100; ++i) {
-				if (!CheckGetNextWriteBuffer()) {
-					return;
-				}
-
-				size_t to_read = buffer_->capacity() - buffer_->size();
-				numread = active_layer_->read(buffer_->get(to_read), static_cast<unsigned int>(to_read), error);
-				if (numread <= 0) {
-					break;
+			else if (numread > 0) {
+				if (!m_pDirectoryListingParser->AddData(pBuffer, numread)) {
+					TransferEnd(TransferEndReason::transfer_failure);
+					return false;
 				}
 
 				controlSocket_.SetAlive();
@@ -333,9 +301,23 @@ void CTransferSocket::OnReceive()
 					m_madeProgress = 2;
 					engine_.transfer_status_.SetMadeProgress();
 				}
-
-				buffer_->add(static_cast<size_t>(numread));
+				engine_.transfer_status_.Update(numread);
+				return true;
 			}
+			else {
+				delete [] pBuffer;
+				TransferEnd(TransferEndReason::successful);
+			}
+			return false;
+		}
+		else if (m_transferMode == TransferMode::download) {
+			if (!CheckGetNextWriteBuffer()) {
+				return false;
+			}
+
+			int error{};
+			size_t to_read = buffer_->capacity() - buffer_->size();
+			int numread = active_layer_->read(buffer_->get(to_read), static_cast<unsigned int>(to_read), error);
 
 			if (numread < 0) {
 				if (error != EAGAIN) {
@@ -343,13 +325,22 @@ void CTransferSocket::OnReceive()
 					TransferEnd(TransferEndReason::transfer_failure);
 				}
 			}
-			else if (!numread) {
-				FinalizeWrite();
-			}
 			else {
-				send_event<fz::socket_event>(active_layer_, fz::socket_event_flag::read, 0);
+				controlSocket_.SetAlive();
+				if (!m_madeProgress) {
+					m_madeProgress = 2;
+					engine_.transfer_status_.SetMadeProgress();
+				}
+
+				if (!numread) {
+					FinalizeWrite();
+				}
+				else {
+					buffer_->add(static_cast<size_t>(numread));
+					return true;
+				}
 			}
-			return;
+			return false;
 		}
 		else if (m_transferMode == TransferMode::resumetest) {
 			for (;;) {
@@ -361,7 +352,7 @@ void CTransferSocket::OnReceive()
 						controlSocket_.log(logmsg::error, L"Could not read from transfer socket: %s", fz::socket_error_description(error));
 						TransferEnd(TransferEndReason::transfer_failure);
 					}
-					return;
+					return false;
 				}
 
 				if (!numread) {
@@ -372,17 +363,17 @@ void CTransferSocket::OnReceive()
 						controlSocket_.log(logmsg::debug_warning, L"Server incorrectly sent %d bytes", resumetest_);
 						TransferEnd(TransferEndReason::failed_resumetest);
 					}
-					return;
+					return false;
 				}
 				resumetest_ += numread;
 
 				if (resumetest_ > 1) {
 					controlSocket_.log(logmsg::debug_warning, L"Server incorrectly sent %d bytes", resumetest_);
 					TransferEnd(TransferEndReason::failed_resumetest);
-					return;
+					return false;
 				}
 			}
-			return;
+			return false;
 		}
 	}
 
@@ -407,53 +398,33 @@ void CTransferSocket::OnReceive()
 			ResetSocket();
 		}
 	}
+	return false;
 }
 
-void CTransferSocket::OnSend()
+bool CTransferSocket::OnSend()
 {
 	if (!active_layer_) {
 		controlSocket_.log(logmsg::debug_verbose, L"OnSend called without backend. Ignoring event.");
-		return;
+		return false;
 	}
 
 	if (activity_block_) {
 		controlSocket_.log(logmsg::debug_verbose, L"Postponing send");
 		m_postponedSend = true;
-		return;
+		return false;
 	}
 
 	if (m_transferMode != TransferMode::upload || m_transferEndReason != TransferEndReason::none) {
-		return;
+		return false;
 	}
 
-	int error;
-	int written;
-
-	// Only do a certain number of iterations in one go to keep the event loop going.
-	// Otherwise this behaves like a livelock on very large files read from a very fast
-	// SSD uploaded to a very fast server.
-	for (int i = 0; i < 100; ++i) {
-		if (!CheckGetNextReadBuffer()) {
-			return;
-		}
-
-		written = active_layer_->write(buffer_->get(), static_cast<int>(buffer_->size()), error);
-		if (written <= 0) {
-			break;
-		}
-
-		controlSocket_.SetAlive();
-		if (m_madeProgress == 1) {
-			controlSocket_.log(logmsg::debug_debug, L"Made progress in CTransferSocket::OnSend()");
-			m_madeProgress = 2;
-			engine_.transfer_status_.SetMadeProgress();
-		}
-		engine_.transfer_status_.Update(written);
-
-		buffer_->consume(written);
+	if (!CheckGetNextReadBuffer()) {
+		return false;
 	}
 
-	if (written < 0) {
+	int error{};
+	int written = active_layer_->write(buffer_->get(), static_cast<int>(buffer_->size()), error);
+	if (written <= 0) {
 		if (error == EAGAIN) {
 			if (!m_madeProgress) {
 				controlSocket_.log(logmsg::debug_debug, L"First EAGAIN in CTransferSocket::OnSend()");
@@ -465,10 +436,22 @@ void CTransferSocket::OnSend()
 			controlSocket_.log(logmsg::error, L"Could not write to transfer socket: %s", fz::socket_error_description(error));
 			TransferEnd(TransferEndReason::transfer_failure);
 		}
+		return false;
 	}
-	else if (written > 0) {
-		send_event<fz::socket_event>(active_layer_, fz::socket_event_flag::write, 0);
+	else {
+		controlSocket_.SetAlive();
+		if (m_madeProgress == 1) {
+			controlSocket_.log(logmsg::debug_debug, L"Made progress in CTransferSocket::OnSend()");
+			m_madeProgress = 2;
+			engine_.transfer_status_.SetMadeProgress();
+		}
+		engine_.transfer_status_.Update(written);
+
+		buffer_->consume(written);
+
+		return true;
 	}
+
 }
 
 void CTransferSocket::OnSocketError(int error)
@@ -734,10 +717,14 @@ bool CTransferSocket::CheckGetNextReadBuffer()
 void CTransferSocket::OnBufferAvailability(fz::aio_waitable const* w)
 {
 	if (w == reader_.get()) {
-		OnSend();
+		if (OnSend()) {
+			send_event<fz::socket_event>(active_layer_, fz::socket_event_flag::write, 0);
+		}
 	}
 	else if (w == writer_.get() || w == &*controlSocket_.buffer_pool_) {
-		OnReceive();
+		if (OnReceive()) {
+			send_event<fz::socket_event>(active_layer_, fz::socket_event_flag::read, 0);
+		}
 	}
 }
 
@@ -776,7 +763,9 @@ void CTransferSocket::TriggerPostponedEvents()
 	if (m_postponedReceive) {
 		controlSocket_.log(logmsg::debug_verbose, L"Executing postponed receive");
 		m_postponedReceive = false;
-		OnReceive();
+		if (OnReceive()) {
+			send_event<fz::socket_event>(active_layer_, fz::socket_event_flag::read, 0);
+		}
 		if (m_transferEndReason != TransferEndReason::none) {
 			return;
 		}
@@ -784,7 +773,9 @@ void CTransferSocket::TriggerPostponedEvents()
 	if (m_postponedSend) {
 		controlSocket_.log(logmsg::debug_verbose, L"Executing postponed send");
 		m_postponedSend = false;
-		OnSend();
+		if (OnSend()) {
+			send_event<fz::socket_event>(active_layer_, fz::socket_event_flag::write, 0);
+		}
 	}
 }
 
