@@ -60,8 +60,8 @@ protected:
 	void OnSocketEvent(fz::socket_event_source* source, fz::socket_event_flag t, int error);
 	void OnConnect();
 	void OnAccept(int error);
-	void OnReceive();
-	void OnSend();
+	bool OnReceive();
+	bool OnSend();
 	void OnSocketError(int error);
 	void OnTimer(fz::timer_id);
 
