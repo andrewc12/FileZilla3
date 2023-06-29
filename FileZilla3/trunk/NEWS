@@ -10,6 +10,11 @@ Legend:
     *nix: Unix (e.g BSD) and Unix-like systems (e.g. Linux)
     macOS/OS X: Apple macOS
 
+3.65.0-rc1 (2023-06-29)
+
+- Fixed potential crashes
+- Updated to libfilezilla 0.44.0
+
 3.64.0 (2023-04-26)
 
 - Fixed refresh of directory trees when filters changing
