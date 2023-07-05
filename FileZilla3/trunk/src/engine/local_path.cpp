@@ -544,6 +544,14 @@ bool CLocalPath::operator<(CLocalPath const& op) const
 #endif
 }
 
+int CLocalPath::compare_case(CLocalPath const& op) const
+{
+	if (m_path.is_same(op.m_path)) {
+		return 0;
+	}
+	return m_path->compare(*op.m_path);
+}
+
 bool CLocalPath::IsParentOf(const CLocalPath &path) const
 {
 	if (empty() || path.empty()) {

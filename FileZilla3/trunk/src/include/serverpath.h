@@ -63,7 +63,9 @@ public:
 	bool operator!=(CServerPath const& op) const;
 	bool operator<(CServerPath const& op) const;
 
-	int CmpNoCase(CServerPath const& op) const;
+	bool equal_nocase(CServerPath const& op) const; // Faster than compare_nocase==0
+	int compare_nocase(CServerPath const& op) const;
+	int compare_case(CServerPath const& op) const;
 
 	// omitPath is just a hint. For example dataset member names on MVS servers
 	// always use absolute filenames including the full path

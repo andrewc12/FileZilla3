@@ -24,8 +24,7 @@ namespace regex_ns = boost;
 namespace regex_ns = std;
 #endif
 
-namespace {
-std::shared_ptr<regex_ns::wregex> compile_regex(std::wstring const& r, bool matchCase)
+std::shared_ptr<void> compile_regex(std::wstring const& r, bool matchCase)
 {
 	if (r.size() > 2000) {
 		return {};
@@ -41,7 +40,6 @@ std::shared_ptr<regex_ns::wregex> compile_regex(std::wstring const& r, bool matc
 	catch (regex_ns::regex_error const&) {
 		return {};
 	}
-}
 }
 
 bool valid_regex(std::wstring const& r)

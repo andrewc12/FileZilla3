@@ -952,7 +952,100 @@ std::wstring CServerPath::FormatFilename(std::wstring const& filename, bool omit
 	return result;
 }
 
-int CServerPath::CmpNoCase(CServerPath const& op) const
+bool CServerPath::equal_nocase(CServerPath const& op) const
+{
+	if (empty() != op.empty()) {
+		return false;
+	}
+	else if (empty()) {
+		return true;
+	}
+
+	if (m_type != op.m_type) {
+		return false;
+	}
+
+	auto const& ld = *m_data;
+	auto const& rd = *op.m_data;
+
+	if (ld.m_segments.size() != rd.m_segments.size()) {
+		return false;
+	}
+
+	if (ld.m_prefix) {
+		if (!rd.m_prefix) {
+			return false;
+		}
+		if (fz::stricmp(*ld.m_prefix, *rd.m_prefix)) {
+			return false;
+		}
+	}
+	else if (rd.m_prefix) {
+		return false;
+	}
+
+	auto iter = ld.m_segments.cbegin();
+	auto iter2 = rd.m_segments.cbegin();
+	while (iter != ld.m_segments.cend()) {
+		if (fz::stricmp(*(iter++), *(iter2++))) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+int CServerPath::compare_nocase(CServerPath const& op) const
+{
+	if (empty() != op.empty()) {
+		return empty() ? -1 : 1;
+	}
+	else if (empty()) {
+		return 0;
+	}
+
+	if (m_type < op.m_type) {
+		return -1;
+	}
+	else if (m_type > op.m_type) {
+		return 1;
+	}
+
+	auto const& ld = *m_data;
+	auto const& rd = *op.m_data;
+
+	if (ld.m_prefix) {
+		if (!rd.m_prefix) {
+			return 1;
+		}
+		int res = fz::stricmp(*ld.m_prefix, *rd.m_prefix);
+		if (res) {
+			return res;
+		}
+	}
+	else if (rd.m_prefix) {
+		return -1;
+	}
+
+	auto iter = ld.m_segments.cbegin();
+	auto iter2 = rd.m_segments.cbegin();
+	while (iter != ld.m_segments.cend() && iter2 != rd.m_segments.cend()) {
+		int res = (iter++)->compare(*(iter2++));
+		if (res) {
+			return res;
+		}
+	}
+	if (iter != ld.m_segments.end()) {
+		return 1;
+	}
+	else if (iter2 != rd.m_segments.end()) {
+		return -1;
+	}
+
+	return 0;
+}
+
+int CServerPath::compare_case(CServerPath const& op) const
 {
 	if (empty() != op.empty()) {
 		return 1;
@@ -961,30 +1054,42 @@ int CServerPath::CmpNoCase(CServerPath const& op) const
 		return 0;
 	}
 
+	if (m_type < op.m_type) {
+		return -1;
+	}
+	else if (m_type > op.m_type) {
+		return 1;
+	}
+
 	auto const& ld = *m_data;
 	auto const& rd = *op.m_data;
 
-	if (ld.m_prefix != rd.m_prefix) {
-		return 1;
+	if (ld.m_prefix) {
+		if (!rd.m_prefix) {
+			return 1;
+		}
+		int res = ld.m_prefix->compare(*rd.m_prefix);
+		if (res) {
+			return res;
+		}
 	}
-	else if (m_type != op.m_type) {
-		return 1;
-	}
-
-	if (ld.m_segments.size() > rd.m_segments.size()) {
-		return 1;
-	}
-	else if (ld.m_segments.size() < rd.m_segments.size()) {
+	else if (rd.m_prefix) {
 		return -1;
 	}
 
 	auto iter = ld.m_segments.cbegin();
 	auto iter2 = rd.m_segments.cbegin();
-	while (iter != ld.m_segments.cend()) {
-		int res = fz::stricmp(*(iter++), *(iter2++));
+	while (iter != ld.m_segments.cend() && iter2 != rd.m_segments.cend()) {
+		int res = (iter++)->compare(*(iter2++));
 		if (res) {
 			return res;
 		}
+	}
+	if (iter != ld.m_segments.end()) {
+		return 1;
+	}
+	else if (iter2 != rd.m_segments.end()) {
+		return -1;
 	}
 
 	return 0;

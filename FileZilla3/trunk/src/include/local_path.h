@@ -75,6 +75,8 @@ public:
 	bool operator!=(CLocalPath const& op) const;
 
 	bool operator<(CLocalPath const& op) const;
+
+	int compare_case(CLocalPath const& op) const;
 protected:
 	fz::shared_value<std::wstring> m_path;
 };
