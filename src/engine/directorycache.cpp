@@ -273,7 +273,7 @@ bool CDirectoryCache::InvalidateFile(CServer const& server, CServerPath const& p
 			}
 		}
 		else {
-			if (path.CmpNoCase(entry.listing.path)) {
+			if (!path.equal_nocase(entry.listing.path)) {
 				continue;
 			}
 		}
@@ -328,7 +328,7 @@ bool CDirectoryCache::UpdateFile(CServer const& server, CServerPath const& path,
 
 	for (tCacheIter iter = sit->cacheList.begin(); iter != sit->cacheList.end(); ++iter) {
 		auto & entry = const_cast<CCacheEntry&>(*iter);
-		if (path.CmpNoCase(entry.listing.path)) {
+		if (!path.equal_nocase(entry.listing.path)) {
 			continue;
 		}
 
@@ -408,7 +408,7 @@ bool CDirectoryCache::RemoveFile(CServer const& server, CServerPath const& path,
 
 	for (tCacheIter iter = sit->cacheList.begin(); iter != sit->cacheList.end(); ++iter) {
 		auto & entry = const_cast<CCacheEntry&>(*iter);
-		if (path.CmpNoCase(entry.listing.path)) {
+		if (!path.equal_nocase(entry.listing.path)) {
 			continue;
 		}
 

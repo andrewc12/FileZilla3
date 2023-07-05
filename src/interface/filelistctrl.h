@@ -450,11 +450,9 @@ public:
 		typename Listing::value_type const& data1 = this->m_listing[a];
 		typename Listing::value_type const& data2 = this->m_listing[b];
 
-		if (data1.path < data2.path) {
-			return true;
-		}
-		if (data1.path != data2.path) {
-			return false;
+		int res = data1.path.compare_case(data2.path);
+		if (res) {
+			return res < 0;
 		}
 
 		CMP_LESS(CmpName, data1, data2);
@@ -480,14 +478,7 @@ public:
 		CMP(CmpDir, data1, data2);
 		CMP(CmpName, data1, data2);
 
-		if (data1.path < data2.path) {
-			return true;
-		}
-		if (data1.path != data2.path) {
-			return false;
-		}
-
-		CMP_LESS(CmpName, data1, data2);
+		return data1.path.compare_case(data2.path) < 0;
 	}
 	std::vector<DataEntry>& m_fileData;
 };

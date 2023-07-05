@@ -111,5 +111,6 @@ void FZCUI_PUBLIC_SYMBOL save_filter(pugi::xml_node& element, CFilter const& fil
 void FZCUI_PUBLIC_SYMBOL save_filters(pugi::xml_node& element, filter_data const& data);
 
 bool FZCUI_PUBLIC_SYMBOL valid_regex(std::wstring const& r);
+std::shared_ptr<void> compile_regex(std::wstring const& r, bool matchCase);
 
 #endif
