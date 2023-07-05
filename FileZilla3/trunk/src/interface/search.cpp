@@ -61,12 +61,7 @@ inline int DoCmpName(CRemoteSearchFileData const& data1, CRemoteSearchFileData c
 	}
 
 	if (!res) {
-		if (data1.path < data2.path) {
-			res = -1;
-		}
-		else if (data2.path < data1.path) {
-			res = 1;
-		}
+		res = data1.path.compare_case(data2.path);
 	}
 
 	return res;
@@ -91,12 +86,7 @@ inline int DoCmpName(CLocalSearchFileData const& data1, CLocalSearchFileData con
 	}
 
 	if (!res) {
-		if (data1.path < data2.path) {
-			res = -1;
-		}
-		else if (data2.path < data1.path) {
-			res = 1;
-		}
+		res = data1.path.compare_case(data2.path);
 	}
 
 	return res;
