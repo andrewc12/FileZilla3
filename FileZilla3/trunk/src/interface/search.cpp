@@ -1093,11 +1093,11 @@ void CSearchDialog::OnSearch(wxCommandEvent&)
 	}
 
 	if (mode_ == search_mode::comparison) {
-		if (m_results->m_sortColumn != 0) {
+		if (m_results->m_sortColumn != 0 && m_results->m_sortColumn != 1) {
 			m_results->SortList(0);
 		}
-		if (m_remoteResults->m_sortColumn != 0) {
-			m_remoteResults->SortList(0);
+		if (m_remoteResults->m_sortColumn != m_results->m_sortColumn || m_remoteResults->m_sortDirection != m_results->m_sortDirection) {
+			m_remoteResults->SortList(m_results->m_sortColumn, m_results->m_sortDirection);
 		}
 
 		m_remoteResults->clear();
