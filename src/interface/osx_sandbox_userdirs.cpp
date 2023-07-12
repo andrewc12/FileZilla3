@@ -217,7 +217,7 @@ bool OSXSandboxUserdirs::AddFile(std::wstring const& file)
 	CFErrorRef errorRef = 0;
 	wxCFDataRef bookmark(CFURLCreateBookmarkData(0, url.get(), kCFURLBookmarkCreationWithSecurityScope, 0, 0, &errorRef));
 	if (!bookmark) {
-		boomark = CFURLCreateBookmarkData(0, url.get(), kCFURLBookmarkCreationWithSecurityScope | kCFURLBookmarkCreationSecurityScopeAllowOnlyReadAccess, 0, 0, 0);
+		bookmark = CFURLCreateBookmarkData(0, url.get(), kCFURLBookmarkCreationWithSecurityScope | kCFURLBookmarkCreationSecurityScopeAllowOnlyReadAccess, 0, 0, 0);
 	}
 	if (!bookmark) {
 		wxString error;
