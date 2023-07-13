@@ -97,6 +97,8 @@ process_file()
   process_dylibs "$file" `otool -L "$file" | grep -v ':$' | grep "dylib\\|\\.so" | sed 's/^[[:blank:]]*//' | sed 's/ .*//' | grep '^/usr/local/'`
 }
 
+rm -f "${frameworks}/"*.dylib
+
 for file in "${bundle}/Contents/MacOS/"*; do
   process_file "$file"
 done
