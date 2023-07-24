@@ -16,7 +16,7 @@ public:
 	CSftpControlSocket(CFileZillaEnginePrivate & engine);
 	virtual ~CSftpControlSocket();
 
-	virtual void Connect(CServer const& server, Credentials const& credentials, bool allow_delayed_login) override;
+	virtual void Connect(CServer const& server, Credentials const& credentials) override;
 	virtual void List(CServerPath const& path = CServerPath(), std::wstring const& subDir = std::wstring(), int flags = 0) override;
 	void ChangeDir(CServerPath const& path = CServerPath(), std::wstring const& subDir = std::wstring(), bool link_discovery = false);
 	virtual void FileTransfer(CFileTransferCommand const& cmd) override;

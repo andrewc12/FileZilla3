@@ -208,7 +208,7 @@ public:
 	virtual void Cancel();
 
 	// Implicit FZ_REPLY_CONTINUE
-	virtual void Connect(CServer const& server, Credentials const& credentials, bool allow_delayed_login) = 0;
+	virtual void Connect(CServer const& server, Credentials const& credentials) = 0;
 	virtual void List(CServerPath const& path = CServerPath(), std::wstring const& subDir = std::wstring(), int flags = 0);
 
 	virtual void FileTransfer(CFileTransferCommand const& command) = 0;

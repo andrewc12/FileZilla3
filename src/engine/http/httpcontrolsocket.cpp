@@ -192,7 +192,7 @@ int CHttpControlSocket::Disconnect()
 	return FZ_REPLY_OK;
 }
 
-void CHttpControlSocket::Connect(CServer const& server, Credentials const& credentials, bool)
+void CHttpControlSocket::Connect(CServer const& server, Credentials const& credentials)
 {
 	currentServer_ = server;
 	credentials_ = credentials;

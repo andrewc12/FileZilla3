@@ -52,7 +52,7 @@ public:
 	void FileTransfer(CHttpRequestCommand const& command);
 
 protected:
-	virtual void Connect(CServer const& server, Credentials const& credentials, bool allow_delayed_login) override;
+	virtual void Connect(CServer const& server, Credentials const& credentials) override;
 	virtual void FileTransfer(CFileTransferCommand const& cmd) override;
 	virtual int DoClose(int nErrorCode = FZ_REPLY_DISCONNECTED | FZ_REPLY_ERROR) override;
 
