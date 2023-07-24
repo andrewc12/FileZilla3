@@ -553,7 +553,7 @@ int CFileZillaEnginePrivate::ContinueConnect()
 	}
 
 	controlSocket_->SetHandle(pConnectCommand->GetHandle());
-	controlSocket_->Connect(server, pConnectCommand->GetCredentials());
+	controlSocket_->Connect(server, pConnectCommand->GetCredentials(), pConnectCommand->AllowsDelayedLogin());
 	return FZ_REPLY_CONTINUE;
 }
 

@@ -699,7 +699,7 @@ void CFtpControlSocket::Transfer(std::wstring const& cmd, CFtpTransferOpData* ol
 	Push(std::move(pData));
 }
 
-void CFtpControlSocket::Connect(CServer const& server, Credentials const& credentials)
+void CFtpControlSocket::Connect(CServer const& server, Credentials const& credentials, bool)
 {
 	if (!operations_.empty()) {
 		log(logmsg::debug_warning, L"CFtpControlSocket::Connect(): deleting stale operations");
