@@ -1048,7 +1048,7 @@ int CServerPath::compare_nocase(CServerPath const& op) const
 int CServerPath::compare_case(CServerPath const& op) const
 {
 	if (empty() != op.empty()) {
-		return 1;
+		return empty() ? -1 : 1;
 	}
 	else if (empty()) {
 		return 0;
