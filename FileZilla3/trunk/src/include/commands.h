@@ -111,13 +111,12 @@ class FZC_PUBLIC_SYMBOL CBasicCommand final : public CCommandHelper<CBasicComman
 class FZC_PUBLIC_SYMBOL CConnectCommand final : public CCommandHelper<CConnectCommand, Command::connect>
 {
 public:
-	explicit CConnectCommand(CServer const& server, ServerHandle const& handle, Credentials const& credentials, bool retry_connecting = true, bool allow_delayed_login = true);
+	explicit CConnectCommand(CServer const& server, ServerHandle const& handle, Credentials const& credentials, bool retry_conncting = true);
 
 	CServer const& GetServer() const { return server_; }
 	ServerHandle const& GetHandle() const { return handle_; }
 	Credentials const& GetCredentials() const { return credentials_; }
 	bool RetryConnecting() const { return retry_connecting_; }
-	bool AllowsDelayedLogin() const { return allow_delayed_login_; }
 
 	virtual bool valid() const override;
 protected:
@@ -125,7 +124,6 @@ protected:
 	ServerHandle const handle_;
 	Credentials const credentials_;
 	bool const retry_connecting_;
-	bool const allow_delayed_login_;
 };
 
 typedef CBasicCommand<Command::disconnect> CDisconnectCommand;
