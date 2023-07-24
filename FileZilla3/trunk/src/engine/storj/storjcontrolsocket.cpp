@@ -40,7 +40,7 @@ CStorjControlSocket::~CStorjControlSocket()
 	DoClose();
 }
 
-void CStorjControlSocket::Connect(CServer const& server, Credentials const& credentials)
+void CStorjControlSocket::Connect(CServer const& server, Credentials const& credentials, bool)
 {
 	currentServer_ = server;
 	credentials_ = credentials;

@@ -49,7 +49,7 @@ CSftpControlSocket::~CSftpControlSocket()
 	DoClose();
 }
 
-void CSftpControlSocket::Connect(CServer const& server, Credentials const& credentials)
+void CSftpControlSocket::Connect(CServer const& server, Credentials const& credentials, bool)
 {
 	if (server.GetEncodingType() == ENCODING_CUSTOM) {
 		log(logmsg::debug_info, L"Using custom encoding: %s", server.GetCustomEncoding());

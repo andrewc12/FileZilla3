@@ -16,7 +16,7 @@ public:
 	CStorjControlSocket(CFileZillaEnginePrivate & engine);
 	virtual ~CStorjControlSocket();
 
-	virtual void Connect(CServer const& server, Credentials const& credentials) override;
+	virtual void Connect(CServer const& server, Credentials const& credentials, bool allow_delayed_login) override;
 
 	virtual void List(CServerPath const& path = CServerPath(), std::wstring const& subDir = std::wstring(), int flags = 0) override;
 	virtual void FileTransfer(CFileTransferCommand const& cmd) override;

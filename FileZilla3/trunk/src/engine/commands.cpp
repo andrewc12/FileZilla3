@@ -1,10 +1,11 @@
 #include "filezilla.h"
 
-CConnectCommand::CConnectCommand(CServer const& server, ServerHandle const& handle, Credentials const& credentials, bool retry_connecting)
+CConnectCommand::CConnectCommand(CServer const& server, ServerHandle const& handle, Credentials const& credentials, bool retry_connecting, bool allow_delayed_login)
 	: server_(server)
 	, handle_(handle)
 	, credentials_(credentials)
 	, retry_connecting_(retry_connecting)
+	, allow_delayed_login_(allow_delayed_login)
 {
 }
 
