@@ -913,11 +913,11 @@ void CSearchDialog::ProcessDirectoryListing(std::shared_ptr<CDirectoryListing> c
 		CRemoteSearchFileData remoteData;
 		static_cast<CDirentry&>(remoteData) = entry;
 		remoteData.path = listing->path;
-		results->remoteFileData_.push_back(remoteData);
+		results->remoteFileData_.emplace_back(std::move(remoteData));
 
 		CGenericFileData data;
 		data.icon = entry.is_dir() ? m_results->m_dirIcon : -2;
-		results->m_fileData.push_back(data);
+		results->m_fileData.emplace_back(std::move(data));
 
 		auto insertPos = std::lower_bound(results->m_indexMapping.begin(), results->m_indexMapping.end(), old_count + added_count, SortPredicate(compare));
 		int const added_index = insertPos - results->m_indexMapping.begin();
