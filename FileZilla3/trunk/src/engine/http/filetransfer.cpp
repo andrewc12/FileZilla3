@@ -71,7 +71,7 @@ int CHttpFileTransferOpData::Send()
 		}
 		return FZ_REPLY_CONTINUE;
 	case filetransfer_transfer:
-		if (resume_ && localFileSize_ != 0) {
+		if (resume_ && localFileSize_ != 0 && localFileSize_ != fz::aio_base::nosize) {
 			rr_.request_.headers_["Range"] = fz::sprintf("bytes=%d-", localFileSize_);
 		}
 
