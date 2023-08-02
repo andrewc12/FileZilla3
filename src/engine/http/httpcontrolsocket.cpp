@@ -23,7 +23,7 @@ http_client::http_client(CHttpControlSocket & controlSocket)
 
 http_client::~http_client()
 {
-	stop(false);
+	destroy();
 }
 
 fz::socket_interface* http_client::create_socket(fz::native_string const& host, unsigned short, bool tls)
