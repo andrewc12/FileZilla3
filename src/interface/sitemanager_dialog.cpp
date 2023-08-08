@@ -408,7 +408,7 @@ bool CSiteManagerDialog::Create(wxWindow* parent, std::vector<_connected_site>* 
 	}
 	SetCtrlState();
 
-	m_pWindowStateManager = new CWindowStateManager(this);
+	m_pWindowStateManager = new CWindowStateManager(this, options_);
 	m_pWindowStateManager->Restore(OPTION_SITEMANAGER_POSITION);
 
 	tree_->SetDropTarget(new CSiteManagerDropTarget(this));

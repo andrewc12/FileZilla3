@@ -21,15 +21,17 @@ private:
 	bool const kiosk_mode_{};
 };
 
+class COptionsBase;
+
 class CVerifyCertDialog final : protected wxDialogEx
 {
 public:
-	static void ShowVerificationDialog(cert_store & certStore, CCertificateNotification& notification);
+	static void ShowVerificationDialog(cert_store & certStore, CCertificateNotification& notification, COptionsBase & options);
 
-	static void DisplayCertificate(CCertificateNotification const& notification);
+	static void DisplayCertificate(CCertificateNotification const& notification, COptionsBase & options);
 
 private:
-	bool CreateVerificationDialog(CCertificateNotification const& notification, bool displayOnly);
+	bool CreateVerificationDialog(CCertificateNotification const& notification, COptionsBase & options, bool displayOnly);
 
 	CVerifyCertDialog();
 	~CVerifyCertDialog();

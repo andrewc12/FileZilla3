@@ -5,14 +5,16 @@
 #include <wx/display.h>
 #endif
 
-CWindowStateManager::CWindowStateManager(wxTopLevelWindow* pWindow)
+CWindowStateManager::CWindowStateManager(wxTopLevelWindow* pWindow, COptionsBase & options)
+	: m_pWindow(pWindow)
+	, options_(options)
 {
-	m_pWindow = pWindow;
-
 	m_lastMaximized = false;
 
-	m_pWindow->Connect(wxID_ANY, wxEVT_SIZE, wxSizeEventHandler(CWindowStateManager::OnSize), 0, this);
-	m_pWindow->Connect(wxID_ANY, wxEVT_MOVE, wxMoveEventHandler(CWindowStateManager::OnMove), 0, this);
+	if (m_pWindow) {
+		m_pWindow->Connect(wxID_ANY, wxEVT_SIZE, wxSizeEventHandler(CWindowStateManager::OnSize), 0, this);
+		m_pWindow->Connect(wxID_ANY, wxEVT_MOVE, wxMoveEventHandler(CWindowStateManager::OnMove), 0, this);
+	}
 
 #ifdef __WXGTK__
 	m_maximize_requested = 0;
@@ -21,8 +23,10 @@ CWindowStateManager::CWindowStateManager(wxTopLevelWindow* pWindow)
 
 CWindowStateManager::~CWindowStateManager()
 {
-	m_pWindow->Disconnect(wxID_ANY, wxEVT_SIZE, wxSizeEventHandler(CWindowStateManager::OnSize), 0, this);
-	m_pWindow->Disconnect(wxID_ANY, wxEVT_MOVE, wxMoveEventHandler(CWindowStateManager::OnMove), 0, this);
+	if (m_pWindow) {
+		m_pWindow->Disconnect(wxID_ANY, wxEVT_SIZE, wxSizeEventHandler(CWindowStateManager::OnSize), 0, this);
+		m_pWindow->Disconnect(wxID_ANY, wxEVT_MOVE, wxMoveEventHandler(CWindowStateManager::OnMove), 0, this);
+	}
 }
 
 void CWindowStateManager::Remember(interfaceOptions const optionId)
@@ -42,7 +46,7 @@ void CWindowStateManager::Remember(interfaceOptions const optionId)
 	// pos_width pos_height
 	posString += wxString::Format(_T("%d %d "), m_lastWindowSize.x, m_lastWindowSize.y);
 
-	COptions::Get()->set(optionId, posString.ToStdWstring());
+	options_.set(optionId, posString.ToStdWstring());
 }
 
 bool CWindowStateManager::ReadDefaults(interfaceOptions const optionId, bool& maximized, wxPoint& position, wxSize& size)
@@ -57,7 +61,7 @@ bool CWindowStateManager::ReadDefaults(interfaceOptions const optionId, bool& ma
 	// - y position
 	// - width
 	// - height
-	auto tokens = fz::strtok(COptions::Get()->get_string(optionId), L" ");
+	auto tokens = fz::strtok(options_.get_string(optionId), L" ");
 	if (tokens.size() < 5) {
 		return false;
 	}

@@ -228,7 +228,7 @@ bool CAsyncRequestQueue::ProcessNextRequest()
 		}
 
 		auto & notification = static_cast<CCertificateNotification&>(*entry.pNotification.get());
-		CVerifyCertDialog::ShowVerificationDialog(certStore_, notification);
+		CVerifyCertDialog::ShowVerificationDialog(certStore_, notification, options_);
 
 		SendReply(entry);
 	}

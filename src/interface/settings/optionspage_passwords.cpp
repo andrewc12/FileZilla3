@@ -168,7 +168,7 @@ bool COptionsPagePasswords::SavePage()
 			}
 			protect(site.credentials);
 		}
-		CRecentServerList::SetMostRecentServers(recentServers);
+		CRecentServerList::SetMostRecentServers(recentServers, *m_pOptions);
 	}
 
 	for (auto state : *CContextManager::Get()->GetAllStates()) {

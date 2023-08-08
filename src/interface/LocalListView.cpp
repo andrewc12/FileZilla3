@@ -1115,7 +1115,7 @@ void CLocalListView::OnKeyDown(wxKeyEvent& event)
 	}
 	else if (code == 'F' && event.GetModifiers() == wxMOD_CONTROL) {
 		if (m_parentView) {
-			m_parentView->ShowSearchPanel();
+			m_parentView->ShowSearchPanel(options_);
 		}
 	}
 	else {

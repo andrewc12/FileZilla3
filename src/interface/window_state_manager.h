@@ -9,7 +9,7 @@
 class CWindowStateManager final : public wxEvtHandler
 {
 public:
-	explicit CWindowStateManager(wxTopLevelWindow* pWindow);
+	explicit CWindowStateManager(wxTopLevelWindow* pWindow, COptionsBase & options);
 	virtual ~CWindowStateManager();
 
 	bool Restore(interfaceOptions const optionId, const wxSize& default_size = wxSize(-1, -1));
@@ -28,6 +28,7 @@ protected:
 	bool ReadDefaults(interfaceOptions const optionId, bool& maximized, wxPoint& position, wxSize& size);
 
 	wxTopLevelWindow* m_pWindow;
+	COptionsBase & options_;
 
 	bool m_lastMaximized;
 	wxPoint m_lastWindowPosition;
