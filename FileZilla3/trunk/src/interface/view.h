@@ -1,7 +1,11 @@
 #ifndef FILEZILLA_INTERFACE_VIEW_HEADER
 #define FILEZILLA_INTERFACE_VIEW_HEADER
 
+#include <wx/containr.h>
+
+class COptionsBase;
 class CViewHeader;
+
 class CView final : public wxNavigationEnabled<wxWindow>
 {
 public:
@@ -17,7 +21,7 @@ public:
 	void SetFooter(wxWindow* footer);
 	void SetSearchPanel(wxWindow* panel);
 
-	void ShowSearchPanel();
+	void ShowSearchPanel(COptionsBase & options);
 
 protected:
 	void Arrange(wxWindow* child, wxRect& clientRect, bool top);

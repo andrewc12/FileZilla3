@@ -193,7 +193,7 @@ void CQuickconnectBar::OnQuickconnect(wxCommandEvent& event)
 		return;
 	}
 
-	CRecentServerList::SetMostRecentServer(site);
+	CRecentServerList::SetMostRecentServer(site, options_);
 }
 
 void CQuickconnectBar::OnQuickconnectDropdown(wxCommandEvent& event)

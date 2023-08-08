@@ -52,7 +52,7 @@ const std::deque<Site> CRecentServerList::GetMostRecentServers(bool lockMutex)
 	return mostRecentServers;
 }
 
-void CRecentServerList::SetMostRecentServer(Site const& site)
+void CRecentServerList::SetMostRecentServer(Site const& site, COptionsBase & options)
 {
 	CInterProcessMutex mutex(MUTEX_MOSTRECENTSERVERS);
 
@@ -75,21 +75,21 @@ void CRecentServerList::SetMostRecentServer(Site const& site)
 		}
 	}
 
-	if (COptions::Get()->get_int(OPTION_DEFAULT_KIOSKMODE) == 2) {
+	if (options.get_int(OPTION_DEFAULT_KIOSKMODE) == 2) {
 		return;
 	}
 
-	SetMostRecentServers(mostRecentServers, false);
+	SetMostRecentServers(mostRecentServers, options, false);
 }
 
-void CRecentServerList::SetMostRecentServers(std::deque<Site> const& sites, bool lockMutex)
+void CRecentServerList::SetMostRecentServers(std::deque<Site> const& sites, COptionsBase & options, bool lockMutex)
 {
 	CInterProcessMutex mutex(MUTEX_MOSTRECENTSERVERS, false);
 	if (lockMutex) {
 		mutex.Lock();
 	}
 
-	if (COptions::Get()->get_int(OPTION_DEFAULT_KIOSKMODE) == 2) {
+	if (options.get_int(OPTION_DEFAULT_KIOSKMODE) == 2) {
 		return;
 	}
 

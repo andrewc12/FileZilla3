@@ -162,7 +162,7 @@ bool CFilterEditDialog::Create(wxWindow* parent, const std::vector<CFilter>& fil
 		filterList_->Append(filter.name);
 	}
 
-	m_pWindowStateManager = new CWindowStateManager(this);
+	m_pWindowStateManager = new CWindowStateManager(this, *COptions::Get());
 	m_pWindowStateManager->Restore(OPTION_FILTEREDIT_SIZE, wxSize(750, 500));
 
 	Layout();

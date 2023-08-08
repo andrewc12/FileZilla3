@@ -502,7 +502,7 @@ CMainFrame::CMainFrame(COptions& options)
 #endif
 
 	wxGetApp().AddStartupProfileRecord("CMainFrame::CMainFrame pre layout"sv);
-	m_pWindowStateManager = new CWindowStateManager(this);
+	m_pWindowStateManager = new CWindowStateManager(this, options_);
 	m_pWindowStateManager->Restore(OPTION_MAINWINDOW_POSITION);
 
 	Layout();

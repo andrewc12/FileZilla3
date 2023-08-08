@@ -174,10 +174,10 @@ void CVerifyCertDialog::AddAlgorithm(wxWindow* parent, wxGridBagSizer* sizer, st
 	}
 }
 
-void CVerifyCertDialog::ShowVerificationDialog(cert_store & certStore, CCertificateNotification& notification)
+void CVerifyCertDialog::ShowVerificationDialog(cert_store & certStore, CCertificateNotification& notification, COptionsBase & options)
 {
 	CVerifyCertDialog dlg;
-	if (!dlg.CreateVerificationDialog(notification, false)) {
+	if (!dlg.CreateVerificationDialog(notification, options, false)) {
 		return;
 	}
 
@@ -196,16 +196,16 @@ void CVerifyCertDialog::ShowVerificationDialog(cert_store & certStore, CCertific
 	}
 }
 
-void CVerifyCertDialog::DisplayCertificate(CCertificateNotification const& notification)
+void CVerifyCertDialog::DisplayCertificate(CCertificateNotification const& notification, COptionsBase & options)
 {
 	CVerifyCertDialog dlg;
-	if (dlg.CreateVerificationDialog(notification, true)) {
+	if (dlg.CreateVerificationDialog(notification, options, true)) {
 		dlg.ShowModal();
 	}
 }
 
 
-bool CVerifyCertDialog::CreateVerificationDialog(CCertificateNotification const& notification, bool displayOnly)
+bool CVerifyCertDialog::CreateVerificationDialog(CCertificateNotification const& notification, COptionsBase & options, bool displayOnly)
 {
 	fz::tls_session_info const& info = notification.info_;
 
@@ -377,7 +377,7 @@ bool CVerifyCertDialog::CreateVerificationDialog(CCertificateNotification const&
 
 	if (!displayOnly) {
 		main->Add(new wxStaticText(this, nullID, _("Trust the server certificate and carry on connecting?")));
-		if (COptions::Get()->get_int(OPTION_DEFAULT_KIOSKMODE) != 2) {
+		if (options.get_int(OPTION_DEFAULT_KIOSKMODE) != 2) {
 			impl_->always_ = new wxCheckBox(this, nullID, _("&Always trust this certificate in future sessions."));
 			main->Add(impl_->always_);
 		}

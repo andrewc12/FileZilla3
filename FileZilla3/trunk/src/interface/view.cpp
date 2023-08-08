@@ -105,14 +105,14 @@ CViewHeader* CView::DetachHeader()
 	return pHeader;
 }
 
-void CView::ShowSearchPanel()
+void CView::ShowSearchPanel(COptionsBase & options)
 {
 	if (m_pSearchPanel) {
 		CState* pState = CContextManager::Get()->GetCurrentContext();
 		if (pState) {
 			CComparisonManager* pComparisonManager = pState->GetComparisonManager();
 			if (pComparisonManager && pComparisonManager->IsComparing()) {
-				CConditionalDialog dlg(this, CConditionalDialog::quick_search, CConditionalDialog::yesno, *COptions::Get());
+				CConditionalDialog dlg(this, CConditionalDialog::quick_search, CConditionalDialog::yesno, options);
 				dlg.SetTitle(_("Directory comparison"));
 				dlg.AddText(_("Quick search cannot be opened if comparing directories."));
 				dlg.AddText(_("End comparison and open quick search?"));

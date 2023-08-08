@@ -767,7 +767,7 @@ bool CSearchDialog::Load()
 
 	SetMinClientSize(GetSizer()->GetMinSize());
 
-	m_pWindowStateManager = new CWindowStateManager(this);
+	m_pWindowStateManager = new CWindowStateManager(this, options_);
 	m_pWindowStateManager->Restore(OPTION_SEARCH_SIZE, wxSize(1750, 500));
 
 	if (mode_ == search_mode::remote) {

@@ -1508,7 +1508,7 @@ int CEditHandlerStatusDialog::ShowModal()
 	GetSizer()->Fit(this);
 	SetMinClientSize(GetSizer()->GetMinSize());
 
-	impl_->windowStateManager_ = std::make_unique<CWindowStateManager>(static_cast<wxTopLevelWindow*>(this));
+	impl_->windowStateManager_ = std::make_unique<CWindowStateManager>(static_cast<wxTopLevelWindow*>(this), *COptions::Get());
 	impl_->windowStateManager_->Restore(OPTION_EDITSTATUSDIALOG_SIZE, GetSize());
 
 	SetCtrlState();
