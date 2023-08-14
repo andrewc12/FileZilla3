@@ -183,6 +183,9 @@ void COptionsPageFiletype::OnRemove()
 	int item = -1;
 	item = impl_->types_->GetNextItem(item, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
 	while (item != -1) {
+#ifndef FZ_WINDOWS
+		impl_->types_->SetItemState(item, 0, wxLIST_STATE_SELECTED);
+#endif
 		impl_->types_->DeleteItem(item);
 		--item;
 		item = impl_->types_->GetNextItem(item, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
