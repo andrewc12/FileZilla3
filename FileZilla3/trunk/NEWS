@@ -10,6 +10,10 @@ Legend:
     *nix: Unix (e.g BSD) and Unix-like systems (e.g. Linux)
     macOS/OS X: Apple macOS
 
+3.x
+
+- Fixed potental crash if shutting down HTTP client.
+
 3.65.0 (2023-07-10)
 
 + Comparative search can now also be used if sorted by path
