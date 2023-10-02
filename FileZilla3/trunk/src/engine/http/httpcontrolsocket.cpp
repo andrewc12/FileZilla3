@@ -166,6 +166,7 @@ void CHttpControlSocket::Request(std::shared_ptr<fz::http::client::request_respo
 	}
 	else {
 		Push(std::make_unique<CHttpRequestOpData>(*this, request));
+		SetWait(true);
 	}
 }
 
@@ -173,6 +174,7 @@ void CHttpControlSocket::Request(std::deque<std::shared_ptr<fz::http::client::re
 {
 	log(logmsg::debug_verbose, L"CHttpControlSocket::Request()");
 	Push(std::make_unique<CHttpRequestOpData>(*this, std::move(requests)));
+	SetWait(true);
 }
 
 void CHttpControlSocket::ResetSocket()
