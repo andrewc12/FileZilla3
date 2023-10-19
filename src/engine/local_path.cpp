@@ -535,12 +535,48 @@ bool CLocalPath::operator!=(const CLocalPath& op) const
 #endif
 }
 
+namespace {
+template<bool case_sensitive, typename Path>
+int do_compare(Path const& l, Path const& r)
+{
+	// Need to do this segment-wise, so that 
+	// /p/ is seen less than /p-2/
+	
+	auto lt = fz::strtokenizer(l, CLocalPath::path_separator, false);
+	auto rt = fz::strtokenizer(r, CLocalPath::path_separator, false);
+	auto lit = lt.begin();
+	auto rit = rt.begin();
+	for (; lit != lt.end() && rit != rt.end(); ++lit, ++rit) {
+		int c{};
+		if constexpr (case_sensitive) {
+			c = fz::stricmp(*lit, *rit);
+		}
+		if (!c) {
+			c = (*lit).compare(*rit);
+		}
+		if (c) {
+			return c;
+		}
+	}
+	if (lit != lt.end()) {
+		return 1;
+	}
+	if (rit != rt.end()) {
+		return -1;
+	}
+	return 0;
+}
+}
+
 bool CLocalPath::operator<(CLocalPath const& op) const
 {
+	if (m_path.is_same(op.m_path)) {
+		return 0;
+	}
 #ifdef FZ_WINDOWS
-	return !m_path.is_same(op.m_path) && fz::stricmp(*m_path, *op.m_path) < 0;
+	return do_compare<false>(*m_path, *op.m_path) < 0;
 #else
-	return m_path < op.m_path;
+	return do_compare<true>(*m_path, *op.m_path) < 0;
 #endif
 }
 
@@ -549,7 +585,7 @@ int CLocalPath::compare_case(CLocalPath const& op) const
 	if (m_path.is_same(op.m_path)) {
 		return 0;
 	}
-	return m_path->compare(*op.m_path);
+	return do_compare<true>(*m_path, *op.m_path);
 }
 
 bool CLocalPath::IsParentOf(const CLocalPath &path) const
