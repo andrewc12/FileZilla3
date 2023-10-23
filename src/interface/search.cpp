@@ -183,7 +183,9 @@ void CSearchDialogFileList::clear()
 	remoteFileData_.clear();
 	SetItemCount(0);
 	RefreshListOnly(true);
-	GetFilelistStatusBar()->Clear();
+	if (auto* sbar = GetFilelistStatusBar()) {	
+		sbar->Clear();
+	}
 	m_canStartComparison = false;
 }
 
@@ -932,11 +934,13 @@ void CSearchDialog::ProcessDirectoryListing(std::shared_ptr<CDirectoryListing> c
 			added_indexes.insert(added_indexes_insert_pos, added_index);
 		}
 
-		if (entry.is_dir()) {
-			results->GetFilelistStatusBar()->AddDirectory();
-		}
-		else {
-			results->GetFilelistStatusBar()->AddFile(entry.size);
+		if (auto* sbar = results->GetFilelistStatusBar()) {
+			if (entry.is_dir()) {
+				sbar->AddDirectory();
+			}
+			else {
+				sbar->AddFile(entry.size);
+			}
 		}
 	}
 
@@ -995,11 +999,13 @@ void CSearchDialog::ProcessDirectoryListing(CLocalRecursiveOperation::listing co
 			added_indexes.insert(added_indexes_insert_pos, added_index);
 		}
 
-		if (dir) {
-			m_results->GetFilelistStatusBar()->AddDirectory();
-		}
-		else {
-			m_results->GetFilelistStatusBar()->AddFile(entry.size);
+		if (auto* sbar = m_results->GetFilelistStatusBar()) {
+			if (dir) {
+				sbar->AddDirectory();
+			}
+			else {
+				sbar->AddFile(entry.size);
+			}
 		}
 	};
 
