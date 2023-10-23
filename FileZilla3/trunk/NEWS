@@ -10,6 +10,10 @@ Legend:
     *nix: Unix (e.g BSD) and Unix-like systems (e.g. Linux)
     macOS/OS X: Apple macOS
 
+3.66.0 (2023-10-23)
+
+- Fixed a sorting issue in comparative search
+
 3.66.0-rc1 (2023-10-11)
 
 - Fixed crash removing items from the list of file extensions treated as text files
