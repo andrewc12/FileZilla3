@@ -548,7 +548,7 @@ int do_compare(Path const& l, Path const& r)
 	auto rit = rt.begin();
 	for (; lit != lt.end() && rit != rt.end(); ++lit, ++rit) {
 		int c{};
-		if constexpr (case_sensitive) {
+		if constexpr (!case_sensitive) {
 			c = fz::stricmp(*lit, *rit);
 		}
 		if (!c) {
