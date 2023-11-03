@@ -349,7 +349,7 @@ bool CFileZillaApp::SetLocale(int language)
 	}
 
 	// Load catalog. Only fail if a non-default language has been selected
-	if (!pLocale->AddCatalog(_T("filezilla")) && language != wxLANGUAGE_DEFAULT) {
+	if (!pLocale->AddCatalog(_T("filezilla")) && language != wxLANGUAGE_DEFAULT && pLocale->GetCanonicalName().substr(0, 2) != L"en") {
 		return false;
 	}
 	pLocale->AddCatalog(_T("libfilezilla"));
@@ -366,7 +366,7 @@ bool CFileZillaApp::SetLocale(int language)
 		if (!pLocale->IsOk()) {
 			return false;
 		}
-		else if (!pLocale->AddCatalog(_T("filezilla")) && language != wxLANGUAGE_DEFAULT) {
+		else if (!pLocale->AddCatalog(_T("filezilla")) && language != wxLANGUAGE_DEFAULT && pLocale->GetCanonicalName().substr(0, 2) != L"en") {
 			return false;
 		}
 		pLocale->AddCatalog(_T("libfilezilla"));
