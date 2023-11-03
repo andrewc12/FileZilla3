@@ -10,6 +10,10 @@ Legend:
     *nix: Unix (e.g BSD) and Unix-like systems (e.g. Linux)
     macOS/OS X: Apple macOS
 
+3.66.1 (2023-11-03)
+
+- macOS: Fixed display of local filenames containing non-ASCII characters if LC_CTYPE wasn't set
+
 3.66.0 (2023-10-23)
 
 - Fixed a sorting issue in comparative search
