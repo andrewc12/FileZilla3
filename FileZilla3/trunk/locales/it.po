@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Filezilla italian translation v. 30.06.2023\n"
+"Project-Id-Version: FileZilla italian translation v. 30.06.2023\n"
 "Report-Msgid-Bugs-To: https://trac.filezilla-project.org/\n"
-"POT-Creation-Date: 2023-07-10 11:38+0200\n"
+"POT-Creation-Date: 2023-11-03 10:42+0100\n"
 "PO-Revision-Date: 2023-06-30 13:08+0200\n"
 "Last-Translator: bovirus <bovirus@gmail.comn>\n"
 "Language-Team: bovirus - Andrea Sanavia - Vincenzo Reale - Riccardo Vianello "
@@ -45,8 +45,8 @@ msgid_plural "%d directories"
 msgstr[0] "%d cartella"
 msgstr[1] "%d cartelle"
 
-#: ../src/interface/RemoteListView.cpp:1421 ../src/interface/search.cpp:1279
-#: ../src/interface/search.cpp:1681
+#: ../src/interface/RemoteListView.cpp:1421 ../src/interface/search.cpp:1305
+#: ../src/interface/search.cpp:1707
 #, c-format
 msgid "%d directory with its contents"
 msgid_plural "%d directories with their contents"
@@ -55,8 +55,8 @@ msgstr[1] "%d cartelle con il loro contenuto"
 
 #: ../src/interface/filelist_statusbar.cpp:58
 #: ../src/interface/filelist_statusbar.cpp:83
-#: ../src/interface/RemoteListView.cpp:1420 ../src/interface/search.cpp:1278
-#: ../src/interface/search.cpp:1680
+#: ../src/interface/RemoteListView.cpp:1420 ../src/interface/search.cpp:1304
+#: ../src/interface/search.cpp:1706
 #, c-format
 msgid "%d file"
 msgid_plural "%d files"
@@ -155,7 +155,7 @@ msgid ""
 "- Make sure %s is in a directory listed in your PATH environment variable.\n"
 "- Set the full path to %s in the %s environment variable."
 msgstr ""
-"%s non è stato trovato. Senza questo componente di Filezilla, %s non "
+"%s non è stato trovato. Senza questo componente di FileZilla, %s non "
 "funzionerà.\n"
 "\n"
 "Possibili soluzioni:\n"
@@ -482,7 +482,7 @@ msgstr "&Scarica"
 msgid "&Download to:"
 msgstr "&Download in:"
 
-#: ../src/interface/search.cpp:1226
+#: ../src/interface/search.cpp:1250
 msgid "&Download..."
 msgstr "&Download..."
 
@@ -633,7 +633,7 @@ msgid "&Help"
 msgstr "&Aiuto"
 
 #: ../src/interface/Mainfrm.cpp:2506 ../src/interface/menu_bar.cpp:76
-#: ../src/interface/search.cpp:695
+#: ../src/interface/search.cpp:697
 msgid "&Hide identical files"
 msgstr "&Nascondi file identici"
 
@@ -700,7 +700,7 @@ msgstr "Struttura cartella &locale"
 msgid "&Local directory:"
 msgstr "Cartella &locale:"
 
-#: ../src/interface/search.cpp:654
+#: ../src/interface/search.cpp:656
 msgid "&Local search"
 msgstr "Ricerca &locale"
 
@@ -879,11 +879,11 @@ msgstr "Aggio&rna"
 
 #: ../src/interface/loginmanager.cpp:65
 msgid "&Remember master password until FileZilla is closed"
-msgstr "&Ricorda la password principale fino alla chiusura di Filezilla"
+msgstr "&Ricorda la password principale fino alla chiusura di FileZilla"
 
 #: ../src/interface/loginmanager.cpp:230
 msgid "&Remember password until FileZilla is closed"
-msgstr "&Ricorda la password fino a che Filezilla non viene chiuso"
+msgstr "&Ricorda la password fino a che FileZilla non viene chiuso"
 
 #: ../src/interface/resources/xrc/dialogs.xrc:620
 #: ../src/interface/sitemanager_dialog.cpp:279
@@ -894,7 +894,7 @@ msgstr "Cartella &remota:"
 msgid "&Remote path:"
 msgstr "Percorso &remoto:"
 
-#: ../src/interface/search.cpp:655
+#: ../src/interface/search.cpp:657
 msgid "&Remote search"
 msgstr "Ricerca &remota"
 
@@ -976,7 +976,7 @@ msgstr "&SITE"
 msgid "&Save as..."
 msgstr "&Salva come..."
 
-#: ../src/interface/search.cpp:659
+#: ../src/interface/search.cpp:661
 msgid "&Search"
 msgstr "&Trova"
 
@@ -1004,11 +1004,11 @@ msgstr "&Seleziona la colonna che vuoi visualizzare:"
 msgid "&Server"
 msgstr "&Server"
 
-#: ../src/interface/search.cpp:1219
+#: ../src/interface/search.cpp:1240
 msgid "&Set as local directory and close dialog"
 msgstr "Impo&sta la cartella locale e chiudi finestra di dialogo"
 
-#: ../src/interface/search.cpp:1227
+#: ../src/interface/search.cpp:1251
 msgid "&Set as remote directory and close dialog"
 msgstr "Impo&sta la cartella remota e chiudi finestra di dialogo"
 
@@ -1115,7 +1115,7 @@ msgstr "&Upload"
 msgid "&Upload to:"
 msgstr "&Invia in:"
 
-#: ../src/interface/search.cpp:1218
+#: ../src/interface/search.cpp:1239
 msgid "&Upload..."
 msgstr "&Invia..."
 
@@ -1176,7 +1176,7 @@ msgstr "&Versione 3"
 msgid "&View"
 msgstr "&Visualizza"
 
-#: ../src/interface/RemoteListView.cpp:1056 ../src/interface/search.cpp:1228
+#: ../src/interface/RemoteListView.cpp:1056 ../src/interface/search.cpp:1252
 msgid "&View/Edit"
 msgstr "&Visualizza / modifica"
 
@@ -1305,11 +1305,11 @@ msgstr "--:--:-- alla fine"
 
 #: ../src/interface/cmdline.cpp:93
 msgid "-c cannot be used together with an FTP URL."
-msgstr "-c non può essere usato insieme ad una URL FTP."
+msgstr "-c non può essere usato insieme a una URL FTP."
 
 #: ../src/interface/cmdline.cpp:100
 msgid "-l can only be used together with an FTP URL."
-msgstr "-l può essere usato insieme ad una URL FTP."
+msgstr "-l può essere usato insieme a una URL FTP."
 
 #: ../src/interface/cmdline.cpp:83
 msgid "-s and -c cannot be present at the same time."
@@ -1317,7 +1317,7 @@ msgstr "-s e -c non possono essere presenti contemporaneamente."
 
 #: ../src/interface/cmdline.cpp:88
 msgid "-s cannot be used together with an FTP URL."
-msgstr "-s non può essere usato insieme ad una URL FTP."
+msgstr "-s non può essere usato insieme a una URL FTP."
 
 #: ../src/commonui/site_manager.cpp:146
 msgid "/Groups"
@@ -1407,7 +1407,7 @@ msgid ""
 msgstr ""
 "Alcuni server non permettono la modalità passiva o sono mal configurati. In "
 "questi casi è necessario usare la modalità attiva. In modalità attiva, "
-"FileZilla apre una porta e chiede al server di connettersi ad essa."
+"FileZilla apre una porta e chiede al server di connettersi a essa."
 
 #: ../src/interface/edithandler.cpp:814
 msgid "A file previously opened has been changed."
@@ -1634,7 +1634,7 @@ msgid ""
 msgstr ""
 "Avviso: a meno che tu vuoi testare nuove funzionalità, usa solo le versioni "
 "stabili. Le versioni beta e i rilasci notturni sono versioni di sviluppo per "
-"scopo di test. Le build notturne di Filezilla potrebbero non funzionare come "
+"scopo di test. Le build notturne di FileZilla potrebbero non funzionare come "
 "ti aspetti e anche danneggiare il tuo sistema. Puoi usare le versioni beta e "
 "i rilasci notturni a tuo rischio."
 
@@ -1930,17 +1930,17 @@ msgstr "A&nnulla operazione attuale"
 msgid "C&lear all"
 msgstr "&Cancella tutto"
 
-#: ../src/interface/search.cpp:656
+#: ../src/interface/search.cpp:658
 msgid "C&omparative search"
 msgstr "Ricerca c&omparativa"
 
 #: ../src/interface/RemoteListView.cpp:1067
-#: ../src/interface/RemoteTreeView.cpp:911 ../src/interface/search.cpp:1235
+#: ../src/interface/RemoteTreeView.cpp:911 ../src/interface/search.cpp:1260
 msgid "C&opy URL(s) to clipboard"
 msgstr "C&opia URL negli Appunti"
 
 #: ../src/interface/RemoteListView.cpp:1068
-#: ../src/interface/RemoteTreeView.cpp:912 ../src/interface/search.cpp:1232
+#: ../src/interface/RemoteTreeView.cpp:912 ../src/interface/search.cpp:1256
 msgid "C&opy URL(s) with password to clipboard"
 msgstr "C&opia le URL con le password negli Appunti"
 
@@ -2042,8 +2042,8 @@ msgid "Cannot create new filter"
 msgstr "Non è possibile creare un nuovo filtro"
 
 #: ../src/interface/edithandler.cpp:1111 ../src/interface/edithandler.cpp:1337
-#: ../src/interface/LocalListView.cpp:1940 ../src/interface/search.cpp:1624
-#: ../src/interface/search.cpp:2068
+#: ../src/interface/LocalListView.cpp:1940 ../src/interface/search.cpp:1650
+#: ../src/interface/search.cpp:2114
 msgid "Cannot edit file"
 msgstr "Non è possibile modificare il file"
 
@@ -2060,7 +2060,7 @@ msgid ""
 "Cannot establish FTP connection to an SFTP server. Please select proper "
 "protocol."
 msgstr ""
-"Non è stato possibile stabilire una connessione FTP ad un server SFTP. "
+"Non è stato possibile stabilire una connessione FTP a un server SFTP. "
 "Seleziona un protocollo adeguato."
 
 #: ../src/interface/settings/optionspage_connection_sftp.cpp:168
@@ -2166,7 +2166,7 @@ msgstr "Controlla &aggiornamenti..."
 
 #: ../src/interface/settings/optionspage_updatecheck.cpp:43
 msgid "Check for FileZilla &updates automatically:"
-msgstr "Verifica a&utomaticamente aggiornamenti Filezilla:"
+msgstr "Verifica a&utomaticamente aggiornamenti FileZilla:"
 
 #: ../src/interface/update_dialog.cpp:70
 msgid "Check for Updates"
@@ -2368,7 +2368,7 @@ msgstr ""
 "certificato che hai ricevuto dall'amministratore del server o dal provider "
 "dell'hosting del server."
 
-#: ../src/interface/search.cpp:692
+#: ../src/interface/search.cpp:694
 msgid "Compare:"
 msgstr "Compara:"
 
@@ -2404,7 +2404,7 @@ msgstr "Compresso"
 msgid "Concurrent transfers"
 msgstr "Trasferimenti concorrenti"
 
-#: ../src/interface/filteredit.cpp:132 ../src/interface/search.cpp:686
+#: ../src/interface/filteredit.cpp:132 ../src/interface/search.cpp:688
 msgid "Conditions are c&ase sensitive"
 msgstr "Le condizioni f&anno distinzione tra maiuscole e minuscole"
 
@@ -2424,15 +2424,15 @@ msgstr "Configura l'intervallo di porte"
 msgid "Configuring FileZilla and your network"
 msgstr "Configurazione di FileZilla e della rete"
 
-#: ../src/interface/search.cpp:1685
+#: ../src/interface/search.cpp:1711
 msgid "Confirm deletion"
 msgstr "Conferma cancellazione"
 
 #: ../src/interface/edithandler.cpp:1123 ../src/interface/file_utils.h:43
 #: ../src/interface/LocalListView.cpp:1905
 #: ../src/interface/RemoteListView.cpp:1425
-#: ../src/interface/RemoteTreeView.cpp:1092 ../src/interface/search.cpp:1636
-#: ../src/interface/search.cpp:2032
+#: ../src/interface/RemoteTreeView.cpp:1092 ../src/interface/search.cpp:1662
+#: ../src/interface/search.cpp:2078
 msgid "Confirmation needed"
 msgstr "Richiedi conferma"
 
@@ -2549,7 +2549,7 @@ msgstr[1] "Timeout connessione dopo %d secondi di inattività"
 msgid "Connection timed out."
 msgstr "Tempo scaduto per la connessione."
 
-#: ../src/interface/search.cpp:1062
+#: ../src/interface/search.cpp:1068
 msgid "Connection to server lost."
 msgstr "Connessione al server persa."
 
@@ -2636,7 +2636,7 @@ msgid "Could not convert private key"
 msgstr "Impossibile convertire la chiave privata"
 
 #: ../src/interface/RemoteListView.cpp:2685
-#: ../src/interface/RemoteTreeView.cpp:1461 ../src/interface/search.cpp:1924
+#: ../src/interface/RemoteTreeView.cpp:1461 ../src/interface/search.cpp:1950
 msgid "Could not copy URLs"
 msgstr "Impossibile copiare gli URL"
 
@@ -2739,7 +2739,7 @@ msgstr "Impossibile ottenere risposta da fzstorj."
 msgid "Could not get size of '%s'"
 msgstr "Impossibile ottenere la dimensione di \"%s\""
 
-#: ../src/interface/edithandler.cpp:1111 ../src/interface/search.cpp:1624
+#: ../src/interface/edithandler.cpp:1111 ../src/interface/search.cpp:1650
 msgid "Could not get temporary directory to download file into."
 msgstr "Impossibile creare la cartella temporanea per il download del file."
 
@@ -2818,7 +2818,7 @@ msgstr "Impossibile aprire '%s'"
 
 #: ../src/interface/aboutdialog.cpp:220
 #: ../src/interface/RemoteListView.cpp:2685
-#: ../src/interface/RemoteTreeView.cpp:1461 ../src/interface/search.cpp:1924
+#: ../src/interface/RemoteTreeView.cpp:1461 ../src/interface/search.cpp:1950
 msgid "Could not open clipboard"
 msgstr "Impossibile aprire gli Appunti"
 
@@ -2939,11 +2939,11 @@ msgstr "Crea &un nuovo file"
 
 #: ../src/interface/state.cpp:1167
 msgid "Create &missing local directory and enter it"
-msgstr "Crea la cartella locale &mancante e entra nella cartella"
+msgstr "Crea la cartella locale &mancante ed entra nella cartella"
 
 #: ../src/interface/state.cpp:1088
 msgid "Create &missing remote directory and enter it"
-msgstr "Crea la cartella re&mota mancante e entra nella cartella"
+msgstr "Crea la cartella re&mota mancante ed entra nella cartella"
 
 #: ../src/interface/LocalListView.cpp:825
 #: ../src/interface/LocalTreeView.cpp:1132
@@ -2958,7 +2958,7 @@ msgstr "Creare una nuova sotto-cartella nella cartella attuale"
 #: ../src/interface/RemoteTreeView.cpp:906
 msgid "Create a new subdirectory in the current directory and change into it"
 msgstr ""
-"Creare una nuova sotto-cartella nella cartella attuale e entra nella sotto-"
+"Creare una nuova sotto-cartella nella cartella attuale ed entra nella sotto-"
 "cartella"
 
 #: ../src/interface/RemoteListView.cpp:1061
@@ -2970,7 +2970,7 @@ msgstr "Crea un nuovo file vuoto nella libreria attuale"
 #: ../src/interface/RemoteListView.cpp:1060
 #: ../src/interface/RemoteTreeView.cpp:906
 msgid "Create director&y and enter it"
-msgstr "Crea la &cartella e entra in essa"
+msgstr "Crea la &cartella ed entra in essa"
 
 #: ../src/interface/LocalListView.cpp:996
 #: ../src/interface/LocalTreeView.cpp:1251
@@ -3091,8 +3091,8 @@ msgid "D&efault"
 msgstr "Pred&efinita"
 
 #: ../src/interface/RemoteListView.cpp:1065
-#: ../src/interface/RemoteTreeView.cpp:909 ../src/interface/search.cpp:1221
-#: ../src/interface/search.cpp:1229
+#: ../src/interface/RemoteTreeView.cpp:909 ../src/interface/search.cpp:1242
+#: ../src/interface/search.cpp:1253
 msgid "D&elete"
 msgstr "&Elimina"
 
@@ -3266,7 +3266,7 @@ msgstr "Dettagli per la nuova chiave:"
 
 #: ../src/interface/import.cpp:71 ../src/interface/sitemanager_dialog.cpp:723
 msgid "Detected newer version of FileZilla"
-msgstr "È disponibile una nuova versione di Filezilla"
+msgstr "È disponibile una nuova versione di FileZilla"
 
 #: ../src/interface/filteredit.cpp:137
 msgid "Dire&ctories"
@@ -3452,7 +3452,7 @@ msgid "Download limit: none"
 msgstr "Limite download: nessuno"
 
 #: ../src/interface/resources/xrc/dialogs.xrc:676
-#: ../src/interface/search.cpp:1331 ../src/interface/search.cpp:1336
+#: ../src/interface/search.cpp:1357 ../src/interface/search.cpp:1362
 msgid "Download search results"
 msgstr "Download risultati ricerca"
 
@@ -3550,7 +3550,7 @@ msgid ""
 msgstr ""
 "Modifica il file nell'editor predefinito e carica le modifiche sul server."
 
-#: ../src/interface/search.cpp:1612
+#: ../src/interface/search.cpp:1638
 msgid "Editing directories is not supported"
 msgstr "La modifica delle cartelle non è supportata"
 
@@ -3559,7 +3559,7 @@ msgstr "La modifica delle cartelle non è supportata"
 msgid "Editing failed"
 msgstr "Modifica non riuscita"
 
-#: ../src/interface/search.cpp:1612
+#: ../src/interface/search.cpp:1638
 msgid "Editing search results"
 msgstr "Modifica risultati ricerca"
 
@@ -3778,7 +3778,7 @@ msgstr "Errore caricamento della coda"
 #: ../src/interface/filter_manager.cpp:570 ../src/interface/Options.cpp:153
 #: ../src/interface/osx_sandbox_userdirs.cpp:67
 #: ../src/interface/osx_sandbox_userdirs.cpp:138
-#: ../src/interface/search.cpp:1780 ../src/interface/search.cpp:1814
+#: ../src/interface/search.cpp:1806 ../src/interface/search.cpp:1840
 #: ../src/interface/sitemanager.cpp:44 ../src/interface/sitemanager.cpp:281
 #: ../src/interface/sitemanager.cpp:358 ../src/interface/sitemanager.cpp:446
 #: ../src/interface/sitemanager.cpp:544 ../src/interface/sitemanager.cpp:600
@@ -4082,7 +4082,7 @@ msgstr "Trasferimenti non completati"
 msgid "Fall back to active mode"
 msgstr "Prova la modalità attiva"
 
-#: ../src/interface/search.cpp:693
+#: ../src/interface/search.cpp:695
 msgid "Fil&e sizes"
 msgstr "Dim&ensioni file"
 
@@ -4127,7 +4127,7 @@ msgstr "Elenchi file"
 msgid "File not found"
 msgstr "File non trovato"
 
-#: ../src/interface/search.cpp:637 ../src/interface/search.cpp:1029
+#: ../src/interface/search.cpp:639 ../src/interface/search.cpp:1035
 #: ../src/interface/toolbar.cpp:118
 msgid "File search"
 msgstr "Ricerca file"
@@ -4191,7 +4191,7 @@ msgstr ""
 
 #: ../src/interface/settings/optionspage_updatecheck.cpp:40
 msgid "FileZilla updates"
-msgstr "Aggiornamenti Filezilla"
+msgstr "Aggiornamenti FileZilla"
 
 #: ../src/interface/menu_bar.cpp:80
 msgid "Filelist status &bars"
@@ -4282,7 +4282,7 @@ msgstr "Nascondi elementi corrispondenti a tutte le seguenti"
 
 #: ../src/interface/filteredit.cpp:124
 msgid "Filter out items matching any of the following"
-msgstr "Nascondi elementi corrispondenti ad una delle seguenti"
+msgstr "Nascondi elementi corrispondenti a una delle seguenti"
 
 #: ../src/interface/filteredit.cpp:125
 msgid "Filter out items matching none of the following"
@@ -4290,7 +4290,7 @@ msgstr "Nascondi elementi non corrispondenti alle seguenti"
 
 #: ../src/interface/filteredit.cpp:126
 msgid "Filter out items matching not all of the following"
-msgstr "Filtra elementi corrispondenti ad eccezione dei seguenti"
+msgstr "Filtra elementi corrispondenti a eccezione dei seguenti"
 
 #: ../src/interface/filter_manager.cpp:276
 #: ../src/interface/filter_manager.cpp:336
@@ -4306,11 +4306,11 @@ msgstr "Filtra il contenuto della cartella"
 msgid "Filter validation failed"
 msgstr "Validazione filtri non riuscita"
 
-#: ../src/interface/search.cpp:687
+#: ../src/interface/search.cpp:689
 msgid "Find &files"
 msgstr "Trova &file"
 
-#: ../src/interface/search.cpp:688
+#: ../src/interface/search.cpp:690
 msgid "Find d&irectories"
 msgstr "Trova &cartelle"
 
@@ -4668,7 +4668,7 @@ msgstr ""
 
 #: ../src/interface/settings/optionspage_language.cpp:26
 msgid "If you change the language, you need to restart FileZilla."
-msgstr "Se modifichi la lingua, è necessario riavviare Filezilla."
+msgstr "Se modifichi la lingua, è necessario riavviare FileZilla."
 
 #: ../src/interface/resources/xrc/netconfwizard.xrc:186
 msgid ""
@@ -4819,7 +4819,7 @@ msgid ""
 "Information about the latest version of FileZilla could not be retrieved. "
 "Please try again later."
 msgstr ""
-"Informazioni sulla versione aggiornata di Filezilla non disponibili. Riprova "
+"Informazioni sulla versione aggiornata di FileZilla non disponibili. Riprova "
 "più tardi."
 
 #: ../src/engine/ftp/logon.cpp:296
@@ -4941,7 +4941,7 @@ msgstr ""
 msgid "Invalid regular expression"
 msgstr "Espressione regolare non valida"
 
-#: ../src/interface/search.cpp:1029
+#: ../src/interface/search.cpp:1035
 #, c-format
 msgid "Invalid search conditions: %s"
 msgstr "Condizioni non valide di ricerca: %s"
@@ -5082,7 +5082,7 @@ msgstr "P&orta più bassa disponibile:"
 msgid "Local"
 msgstr "Locale"
 
-#: ../src/interface/search.cpp:1184
+#: ../src/interface/search.cpp:1190
 msgid "Local &directory:"
 msgstr "Cartella &locale:"
 
@@ -5107,7 +5107,7 @@ msgstr "Il file locale è una cartella invece di essere un file normale."
 msgid "Local file is not a valid filename."
 msgstr "Il file locale non ha un nome file valido."
 
-#: ../src/interface/search.cpp:1041 ../src/interface/search.cpp:1047
+#: ../src/interface/search.cpp:1047 ../src/interface/search.cpp:1053
 msgid "Local file search"
 msgstr "Ricerca file locale"
 
@@ -5119,7 +5119,7 @@ msgstr "Filtri locali:"
 msgid "Local path handling:"
 msgstr "Gestione percorso locale:"
 
-#: ../src/interface/search.cpp:707
+#: ../src/interface/search.cpp:709
 msgid "Local results:"
 msgstr "Risultati locali:"
 
@@ -5185,7 +5185,7 @@ msgid ""
 "Logontype, can only be used together with FTP URL. Argument has to be either "
 "'%s' or '%s'"
 msgstr ""
-"Logontype può essere usato insieme ad una URL FTP. L'argomento deve essere o "
+"Logontype può essere usato insieme a una URL FTP. L'argomento deve essere o "
 "'%s' o '%s'"
 
 #: ../src/interface/queue.cpp:1039 ../src/interface/queue.cpp:1101
@@ -5237,19 +5237,19 @@ msgstr "&Password principale:"
 msgid "Master password:"
 msgstr "Password principale:"
 
-#: ../src/interface/search.cpp:671
+#: ../src/interface/search.cpp:673
 msgid "Match all of the following"
 msgstr "Accetta tutti i seguenti"
 
-#: ../src/interface/search.cpp:672
+#: ../src/interface/search.cpp:674
 msgid "Match any of the following"
 msgstr "Corrispondenza trovata per tutti i seguenti"
 
-#: ../src/interface/search.cpp:673
+#: ../src/interface/search.cpp:675
 msgid "Match none of the following"
 msgstr "Nessuna corrispondenza trovata per i seguenti"
 
-#: ../src/interface/search.cpp:674
+#: ../src/interface/search.cpp:676
 msgid "Match not all of the following"
 msgstr "Non controllare corrispondenza dei seguenti"
 
@@ -5277,7 +5277,7 @@ msgstr "&Versione TLS minima consentita:"
 msgid "Minutes"
 msgstr "Minuti"
 
-#: ../src/interface/search.cpp:694
+#: ../src/interface/search.cpp:696
 msgid "Modification tim&e"
 msgstr "Data/ora &modifica"
 
@@ -5343,11 +5343,11 @@ msgstr "Ordinamento naturale"
 msgid "Need to enter filter name"
 msgstr "Devi inserire il nome file"
 
-#: ../src/interface/search.cpp:1041
+#: ../src/interface/search.cpp:1047
 msgid "Need to enter valid local path"
 msgstr "Devi inserire un percorso locale valido"
 
-#: ../src/interface/search.cpp:1069
+#: ../src/interface/search.cpp:1075
 msgid "Need to enter valid remote path"
 msgstr "È necessario inserire un percorso remoto valido"
 
@@ -5507,7 +5507,7 @@ msgstr ""
 "Nessun programma è stato associato per la modifica di file con estensione "
 "'%s'."
 
-#: ../src/interface/search.cpp:713 ../src/interface/search.cpp:719
+#: ../src/interface/search.cpp:715 ../src/interface/search.cpp:721
 msgid "No search results"
 msgstr "Nessun risultato della ricerca"
 
@@ -5682,7 +5682,7 @@ msgid ""
 "directories FileZilla has access to."
 msgstr ""
 "Apri la finestra di dialogo dei permessi di accesso delle cartelle per "
-"impostare le cartelle locali a cui Filezilla avrà accesso."
+"impostare le cartelle locali a cui FileZilla avrà accesso."
 
 #: ../src/interface/LocalListView.cpp:821
 msgid "Open the file."
@@ -5698,8 +5698,8 @@ msgstr "Aperto come:"
 
 #: ../src/interface/edithandler.cpp:380 ../src/interface/edithandler.cpp:1331
 #: ../src/interface/LocalListView.cpp:1935
-#: ../src/interface/LocalListView.cpp:1947 ../src/interface/search.cpp:2063
-#: ../src/interface/search.cpp:2074
+#: ../src/interface/LocalListView.cpp:1947 ../src/interface/search.cpp:2109
+#: ../src/interface/search.cpp:2120
 msgid "Opening failed"
 msgstr "Apertura non riuscita"
 
@@ -5923,7 +5923,7 @@ msgstr ""
 
 #: ../src/interface/osx_sandbox_userdirs.cpp:296
 msgid "Please add the local directories you want to use FileZilla with."
-msgstr "Aggiungi le cartelle locali che vuoi usare con Filezilla."
+msgstr "Aggiungi le cartelle locali che vuoi usare con FileZilla."
 
 #: ../src/interface/netconfwizard.cpp:622
 msgid ""
@@ -6231,8 +6231,8 @@ msgid ""
 "called 'DMZ mode' or 'game mode'. Things like protocol inspection or "
 "protocol specific 'fixups' have to be disabled"
 msgstr ""
-"Aggiorna il firewall e a assicurati che il router stia usando il firmware "
-"più recente. Inoltre, il router deve essere configurato correttamente. "
+"Aggiorna il firewall e assicurati che il router stia usando il firmware più "
+"recente. Inoltre, il router deve essere configurato correttamente. "
 "L'operazione di 'port forwarding' dovrà essere effettuata manualmente. Non "
 "usare il router nelle modalità comunemente chiamata 'modo DMZ' o 'modo "
 "game'. Cose come 'analisi protocollo' o 'specifiche fixup protocollo' devono "
@@ -6270,11 +6270,11 @@ msgstr "Anteprima"
 
 #: ../src/interface/cmdline.cpp:19
 msgid "Print diagnostic information related to startup of FileZilla"
-msgstr "Stampa informazioni diagnostiche relative all'avvio di Filezilla"
+msgstr "Stampa informazioni diagnostiche relative all'avvio di FileZilla"
 
 #: ../src/interface/cmdline.cpp:18
 msgid "Print version information to stdout and exit"
-msgstr "Invia informazioni versione a stdout e esci"
+msgstr "Invia informazioni versione a stdout ed esci"
 
 #: ../src/interface/settings/optionspage_filelists.cpp:44
 msgid "Prioritize directories (default)"
@@ -6500,7 +6500,7 @@ msgstr "Lettura da \"%s\" non riuscita."
 msgid "Really cancel current operation?"
 msgstr "Vuoi annullare l'operazione attiva?"
 
-#: ../src/interface/RemoteListView.cpp:1417 ../src/interface/search.cpp:1677
+#: ../src/interface/RemoteListView.cpp:1417 ../src/interface/search.cpp:1703
 #, c-format
 msgid "Really delete %d directory with its contents from the server?"
 msgid_plural ""
@@ -6508,14 +6508,14 @@ msgid_plural ""
 msgstr[0] "Eliminare %d cartelle e il loro contenuto nel server?"
 msgstr[1] "Vuoi eliminare %d cartelle e il loro contenuto nel server?"
 
-#: ../src/interface/RemoteListView.cpp:1414 ../src/interface/search.cpp:1674
+#: ../src/interface/RemoteListView.cpp:1414 ../src/interface/search.cpp:1700
 #, c-format
 msgid "Really delete %d file from the server?"
 msgid_plural "Really delete %d files from the server?"
 msgstr[0] "Eliminare %d file nel server?"
 msgstr[1] "Vuoi eliminare %d file nel server?"
 
-#: ../src/interface/RemoteListView.cpp:1422 ../src/interface/search.cpp:1682
+#: ../src/interface/RemoteListView.cpp:1422 ../src/interface/search.cpp:1708
 #, c-format
 msgid "Really delete %s and %s from the server?"
 msgstr "Vuoi eliminare %s e %s nel server?"
@@ -6579,7 +6579,7 @@ msgid ""
 "If you continue, your connection will be disconnected."
 msgstr ""
 "L'informazione di riconnessione non può essere eliminata mentre si è "
-"connessi ad un server.\n"
+"connessi a un server.\n"
 "Se si procede, la connessione sarà terminata."
 
 #: ../src/interface/settings/optionspage_connection.cpp:50
@@ -6609,12 +6609,12 @@ msgstr "Rosso"
 #: ../src/engine/http/filetransfer.cpp:123
 #, c-format
 msgid "Redirection to invalid or unsupported URI: %s"
-msgstr "Ridirezione ad un indirizzo non valido o ad una URL non supportata: %s"
+msgstr "Ridirezione a un indirizzo non valido o a una URL non supportata: %s"
 
 #: ../src/engine/http/filetransfer.cpp:129
 #, c-format
 msgid "Redirection to invalid or unsupported address: %s"
-msgstr "Ridirezione ad un indirizzo non valido o non supportato: %s"
+msgstr "Ridirezione a un indirizzo non valido o non supportato: %s"
 
 #: ../src/interface/toolbar.cpp:108
 msgid "Refresh the file and folder lists"
@@ -6632,7 +6632,7 @@ msgstr "Remoto"
 msgid "Remote file"
 msgstr "File remoto"
 
-#: ../src/interface/search.cpp:1062 ../src/interface/search.cpp:1069
+#: ../src/interface/search.cpp:1068 ../src/interface/search.cpp:1075
 msgid "Remote file search"
 msgstr "Ricerca file remota"
 
@@ -6683,7 +6683,7 @@ msgstr "Gestione percorso remoto:"
 msgid "Remote path:"
 msgstr "Percorso remoto:"
 
-#: ../src/interface/search.cpp:708
+#: ../src/interface/search.cpp:710
 msgid "Remote results:"
 msgstr "Risultati remoti:"
 
@@ -6778,7 +6778,7 @@ msgstr "Risposta:"
 msgid "Restore ta&bs and reconnect"
 msgstr "Ripristina sc&hede e riconnetti"
 
-#: ../src/interface/search.cpp:699
+#: ../src/interface/search.cpp:701
 msgid "Results:"
 msgstr "Risultati:"
 
@@ -6841,7 +6841,7 @@ msgstr "&Arresta il sistema"
 msgid "S&tart normally"
 msgstr "Avvia normalmen&te"
 
-#: ../src/interface/search.cpp:662
+#: ../src/interface/search.cpp:664
 msgid "S&top"
 msgstr "&Ferma"
 
@@ -6911,12 +6911,12 @@ msgstr "Il salvataggio password è stato disabilitato dall'utente."
 msgid "Scale factor:"
 msgstr "Fattore di scala:"
 
-#: ../src/interface/search.cpp:668
+#: ../src/interface/search.cpp:670
 msgid "Search &conditions:"
 msgstr "Cerca &condizioni:"
 
-#: ../src/interface/search.cpp:660 ../src/interface/search.cpp:665
-#: ../src/interface/search.cpp:1187
+#: ../src/interface/search.cpp:662 ../src/interface/search.cpp:667
+#: ../src/interface/search.cpp:1193
 msgid "Search &directory:"
 msgstr "Cerca &cartella:"
 
@@ -6940,7 +6940,7 @@ msgstr "Cerca nei server i file"
 msgid "Search sites"
 msgstr "Siti ricerca"
 
-#: ../src/interface/search.cpp:650
+#: ../src/interface/search.cpp:652
 msgid "Search type:"
 msgstr "Tipo ricerca::"
 
@@ -7040,7 +7040,7 @@ msgstr "Seleziona il nome per il file convertito della chiave"
 msgid "Select how these files should be opened."
 msgstr "Seleziona come questi file devono essere aperti."
 
-#: ../src/interface/search.cpp:1318
+#: ../src/interface/search.cpp:1344
 msgid "Select target download directory"
 msgstr "Seleziona cartella per il download"
 
@@ -7056,7 +7056,7 @@ msgstr "Seleziona le categorie da esportare:"
 msgid "Select the private data you would like to delete."
 msgstr "Seleziona gli elementi privati da eliminare."
 
-#: ../src/interface/search.cpp:1275
+#: ../src/interface/search.cpp:1301
 #, c-format
 msgid "Selected %d directory with its contents for transfer."
 msgid_plural "Selected %d directories with their contents for transfer."
@@ -7070,7 +7070,7 @@ msgid_plural "Selected %d directories."
 msgstr[0] "Selezionata %d cartella."
 msgstr[1] "Selezionate %d cartelle."
 
-#: ../src/interface/search.cpp:1272
+#: ../src/interface/search.cpp:1298
 #, c-format
 msgid "Selected %d file for transfer."
 msgid_plural "Selected %d files for transfer."
@@ -7091,7 +7091,7 @@ msgid_plural "Selected %d files. Total size: At least %s"
 msgstr[0] "Selezionato %d file. Dimensione totale: almeno %s"
 msgstr[1] "Selezionati %d file. Dimensione totale: almeno %s"
 
-#: ../src/interface/search.cpp:1280
+#: ../src/interface/search.cpp:1306
 #, c-format
 msgid "Selected %s and %s for transfer."
 msgstr "Selezionati %s e %s per il trasferimento."
@@ -7321,7 +7321,8 @@ msgstr "Visualizza finestra di &benvenuto..."
 #: ../src/interface/Mainfrm.cpp:2473
 msgid "Show both directory trees and continue comparing?"
 msgstr ""
-"Visualizzare entrambi gli alberi delle cartelle e continuare la comparazione?"
+"Visualizzared entrambi gli alberi delle cartelle e continuare la "
+"comparazione?"
 
 #: ../src/interface/update_dialog.cpp:137
 #: ../src/interface/update_dialog.cpp:184
@@ -7332,7 +7333,7 @@ msgstr "Visualizza dettagli"
 msgid "Show details about custom date and time formats"
 msgstr "Visualizza dettagli su formati personalizzati data e ora"
 
-#: ../src/interface/search.cpp:1220
+#: ../src/interface/search.cpp:1241
 msgid "Show in file &manager"
 msgstr "Visualizza nel &Gestore file"
 
@@ -7818,7 +7819,7 @@ msgstr "Il nome filtro inserito esiste già. Scegli un nome differente."
 msgid "The entered passwords are not the same."
 msgstr "Le password inserite non sono le stesse."
 
-#: ../src/interface/settings/optionspage_filetype.cpp:204
+#: ../src/interface/settings/optionspage_filetype.cpp:207
 #, c-format
 msgid "The extension '%s' does already exist in the list"
 msgstr "L'estensione '%s' è già è presente nell'elenco"
@@ -7834,7 +7835,7 @@ msgstr ""
 "Inserisci un nuovo nome:"
 
 #: ../src/interface/edithandler.cpp:1336
-#: ../src/interface/LocalListView.cpp:1939 ../src/interface/search.cpp:2067
+#: ../src/interface/LocalListView.cpp:1939 ../src/interface/search.cpp:2113
 #, c-format
 msgid ""
 "The file '%s' cannot be opened:\n"
@@ -7852,7 +7853,7 @@ msgid ""
 "FileZilla only supports SSH2 keys."
 msgstr ""
 "Il file '%s' contiene una chiave SSH1. Il protocollo SSH1 è stato "
-"abbandonato. Filezilla supporta solo chiavi SSH2."
+"abbandonato. FileZilla supporta solo chiavi SSH2."
 
 #: ../src/interface/fzputtygen_interface.cpp:39
 #, c-format
@@ -7867,7 +7868,7 @@ msgid "The file '%s' could not be loaded."
 msgstr "Impossibile caricare il file '%s'."
 
 #: ../src/interface/edithandler.cpp:1331
-#: ../src/interface/LocalListView.cpp:1935 ../src/interface/search.cpp:2063
+#: ../src/interface/LocalListView.cpp:1935 ../src/interface/search.cpp:2109
 #, c-format
 msgid ""
 "The file '%s' could not be opened:\n"
@@ -7877,7 +7878,7 @@ msgstr ""
 "Nessun programma è stato associato sul vostro sistema con questo file."
 
 #: ../src/interface/edithandler.cpp:380 ../src/interface/LocalListView.cpp:1947
-#: ../src/interface/search.cpp:2074
+#: ../src/interface/search.cpp:2120
 #, c-format
 msgid ""
 "The file '%s' could not be opened:\n"
@@ -7893,8 +7894,8 @@ msgid ""
 "Loading files created by newer versions can result in loss of data.\n"
 "Do you want to continue?"
 msgstr ""
-"Il file '%s' è stato creato da una versione più recente di Filezilla.\n"
-"Caricare un file creato da una versione più recente di Filezilla può "
+"Il file '%s' è stato creato da una versione più recente di FileZilla.\n"
+"Caricare un file creato da una versione più recente di FileZilla può "
 "comportare una perdita dati.\n"
 "Vuoi continuare?"
 
@@ -8202,7 +8203,7 @@ msgstr ""
 #: ../src/interface/Mainfrm.cpp:2472
 msgid "To do this, the directory trees need to be both shown or both hidden."
 msgstr ""
-"Per fare ciò, gli alberi delle cartelle devono essere entrambi visibili o "
+"Per fare ciò, gli alberi delle cartelle devono essered entrambi visibili o "
 "nascosti."
 
 #: ../src/interface/settings/optionspage_connection_sftp.cpp:52
@@ -8522,7 +8523,7 @@ msgid "Upload limit: none"
 msgstr "Limite upload: nessuno"
 
 #: ../src/interface/resources/xrc/dialogs.xrc:777
-#: ../src/interface/search.cpp:1345
+#: ../src/interface/search.cpp:1371
 msgid "Upload search results"
 msgstr "Carica risultati ricerca"
 
@@ -8819,7 +8820,7 @@ msgstr "Widescreen"
 
 #: ../src/interface/asksavepassworddialog.cpp:39
 msgid "Would you like FileZilla to remember passwords?"
-msgstr "Filezilla deve memorizzare la password?"
+msgstr "FileZilla deve memorizzare la password?"
 
 #: ../src/interface/chmoddialog.cpp:93
 msgid "Wr&ite"
@@ -8920,14 +8921,14 @@ msgstr "Non hai i permessi per visualizzare questa cartella"
 msgid "You have selected at least one symbolic link."
 msgstr "È necessario selezionare almeno un collegamento simbolico."
 
-#: ../src/interface/edithandler.cpp:1124 ../src/interface/search.cpp:1637
+#: ../src/interface/edithandler.cpp:1124 ../src/interface/search.cpp:1663
 msgid ""
 "You have selected more than 10 files for editing, do you really want to "
 "continue?"
 msgstr ""
 "Sono stati selezionati più di 10 file per le modifiche. Vuoi continuare?"
 
-#: ../src/interface/LocalListView.cpp:1906 ../src/interface/search.cpp:2033
+#: ../src/interface/LocalListView.cpp:1906 ../src/interface/search.cpp:2079
 msgid ""
 "You have selected more than 10 files or directories to open, do you really "
 "want to continue?"
@@ -8942,11 +8943,11 @@ msgstr "Inserisci un nome host."
 msgid "You have to enter a key file path"
 msgstr "Devi inserire il percorso del file chiave"
 
-#: ../src/interface/search.cpp:1331
+#: ../src/interface/search.cpp:1357
 msgid "You have to enter a local directory."
 msgstr "Inserisci il nome di una cartella locale."
 
-#: ../src/interface/search.cpp:1345
+#: ../src/interface/search.cpp:1371
 msgid "You have to enter a remote directory."
 msgstr "Devi indicare una cartella remota."
 
@@ -8968,7 +8969,7 @@ msgstr ""
 "Devi fornire un'accesso valido.\n"
 "Errore: %s"
 
-#: ../src/interface/search.cpp:1336
+#: ../src/interface/search.cpp:1362
 msgid "You have to enter a writable local directory."
 msgstr "Inserisci il nome di una cartella locale scrivibile."
 
@@ -9142,7 +9143,7 @@ msgstr ""
 
 #: ../src/engine/sftp/connect.cpp:153
 msgid "fzsftp belongs to a different version of FileZilla"
-msgstr "fzsftp appartiene ad una differente versione di FileZilla"
+msgstr "fzsftp appartiene a una differente versione di FileZilla"
 
 #: ../src/engine/sftp/connect.cpp:193
 msgid "fzsftp could not be started"
@@ -9150,7 +9151,7 @@ msgstr "non è stato possibile avviare fzsftp"
 
 #: ../src/engine/storj/connect.cpp:114
 msgid "fzstorj belongs to a different version of FileZilla"
-msgstr "fzstorj fa riferimento ad una versione differente di Filezilla"
+msgstr "fzstorj fa riferimento a una versione differente di FileZilla"
 
 #: ../src/engine/storj/storjcontrolsocket.cpp:317
 msgid "fzstorj could not be started"
@@ -9165,7 +9166,7 @@ msgid ""
 msgstr ""
 "fzstorj non può essere avviato.\n"
 "Assicurati che l'eseguibile di fzstorj sia presente nella stessa cartella "
-"dell'eseguibile principale di Filezilla."
+"dell'eseguibile principale di FileZilla."
 
 #: ../src/interface/filter_conditions_dialog.cpp:68
 msgid "greater than"
