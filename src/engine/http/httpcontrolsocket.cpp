@@ -162,9 +162,16 @@ void CHttpControlSocket::Request(std::shared_ptr<fz::http::client::request_respo
 
 	auto op = dynamic_cast<CHttpRequestOpData*>(operations_.empty() ? nullptr : operations_.back().get());
 	if (op) {
+		if (!client_) {
+			log(logmsg::debug_warning, L"Dropping request when HTTP client already gone.");
+			return;
+		}
 		op->AddRequest(request);
 	}
 	else {
+		if (!client_) {
+			client_.emplace(*this);
+		}
 		Push(std::make_unique<CHttpRequestOpData>(*this, request));
 		SetWait(true);
 	}
@@ -173,6 +180,9 @@ void CHttpControlSocket::Request(std::shared_ptr<fz::http::client::request_respo
 void CHttpControlSocket::Request(std::deque<std::shared_ptr<fz::http::client::request_response_interface>> && requests)
 {
 	log(logmsg::debug_verbose, L"CHttpControlSocket::Request()");
+	if (!client_) {
+		client_.emplace(*this);
+	}
 	Push(std::make_unique<CHttpRequestOpData>(*this, std::move(requests)));
 	SetWait(true);
 }

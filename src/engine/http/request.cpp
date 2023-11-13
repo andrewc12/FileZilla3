@@ -5,18 +5,22 @@ CHttpRequestOpData::CHttpRequestOpData(CHttpControlSocket & controlSocket, std::
 	: COpData(PrivCommand::http_request, L"CHttpRequestOpData")
 	, CHttpOpData(controlSocket)
 {
-	pending_ = 1;
-	controlSocket_.client_->add_request(request);
+	if (controlSocket_.client_) {
+		pending_ = 1;
+		controlSocket_.client_->add_request(request);
+	}
 }
 
 CHttpRequestOpData::CHttpRequestOpData(CHttpControlSocket & controlSocket, std::deque<std::shared_ptr<fz::http::client::request_response_interface>> && requests)
 	: COpData(PrivCommand::http_request, L"CHttpRequestOpData")
 	, CHttpOpData(controlSocket)
 {
-	for (auto const& rr : requests) {
-		controlSocket_.client_->add_request(rr);
+	if (controlSocket_.client_) {
+		for (auto const& rr : requests) {
+			controlSocket_.client_->add_request(rr);
+		}
+		pending_ = requests.size();
 	}
-	pending_ = requests.size();
 }
 
 CHttpRequestOpData::~CHttpRequestOpData()
@@ -37,12 +41,17 @@ void CHttpRequestOpData::OnResponse(uint64_t, bool success)
 
 void CHttpRequestOpData::AddRequest(std::shared_ptr<fz::http::client::request_response_interface> const& rr)
 {
-	++pending_;
-	controlSocket_.client_->add_request(rr);
+	if (controlSocket_.client_) {
+		++pending_;
+		controlSocket_.client_->add_request(rr);
+	}
 }
 
 int CHttpRequestOpData::Send()
 {
+	if (!controlSocket_.client_) {
+		return FZ_REPLY_ERROR;
+	}
 	return FZ_REPLY_WOULDBLOCK;
 }
 
