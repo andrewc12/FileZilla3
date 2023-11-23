@@ -343,7 +343,7 @@ bool CFileZillaApp::SetLocale(int language)
 	// First check if we can load the new locale
 	auto pLocale = std::make_unique<wxLocale>();
 	wxLogNull log;
-	pLocale->Init(language);
+	pLocale->Init(language, 0);
 	if (!pLocale->IsOk()) {
 		return false;
 	}
@@ -362,7 +362,7 @@ bool CFileZillaApp::SetLocale(int language)
 
 		// Finally load new one
 		pLocale = std::make_unique<wxLocale>();
-		pLocale->Init(language);
+		pLocale->Init(language, 0);
 		if (!pLocale->IsOk()) {
 			return false;
 		}
