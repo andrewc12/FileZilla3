@@ -49,12 +49,14 @@ XGETTEXT_ARGS=-C -k_ -kfztranslate:1,1t -kfztranslate:1,2,3t -kfztranslate_mark:
 # a PO file must be updated from wxstd.po to include new translations
 %.po.new: $(srcdir)/%.po filezilla.pot
 	file=$@; \
-	cat $(srcdir)/$${file%.po.new}.po > $@
+	cat $(srcdir)/$${file%.po.new}.po > $@; \
 	if [ ! -f $@ ]; then \
 	  exit 1; \
+	fi; \
+	if [ "$${file%.po.new}" != "en" ]; then \
+	  $(MSGMERGE) $@ filezilla.pot -o $@~ || exit 1; \
+	  mv $@~ $@; \
 	fi
-	$(MSGMERGE) $@ filezilla.pot -o $@~ || exit 1
-	@mv $@~ $@
 
 # touch file so that timestamp is newer than that of filezilla.pot
 	@touch $@;
