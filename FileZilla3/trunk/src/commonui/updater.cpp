@@ -9,6 +9,8 @@
 
 #ifdef FZ_WINDOWS
 #include <libfilezilla/glue/registry.hpp>
+#elif FZ_MAC
+#include <sys/sysctl.h>
 #endif
 
 #include "../include/engine_context.h"
@@ -193,7 +195,14 @@ fz::uri CUpdater::GetUrl()
 	if (key.has_value(L"Channel")) {
 		qs["channel"] = fz::to_string(key.int_value(L"Channel"));
 	}
-
+#elif FZ_MAC
+	int arch{};
+	size_t len = sizeof(arch);
+	if (sysctlbyname("hw.optional.arm64", &arch, &len, nullptr, 0) == 0) {
+		if (arch == 1) {
+			qs["osarch"] = "arm64";
+		}
+	}
 #endif
 
 	std::string const cpuCaps = fz::to_utf8(CBuildInfo::GetCPUCaps(','));
