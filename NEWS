@@ -10,6 +10,10 @@ Legend:
     *nix: Unix (e.g BSD) and Unix-like systems (e.g. Linux)
     macOS/OS X: Apple macOS
 
+3.66.3-rc1 (2023-12-11)
+
+- Test release for macOS CPU architecture migration
+
 3.66.3-beta1 (2023-12-07)
 
 + macOS: Now also distributing aarch64 binaries
