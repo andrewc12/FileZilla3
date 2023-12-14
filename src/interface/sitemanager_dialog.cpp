@@ -872,6 +872,7 @@ void CSiteManagerDialog::OnNewFolder(wxCommandEvent&)
 	if (!Verify()) {
 		return;
 	}
+	UpdateItem();
 
 	wxString name = FindFirstFreeName(item, _("New folder"));
 
@@ -1157,6 +1158,7 @@ void CSiteManagerDialog::OnNewSite(wxCommandEvent&)
 	if (!Verify()) {
 		return;
 	}
+	UpdateItem();
 
 	Site site;
 	site.server.SetProtocol(ServerProtocol::FTP);
