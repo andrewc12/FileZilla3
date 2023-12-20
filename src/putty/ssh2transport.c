@@ -854,7 +854,7 @@ static void ssh2_write_kexinit_lists(
 }
 
 static bool ssh2_scan_kexinits(
-    ptrlen client_kexinit, ptrlen server_kexinit,
+    ptrlen client_kexinit, ptrlen server_kexinit, bool we_are_server,
     struct kexinit_algorithm kexlists[NKEXLIST][MAXKEXLIST],
     const ssh_kex **kex_alg, const ssh_keyalg **hostkey_alg,
     transport_direction *cs, transport_direction *sc,
@@ -1066,9 +1066,9 @@ static bool ssh2_scan_kexinits(
      */
     {
         ptrlen extinfo_advert =
-            (server_hostkeys ? PTRLEN_LITERAL("ext-info-c") :
+            (we_are_server ? PTRLEN_LITERAL("ext-info-c") :
              PTRLEN_LITERAL("ext-info-s"));
-        ptrlen list = (server_hostkeys ? clists[KEXLIST_KEX] :
+        ptrlen list = (we_are_server ? clists[KEXLIST_KEX] :
                        slists[KEXLIST_KEX]);
         for (ptrlen word; get_commasep_word(&list, &word) ;)
             if (ptrlen_eq_ptrlen(word, extinfo_advert))
@@ -1242,7 +1242,7 @@ static void ssh2_transport_process_queue(PacketProtocolLayer *ppl)
 
         if (!ssh2_scan_kexinits(
                 ptrlen_from_strbuf(s->client_kexinit),
-                ptrlen_from_strbuf(s->server_kexinit),
+                ptrlen_from_strbuf(s->server_kexinit), s->ssc != NULL,
                 s->kexlists, &s->kex_alg, &s->hostkey_alg, s->cstrans,
                 s->sctrans, &s->warn_kex, &s->warn_hk, &s->warn_cscipher,
                 &s->warn_sccipher, s->ppl.ssh, NULL, &s->ignorepkt, &nhk, hks,
