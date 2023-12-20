@@ -28,6 +28,10 @@ const static ssh2_macalg *const buggymacs[] = {
 
 const static ptrlen ext_info_c = PTRLEN_DECL_LITERAL("ext-info-c");
 const static ptrlen ext_info_s = PTRLEN_DECL_LITERAL("ext-info-s");
+const static ptrlen kex_strict_c =
+    PTRLEN_DECL_LITERAL("kex-strict-c-v00@openssh.com");
+const static ptrlen kex_strict_s =
+    PTRLEN_DECL_LITERAL("kex-strict-s-v00@openssh.com");
 
 static ssh_compressor *ssh_comp_none_init(void)
 {
@@ -450,6 +454,31 @@ static bool ssh2_transport_filter_queue(struct ssh2_transport_state *s)
 {
     PktIn *pktin;
 
+    if (!s->enabled_incoming_crypto) {
+        /*
+         * Record the fact that we've seen any non-KEXINIT packet at
+         * the head of our queue.
+         *
+         * This enables us to check later that the initial incoming
+         * KEXINIT was the very first packet, if scanning the KEXINITs
+         * turns out to enable strict-kex mode.
+         */
+        PktIn *pktin = pq_peek(s->ppl.in_pq);
+        if (pktin && pktin->type != SSH2_MSG_KEXINIT)
+            s->seen_non_kexinit = true;
+
+        if (s->strict_kex) {
+            /*
+             * Also, if we're already in strict-KEX mode and haven't
+             * turned on crypto yet, don't do any actual filtering.
+             * This ensures that extraneous packets _after_ the
+             * KEXINIT will go to the main coroutine, which will
+             * complain about them.
+             */
+            return false;
+        }
+    }
+
     while (1) {
         if (ssh2_common_filter_queue(&s->ppl))
             return true;
@@ -843,10 +872,14 @@ static void ssh2_write_kexinit_lists(
             }
         }
         if (i == KEXLIST_KEX && first_time) {
-            if (our_hostkeys)          /* we're the server */
+            if (our_hostkeys) {        /* we're the server */
                 add_to_commasep_pl(list, ext_info_s);
-            else                       /* we're the client */
+                add_to_commasep_pl(list, kex_strict_s);
+
+            } else {                   /* we're the client */
                 add_to_commasep_pl(list, ext_info_c);
+                add_to_commasep_pl(list, kex_strict_c);
+            }
         }
         put_stringsb(pktout, list);
     }
@@ -872,7 +905,7 @@ static bool ssh2_scan_kexinits(
     bool *warn_kex, bool *warn_hk, bool *warn_cscipher, bool *warn_sccipher,
     Ssh *ssh, bool *ignore_guess_cs_packet, bool *ignore_guess_sc_packet,
     int *n_server_hostkeys, int server_hostkeys[MAXKEXLIST], unsigned *hkflags,
-    bool *can_send_ext_info)
+    bool *can_send_ext_info, bool first_time, bool *strict_kex)
 {
     BinarySource client[1], server[1];
     int i;
@@ -1080,6 +1113,14 @@ static bool ssh2_scan_kexinits(
             we_are_server ? ext_info_c : ext_info_s))
         *can_send_ext_info = true;
 
+    /*
+     * Check whether the other side advertised support for kex-strict.
+     */
+    if (first_time && kexinit_keyword_found(
+            we_are_server ? clists[KEXLIST_KEX] : slists[KEXLIST_KEX],
+            we_are_server ? kex_strict_c : kex_strict_s))
+        *strict_kex = true;
+
     if (server_hostkeys) {
         /*
          * Finally, make an auxiliary pass over the server's host key
@@ -1251,8 +1292,22 @@ static void ssh2_transport_process_queue(PacketProtocolLayer *ppl)
                 s->kexlists, &s->kex_alg, &s->hostkey_alg, s->cstrans,
                 s->sctrans, &s->warn_kex, &s->warn_hk, &s->warn_cscipher,
                 &s->warn_sccipher, s->ppl.ssh, NULL, &s->ignorepkt, &nhk, hks,
-                &s->hkflags, &s->can_send_ext_info))
+                &s->hkflags, &s->can_send_ext_info, !s->got_session_id,
+                &s->strict_kex))
             return; /* false means a fatal error function was called */
+
+        /*
+         * If we've just turned on strict kex mode, say so, and
+         * retrospectively fault any pre-KEXINIT extraneous packets.
+         */
+        if (!s->got_session_id && s->strict_kex) {
+            ppl_logevent("Enabling strict key exchange semantics");
+            if (s->seen_non_kexinit) {
+                ssh_proto_error(s->ppl.ssh, "Received a packet before KEXINIT "
+                                "in strict-kex mode");
+                return;
+            }
+        }
 
         /*
          * In addition to deciding which host key we're actually going
@@ -1443,7 +1498,9 @@ static void ssh2_transport_process_queue(PacketProtocolLayer *ppl)
             s->ppl.bpp,
             s->out.cipher, cipher_key->u, cipher_iv->u,
             s->out.mac, s->out.etm_mode, mac_key->u,
-            s->out.comp, s->out.comp_delayed);
+            s->out.comp, s->out.comp_delayed,
+            s->strict_kex);
+        s->enabled_outgoing_crypto = true;
 
         strbuf_free(cipher_key);
         strbuf_free(cipher_iv);
@@ -1534,7 +1591,9 @@ static void ssh2_transport_process_queue(PacketProtocolLayer *ppl)
             s->ppl.bpp,
             s->in.cipher, cipher_key->u, cipher_iv->u,
             s->in.mac, s->in.etm_mode, mac_key->u,
-            s->in.comp, s->in.comp_delayed);
+            s->in.comp, s->in.comp_delayed,
+            s->strict_kex);
+        s->enabled_incoming_crypto = true;
 
         strbuf_free(cipher_key);
         strbuf_free(cipher_iv);
