@@ -26,6 +26,9 @@ const static ssh2_macalg *const buggymacs[] = {
     &ssh_hmac_sha1_buggy, &ssh_hmac_sha1_96_buggy, &ssh_hmac_md5
 };
 
+const static ptrlen ext_info_c = PTRLEN_DECL_LITERAL("ext-info-c");
+const static ptrlen ext_info_s = PTRLEN_DECL_LITERAL("ext-info-s");
+
 static ssh_compressor *ssh_comp_none_init(void)
 {
     return NULL;
@@ -841,9 +844,9 @@ static void ssh2_write_kexinit_lists(
         }
         if (i == KEXLIST_KEX && first_time) {
             if (our_hostkeys)          /* we're the server */
-                add_to_commasep(list, "ext-info-s");
+                add_to_commasep_pl(list, ext_info_s);
             else                       /* we're the client */
-                add_to_commasep(list, "ext-info-c");
+                add_to_commasep_pl(list, ext_info_c);
         }
         put_stringsb(pktout, list);
     }
@@ -851,6 +854,14 @@ static void ssh2_write_kexinit_lists(
     put_stringz(pktout, "");
     /* List server->client languages. Empty list. */
     put_stringz(pktout, "");
+}
+
+static bool kexinit_keyword_found(ptrlen list, ptrlen keyword)
+{
+    for (ptrlen word; get_commasep_word(&list, &word) ;)
+        if (ptrlen_eq_ptrlen(word, keyword))
+            return true;
+    return false;
 }
 
 static bool ssh2_scan_kexinits(
@@ -1064,16 +1075,10 @@ static bool ssh2_scan_kexinits(
     /*
      * Check whether the other side advertised support for EXT_INFO.
      */
-    {
-        ptrlen extinfo_advert =
-            (we_are_server ? PTRLEN_LITERAL("ext-info-c") :
-             PTRLEN_LITERAL("ext-info-s"));
-        ptrlen list = (we_are_server ? clists[KEXLIST_KEX] :
-                       slists[KEXLIST_KEX]);
-        for (ptrlen word; get_commasep_word(&list, &word) ;)
-            if (ptrlen_eq_ptrlen(word, extinfo_advert))
-                *can_send_ext_info = true;
-    }
+    if (kexinit_keyword_found(
+            we_are_server ? clists[KEXLIST_KEX] : slists[KEXLIST_KEX],
+            we_are_server ? ext_info_c : ext_info_s))
+        *can_send_ext_info = true;
 
     if (server_hostkeys) {
         /*
