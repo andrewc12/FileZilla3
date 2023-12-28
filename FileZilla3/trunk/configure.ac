@@ -566,7 +566,7 @@ if test "$buildmain" = "yes"; then
   if test "$with_dbus" = "auto"; then
     if test "$mac" = 1; then
       with_dbus="no"
-    elif test "windows" = 1; then
+    elif test "$windows" = 1; then
       with_dbus="no"
     else
       with_dbus="yes"
@@ -574,7 +574,7 @@ if test "$buildmain" = "yes"; then
   elif test "$with_dbus" = "yes"; then
     if test "$mac" = 1; then
       AC_MSG_ERROR([D-Bus support is not needed or available on your platform])
-    elif test "windows" = 1; then
+    elif test "$windows" = 1; then
       AC_MSG_ERROR([D-Bus support is not needed or available on your platform])
     fi
   else
