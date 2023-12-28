@@ -35,6 +35,27 @@ fi
 
 if ! test "$localesonly" = "yes"; then
 
+  # Check if we're on Windows
+  if echo $host_os | grep 'cygwin\|mingw\|^msys$' > /dev/null 2>&1; then
+    windows=1
+  else
+    windows=0
+  fi
+
+  # Check if we're on Mac
+  if test "$host_vendor" = "apple"; then
+    mac=1
+  else
+    mac=0
+  fi
+
+  # If neither, we're Unix(-like)
+  if test "$mac" = "0" && test "$windows" = "0"; then
+    unix=1
+  else
+    unix=0
+  fi
+
   if test "X$GCC" = Xyes; then
     AX_APPEND_FLAG(-Wall, CFLAGS)
     AX_APPEND_FLAG(-g, CFLAGS)
@@ -289,52 +310,27 @@ if test "$buildmain" = "yes"; then
       [AC_DEFINE([HAVE_SO_PEERCRED], [1],
        [Define if SO_PEERCRED works in the Linux fashion.])]
   )
-fi
 
-if test "$buildmain" = "yes"; then
+  if test "$windows" = "1"; then
+    FZ_CHECK_ICOPYHOOKW
+  fi
+
 
   # Check for windres on MinGW builds
   # ---------------------------------
 
-  # Small function to filter the flags for windres,
-  # so that only includes and defines are passed to windres.
-  parseflags() {
-    WINDRESFLAGS=""
-    for opt in "$@"
-    do
-        case "$opt" in
-        -I*)
-            WINDRESFLAGS="$WINDRESFLAGS --include-dir=${opt#-I}"
-            ;;
-        -D*)
-            WINDRESFLAGS="$WINDRESFLAGS $opt"
-            ;;
-        esac
-    done
-  }
-
-  WINDRESFLAGS=
-  use_resourcefile=
   AC_MSG_CHECKING([whether to use windres])
-  if echo $host_os | grep "cygwin\|mingw" > /dev/null 2>&1; then
-    if echo $WX_CPPFLAGS | grep __WXMSW__ > /dev/null 2>&1; then
-      AC_MSG_RESULT([yes])
-      AC_CHECK_TOOL([WINDRES], [windres])
-      if test "x$WINDRES" = "x"; then
-        AC_MSG_ERROR([windres could not be found, please make sure this program is within your path.])
-      fi
-      use_resourcefile=true
-      parseflags $WX_CPPFLAGS
-
-      FZ_CHECK_ICOPYHOOKW
-    else
-      AC_MSG_RESULT([no])
+  if test "$windows" = "1"; then
+    AC_MSG_RESULT([yes])
+    AC_CHECK_TOOL([WINDRES], [windres])
+    if test "x$WINDRES" = "x"; then
+      AC_MSG_ERROR([windres could not be found, please make sure this program is within your path.])
     fi
+    use_resourcefile=true
   else
     AC_MSG_RESULT([no])
   fi
   AC_SUBST(WINDRES)
-  AC_SUBST(WINDRESFLAGS)
 
   # Set version macros
   # ------------------
