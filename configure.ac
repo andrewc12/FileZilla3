@@ -33,28 +33,28 @@ else
   buildmain="yes"
 fi
 
+# Check if we're on Windows
+if echo $host_os | grep 'cygwin\|mingw\|^msys$' > /dev/null 2>&1; then
+  windows=1
+else
+  windows=0
+fi
+
+# Check if we're on Mac
+if test "$host_vendor" = "apple"; then
+  mac=1
+else
+  mac=0
+fi
+
+# If neither, we're Unix(-like)
+if test "$mac" = "0" && test "$windows" = "0"; then
+  unix=1
+else
+  unix=0
+fi
+
 if ! test "$localesonly" = "yes"; then
-
-  # Check if we're on Windows
-  if echo $host_os | grep 'cygwin\|mingw\|^msys$' > /dev/null 2>&1; then
-    windows=1
-  else
-    windows=0
-  fi
-
-  # Check if we're on Mac
-  if test "$host_vendor" = "apple"; then
-    mac=1
-  else
-    mac=0
-  fi
-
-  # If neither, we're Unix(-like)
-  if test "$mac" = "0" && test "$windows" = "0"; then
-    unix=1
-  else
-    unix=0
-  fi
 
   if test "X$GCC" = Xyes; then
     AX_APPEND_FLAG(-Wall, CFLAGS)
@@ -150,7 +150,7 @@ mkdir -p "$OLD_DIR/src/fzshellext/64"
 AC_ARG_ENABLE(shellext, [], \
         [shellext="$enableval"], [shellext="yes"])
 
-if test "$localesonly" != "yes" && echo $host_os | grep "cygwin\|mingw" > /dev/null 2>&1 && test "$shellext" = "yes"; then
+if test "$localesonly" != "yes" && test "$windows" = "1" && test "$shellext" = "yes"; then
   cd "$OLD_DIR/src/fzshellext/32" || exit 1
   "$ac_abs_confdir/src/fzshellext/configure" --prefix="$prefix" --exec-prefix="$exec_prefix" --host=i686-w64-mingw32 || exit 1
   cd "$OLD_DIR/src/fzshellext/64" || exit 1
@@ -269,8 +269,11 @@ if test "$buildmain" = "yes"; then
   # ------------------------------
 
   AC_MSG_CHECKING([system type for sftp stub])
-  sftpbuild="unix"
-  if echo $host_os | grep "mingw" > /dev/null 2>&1; then sftpbuild="mingw"; fi
+  if test "$windows" = "1"; then
+    sftpbuild="mingw";
+  else
+    sftpbuild="unix"
+  fi
   AC_MSG_RESULT([$sftpbuild])
 
   # Checks for PuTTY
@@ -374,7 +377,7 @@ if test "$buildmain" = "yes"; then
 
   # Set Windows-specific linker flags
   # ---------------------------------
-  if echo $host_os | grep "cygwin\|mingw" > /dev/null 2>&1; then
+  if tect "$windows" = 1; then
     # We currently require 7 minimum.
     AX_CHECK_LINK_FLAG([-Wl,--major-subsystem-version -Wl,6], [AX_APPEND_FLAG([-Wl,--major-subsystem-version -Wl,6], LDFLAGS)])
     AX_CHECK_LINK_FLAG([-Wl,--minor-subsystem-version -Wl,1], [AX_APPEND_FLAG([-Wl,--minor-subsystem-version -Wl,1], LDFLAGS)])
@@ -394,7 +397,7 @@ if test "$buildmain" = "yes"; then
   # ------------------------
 
   # Create application bundle on OS X
-  if echo $WX_CPPFLAGS | grep __WXMAC__ > /dev/null 2>&1; then
+  if test "$mac" = "1"; then
     macappbundle="yes"
   else
     macappbundle="no"
@@ -415,7 +418,7 @@ if test "$buildmain" = "yes"; then
   # --------------------------------
 
   # Create installer under Windows
-  if echo $host_os | grep "mingw" > /dev/null 2>&1; then
+  if test "$windows" = "1"; then
     makensisscript="yes"
     if echo $host_cpu | grep "x86_64" > /dev/null 2>&1; then
       NSIS_64BIT=1
@@ -427,7 +430,7 @@ if test "$buildmain" = "yes"; then
     makensisscript="no"
   fi
 
-  if echo $host_os | grep "mingw" > /dev/null 2>&1; then
+  if test "$windows" = "1"; then
     AC_CONFIG_FILES(data/install.nsi)
     AC_CONFIG_FILES(data/makezip.sh)
   fi
@@ -436,7 +439,7 @@ if test "$buildmain" = "yes"; then
   # -------------
 
   IDN_LIB=
-  if ! echo $WX_CPPFLAGS | grep __WXMSW__ > /dev/null 2>&1; then
+  if test "$windows" != "1"; then
     AC_LANG_PUSH(C++)
     AX_CHECK_DEFINE([netdb.h], [AI_IDN],
       [],
@@ -561,17 +564,17 @@ if test "$buildmain" = "yes"; then
     ])
 
   if test "$with_dbus" = "auto"; then
-    if echo $WX_CPPFLAGS | grep __WXMAC__ > /dev/null 2>&1; then
+    if test "$mac" = 1; then
       with_dbus="no"
-    elif echo $WX_CPPFLAGS | grep __WXMSW__ > /dev/null 2>&1; then
+    elif test "windows" = 1; then
       with_dbus="no"
     else
       with_dbus="yes"
     fi
   elif test "$with_dbus" = "yes"; then
-    if echo "$WX_CPPFLAGS" | grep __WXMAC__; then
+    if test "$mac" = 1; then
       AC_MSG_ERROR([D-Bus support is not needed or available on your platform])
-    elif echo "$WX_CPPFLAGS" | grep __WXMSW__; then
+    elif test "windows" = 1; then
       AC_MSG_ERROR([D-Bus support is not needed or available on your platform])
     fi
   else
