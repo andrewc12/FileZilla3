@@ -1,5 +1,7 @@
 if MINGW
+if ENABLE_GUI
   MAYBE_FZSHELLEXT = fzshellext/32 fzshellext/64
+endif
 endif
 
 if HAVE_LIBPUGIXML
@@ -15,7 +17,15 @@ if ENABLE_STORJ
   MAYBE_STORJ = storj
 endif
 
-SUBDIRS = include engine $(MAYBE_PUGIXML) $(MAYBE_DBUS) commonui interface putty $(MAYBE_STORJ) $(MAYBE_FZSHELLEXT) .
+if ENABLE_SFTP
+  MAYBE_PUTTY = putty
+endif
+
+if ENABLE_GUI
+  MAYBE_GUI = interface
+endif
+
+SUBDIRS = include engine $(MAYBE_PUGIXML) $(MAYBE_DBUS) commonui $(MAYBE_GUI) $(MAYBE_PUTTY) $(MAYBE_STORJ) $(MAYBE_FZSHELLEXT) .
 DIST_SUBDIRS = include engine pugixml dbus commonui interface putty storj fzshellext/64 .
 
 dist_noinst_DATA = FileZilla.sln Dependencies.props.example
