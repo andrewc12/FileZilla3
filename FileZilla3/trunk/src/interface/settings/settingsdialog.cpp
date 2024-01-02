@@ -119,14 +119,20 @@ bool CSettingsDialog::LoadPages()
 
 	// Create the instances of the page classes and fill the tree.
 	AddPage(_("Connection"), new COptionsPageConnection, 0);
+#if ENABLE_FTP
 	AddPage(_("FTP"), new COptionsPageConnectionFTP, 1);
 	AddPage(_("Active mode"), new COptionsPageConnectionActive, 2);
 	AddPage(_("Passive mode"), new COptionsPageConnectionPassive, 2);
 	AddPage(_("FTP Proxy"), new COptionsPageFtpProxy, 2);
+#endif
+#if ENABLE_SFTP
 	AddPage(_("SFTP"), new COptionsPageConnectionSFTP, 1);
+#endif
 	AddPage(_("Generic proxy"), new COptionsPageProxy, 1);
 	AddPage(_("Transfers"), new COptionsPageTransfer, 0);
+#if ENABLE_FTP
 	AddPage(_("FTP: File Types"), new COptionsPageFiletype, 1);
+#endif
 	AddPage(_("File exists action"), new COptionsPageFileExists, 1);
 	AddPage(_("Interface"), new COptionsPageInterface, 0);
 	AddPage(_("Passwords"), new COptionsPagePasswords, 1);

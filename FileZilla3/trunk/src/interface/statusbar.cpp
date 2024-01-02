@@ -1,7 +1,9 @@
 #include "filezilla.h"
 #include "led.h"
 #include "Options.h"
+#if ENABLE_SFTP
 #include "sftp_crypt_info_dlg.h"
+#endif
 #include "sizeformatting.h"
 #include "speedlimits_dialog.h"
 #include "statusbar.h"
@@ -525,17 +527,19 @@ void CStatusBar::OnHandleLeftClick(wxWindow* pWnd)
 	if (pWnd == m_pEncryptionIndicator) {
 		CState* pState = CContextManager::Get()->GetCurrentContext();
 		CCertificateNotification *pCertificateNotification = 0;
-		CSftpEncryptionNotification *pSftpEncryptionNotification = 0;
 		if (pState->GetSecurityInfo(pCertificateNotification)) {
 			CVerifyCertDialog::DisplayCertificate(*pCertificateNotification, options_);
+			return;
 		}
-		else if (pState->GetSecurityInfo(pSftpEncryptionNotification)) {
+#if ENABLE_SFTP
+		CSftpEncryptionNotification *pSftpEncryptionNotification = 0;
+		if (pState->GetSecurityInfo(pSftpEncryptionNotification)) {
 			CSftpEncryptioInfoDialog dlg;
 			dlg.ShowDialog(pSftpEncryptionNotification);
+			return;
 		}
-		else {
-			wxMessageBoxEx(_("Certificate and session data are not available yet."), _("Security information"));
-		}
+#endif
+		wxMessageBoxEx(_("Certificate and session data are not available yet."), _("Security information"));
 	}
 	else if (pWnd == m_pSpeedLimitsIndicator) {
 		CSpeedLimitsDialog dlg(options_);
