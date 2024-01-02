@@ -340,6 +340,7 @@ void CFileItem::SetTargetFile(std::wstring const& file)
 		}
 		else {
 			extra_data_->targetFile_.clear();
+			extra_data_->targetFile_.shrink_to_fit();
 		}
 	}
 	else {
@@ -355,15 +356,7 @@ void CFileItem::SetTargetFile(std::wstring const& file)
 void CFileItem::set_persistent_state(std::string && state)
 {
 	if (state.empty()) {
-		if (!extra_data_) {
-			return;
-		}
-		if (extra_data_->extraFlags_.empty() && extra_data_->targetFile_.empty()) {
-			extra_data_.clear();
-		}
-		else {
-			extra_data_->persistentState_.clear();
-		}
+		clear_persistent_state();
 	}
 	else {
 		if (!extra_data_) {
@@ -372,6 +365,20 @@ void CFileItem::set_persistent_state(std::string && state)
 		else {
 			extra_data_->persistentState_ = std::move(state);
 		}
+	}
+}
+
+void CFileItem::clear_persistent_state()
+{
+	if (!extra_data_) {
+		return;
+	}
+	if (extra_data_->extraFlags_.empty() && extra_data_->targetFile_.empty()) {
+		extra_data_.clear();
+	}
+	else {
+		extra_data_->persistentState_.clear();
+		extra_data_->persistentState_.shrink_to_fit();
 	}
 }
 

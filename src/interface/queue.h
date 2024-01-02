@@ -223,6 +223,7 @@ public:
 	void SetTargetFile(std::wstring const& file);
 
 	void set_persistent_state(std::string && state);
+	void clear_persistent_state();
 
 	enum class Status : unsigned char {
 		none,
