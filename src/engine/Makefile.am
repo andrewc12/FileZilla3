@@ -20,19 +20,6 @@ libfzclient_private_la_SOURCES = \
 		engineprivate.cpp \
 		externalipresolver.cpp \
 		FileZillaEngine.cpp \
-		ftp/chmod.cpp \
-		ftp/cwd.cpp \
-		ftp/delete.cpp \
-		ftp/filetransfer.cpp \
-		ftp/ftpcontrolsocket.cpp \
-		ftp/list.cpp \
-		ftp/logon.cpp \
-		ftp/mkd.cpp \
-		ftp/rawcommand.cpp \
-		ftp/rawtransfer.cpp \
-		ftp/rename.cpp \
-		ftp/rmd.cpp \
-		ftp/transfersocket.cpp \
 		http/filetransfer.cpp \
 		http/httpcontrolsocket.cpp \
 		http/request.cpp \
@@ -49,17 +36,6 @@ libfzclient_private_la_SOURCES = \
 		server.cpp \
 		servercapabilities.cpp \
 		serverpath.cpp\
-		sftp/chmod.cpp \
-		sftp/connect.cpp \
-		sftp/cwd.cpp \
-		sftp/delete.cpp \
-		sftp/filetransfer.cpp \
-		sftp/input_parser.cpp \
-		sftp/list.cpp \
-		sftp/mkd.cpp \
-		sftp/rename.cpp \
-		sftp/rmd.cpp \
-		sftp/sftpcontrolsocket.cpp \
 		sizeformatting_base.cpp \
 		tls.cpp \
 		version.cpp \
@@ -72,6 +48,35 @@ noinst_HEADERS = \
 		directorylistingparser.h \
 		engineprivate.h \
 		filezilla.h \
+		http/filetransfer.h \
+		http/httpcontrolsocket.h \
+		http/request.h \
+		logging_private.h \
+		lookup.h \
+		oplock_manager.h \
+		pathcache.h \
+		proxy.h \
+		rtt.h \
+		servercapabilities.h \
+		tls.h
+
+if ENABLE_FTP
+libfzclient_private_la_SOURCES += \
+		ftp/chmod.cpp \
+		ftp/cwd.cpp \
+		ftp/delete.cpp \
+		ftp/filetransfer.cpp \
+		ftp/ftpcontrolsocket.cpp \
+		ftp/list.cpp \
+		ftp/logon.cpp \
+		ftp/mkd.cpp \
+		ftp/rawcommand.cpp \
+		ftp/rawtransfer.cpp \
+		ftp/rename.cpp \
+		ftp/rmd.cpp \
+		ftp/transfersocket.cpp
+
+noinst_HEADERS += \
 		ftp/chmod.h \
 		ftp/cwd.h \
 		ftp/delete.h \
@@ -84,17 +89,24 @@ noinst_HEADERS = \
 		ftp/rawcommand.h \
 		ftp/rawtransfer.h \
 		ftp/rmd.h \
-		ftp/transfersocket.h \
-		http/filetransfer.h \
-		http/httpcontrolsocket.h \
-		http/request.h \
-		logging_private.h \
-		lookup.h \
-		oplock_manager.h \
-		pathcache.h \
-		proxy.h \
-		rtt.h \
-		servercapabilities.h \
+		ftp/transfersocket.h
+endif
+
+if ENABLE_SFTP
+libfzclient_private_la_SOURCES += \
+		sftp/chmod.cpp \
+		sftp/connect.cpp \
+		sftp/cwd.cpp \
+		sftp/delete.cpp \
+		sftp/filetransfer.cpp \
+		sftp/input_parser.cpp \
+		sftp/list.cpp \
+		sftp/mkd.cpp \
+		sftp/rename.cpp \
+		sftp/rmd.cpp \
+		sftp/sftpcontrolsocket.cpp
+
+noinst_HEADERS += \
 		sftp/chmod.h \
 		sftp/connect.h \
 		sftp/cwd.h \
@@ -106,8 +118,8 @@ noinst_HEADERS = \
 		sftp/mkd.h \
 		sftp/rename.h \
 		sftp/rmd.h \
-		sftp/sftpcontrolsocket.h \
-		tls.h
+		sftp/sftpcontrolsocket.h
+endif
 
 if ENABLE_STORJ
 libfzclient_private_la_SOURCES += \
