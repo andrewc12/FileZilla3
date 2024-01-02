@@ -330,21 +330,13 @@ wxBitmap CThemeProvider::CreateBitmap(wxArtID const& id, wxArtClient const& clie
 		if (newSize.x <= 0 || newSize.y <= 0) {
 			newSize = GetIconSize(iconSizeSmall);
 		}
-#if defined(__WXMSW__) && !wxCHECK_VERSION(3, 2, 1)
-		else {
-			// wxMSW doesn't conside the UI scale factor for menu items
-			if (client == wxART_MENU) {
-				newSize *= GetUIScaleFactor();
-			}
-		}
-#endif
 	}
 	else {
 		newSize = size;
 	}
 
 	bool allowContentScale{true};
-#if defined(__WXMAC__) && wxCHECK_VERSION(3, 2, 1)
+#if defined(__WXMAC__)
 	if (client == wxART_TOOLBAR) {
 		allowContentScale = false;
 	}

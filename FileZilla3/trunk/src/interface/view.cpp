@@ -15,7 +15,7 @@ END_EVENT_TABLE()
 
 CView::CView(wxWindow* pParent)
 {
-#if defined(__WXMAC__) && wxCHECK_VERSION(3, 1, 0)
+#if defined(__WXMAC__)
 	int const border = wxBORDER_NONE;
 #else
 	int const border = wxBORDER_SUNKEN;

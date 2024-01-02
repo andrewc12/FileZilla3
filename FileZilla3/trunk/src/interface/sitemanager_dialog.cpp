@@ -1128,7 +1128,7 @@ void CSiteManagerDialog::OnSelChanged(wxTreeEvent& evt)
 		m_is_deleting = false;
 	}
 
-#if !defined(__WXMSW__) && wxCHECK_VERSION(3, 2, 1)
+#if !defined(__WXMSW__)
 	auto focused = tree_->GetFocusedItem();
 	if (focused) {
 		tree_->EnsureVisible(focused);

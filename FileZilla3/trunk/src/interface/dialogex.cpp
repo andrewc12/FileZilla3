@@ -55,17 +55,6 @@ bool wxDialogEx::ProcessEvent(wxEvent& event)
 }
 #endif
 
-bool wxDialogEx::Create(wxWindow* parent, int id, wxString const& title, wxPoint const& pos, wxSize const& size, long style)
-{
-	bool ret = wxDialog::Create(parent, id, title, pos, size, style);
-#if defined(__WXMAC__) && !wxCHECK_VERSION(3, 2, 1)
-	if (ret) {
-		FixPasswordPaste(acceleratorTable_);
-	}
-#endif
-	return ret;
-}
-
 void wxDialogEx::OnChar(wxKeyEvent& event)
 {
 	if (event.GetKeyCode() == WXK_ESCAPE) {
@@ -85,10 +74,6 @@ bool wxDialogEx::Load(wxWindow* pParent, wxString const& name, std::wstring cons
 	if (!wxXmlResource::Get()->LoadDialog(this, pParent, name)) {
 		return false;
 	}
-
-#if defined(__WXMAC__) && !wxCHECK_VERSION(3, 2, 1)
-	FixPasswordPaste(acceleratorTable_);
-#endif
 
 	return true;
 }
@@ -258,7 +243,7 @@ DialogLayout::DialogLayout(wxTopLevelWindow * parent)
 	gap = dlgUnits(3);
 	border = dlgUnits(3);
 	indent = dlgUnits(10);
-#if defined(__WXMAC__) && wxCHECK_VERSION(3, 2, 1)
+#if defined(__WXMAC__)
 	defTextCtrlSize = parent ? parent->ConvertDialogToPixels(wxSize(50, -1)) : wxDefaultSize;
 #else
 	defTextCtrlSize = wxDefaultSize;
@@ -381,13 +366,3 @@ std::wstring LabelEscape(std::wstring_view const& label, size_t maxlen)
 	}
 	return ret;
 }
-
-#if defined(__WXMAC__) && !wxCHECK_VERSION(3, 2, 1)
-void FixPasswordPaste(std::vector<wxAcceleratorEntry> & entries)
-{
-	entries.emplace_back(wxACCEL_CMD, 'V', pasteId);
-	entries.emplace_back(wxACCEL_CMD, 'C', copyId);
-	entries.emplace_back(wxACCEL_CMD, 'X', cutId);
-	entries.emplace_back(wxACCEL_CMD, 'A', selectAllId);
-}
-#endif

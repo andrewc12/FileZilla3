@@ -95,7 +95,7 @@ CStatusView::CStatusView(wxWindow* parent, COptionsBase & options)
 	: COptionChangeEventHandler(this)
 	, options_(options)
 {
-#if defined(__WXMAC__) && wxCHECK_VERSION(3, 1, 0)
+#if defined(__WXMAC__)
 	int const border = wxBORDER_NONE;
 #else
 	int const border = wxBORDER_SUNKEN;

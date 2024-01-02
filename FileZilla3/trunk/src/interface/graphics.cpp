@@ -61,12 +61,12 @@ wxColour CWindowTinter::GetOriginalColor()
 	auto combo = dynamic_cast<wxComboBox*>(&m_wnd);
 	if (combo) {
 		wxColour c = wxTextCtrl::GetClassDefaultAttributes().colBg;
-#if wxCHECK_VERSION(3, 2, 1)
+
 		// In old versions of macOS, the wrong color may be reported. Try to detect it and just default to white.
 		if ((!c.IsOk() || c == *wxBLACK) && !wxSystemSettingsNative::GetAppearance().IsDark()) {
 			return wxColour(255, 255, 255);
 		}
-#endif
+
 		return c;
 	}
 #endif

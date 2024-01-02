@@ -1,7 +1,7 @@
 #include "filezilla.h"
 #include "renderer.h"
 
-#if defined(__WXMAC__) && wxCHECK_VERSION(3, 1, 0)
+#if defined(__WXMAC__)
 
 #include "themeprovider.h"
 #include <wx/renderer.h>

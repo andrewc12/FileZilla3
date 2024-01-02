@@ -62,7 +62,6 @@ void PrepareTabIcon(wxBitmap & active, wxBitmap & disabled, wxString const& art,
 	disabled = active.ConvertToDisabled(brightness);
 }
 
-#if wxCHECK_VERSION(3, 2, 1)
 void PrepareTabIcon(wxBitmapBundle & active, wxBitmapBundle & disabled, wxString const& art, wxSize const& size, wxSize const& canvasSize, wxSize const& offset = wxSize(), std::function<void(wxImage&)> const& f = nullptr, unsigned char brightness = 128)
 {
 	wxBitmap a, d;
@@ -70,7 +69,6 @@ void PrepareTabIcon(wxBitmapBundle & active, wxBitmapBundle & disabled, wxString
 	active = MakeBmpBundle(a);
 	disabled = MakeBmpBundle(d);
 }
-#endif
 }
 #endif
 
@@ -101,11 +99,7 @@ public:
 		return art;
 	}
 
-#if wxCHECK_VERSION(3, 2, 1)
 	virtual wxSize GetTabSize(wxDC& dc, wxWindow* wnd, const wxString& caption, const wxBitmapBundle& bitmap, bool active, int close_button_state, int* x_extent) override
-#else
-	virtual wxSize GetTabSize(wxDC& dc, wxWindow* wnd, const wxString& caption, const wxBitmap& bitmap, bool active, int close_button_state, int* x_extent) override
-#endif
 	{
 		wxSize size = TabArtBase::GetTabSize(dc, wnd, caption, bitmap, active, close_button_state, x_extent);
 
@@ -186,13 +180,11 @@ public:
 protected:
 
 #if USE_PREPARED_ICONS
-#if wxCHECK_VERSION(3, 2, 1)
 	virtual void UpdateColoursFromSystem() override
 	{
 		TabArtBase::UpdateColoursFromSystem();
 		PrepareIcons();
 	}
-#endif
 
 	void PrepareIcons()
 	{

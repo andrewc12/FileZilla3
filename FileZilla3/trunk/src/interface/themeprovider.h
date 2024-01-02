@@ -118,10 +118,7 @@ private:
 	std::map<wxSize, wxBitmap, wxSize_cmp> emptyBitmaps_;
 };
 
-#if !defined __WXMSW__ || !wxCHECK_VERSION(3, 2, 1)
-#define MakeBmpBundle(x) x
-#else
-
+#ifdef __WXMSW__
 class ProperlyScaledBitmapBundle final : public wxBitmapBundleImpl
 {
 public:
@@ -153,6 +150,8 @@ private:
 inline wxBitmapBundle MakeBmpBundle(wxBitmap const& bmp) {
 	return wxBitmapBundle::FromImpl(new ProperlyScaledBitmapBundle(bmp, CThemeProvider::GetUIScaleFactor()));
 }
+#else
+#define MakeBmpBundle(x) x
 #endif
 
 #endif

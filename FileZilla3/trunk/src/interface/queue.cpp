@@ -896,7 +896,7 @@ EVT_MENU(XRCID("ID_EXPORT"), CQueueViewBase::OnExport)
 END_EVENT_TABLE()
 
 namespace {
-#if defined(__WXMAC__) && wxCHECK_VERSION(3, 1, 0)
+#if defined(__WXMAC__)
 	int constexpr border = wxBORDER_NONE;
 #else
 	int constexpr border = wxBORDER_SUNKEN;

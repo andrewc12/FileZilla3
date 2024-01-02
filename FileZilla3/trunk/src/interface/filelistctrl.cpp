@@ -878,7 +878,7 @@ template<class CFileData> void CFileListCtrl<CFileData>::OnItemDeselected(wxList
 
 	const int item = event.GetIndex();
 
-#if !defined(__WXMSW__) && wxCHECK_VERSION(3, 2, 1)
+#if !defined(__WXMSW__)
 	if (item == -1) {
 		if (wxGetKeyState(WXK_SHIFT)) {
 			// Sad, so expensive.
