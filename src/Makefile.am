@@ -1,4 +1,4 @@
-if MINGW
+if FZ_WINDOWS
 if ENABLE_GUI
   MAYBE_FZSHELLEXT = fzshellext/32 fzshellext/64
 endif
@@ -37,6 +37,7 @@ dist-hook:
 	rm -rf $(distdir)/m4
 
 if MACAPPBUNDLE
+if ENABLE_GUI
 
 noinst_DATA = dylibs.copied
 
@@ -46,4 +47,5 @@ dylibs.copied: $(top_builddir)/FileZilla.app/Contents/MacOS/*
 
 CLEANFILES = dylibs.copied
 
+endif
 endif

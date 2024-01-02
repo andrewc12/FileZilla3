@@ -36,6 +36,8 @@ CTheme::BmpCache & CTheme::cacheEntry::getBmpCache(bool allowContentScale)
 	if (allowContentScale) {
 		return contentScaledBitmaps_;
 	}
+#else
+	(void)allowContentScale;
 #endif
 	return bitmaps_;
 }

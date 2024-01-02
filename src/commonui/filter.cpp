@@ -11,7 +11,6 @@
 #include <array>
 
 #ifdef HAVE_CONFIG_H
-#undef HAVE_CONFIG_H
 #include "config.h"
 #endif
 

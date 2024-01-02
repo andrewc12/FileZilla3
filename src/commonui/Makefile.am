@@ -61,7 +61,7 @@ noinst_HEADERS = \
 	xml_file.h \
 	xmlfunctions.h
 
-if MINGW
+if FZ_WINDOWS
 libfzclient_commonui_private_la_LDFLAGS += -lole32 -Wl,-luuid
 endif
 
