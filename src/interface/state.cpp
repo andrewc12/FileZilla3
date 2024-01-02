@@ -785,7 +785,7 @@ void DoUploadDroppedFiles(CState& state, CMainFrame & mainFrame, T const& files,
 		if (type == fz::local_filesys::file) {
 			std::wstring localFile;
 			CLocalPath const localPath(fz::to_wstring(file), &localFile);
-			mainFrame.GetQueue()->QueueFile(queueOnly, false, localFile, wxEmptyString, localPath, path, state.GetSite(), size);
+			mainFrame.GetQueue()->QueueFile(queueOnly, false, localFile, std::wstring(), localPath, path, state.GetSite(), size);
 			mainFrame.GetQueue()->QueueFile_Finish(!queueOnly);
 		}
 		else if (type == fz::local_filesys::dir) {

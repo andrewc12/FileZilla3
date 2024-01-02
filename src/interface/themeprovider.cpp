@@ -202,7 +202,7 @@ wxBitmap const& CTheme::LoadBitmapWithSpecificSizeAndScale(CLocalPath const& cac
 	{
 		if (image.GetSize() != scale) {
 			image.Rescale(scale.x, scale.y, wxIMAGE_QUALITY_HIGH);
-	
+
 			// Save in cache
 			if (!cacheFile.empty()) {
 				if (fz::mkdir(fz::to_native(cacheDir.GetPath()), true, fz::mkdir_permissions::cur_user_and_admins)) {
