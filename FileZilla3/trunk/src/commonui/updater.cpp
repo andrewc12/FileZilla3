@@ -929,6 +929,7 @@ std::wstring CUpdater::GetFilename(std::wstring const& url) const
 	}
 #ifdef FZ_WINDOWS
 	fz::replace_substrings(ret, L":", L"_");
+	fz::replace_substrings(ret, L"\\", L"_");
 #endif
 
 	return ret;
