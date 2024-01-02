@@ -9,11 +9,7 @@
 #include "toolbar.h"
 
 namespace {
-	constexpr int toolbarStyle = wxTB_FLAT | wxTB_HORIZONTAL | wxTB_NODIVIDER
-#if defined(__WXMSW__) && !wxCHECK_VERSION(3, 2, 1)
-		| wxTB_NOICONS
-#endif
-		;
+	constexpr int toolbarStyle = wxTB_FLAT | wxTB_HORIZONTAL | wxTB_NODIVIDER;
 }
 
 #ifdef __WXMAC__
@@ -312,7 +308,7 @@ bool CToolBar::HideTool(int id)
 	return true;
 }
 
-#if defined(__WXMSW__) && wxCHECK_VERSION(3, 2, 1)
+#if defined(__WXMSW__)
 void CToolBar::DoSetToolBitmapSize(wxSize const&)
 {
 	// wx internally taints the sizes. Ignore the passed size and pass along out own, proper size.

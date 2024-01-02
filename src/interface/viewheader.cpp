@@ -18,15 +18,13 @@
 
 #ifdef __WXMSW__
 const int border_offset = 0;
-#elif defined(__WXMAC__) && wxCHECK_VERSION(3, 2, 1)
-const int border_offset = 12;
 #elif defined(__WXMAC__)
-const int border_offset = 6;
+const int border_offset = 12;
 #else
 const int border_offset = 10;
 #endif
 
-#if defined(__WXMAC__) && wxCHECK_VERSION(3, 2, 1)
+#if defined(__WXMAC__)
 const int combo_offset = -1;
 #else
 const int combo_offset = 0;
@@ -154,15 +152,7 @@ void CViewHeader::OnComboPaint(wxPaintEvent& event)
 	}
 
 #if wxUSE_UXTHEME
-#if wxCHECK_VERSION(3, 1, 0)
-	if (wxUxThemeIsActive())
-#else
-	wxUxThemeEngine *p = wxUxThemeEngine::Get();
-	if (p && p->IsThemeActive())
-#endif
-	{
-	}
-	else
+	if (!wxUxThemeIsActive())
 #endif //wxUSE_UXTHEME
 	{
 		dc.SetPen(wxPen(wxSystemSettings::GetColour(IsEnabled() ? wxSYS_COLOUR_WINDOW : wxSYS_COLOUR_BTNFACE)));

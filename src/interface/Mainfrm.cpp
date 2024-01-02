@@ -2406,16 +2406,6 @@ void CMainFrame::OnActivate(wxActivateEvent& event)
 		return;
 	}
 
-#if defined(__WXMAC__) && !wxCHECK_VERSION(3, 1, 0)
-	// wxMac looses focus information if the window becomes inactive.
-	// Restore focus to the previously focused child, otherwise focus ends up
-	// in the quickconnect bar.
-	// Go via ID of the last focused child to avoid issues with window lifetime.
-	if (m_lastFocusedChild != -1) {
-		m_winLastFocused = FindWindow(m_lastFocusedChild);
-	}
-#endif
-
 	CEditHandler* pEditHandler = CEditHandler::Get();
 	if (pEditHandler) {
 		pEditHandler->CheckForModifications();
@@ -2938,17 +2928,6 @@ void CMainFrame::SetupKeyboardAccelerators()
 	entries.emplace_back(wxACCEL_CMD, WXK_F5, XRCID("ID_REFRESH"));
 #ifdef __WXMAC__
 	entries.emplace_back(wxACCEL_CMD, ',', XRCID("wxID_PREFERENCES"));
-
-#if !wxCHECK_VERSION(3, 2,1)
-	keyboardCommands[wxNewId()] = std::make_pair([](wxTextEntry* e) { e->Cut(); }, 'X');
-	keyboardCommands[wxNewId()] = std::make_pair([](wxTextEntry* e) { e->Copy(); }, 'C');
-	keyboardCommands[wxNewId()] = std::make_pair([](wxTextEntry* e) { e->Paste(); }, 'V');
-	keyboardCommands[wxNewId()] = std::make_pair([](wxTextEntry* e) { e->SelectAll(); }, 'A');
-
-	for (auto const& command : keyboardCommands) {
-		entries.emplace_back(wxACCEL_CMD, command.second.second, command.first);
-	}
-#endif
 
 	// Ctrl+(Shift+)Tab to switch between tabs
 	int id = wxNewId();

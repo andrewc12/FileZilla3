@@ -761,7 +761,7 @@ void CStatusBar::UpdateActivityTooltip()
 void CStatusBar::SetFieldBitmap(int field, wxStaticBitmap*& indicator, wxBitmap const& bmp, wxSize const& s)
 {
 	if (indicator) {
-#if defined(__WXMAC__) && wxCHECK_VERSION(3, 2, 1)
+#if defined(__WXMAC__)
 		RemoveField(field);
 		indicator->Destroy();
 		indicator = nullptr;

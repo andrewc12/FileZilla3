@@ -42,8 +42,6 @@ protected:
 class wxDialogEx : public wxDialog, public CWrapEngine
 {
 public:
-	bool Create(wxWindow * parent, int id, wxString const& title, wxPoint const& pos = wxDefaultPosition, wxSize const& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE);
-
 	bool Load(wxWindow *pParent, wxString const& name, std::wstring const& file = std::wstring());
 
 	bool SetChildLabel(int id, const wxString& label, unsigned long maxLength = 0);
@@ -88,9 +86,5 @@ protected:
 wxWindowID const nullID = wxID_HIGHEST;
 
 std::wstring LabelEscape(std::wstring_view const& label, size_t maxlen = 2000);
-
-#if defined(__WXMAC__) && !wxCHECK_VERSION(3, 2, 1)
-void FixPasswordPaste(std::vector<wxAcceleratorEntry> & entries);
-#endif
 
 #endif
