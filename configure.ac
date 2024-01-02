@@ -191,7 +191,7 @@ if test "$buildmain" = "yes"; then
 
     AM_OPTIONS_WXCONFIG
 
-    MIN_WX_VERSION="3.0.4" # Do not downgrade this. wx 3.0.3 and older have too many known and fixed bugs affecting FileZilla.
+    MIN_WX_VERSION="3.2.1" # Do not downgrade this. wx 3.2.0 and older have too many known and fixed bugs affecting FileZilla.
     AM_PATH_WXCONFIG([$MIN_WX_VERSION], [wxWin=1], , [aui,xrc,adv,core,xml,base], [--unicode=yes --universal=no])
     if test "$wxWin" != 1; then
       AC_MSG_ERROR([
@@ -208,16 +208,9 @@ if test "$buildmain" = "yes"; then
         equivalent variable and wxWidgets version is $MIN_WX_VERSION or above.
       ])
     fi
-    if test "${WX_VERSION_MAJOR}.${WX_VERSION_MINOR}" = "3.1"; then
-      AC_MSG_ERROR([You must use wxWidgets 3.0.x, or 3.2.x, development versions of wxWidgets are not supported.])
+    if test "${WX_VERSION_MAJOR}.${WX_VERSION_MINOR}" = "3.3"; then
+      AC_MSG_ERROR([You must use wxWidgets 3.2.x, development versions of wxWidgets are not supported.])
     fi
-
-    if test "${WX_VERSION_MAJOR}.${WX_VERSION_MINOR}" = "3.0"; then
-      MAC_REQUIRES_AQUA="YES"
-    else
-      MAC_REQUIRES_AQUA="NO"
-    fi
-    AC_SUBST(MAC_REQUIRES_AQUA)
 
     # --universal=no doesn't work correctly, it still accepts universal builds. Reject it manually here.
     if echo "$WX_CPPFLAGS" | grep __WXUNIVERSAL__ > /dev/null; then
@@ -664,31 +657,6 @@ if test "$buildmain" = "yes"; then
   AC_SUBST(LIBSQLITE3_LIBS)
   AC_SUBST(LIBSQLITE3_CFLAGS)
 
-  # Find libstorj
-  # -----------------
-
-  AC_ARG_ENABLE(storj, AS_HELP_STRING([--enable-storj@<:@=ARG@:>@],[Enable support for the Storj decentralized cloud storage provider. Default: no]),
-    [
-    ],
-    [
-      enable_storj="no"
-    ])
-
-  if test "$enable_storj" != "no"; then
-    PKG_CHECK_MODULES(LIBUPLINK, [libuplink],[
-      AC_DEFINE([ENABLE_STORJ], [1], [Define if building with Storj support.])
-      enable_storj="yes"
-    ], [
-      if test "$enable_storj" = "yes"; then
-  	AC_MSG_ERROR([libuplink not found: $LIBUPLINKC_PKG_ERRORS. You can download it from https://github.com/storj/uplink-c])
-      else
-        enable_storj="no"
-      fi
-    ])
-    AC_SUBST(LIBUPLINK_CFLAGS)
-    AC_SUBST(LIBUPLINK_LIBS)
-  fi
-
   # Protocol configuration
   AC_ARG_ENABLE(ftp, AS_HELP_STRING([--enable-ftp@<:@=ARG@:>@],[Enable support for FTP(S). Default: yes]),
     [
@@ -708,6 +676,31 @@ if test "$buildmain" = "yes"; then
     ])
   if test "$enable_sftp" != "no"; then
     AC_DEFINE([ENABLE_SFTP], [1], [Define if building with SFTP support.])
+  fi
+
+  AC_ARG_ENABLE(storj, AS_HELP_STRING([--enable-storj@<:@=ARG@:>@],[Enable support for the Storj decentralized cloud storage provider. Default: no]),
+    [
+    ],
+    [
+      enable_storj="no"
+    ])
+
+  # Find libuplink
+  # --------------
+
+  if test "$enable_storj" != "no"; then
+    PKG_CHECK_MODULES(LIBUPLINK, [libuplink],[
+      AC_DEFINE([ENABLE_STORJ], [1], [Define if building with Storj support.])
+      enable_storj="yes"
+    ], [
+      if test "$enable_storj" = "yes"; then
+  	AC_MSG_ERROR([libuplink not found: $LIBUPLINKC_PKG_ERRORS. You can download it from https://github.com/storj/uplink-c])
+      else
+        enable_storj="no"
+      fi
+    ])
+    AC_SUBST(LIBUPLINK_CFLAGS)
+    AC_SUBST(LIBUPLINK_LIBS)
   fi
 fi
 

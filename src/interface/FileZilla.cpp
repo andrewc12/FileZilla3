@@ -228,7 +228,9 @@ USE AT OWN RISK"), _T("Important Information"));
 	}
 
 	themeProvider_ = std::make_unique<CThemeProvider>(*options_);
+#if ENABLE_SFTP
 	CheckExistsFzsftp();
+#endif
 #if ENABLE_STORJ
 	CheckExistsFzstorj();
 #endif

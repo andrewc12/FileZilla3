@@ -95,18 +95,12 @@ filezilla_SOURCES = \
 		serverdata.cpp \
 		settings/optionspage.cpp \
 		settings/optionspage_connection.cpp \
-		settings/optionspage_connection_active.cpp \
-		settings/optionspage_connection_ftp.cpp \
-		settings/optionspage_connection_passive.cpp \
-		settings/optionspage_connection_sftp.cpp \
 		settings/optionspage_dateformatting.cpp \
 		settings/optionspage_debug.cpp \
 		settings/optionspage_edit.cpp \
 		settings/optionspage_edit_associations.cpp \
 		settings/optionspage_fileexists.cpp \
 		settings/optionspage_filelists.cpp \
-		settings/optionspage_filetype.cpp \
-		settings/optionspage_ftpproxy.cpp \
 		settings/optionspage_interface.cpp \
 		settings/optionspage_language.cpp \
 		settings/optionspage_logging.cpp \
@@ -117,7 +111,6 @@ filezilla_SOURCES = \
 		settings/optionspage_transfer.cpp \
 		settings/optionspage_updatecheck.cpp \
 		settings/settingsdialog.cpp \
-		sftp_crypt_info_dlg.cpp \
 		sitemanager.cpp \
 		sitemanager_controls.cpp \
 		sitemanager_dialog.cpp \
@@ -149,7 +142,6 @@ filezilla_SOURCES = \
 		xh_text_ex.cpp \
 		xmlfunctions.cpp \
 		xrc_helper.cpp
-
 
 noinst_HEADERS = \
 		aboutdialog.h \
@@ -222,18 +214,12 @@ noinst_HEADERS = \
 		serverdata.h \
 		settings/optionspage.h \
 		settings/optionspage_connection.h \
-		settings/optionspage_connection_active.h \
-		settings/optionspage_connection_ftp.h \
-		settings/optionspage_connection_passive.h \
-		settings/optionspage_connection_sftp.h \
 		settings/optionspage_dateformatting.h \
 		settings/optionspage_debug.h \
 		settings/optionspage_edit.h \
 		settings/optionspage_edit_associations.h \
 		settings/optionspage_fileexists.h \
 		settings/optionspage_filelists.h \
-		settings/optionspage_filetype.h \
-		settings/optionspage_ftpproxy.h \
 		settings/optionspage_interface.h \
 		settings/optionspage_language.h \
 		settings/optionspage_logging.h \
@@ -244,7 +230,6 @@ noinst_HEADERS = \
 		settings/optionspage_transfer.h \
 		settings/optionspage_updatecheck.h \
 		settings/settingsdialog.h \
-		sftp_crypt_info_dlg.h \
 		sitemanager.h \
 		sitemanager_controls.h \
 		sitemanager_dialog.h \
@@ -276,6 +261,32 @@ noinst_HEADERS = \
 		xh_text_ex.h \
 		xmlfunctions.h \
 		xrc_helper.h
+
+if ENABLE_FTP
+filezilla_SOURCES += \
+		settings/optionspage_connection_active.cpp \
+		settings/optionspage_connection_ftp.cpp \
+		settings/optionspage_connection_passive.cpp \
+		settings/optionspage_ftpproxy.cpp \
+		settings/optionspage_filetype.cpp
+
+noinst_HEADERS += \
+		settings/optionspage_connection_active.h \
+		settings/optionspage_connection_ftp.h \
+		settings/optionspage_connection_passive.h \
+		settings/optionspage_ftpproxy.h \
+		settings/optionspage_filetype.h
+endif
+
+if ENABLE_SFTP
+filezilla_SOURCES += \
+		settings/optionspage_connection_sftp.cpp \
+		sftp_crypt_info_dlg.cpp
+
+noinst_HEADERS += \
+		settings/optionspage_connection_sftp.h \
+		sftp_crypt_info_dlg.h
+endif
 
 if ENABLE_STORJ
 filezilla_SOURCES += \
