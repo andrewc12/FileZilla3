@@ -2,7 +2,6 @@
 #define FILEZILLA_UPDATER_HEADER
 
 #ifdef HAVE_CONFIG_H
-#undef HAVE_CONFIG_H
 #include "config.h"
 #endif
 

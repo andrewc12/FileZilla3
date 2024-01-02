@@ -1,4 +1,12 @@
 AC_INIT([FileZilla],[3.66.4], [tim.kosse@filezilla-project.org],[],[https://filezilla-project.org/])
+
+AH_TOP([
+#ifndef FILEZILLA_CONFIG_HEADER
+#define FILEZILLA_CONFIG_HEADER
+])
+AH_BOTTOM([
+#endif
+])
 AC_CONFIG_HEADERS([config/config.h])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR(config)
@@ -265,17 +273,6 @@ if test "$buildmain" = "yes"; then
     AC_CACHE_SAVE
   fi
 
-  # Get OS type for PUTTY frontend
-  # ------------------------------
-
-  AC_MSG_CHECKING([system type for sftp stub])
-  if test "$windows" = "1"; then
-    sftpbuild="mingw";
-  else
-    sftpbuild="unix"
-  fi
-  AC_MSG_RESULT([$sftpbuild])
-
   # Checks for PuTTY
   # ----------------
 
@@ -321,16 +318,12 @@ if test "$buildmain" = "yes"; then
   # Check for windres on MinGW builds
   # ---------------------------------
 
-  AC_MSG_CHECKING([whether to use windres])
   if test "$windows" = "1"; then
-    AC_MSG_RESULT([yes])
     AC_CHECK_TOOL([WINDRES], [windres])
     if test "x$WINDRES" = "x"; then
       AC_MSG_ERROR([windres could not be found, please make sure this program is within your path.])
     fi
     use_resourcefile=true
-  else
-    AC_MSG_RESULT([no])
   fi
   AC_SUBST(WINDRES)
 
@@ -773,11 +766,11 @@ AC_SUBST(FILEZILLA_LINGUAS_MO)
 # Output automake conditionals
 # ----------------------------
 
-AM_CONDITIONAL([MINGW], [echo $host_os | grep "mingw" > /dev/null])
+AM_CONDITIONAL(FZ_WINDOWS, test "$windows" = "1")
+AM_CONDITIONAL(FZ_MAC, test "$mac" = "1")
+AM_CONDITIONAL(FZ_UNIX, test "$unix" = "1")
 AM_CONDITIONAL([LOCALES_ONLY], [test "$localesonly" = "yes"])
 AM_CONDITIONAL([LOCALES], [test "$locales" = "yes"])
-AM_CONDITIONAL(SFTP_MINGW, [test "$sftpbuild" = "mingw"])
-AM_CONDITIONAL(SFTP_UNIX, [test "$sftpbuild" = "unix"])
 AM_CONDITIONAL(USE_RESOURCEFILE, test "$use_resourcefile" = "true")
 AM_CONDITIONAL(MACAPPBUNDLE, [test "$macappbundle" = "yes"])
 AM_CONDITIONAL(USE_MAC_SANDBOX, [test "$use_mac_sandbox" = "yes"])

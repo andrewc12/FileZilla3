@@ -323,7 +323,7 @@ filezilla_LDFLAGS += $(RESOURCEFILE)
 filezilla_CPPFLAGS += $(LIBSQLITE3_CFLAGS)
 filezilla_LDFLAGS += $(LIBSQLITE3_LIBS)
 
-if MINGW
+if FZ_WINDOWS
 filezilla_LDFLAGS += -lnormaliz -lole32 -luuid -lnetapi32 -lmpr -lpowrprof -lws2_32 -lshlwapi
 endif
 
@@ -331,7 +331,7 @@ endif
 filezilla_CPPFLAGS += $(LIBGTK_CFLAGS)
 filezilla_LDFLAGS += $(LIBGTK_LIBS)
 
-if MINGW
+if FZ_WINDOWS
 filezilla_DEPENDENCIES += resources/filezilla.o
 endif
 

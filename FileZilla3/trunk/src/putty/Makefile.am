@@ -37,7 +37,7 @@ libfzputtycommon_a_SOURCES = \
 			fzprintf.c \
 			wcwidth.c
 
-if SFTP_MINGW
+if FZ_WINDOWS
 libfzputtycommon_a_SOURCES += \
 			windows/wincons.c \
 			windows/winmisc.c \
@@ -106,7 +106,7 @@ fzsftp_SOURCES = \
 		wildcard.c \
 		x11fwd.c
 
-if SFTP_MINGW
+if FZ_WINDOWS
 fzsftp_SOURCES += \
 		windows/wincapi.c \
 		windows/wincliloop.c \
@@ -205,14 +205,7 @@ fzsftp_LDADD = libfzputtycommon.a
 fzsftp_LDADD += $(NETTLE_LIBS)
 
 
-if SFTP_UNIX
-  libfzputtycommon_a_CPPFLAGS = $(AM_CPPFLAGS) -DNO_GSSAPI -D_FILE_OFFSET_BITS=64
-
-  fzsftp_CPPFLAGS = $(AM_CPPFLAGS) -D_FILE_OFFSET_BITS=64 -DNO_GSSAPI
-
-  fzputtygen_CPPFLAGS = $(AM_CPPFLAGS) -DNO_GSSAPI
-  fzputtygen_LDADD = libfzputtycommon.a $(NETTLE_LIBS)
-else
+if FZ_WINDOWS
   COMMON_CPPFLAGS = $(AM_CPPFLAGS) -D_ISOC99_SOURCE -DNO_GSSAPI \
 		 -D_WINDOWS -DSECURITY_WIN32 $(NETTLE_CFLAGS)
 
@@ -225,6 +218,13 @@ else
   fzputtygen_CPPFLAGS = $(COMMON_CPPFLAGS)
   fzputtygen_LDADD = libfzputtycommon.a $(RESOURCEFILE) $(NETTLE_LIBS)
   fzputtygen_LDADD += -lole32
+else
+  libfzputtycommon_a_CPPFLAGS = $(AM_CPPFLAGS) -DNO_GSSAPI -D_FILE_OFFSET_BITS=64
+
+  fzsftp_CPPFLAGS = $(AM_CPPFLAGS) -D_FILE_OFFSET_BITS=64 -DNO_GSSAPI
+
+  fzputtygen_CPPFLAGS = $(AM_CPPFLAGS) -DNO_GSSAPI
+  fzputtygen_LDADD = libfzputtycommon.a $(NETTLE_LIBS)
 endif
 
 libfzputtycommon_a_CPPFLAGS += $(NETTLE_CFLAGS)
