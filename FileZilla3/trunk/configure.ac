@@ -165,6 +165,10 @@ cd "$OLD_DIR"
 
 if test "$buildmain" = "yes"; then
 
+  # GUI or not
+  # ----------
+  AC_ARG_ENABLE(gui, AS_HELP_STRING([--enable-gui@<:@=ARG@:>@],[Enable the GUI client. Default: yes]), [], [enable_gui="yes"])
+
   # Require pkg-config
   # ------------------
   PKG_PROG_PKG_CONFIG
@@ -183,12 +187,14 @@ if test "$buildmain" = "yes"; then
   # Detect wxWidgets
   # ----------------
 
-  AM_OPTIONS_WXCONFIG
+  if test "$enable_gui" = "yes"; then
 
-  MIN_WX_VERSION="3.0.4" # Do not downgrade this. wx 3.0.3 and older have too many known and fixed bugs affecting FileZilla.
-  AM_PATH_WXCONFIG([$MIN_WX_VERSION], [wxWin=1], , [aui,xrc,adv,core,xml,base], [--unicode=yes --universal=no])
-  if test "$wxWin" != 1; then
-    AC_MSG_ERROR([
+    AM_OPTIONS_WXCONFIG
+
+    MIN_WX_VERSION="3.0.4" # Do not downgrade this. wx 3.0.3 and older have too many known and fixed bugs affecting FileZilla.
+    AM_PATH_WXCONFIG([$MIN_WX_VERSION], [wxWin=1], , [aui,xrc,adv,core,xml,base], [--unicode=yes --universal=no])
+    if test "$wxWin" != 1; then
+      AC_MSG_ERROR([
         wxWidgets must be installed on your system
         but either the wx-config script couldn't be found or
         no compatible wxWidgets configuration has been installed.
@@ -200,70 +206,71 @@ if test "$buildmain" = "yes"; then
         where wxWidgets libraries are installed (returned by
         'wx-config --libs' command) is in LD_LIBRARY_PATH or
         equivalent variable and wxWidgets version is $MIN_WX_VERSION or above.
-    ])
-  fi
-  if test "${WX_VERSION_MAJOR}.${WX_VERSION_MINOR}" = "3.1"; then
-    AC_MSG_ERROR([You must use wxWidgets 3.0.x, or 3.2.x, development versions of wxWidgets are not supported.])
-  fi
+      ])
+    fi
+    if test "${WX_VERSION_MAJOR}.${WX_VERSION_MINOR}" = "3.1"; then
+      AC_MSG_ERROR([You must use wxWidgets 3.0.x, or 3.2.x, development versions of wxWidgets are not supported.])
+    fi
 
-  if test "${WX_VERSION_MAJOR}.${WX_VERSION_MINOR}" = "3.0"; then
-    MAC_REQUIRES_AQUA="YES"
-  else
-    MAC_REQUIRES_AQUA="NO"
-  fi
-  AC_SUBST(MAC_REQUIRES_AQUA)
+    if test "${WX_VERSION_MAJOR}.${WX_VERSION_MINOR}" = "3.0"; then
+      MAC_REQUIRES_AQUA="YES"
+    else
+      MAC_REQUIRES_AQUA="NO"
+    fi
+    AC_SUBST(MAC_REQUIRES_AQUA)
 
-  # --universal=no doesn't work correctly, it still accepts universal builds. Reject it manually here.
-  if echo "$WX_CPPFLAGS" | grep __WXUNIVERSAL__ > /dev/null; then
-    AC_MSG_ERROR([wxUniversal is not acceptable as flavour of wxWidgets. Please recompile wxWidgets with --disable-universal])
-  fi
-  if echo "$WX_CPPFLAGS" | grep __WXMOTIF__ > /dev/null; then
-    AC_MSG_ERROR([wxMotif is not acceptable as flavour of wxWidgets. Please recompile wxWidgets with the GTK flavour])
-  fi
+    # --universal=no doesn't work correctly, it still accepts universal builds. Reject it manually here.
+    if echo "$WX_CPPFLAGS" | grep __WXUNIVERSAL__ > /dev/null; then
+      AC_MSG_ERROR([wxUniversal is not acceptable as flavour of wxWidgets. Please recompile wxWidgets with --disable-universal])
+    fi
+    if echo "$WX_CPPFLAGS" | grep __WXMOTIF__ > /dev/null; then
+      AC_MSG_ERROR([wxMotif is not acceptable as flavour of wxWidgets. Please recompile wxWidgets with the GTK flavour])
+    fi
 
-  AC_LANG_PUSH(C++)
-  CPPFLAGS_OLD="$CPPFLAGS"
-  CXXFLAGS_OLD="$CXXFLAGS"
-  CPPFLAGS="$CPPFLAGS $WX_CPPFLAGS"
-  CXXFLAGS="$CXXFLAGS $WX_CXXFLAGS_ONLY"
+    AC_LANG_PUSH(C++)
+    CPPFLAGS_OLD="$CPPFLAGS"
+    CXXFLAGS_OLD="$CXXFLAGS"
+    CPPFLAGS="$CPPFLAGS $WX_CPPFLAGS"
+    CXXFLAGS="$CXXFLAGS $WX_CXXFLAGS_ONLY"
 
-  AC_MSG_CHECKING([positional printf argument support in wxWidgets])
-  AC_COMPILE_IFELSE(
-    [AC_LANG_PROGRAM([[
+    AC_MSG_CHECKING([positional printf argument support in wxWidgets])
+    AC_COMPILE_IFELSE(
+      [AC_LANG_PROGRAM([[
           #include <wx/wx.h>
           #if !wxUSE_PRINTF_POS_PARAMS
             #error wx compiled without wxUSE_PRINTF_POS_PARAMS
           #endif
         ]])],
-      AC_MSG_RESULT([yes]),
-      [
-        AC_MSG_RESULT([no])
-        AC_MSG_FAILURE([Positional printf argument support in wxWidgets is required by FileZilla. Please rebuild wxWidgets and pass --enable-printfposparam to its configure script.])
-      ]
-    )
+        AC_MSG_RESULT([yes]),
+        [
+          AC_MSG_RESULT([no])
+          AC_MSG_FAILURE([Positional printf argument support in wxWidgets is required by FileZilla. Please rebuild wxWidgets and pass --enable-printfposparam to its configure script.])
+        ]
+      )
 
-  AC_MSG_CHECKING([GUI support in wxWidgets])
-  AC_COMPILE_IFELSE(
-    [AC_LANG_PROGRAM([[
+    AC_MSG_CHECKING([GUI support in wxWidgets])
+    AC_COMPILE_IFELSE(
+      [AC_LANG_PROGRAM([[
           #include <wx/wx.h>
           #if !wxUSE_GUI
             #error wx compiled without wxUSE_GUI
           #endif
         ]])],
-      AC_MSG_RESULT([yes]),
-      [
-        AC_MSG_RESULT([no])
-        AC_MSG_FAILURE([GUI support in wxWidgets is required by FileZilla. Please rebuild wxWidgets and pass --enable-gui to its configure script.])
-      ]
-    )
+        AC_MSG_RESULT([yes]),
+        [
+          AC_MSG_RESULT([no])
+          AC_MSG_FAILURE([GUI support in wxWidgets is required by FileZilla. Please rebuild wxWidgets and pass --enable-gui to its configure script.])
+        ]
+      )
 
-  CPPFLAGS="$CPPFLAGS_OLD"
-  CXXFLAGS="$CXXFLAGS_OLD"
-  AC_LANG_POP
+    CPPFLAGS="$CPPFLAGS_OLD"
+    CXXFLAGS="$CXXFLAGS_OLD"
+    AC_LANG_POP
 
-  AC_SUBST(WX_CONFIG_WITH_ARGS)
+    AC_SUBST(WX_CONFIG_WITH_ARGS)
 
-  AC_CACHE_SAVE
+    AC_CACHE_SAVE
+  fi
 
   # Get OS type for PUTTY frontend
   # ------------------------------
@@ -318,7 +325,6 @@ if test "$buildmain" = "yes"; then
     FZ_CHECK_ICOPYHOOKW
   fi
 
-
   # Check for windres on MinGW builds
   # ---------------------------------
 
@@ -351,6 +357,10 @@ if test "$buildmain" = "yes"; then
   vnumber=${vnumber#.}
   PACKAGE_VERSION_NANO=${vnumber%%.*}
 
+  PACKAGE_VERSION_SHORT=${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}.${PACKAGE_VERSION_MICRO}
+  AC_SUBST(PACKAGE_VERSION_SHORT)
+  AC_DEFINE_UNQUOTED([PACKAGE_VERSION_SHORT], ["$PACKAGE_VERSION_SHORT"], [Shortened version number])
+
   if test -z "$PACKAGE_VERSION_MAJOR"; then
     PACKAGE_VERSION_MAJOR=0
   fi
@@ -377,7 +387,7 @@ if test "$buildmain" = "yes"; then
 
   # Set Windows-specific linker flags
   # ---------------------------------
-  if tect "$windows" = 1; then
+  if test "$windows" = "1"; then
     # We currently require 7 minimum.
     AX_CHECK_LINK_FLAG([-Wl,--major-subsystem-version -Wl,6], [AX_APPEND_FLAG([-Wl,--major-subsystem-version -Wl,6], LDFLAGS)])
     AX_CHECK_LINK_FLAG([-Wl,--minor-subsystem-version -Wl,1], [AX_APPEND_FLAG([-Wl,--minor-subsystem-version -Wl,1], LDFLAGS)])
@@ -556,65 +566,69 @@ if test "$buildmain" = "yes"; then
   # Libdbus
   # -------
 
-  AC_ARG_WITH(dbus, AS_HELP_STRING([--with-dbus],[Enable D-Bus support through libdbus. Used for GNOME Session manager D-Bus API. Default: auto]),
-    [
-    ],
-    [
-      with_dbus="auto"
-    ])
+  if test "$enable_gui" = "yes"; then
+    AC_ARG_WITH(dbus, AS_HELP_STRING([--with-dbus],[Enable D-Bus support through libdbus. Used for GNOME Session manager D-Bus API. Default: auto]),
+      [
+     ],
+       [
+        with_dbus="auto"
+      ])
 
-  if test "$with_dbus" = "auto"; then
-    if test "$mac" = 1; then
-      with_dbus="no"
-    elif test "$windows" = 1; then
-      with_dbus="no"
+    if test "$with_dbus" = "auto"; then
+      if test "$mac" = 1; then
+        with_dbus="no"
+      elif test "$windows" = 1; then
+        with_dbus="no"
+      else
+        with_dbus="yes"
+      fi
+    elif test "$with_dbus" = "yes"; then
+      if test "$mac" = 1; then
+        AC_MSG_ERROR([D-Bus support is not needed or available on your platform])
+      elif test "$windows" = 1; then
+        AC_MSG_ERROR([D-Bus support is not needed or available on your platform])
+      fi
     else
-      with_dbus="yes"
+      with_dbus="no"
     fi
-  elif test "$with_dbus" = "yes"; then
-    if test "$mac" = 1; then
-      AC_MSG_ERROR([D-Bus support is not needed or available on your platform])
-    elif test "$windows" = 1; then
-      AC_MSG_ERROR([D-Bus support is not needed or available on your platform])
+
+    if test "$with_dbus" != "no"; then
+      PKG_CHECK_MODULES(LIBDBUS, dbus-1 >= 1.2, [with_dbus_v="2"],
+        [
+          PKG_CHECK_MODULES(LIBDBUS, dbus-1, [with_dbus_v="1"],
+            [
+              AC_MSG_ERROR([libdbus not found. Install libdbus or configure with --without-dbus])
+            ])
+        ])
+      AC_DEFINE_UNQUOTED(WITH_LIBDBUS, [$with_dbus_v], [Set to 2 to if libdbus >= 1.2 is available, set to 1 if an older version is available.])
+    fi
+
+    AC_MSG_CHECKING([D-Bus support])
+    AC_MSG_RESULT([$with_dbus])
+
+    # We want xdg-open on *nix
+    if echo "`$WX_CONFIG_WITH_ARGS --basename`" | grep -i gtk > /dev/null 2>&1; then
+      AC_PATH_PROG(xdgopen, xdg-open)
+      if test -z "$xdgopen"; then
+        AC_MSG_ERROR([xdg-open not found. This program is the preferred way to launch the default browser. Please install the xdg-utils.])
+      fi
+
+      if echo "`$WX_CONFIG_WITH_ARGS --basename`" | grep -i gtk2 > /dev/null 2>&1; then
+        PKG_CHECK_MODULES(LIBGTK, gtk+-2.0,, [
+          AC_MSG_ERROR([gtk+-2.0 was not found, even though the used version of wxWidgets depends on it. Are you missing the gtk+2.0 development files?])
+        ])
+      fi
+      if echo "`$WX_CONFIG_WITH_ARGS --basename`" | grep -i gtk3 > /dev/null 2>&1; then
+        PKG_CHECK_MODULES(LIBGTK, gtk+-3.0,, [
+          AC_MSG_ERROR([gtk+-3.0 was not found, even though the used version of wxWidgets depends on it. Are you missing the gtk+3.0 development files?])
+        ])
+      fi
+
+      AC_SUBST(LIBGTK_LIBS)
+      AC_SUBST(LIBGTK_CFLAGS)
     fi
   else
-    with_dbus="no"
-  fi
-
-  if test "$with_dbus" != "no"; then
-    PKG_CHECK_MODULES(LIBDBUS, dbus-1 >= 1.2, [with_dbus_v="2"],
-      [
-        PKG_CHECK_MODULES(LIBDBUS, dbus-1, [with_dbus_v="1"],
-          [
-            AC_MSG_ERROR([libdbus not found. Install libdbus or configure with --without-dbus])
-          ])
-      ])
-    AC_DEFINE_UNQUOTED(WITH_LIBDBUS, [$with_dbus_v], [Set to 2 to if libdbus >= 1.2 is available, set to 1 if an older version is available.])
-  fi
-
-  AC_MSG_CHECKING([D-Bus support])
-  AC_MSG_RESULT([$with_dbus])
-
-  # We want xdg-open on *nix
-  if echo "`$WX_CONFIG_WITH_ARGS --basename`" | grep -i gtk > /dev/null 2>&1; then
-    AC_PATH_PROG(xdgopen, xdg-open)
-    if test -z "$xdgopen"; then
-      AC_MSG_ERROR([xdg-open not found. This program is the preferred way to launch the default browser. Please install the xdg-utils.])
-    fi
-
-    if echo "`$WX_CONFIG_WITH_ARGS --basename`" | grep -i gtk2 > /dev/null 2>&1; then
-      PKG_CHECK_MODULES(LIBGTK, gtk+-2.0,, [
-        AC_MSG_ERROR([gtk+-2.0 was not found, even though the used version of wxWidgets depends on it. Are you missing the gtk+2.0 development files?])
-      ])
-    fi
-    if echo "`$WX_CONFIG_WITH_ARGS --basename`" | grep -i gtk3 > /dev/null 2>&1; then
-      PKG_CHECK_MODULES(LIBGTK, gtk+-3.0,, [
-        AC_MSG_ERROR([gtk+-3.0 was not found, even though the used version of wxWidgets depends on it. Are you missing the gtk+3.0 development files?])
-      ])
-    fi
-
-    AC_SUBST(LIBGTK_LIBS)
-    AC_SUBST(LIBGTK_CFLAGS)
+    with_dbus=no
   fi
 
   # Some more obscure platforms (e.g. HP-UX) don't have setenv which is required by POSIX
@@ -673,6 +687,27 @@ if test "$buildmain" = "yes"; then
     ])
     AC_SUBST(LIBUPLINK_CFLAGS)
     AC_SUBST(LIBUPLINK_LIBS)
+  fi
+
+  # Protocol configuration
+  AC_ARG_ENABLE(ftp, AS_HELP_STRING([--enable-ftp@<:@=ARG@:>@],[Enable support for FTP(S). Default: yes]),
+    [
+    ],
+    [
+      enable_ftp="yes"
+    ])
+  if test "$enable_ftp" != "no"; then
+    AC_DEFINE([ENABLE_FTP], [1], [Define if building with FTP(S) support.])
+  fi
+
+  AC_ARG_ENABLE(sftp, AS_HELP_STRING([--enable-sftp@<:@=ARG@:>@],[Enable support for SFTP. Default: yes]),
+    [
+    ],
+    [
+      enable_sftp="yes"
+    ])
+  if test "$enable_sftp" != "no"; then
+    AC_DEFINE([ENABLE_SFTP], [1], [Define if building with SFTP support.])
   fi
 fi
 
@@ -759,6 +794,9 @@ AM_CONDITIONAL(HAS_CPPUNIT, [test "$has_cppunit" = "yes"])
 AM_CONDITIONAL(HAVE_LIBPUGIXML, [test "x$with_pugixml" = "xsystem"])
 AM_CONDITIONAL(HAVE_DBUS, [test "x$with_dbus" = "xyes"])
 AM_CONDITIONAL(ENABLE_STORJ, [test "x$enable_storj" = "xyes"])
+AM_CONDITIONAL(ENABLE_FTP, [test "x$enable_ftp" = "xyes"])
+AM_CONDITIONAL(ENABLE_SFTP, [test "x$enable_sftp" = "xyes"])
+AM_CONDITIONAL(ENABLE_GUI, [test "x$enable_gui" = "xyes"])
 
 AC_CONFIG_FILES(Makefile src/Makefile src/engine/Makefile src/pugixml/Makefile
 src/dbus/Makefile

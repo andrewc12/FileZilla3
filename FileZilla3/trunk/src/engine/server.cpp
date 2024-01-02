@@ -44,11 +44,18 @@ static const t_protocolInfo protocolInfos[] = {
 };
 
 static std::vector<ServerProtocol> const defaultProtocols = {
+#if ENABLE_FTP
 	FTP,
+#endif
+#if ENABLE_SFTP
 	SFTP,
+#endif
+#if ENABLE_FTP
+	FTP,
 	FTPS,
 	FTPES,
 	INSECURE_FTP,
+#endif
 #if ENABLE_STORJ
 	STORJ_GRANT,
 #endif

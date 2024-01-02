@@ -2,11 +2,15 @@
 #include "controlsocket.h"
 #include "directorycache.h"
 #include "engineprivate.h"
+#if ENABLE_FTP
 #include "ftp/ftpcontrolsocket.h"
+#endif
 #include "http/httpcontrolsocket.h"
 #include "logging_private.h"
 #include "pathcache.h"
+#if ENABLE_SFTP
 #include "sftp/sftpcontrolsocket.h"
+#endif
 #if ENABLE_STORJ
 #include "storj/storjcontrolsocket.h"
 #endif
@@ -528,15 +532,19 @@ int CFileZillaEnginePrivate::ContinueConnect()
 
 	switch (server.GetProtocol())
 	{
+#if ENABLE_FTP
 	case FTP:
 	case FTPS:
 	case FTPES:
 	case INSECURE_FTP:
 		controlSocket_ = std::make_unique<CFtpControlSocket>(*this);
 		break;
+#endif
+#if ENABLE_SFTP
 	case SFTP:
 		controlSocket_ = std::make_unique<CSftpControlSocket>(*this);
 		break;
+#endif
 	case HTTP:
 	case HTTPS:
 		controlSocket_ = std::make_unique<CHttpControlSocket>(*this);
