@@ -34,19 +34,24 @@ static bool copy_file(std::wstring const& src, std::wstring const& dest, bool ov
 		return false;
 	}
 
-	int64_t res = 0;
-	do {
-		res = in.read(buffer, sizeof(buffer));
-		if (res > 0) {
-			res = out.write(buffer, res);
+	while (true) {
+		fz::rwresult res = in.read2(buffer, sizeof(buffer));
+		if (res) {
+			if (!res.value_) {
+				break;
+			}
+			res = out.write2(buffer, res.value_);
 		}
-	} while(res > 0);
-
-	if (!res && fsync) {
-		out.fsync();
+		if (!res) {
+			return false;
+		}
 	}
 
-	return res == 0;
+	if (fsync && !out.fsync()) {
+		return false;
+	}
+
+	return true;
 }
 
 CXmlFile::CXmlFile(std::wstring const& fileName, std::string const& root)
@@ -241,16 +246,16 @@ bool CXmlFile::GetXmlFile(std::wstring const& file)
 	auto *p = buffer;
 	auto to_read = size;
 	while (to_read) {
-		auto read = f.read(p, to_read);
+		auto read = f.read2(p, to_read);
 
-		if (read <= 0) {
+		if (!read || !read.value_) {
 			m_error += fz::sprintf(fztranslate("Reading from '%s' failed."), file);
 			pugi::get_memory_deallocation_function()(buffer);
 			return false;
 		}
 
-		p += read;
-		to_read -= read;
+		p += read.value_;
+		to_read -= read.value_;
 	}
 
 	auto result = m_document.load_buffer_inplace_own(buffer, static_cast<size_t>(size));
@@ -331,8 +336,12 @@ bool CXmlFile::SaveXmlFile()
 		}
 
 		virtual void write(void const* data, size_t size) override {
-			if (file_.opened()) {
-				if (file_.write(data, static_cast<int64_t>(size)) != static_cast<int64_t>(size)) {
+			while (size && file_.opened()) {
+				auto res = file_.write2(data, size);
+				if (res) {
+					size -= res.value_;
+				}
+				else {
 					file_.close();
 				}
 			}

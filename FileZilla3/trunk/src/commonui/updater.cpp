@@ -881,11 +881,11 @@ bool CUpdater::VerifyChecksum(std::wstring const& file, int64_t size, std::wstri
 			return false;
 		}
 		unsigned char buffer[65536];
-		int64_t read;
-		while ((read = f.read(buffer, sizeof(buffer))) > 0) {
-			acc.update(buffer, static_cast<size_t>(read));
+		fz::rwresult read;
+		while ((read = f.read2(buffer, sizeof(buffer))) && read.value_ > 0) {
+			acc.update(buffer, read.value_);
 		}
-		if (read < 0) {
+		if (!read) {
 			log_ += fz::sprintf(fztranslate("Could not read from '%s'"), file) + L"\n";
 			return false;
 		}

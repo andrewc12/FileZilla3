@@ -503,7 +503,7 @@ std::string ShellUnescape(std::string const& path)
 
 size_t next_line(fz::file& f, fz::buffer& buf, size_t maxlen = 16 * 1024)
 {
-	if (!buf.empty() && buf[0] == '\n') {
+	while (!buf.empty() && buf[0] == '\n') {
 		buf.consume(1);
 	}
 	for (size_t i = 0; i < buf.size(); ++i) {
@@ -515,17 +515,17 @@ size_t next_line(fz::file& f, fz::buffer& buf, size_t maxlen = 16 * 1024)
 	while (buf.size() < maxlen) {
 		size_t const oldSize = buf.size();
 		unsigned char* p = buf.get(maxlen - oldSize);
-		int read = f.read(p, maxlen - oldSize);
-		if (read < 0) {
+		fz::rwresult read = f.read2(p, maxlen - oldSize);
+		if (!read) {
 			return std::string::npos;
 		}
-		if (!read) {
+		if (!read.value_) {
 			return buf.size();
 		}
-		buf.add(read);
-		for (size_t i = 0; i < static_cast<size_t>(read); ++i) {
+		buf.add(read.value_);
+		for (size_t i = 0; i < read.value_; ++i) {
 			if (p[i] == '\n') {
-				return i = oldSize;
+				return i + oldSize;
 			}
 		}
 	}
