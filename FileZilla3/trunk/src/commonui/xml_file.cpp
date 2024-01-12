@@ -35,15 +35,21 @@ static bool copy_file(std::wstring const& src, std::wstring const& dest, bool ov
 	}
 
 	while (true) {
-		fz::rwresult res = in.read2(buffer, sizeof(buffer));
-		if (res) {
-			if (!res.value_) {
-				break;
-			}
-			res = out.write2(buffer, res.value_);
-		}
-		if (!res) {
+		fz::rwresult read = in.read2(buffer, sizeof(buffer));
+		if (!read) {
 			return false;
+		}
+		if (!read.value_) {
+			break;
+		}
+		char const* p = buffer;
+		while (read.value_) {
+			fz::rwresult written = out.write2(p, read.value_);
+			if (!written) {
+				return false;
+			}
+			read.value_ -= written.value_;
+			p += written.value_;
 		}
 	}
 
@@ -340,6 +346,7 @@ bool CXmlFile::SaveXmlFile()
 				auto res = file_.write2(data, size);
 				if (res) {
 					size -= res.value_;
+					data += res.value_;
 				}
 				else {
 					file_.close();
