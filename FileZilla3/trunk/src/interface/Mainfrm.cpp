@@ -276,13 +276,13 @@ void ShowOverlay(COptions& options, std::wstring const& data, wxTopLevelWindow* 
 
 	auto box = new wxBoxSizer(wxVERTICAL);
 	p->SetSizer(box);
-	
+
 	auto outer = lay.createFlex(1);
 	box->Add(outer, 0, wxALL, 7);
 
 	auto sides = lay.createFlex(0, 1);
 	outer->Add(sides);
-	
+
 	auto right = lay.createFlex(1);
 	sides->Add(right, lay.valign);
 	if (tokens.size() > 4) {
@@ -315,7 +315,7 @@ void ShowOverlay(COptions& options, std::wstring const& data, wxTopLevelWindow* 
 			}
 			if (bold) {
 				wxFont f = ctrl->GetFont();
-				f.SetWeight(wxBOLD);
+				f.SetWeight(wxFONTWEIGHT_BOLD);
 				ctrl->SetFont(f);
 			}
 			right->Add(ctrl);
