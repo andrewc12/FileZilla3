@@ -15,7 +15,7 @@
 #include "fzprintf.h"
 #include "fzsftp.h"
 
-static const char *fxp_error_message;
+static char *fxp_error_message;
 static int fxp_errtype;
 
 static void fxp_internal_error(const char *msg);
