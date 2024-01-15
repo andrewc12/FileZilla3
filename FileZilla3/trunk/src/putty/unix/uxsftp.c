@@ -211,7 +211,7 @@ int read_from_file(RFile *f, void *buffer, int length)
 #if 1
     if (f->state == ok && !f->remaining_) {
         fznotify1(sftp_io_nextbuf, 0);
-        char const* s = priority_read();
+        char * s = priority_read();
         if (s[1] == '-') {
             f->state = error;
             return -1;
@@ -220,7 +220,7 @@ int read_from_file(RFile *f, void *buffer, int length)
             f->state = eof;
         }
         else {
-            char const* p = s + 1;
+            char * p = s + 1;
             f->buffer_ = f->memory_ + next_int(&p);
             f->remaining_ = (int)next_int(&p);
         }
@@ -456,7 +456,7 @@ int finalize_wfile(WFile *f)
         return 0;
     }
     fznotify1(sftp_io_finalize, f->size_ - f->remaining_);
-    char const* s = priority_read();
+    char * s = priority_read();
     if (s[1] != '1') {
         f->state = error;
         return 0;
