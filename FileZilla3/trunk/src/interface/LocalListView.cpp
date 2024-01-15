@@ -1951,11 +1951,17 @@ void CLocalListView::OnMenuOpen(wxCommandEvent&)
 
 bool CLocalListView::ItemIsDir(int index) const
 {
+	if (index < 0 || static_cast<size_t>(index) >= m_fileData.size()) {
+		return false;
+	}
 	return m_fileData[index].dir;
 }
 
 int64_t CLocalListView::ItemGetSize(int index) const
 {
+	if (index < 0 || static_cast<size_t>(index) >= m_fileData.size()) {
+		return -1;
+	}
 	return m_fileData[index].size;
 }
 
