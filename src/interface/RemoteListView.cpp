@@ -2620,7 +2620,7 @@ void CRemoteListView::OnExitComparisonMode()
 
 bool CRemoteListView::ItemIsDir(int index) const
 {
-	if (!m_pDirectoryListing || index < 0 || index >= m_pDirectoryListing->size()) {
+	if (!m_pDirectoryListing || index < 0 || static_cast<size_t>(index) >= m_pDirectoryListing->size()) {
 		return false;
 	}
 	return (*m_pDirectoryListing)[index].is_dir();
@@ -2628,6 +2628,9 @@ bool CRemoteListView::ItemIsDir(int index) const
 
 int64_t CRemoteListView::ItemGetSize(int index) const
 {
+	if (!m_pDirectoryListing || index < 0 || static_cast<size_t>(index) >= m_pDirectoryListing->size()) {
+		return -1;
+	}
 	return (*m_pDirectoryListing)[index].size;
 }
 

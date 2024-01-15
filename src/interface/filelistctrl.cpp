@@ -906,7 +906,7 @@ template<class CFileData> void CFileListCtrl<CFileData>::OnItemDeselected(wxList
 				bool selected = GetItemState(m_focusItem, wxLIST_STATE_SELECTED) == wxLIST_STATE_SELECTED;
 				if (selected) {
 					m_selections[m_focusItem] = true;
-					if (m_focusItem >= m_indexMapping.size()) {
+					if (static_cast<size_t>(m_focusItem) >= m_indexMapping.size()) {
 						return;
 					}
 					const int index = m_indexMapping[m_focusItem];
