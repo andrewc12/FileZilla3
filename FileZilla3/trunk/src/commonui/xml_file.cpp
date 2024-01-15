@@ -342,11 +342,12 @@ bool CXmlFile::SaveXmlFile()
 		}
 
 		virtual void write(void const* data, size_t size) override {
+			auto p = reinterpret_cast<uint8_t const*>(data);
 			while (size && file_.opened()) {
-				auto res = file_.write2(data, size);
+				auto res = file_.write2(p, size);
 				if (res) {
 					size -= res.value_;
-					data += res.value_;
+					p += res.value_;
 				}
 				else {
 					file_.close();
