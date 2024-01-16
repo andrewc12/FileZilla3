@@ -805,10 +805,6 @@ void CLocalTreeView::RefreshListing()
 
 		wxTreeItemId firstInserted{};
 		wxTreeItemId last = GetLastChild(dir.item);
-		if (dir.dir == L"D:\\") {
-			int x{};
-			++x;
-		}
 		auto iter = dirs.begin();
 		while (child || iter != dirs.end()) {
 			int cmp;
@@ -1202,7 +1198,7 @@ void CLocalTreeView::OnMenuUpload(wxCommandEvent& event)
 // Create a new Directory
 void CLocalTreeView::OnMenuMkdir(wxCommandEvent&)
 {
-	wxString newdir = MenuMkdir();
+	CLocalPath newdir = MenuMkdir();
 	if (!newdir.empty()) {
 		RefreshListing();
 		m_state.RefreshLocal();
@@ -1212,7 +1208,7 @@ void CLocalTreeView::OnMenuMkdir(wxCommandEvent&)
 // Create a new Directory and enter the new Directory
 void CLocalTreeView::OnMenuMkdirChgDir(wxCommandEvent&)
 {
-	std::wstring newdir = MenuMkdir().ToStdWstring();
+	CLocalPath newdir = MenuMkdir();
 	if (newdir.empty()) {
 		return;
 	}
@@ -1231,53 +1227,42 @@ void CLocalTreeView::OnMenuMkdirChgDir(wxCommandEvent&)
 
 // Helper-Function to create a new Directory
 // Returns the name of the new directory
-wxString CLocalTreeView::MenuMkdir()
+CLocalPath CLocalTreeView::MenuMkdir()
 {
 	if (!m_contextMenuItem.IsOk()) {
-		return wxString();
+		return {};
 	}
 
-	std::wstring path = GetDirFromItem(m_contextMenuItem);
-	if (!path.empty() && path.back() != wxFileName::GetPathSeparator()) {
-		path += wxFileName::GetPathSeparator();
-	}
-
-	if (!CLocalPath(path).IsWriteable()) {
+	CLocalPath p(GetDirFromItem(m_contextMenuItem));
+	if (p.empty() || !p.IsWriteable()) {
 		wxBell();
-		return wxString();
+		return {};
 	}
 
 	CInputDialog dlg;
 	if (!dlg.Create(this, _("Create directory"), _("Please enter the name of the directory which should be created:"))) {
-		return wxString();
+		return {};
 	}
 
 	wxString newName = _("New directory");
-	dlg.SetValue(path + newName);
-	dlg.SelectText(path.size(), path.size() + newName.size());
+	dlg.SetValue(p.GetPath() + newName);
+	dlg.SelectText(p.GetPath().size(), p.GetPath().size() + newName.size());
 
 	if (dlg.ShowModal() != wxID_OK) {
-		return wxString();
+		return {};
 	}
 
-	wxFileName fn(dlg.GetValue(), _T(""));
-	if (!fn.Normalize(wxPATH_NORM_ALL, path)) {
+	if (!p.ChangePath(dlg.GetValue().ToStdWstring()) || !p.IsWriteable()) {
 		wxBell();
-		return wxString();
+		return {};
 	}
 
-	bool res;
-	{
-		wxLogNull log;
-		res = fn.Mkdir(fn.GetPath(), 0777, wxPATH_MKDIR_FULL);
-	}
-
-	if (!res) {
+	if (!fz::mkdir(fz::to_native(p.GetPath()), true)) {
 		wxBell();
-		return wxString();
+		return {};
 	}
 
-	return fn.GetPath();
+	return p;
 }
 
 void CLocalTreeView::OnMenuRename(wxCommandEvent&)

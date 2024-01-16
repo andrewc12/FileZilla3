@@ -89,7 +89,7 @@ protected:
 
 	int m_dropTarget{-1};
 
-	wxString MenuMkdir();
+	CLocalPath MenuMkdir();
 
 	std::unique_ptr<CWindowTinter> m_windowTinter;
 

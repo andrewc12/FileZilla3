@@ -962,7 +962,7 @@ void CLocalListView::OnMenuUpload(wxCommandEvent& event)
 // Create a new Directory
 void CLocalListView::OnMenuMkdir(wxCommandEvent&)
 {
-	wxString newdir = MenuMkdir();
+	CLocalPath newdir = MenuMkdir();
 	if (!newdir.empty()) {
 		m_state.RefreshLocal();
 	}
@@ -971,7 +971,7 @@ void CLocalListView::OnMenuMkdir(wxCommandEvent&)
 // Create a new Directory and enter the new Directory
 void CLocalListView::OnMenuMkdirChgDir(wxCommandEvent&)
 {
-	std::wstring newdir = MenuMkdir().ToStdWstring();
+	CLocalPath newdir = MenuMkdir();
 	if (newdir.empty()) {
 		return;
 	}
@@ -990,39 +990,33 @@ void CLocalListView::OnMenuMkdirChgDir(wxCommandEvent&)
 
 // Helper-Function to create a new Directory
 // Returns the name of the new directory
-wxString CLocalListView::MenuMkdir()
+CLocalPath CLocalListView::MenuMkdir()
 {
 	CInputDialog dlg;
 	if (!dlg.Create(this, _("Create directory"), _("Please enter the name of the directory which should be created:"))) {
-		return wxString();
+		return {};
 	}
 
 	if (dlg.ShowModal() != wxID_OK) {
-		return wxString();
+		return {};
 	}
 
 	if (dlg.GetValue().empty()) {
 		wxBell();
-		return wxString();
+		return {};
 	}
 
-	wxFileName fn(dlg.GetValue(), wxString());
-	fn.Normalize(wxPATH_NORM_ALL, m_dir.GetPath());
-
-	bool res;
-
-	{
-		wxLogNull log;
-		res = fn.Mkdir(fn.GetPath(), 0777, wxPATH_MKDIR_FULL);
-	}
-
-	if (!res) {
+	CLocalPath p = m_dir;
+	if (!p.ChangePath(dlg.GetValue().ToStdWstring()) || !p.IsWriteable()) {
 		wxBell();
-		return wxString();
+		return {};
+	}
+	if (!fz::mkdir(fz::to_native(p.GetPath()), true)) {
+		wxBell();
+		return {};
 	}
 
-	// Return name of the New Directory
-	return fn.GetPath();
+	return p;
 }
 
 void CLocalListView::OnMenuDelete(wxCommandEvent&)

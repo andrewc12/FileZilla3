@@ -56,7 +56,7 @@ protected:
 
 	bool CheckSubdirStatus(wxTreeItemId& item, std::wstring const& path);
 
-	wxString MenuMkdir();
+	CLocalPath MenuMkdir();
 
 	DECLARE_EVENT_TABLE()
 	void OnItemExpanding(wxTreeEvent& event);
