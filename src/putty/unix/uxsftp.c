@@ -798,6 +798,7 @@ char *ssh_sftp_get_cmdline(const char *prompt, bool no_fds_ok)
             {
                 ProcessQuotaCmd(line);
                 sfree(line);
+                line = NULL;
             }
             else
                 return line;
