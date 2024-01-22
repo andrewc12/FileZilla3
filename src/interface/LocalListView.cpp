@@ -366,6 +366,7 @@ bool CLocalListView::DisplayDir(CLocalPath const& dirname)
 		data.dir = true;
 		data.name = _T("..");
 		data.size = -1;
+		data.attributes = {};
 		m_fileData.push_back(data);
 		m_indexMapping.push_back(0);
 	}
@@ -1713,6 +1714,7 @@ void CLocalListView::StartComparison()
 		data.dir = false;
 		data.icon = -1;
 		data.size = -1;
+		data.attributes = {};
 		data.comparison_flags = fill;
 		m_fileData.push_back(data);
 	}

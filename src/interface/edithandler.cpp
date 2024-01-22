@@ -341,7 +341,10 @@ int CEditHandler::GetFileCount(CEditHandler::fileType type, CEditHandler::fileSt
 
 bool CEditHandler::AddFile(CEditHandler::fileType type, std::wstring const& localFile, std::wstring const& remoteFile, CServerPath const& remotePath, Site const& site, int64_t size)
 {
-	wxASSERT(type != none);
+	if (type == none) {
+		wxBell();
+		return false;
+	}
 
 	fileState state;
 	if (type == local) {
