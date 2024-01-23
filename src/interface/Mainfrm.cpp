@@ -2365,12 +2365,12 @@ void CMainFrame::SetDefaultSplitterPositions()
 		m_pTopSplitter->SetSashPosition(97);
 	}
 
-	wxSize size = m_pBottomSplitter->GetClientSize();
-	int h = size.GetHeight() - 135;
-	if (h < 50) {
-		h = 50;
-	}
 	if (m_pBottomSplitter) {
+		wxSize size = m_pBottomSplitter->GetClientSize();
+		int h = size.GetHeight() - 135;
+		if (h < 50) {
+			h = 50;
+		}
 		m_pBottomSplitter->SetSashPosition(h);
 	}
 

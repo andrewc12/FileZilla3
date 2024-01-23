@@ -75,7 +75,7 @@ private:
 	void SetBackgroundTint(wxColour const& tint);
 	void OnColorChange(wxSysColourChangedEvent &);
 
-	site_colour tint_;
+	site_colour tint_{};
 	wxWindow& m_wnd;
 };
 
