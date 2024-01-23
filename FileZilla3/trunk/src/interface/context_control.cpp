@@ -197,7 +197,9 @@ void CContextControl::CreateContextControls(CState& state)
 			m_tabs->SetSelectedFont(*wxNORMAL_FONT);
 			m_tabs->SetMeasuringFont(*wxNORMAL_FONT);
 
-			currentControls.pViewSplitter->Reparent(m_tabs);
+			if (currentControls.pViewSplitter) {
+				currentControls.pViewSplitter->Reparent(m_tabs);
+			}
 
 			m_tabs->AddPage(currentControls.pViewSplitter, currentControls.pState->GetTitle());
 			m_tabs->SetTabColour(0, site_colour_to_wx(currentControls.pState->GetSite().m_colour));
@@ -219,8 +221,8 @@ void CContextControl::CreateContextControls(CState& state)
 	}
 
 	CContextControl::_context_controls context_controls;
-
 	context_controls.pState = &state;
+
 	context_controls.pViewSplitter = new CSplitterWindowEx(parent, -1, initial_position, paneSizes[0], wxSP_NOBORDER  | wxSP_LIVE_UPDATE);
 	context_controls.pViewSplitter->SetMinSize(wxDefaultSize);
 	context_controls.pViewSplitter->SetMinimumPaneSize(50, 100);
