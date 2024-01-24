@@ -1397,8 +1397,8 @@ void CState::UpdateKnownSites(std::vector<CSiteManagerDialog::_connected_site> c
 					changed = true;
 					m_last_site.SetSitePath(std::wstring());
 				}
+				break;
 			}
-			break;
 		}
 	}
 
