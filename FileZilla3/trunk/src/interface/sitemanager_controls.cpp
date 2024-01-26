@@ -1395,7 +1395,7 @@ bool S3SiteControls::UpdateSite(Site & site, bool silent)
 		else if (xrc_call(parent_, "ID_S3_AWSKMS", &wxRadioButton::GetValue)) {
 			server.SetExtraParameter("ssealgorithm", L"aws:kms");
 			if (xrc_call(parent_, "ID_S3_KMSKEY", &wxChoice::GetSelection) == static_cast<int>(s3_sse::KmsKey::CUSTOM)) {
-				auto const& keyId = xrc_call(parent_, "ID_S3_CUSTOM_KMS", &wxTextCtrl::GetValue).ToStdWstring();
+				auto keyId = xrc_call(parent_, "ID_S3_CUSTOM_KMS", &wxTextCtrl::GetValue).ToStdWstring();
 				if (keyId.empty()) {
 					if (!silent) {
 						xrc_call(parent_, "ID_S3_CUSTOM_KMS", &wxWindow::SetFocus);
