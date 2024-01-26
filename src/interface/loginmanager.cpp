@@ -252,7 +252,7 @@ bool CLoginManager::query_credentials(Site & site, std::wstring const& challenge
 		}
 
 		if (newUser) {
-			auto const& user = newUser->GetValue().ToStdWstring();
+			auto user = newUser->GetValue().ToStdWstring();
 			if (user.empty()) {
 				wxMessageBoxEx(_("No username given."), _("Invalid input"), wxICON_EXCLAMATION);
 				continue;
@@ -283,7 +283,7 @@ bool CLoginManager::query_credentials(Site & site, std::wstring const& challenge
 		}
 
 		if (otpCode) {
-			auto const& code = otpCode->GetValue().ToStdWstring();
+			auto code = otpCode->GetValue().ToStdWstring();
 			if (code.empty()) {
 				wxMessageBoxEx(_("No code given."), _("Invalid input"), wxICON_EXCLAMATION);
 				continue;
