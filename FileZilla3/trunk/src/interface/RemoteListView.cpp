@@ -37,9 +37,6 @@
 #include "commctrl.h"
 #endif
 
-std::map<ServerProtocol, CRemoteListView::ChmodHandler> CRemoteListView::chmodHandlers = {
-};
-
 class CRemoteListViewDropTarget final : public CFileDropTarget<wxListCtrlEx>
 {
 public:
@@ -1684,9 +1681,6 @@ bool CRemoteListView::OnAcceptRename(const wxListEvent& event)
 
 void CRemoteListView::OnMenuChmod(wxCommandEvent&)
 {
-	Site const& site = m_state.GetSite();
-	auto protocol = site.server.GetProtocol();
-
 	if (!m_state.IsRemoteConnected() || !m_state.IsRemoteIdle()) {
 		wxBell();
 		return;
@@ -1750,28 +1744,11 @@ void CRemoteListView::OnMenuChmod(wxCommandEvent&)
 		}
 	}
 
-	ChmodUICommand cmd = {
-		this,
-		permissions,
-		fileCount,
-		dirCount,
-		name
-	};
-	auto handler = chmodHandlers[protocol];
-	if (handler) {
-		handler(cmd, m_state);
-	}
-	else {
-		HandleGenericChmod(cmd);
-	}
-}
 
-void CRemoteListView::HandleGenericChmod(ChmodUICommand &command)
-{
 	auto chmodData = std::make_unique<ChmodData>();
 	auto chmodDialog = std::make_unique<CChmodDialog>(*chmodData);
 
-	if (!chmodDialog->Create(command.parentWindow, command.fileCount, command.dirCount, command.name, command.permissions)) {
+	if (!chmodDialog->Create(this, fileCount, dirCount, name, permissions)) {
 		return;
 	}
 
@@ -1791,7 +1768,7 @@ void CRemoteListView::HandleGenericChmod(ChmodUICommand &command)
 	wxASSERT(pRecursiveOperation);
 	recursion_root root(m_pDirectoryListing->path, false);
 
-	long item = -1;
+	item = -1;
 	for (;;) {
 		item = GetNextItem(item, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
 		if (item == -1) {
@@ -1844,7 +1821,6 @@ void CRemoteListView::HandleGenericChmod(ChmodUICommand &command)
 	else {
 		m_state.ChangeRemoteDir(m_pDirectoryListing->path, std::wstring(), 0, true);
 	}
-
 }
 
 void CRemoteListView::ApplyCurrentFilter()

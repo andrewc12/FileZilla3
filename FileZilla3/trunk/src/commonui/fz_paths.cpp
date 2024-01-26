@@ -315,7 +315,7 @@ CLocalPath GetFZDataDir(std::vector<std::wstring> const& fileToFind, std::wstrin
 		auto const segments = fz::strtok(path, PATH_SEP);
 
 		for (auto const& segment : segments) {
-			auto const cur = CLocalPath(segment).GetPath();
+			auto const& cur = CLocalPath(segment).GetPath();
 			if (cur.size() > 5 && fz::ends_with(cur, std::wstring(L_DIR_SEP L"bin" L_DIR_SEP))) {
 				std::wstring path = cur.substr(0, cur.size() - 4) + prefixSub + L_DIR_SEP;
 				if (testPath(path)) {
@@ -663,7 +663,7 @@ std::wstring FindTool(std::wstring const& tool, std::wstring const& buildRelPath
 	path = GetEnv("PATH");
 	auto const segments = fz::strtok(path, PATH_SEP);
 	for (auto const& segment : segments) {
-		auto const cur = CLocalPath(segment).GetPath();
+		auto const& cur = CLocalPath(segment).GetPath();
 		executable = cur + program;
 		if (!cur.empty() && FileExists(executable)) {
 			return executable;

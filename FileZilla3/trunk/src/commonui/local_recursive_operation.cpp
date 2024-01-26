@@ -137,6 +137,7 @@ void local_recursive_operation::thread_entry()
 	{
 		fz::scoped_lock l(mutex_);
 
+		// Make copy, as it is used in the unlocked section
 		auto filters = m_filters.first;
 
 		while (!recursion_roots_.empty()) {

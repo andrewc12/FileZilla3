@@ -644,11 +644,11 @@ bool CSiteManager::ImportSites(pugi::xml_node sitesToImport, pugi::xml_node exis
 		}
 
 		// Find free name
-		auto const name = site->GetName();
+		auto const& name = site->GetName();
 		std::wstring newName = name;
 		int i = 2;
 		while (GetChildWithName(existingSites, newName)) {
-			newName = fz::sprintf(L"%s %d", name.substr(0, 240), i++);
+			newName = fz::sprintf(L"%s %d", std::wstring_view(name).substr(0, 240), i++);
 		}
 		site->SetName(newName);
 

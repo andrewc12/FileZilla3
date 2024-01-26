@@ -290,7 +290,7 @@ CThemeProvider::CThemeProvider(COptions& options)
 
 	CTheme defaultTheme;
 	if (defaultTheme.Load(L"default")) {
-		themes_[L"default"] = defaultTheme;
+		themes_[L"default"] = std::move(defaultTheme);
 	}
 
 	std::wstring name = options_.get_string(OPTION_ICONS_THEME);
