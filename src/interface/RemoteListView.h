@@ -27,19 +27,6 @@ public:
 
 	void LinkIsNotDir(CServerPath const& path, std::wstring const& link);
 
-	struct ChmodUICommand 
-	{
-		wxWindow		*parentWindow;
-		char			*permissions;
-		int				fileCount;
-		int				dirCount;
-		std::wstring	const &name;
-	};
-
-	typedef std::function<void(ChmodUICommand &, CState &)> ChmodHandler;
-
-	static std::map<ServerProtocol, CRemoteListView::ChmodHandler> chmodHandlers;
-
 protected:
 	virtual wxString GetItemText(int item, unsigned int column);
 
@@ -84,8 +71,6 @@ protected:
 
 	// Caller is responsible to check selection is valid!
 	void TransferSelectedFiles(const CLocalPath& local_parent, bool queue_only, transfer_flags custom_flags = transfer_flags::none, transfer_flags custom_flags_mask = transfer_flags::none);
-
-	void HandleGenericChmod(ChmodUICommand &command);
 
 	// Cache icon for directories, no need to calculate it multiple times
 	int m_dirIcon;

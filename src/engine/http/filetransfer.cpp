@@ -137,7 +137,7 @@ fz::http::continuation CHttpFileTransferOpData::OnHeader(std::shared_ptr<HttpReq
 			return fz::http::continuation::error;
 		}
 
-		rr_.request_.uri_ = location;
+		rr_.request_.uri_ = std::move(location);
 		controlSocket_.Request(make_simple_rr(&rr_));
 		return fz::http::continuation::done;
 	}

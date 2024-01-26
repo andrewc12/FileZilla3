@@ -157,11 +157,11 @@ void Site::Update(Site const& rhs)
 
 	std::shared_ptr<SiteHandleData> data = data_;
 	*this = rhs;
-	server = newServer;
-	originalServer = newOriginalServer;
+	server = std::move(newServer);
+	originalServer = std::move(newOriginalServer);
 	if (data && rhs.data_) {
 		*data = *rhs.data_;
-		data_ = data;
+		data_ = std::move(data);
 	}
 }
 

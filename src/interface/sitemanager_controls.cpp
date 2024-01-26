@@ -479,7 +479,7 @@ void GeneralSiteControls::SetControlVisibility(ServerProtocol protocol, LogonTyp
 			if (!name.empty()) {
 				auto value = std::get<2>(row)->GetValue().ToStdWstring();
 				if (!value.empty()) {
-					values[std::make_pair(name, static_cast<ParameterSection::type>(i))] = value;
+					values[std::make_pair(name, static_cast<ParameterSection::type>(i))] = std::move(value);
 				}
 			}
 		}
@@ -1395,7 +1395,7 @@ bool S3SiteControls::UpdateSite(Site & site, bool silent)
 		else if (xrc_call(parent_, "ID_S3_AWSKMS", &wxRadioButton::GetValue)) {
 			server.SetExtraParameter("ssealgorithm", L"aws:kms");
 			if (xrc_call(parent_, "ID_S3_KMSKEY", &wxChoice::GetSelection) == static_cast<int>(s3_sse::KmsKey::CUSTOM)) {
-				auto keyId = xrc_call(parent_, "ID_S3_CUSTOM_KMS", &wxTextCtrl::GetValue).ToStdWstring();
+				auto const& keyId = xrc_call(parent_, "ID_S3_CUSTOM_KMS", &wxTextCtrl::GetValue).ToStdWstring();
 				if (keyId.empty()) {
 					if (!silent) {
 						xrc_call(parent_, "ID_S3_CUSTOM_KMS", &wxWindow::SetFocus);

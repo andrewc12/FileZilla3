@@ -229,11 +229,11 @@ bool CVerifyCertDialog::CreateVerificationDialog(CCertificateNotification const&
 	if (!displayOnly) {
 		auto label1 = _("The server's certificate is unknown. Please carefully examine the certificate to make sure the server can be trusted.");
 		WrapText(this, label1, 600);
-		main->Add(new wxStaticText(this, nullID, label1));
+		main->Add(new wxStaticText(this, nullID, std::move(label1)));
 
 		auto label2 =_("Compare the displayed fingerprint with the certificate fingerprint you have received from your server administrator or server hosting provider.");
 		WrapText(this, label2, 600);
-		main->Add(new wxStaticText(this, nullID, label2));
+		main->Add(new wxStaticText(this, nullID, std::move(label2)));
 	}
 
 	impl_->certificates_ = info.get_certificates();

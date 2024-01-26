@@ -479,7 +479,7 @@ regular_dir:
 		RefreshComparison();
 	}
 
-	ReselectItems(selectedNames, focused, focusedItem, ensureVisible);
+	ReselectItems(selectedNames, std::move(focused), focusedItem, ensureVisible);
 
 	RefreshListOnly();
 
@@ -1247,7 +1247,7 @@ void CLocalListView::ApplyCurrentFilter()
 		RefreshComparison();
 	}
 
-	ReselectItems(selectedNames, focused, focusedItem);
+	ReselectItems(selectedNames, std::move(focused), focusedItem);
 
 	if (!IsComparing()) {
 		RefreshListOnly();
@@ -1461,7 +1461,7 @@ void CLocalListView::OnBeginDrag(wxListEvent&)
 	pDragDropManager->localParent = m_dir;
 	pDragDropManager->dragDataObject = &obj;
 
-	auto const path = m_dir.GetPath();
+	auto const& path = m_dir.GetPath();
 
 	bool added = false;
 

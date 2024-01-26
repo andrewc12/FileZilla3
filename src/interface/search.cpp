@@ -1054,7 +1054,7 @@ void CSearchDialog::OnSearch(wxCommandEvent&)
 			return;
 		}
 
-		m_local_search_root = path;
+		m_local_search_root = std::move(path);
 	}
 
 	if (mode_ != search_mode::local) {
@@ -1076,7 +1076,7 @@ void CSearchDialog::OnSearch(wxCommandEvent&)
 			return;
 		}
 
-		m_remote_search_root = path;
+		m_remote_search_root = std::move(path);
 	}
 
 	searching_ = true;
