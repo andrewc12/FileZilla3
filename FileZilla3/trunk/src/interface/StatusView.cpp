@@ -70,7 +70,7 @@ public:
 		// window hierarchy which saves a few CPU cycles.
 	}
 
-#ifdef __WXMAC__
+#if defined(__WXMAC__) || defined(__WXMSW__)
 	void OnChar(wxKeyEvent& event)
 	{
 		if (event.GetKeyCode() != WXK_TAB) {
@@ -85,7 +85,7 @@ public:
 
 BEGIN_EVENT_TABLE(CFastTextCtrl, wxNavigationEnabled<wxTextCtrl>)
 	EVT_TEXT(wxID_ANY, CFastTextCtrl::OnText)
-#ifdef __WXMAC__
+#if defined(__WXMAC__) || defined(__WXMSW__)
 	EVT_CHAR_HOOK(CFastTextCtrl::OnChar)
 #endif
 END_EVENT_TABLE()
