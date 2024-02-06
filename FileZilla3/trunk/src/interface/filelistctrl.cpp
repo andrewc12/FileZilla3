@@ -791,7 +791,7 @@ template<class CFileData> void CFileListCtrl<CFileData>::OnColumnRightClicked(wx
 
 template<class CFileData> void CFileListCtrl<CFileData>::InitSort(interfaceOptions optionID)
 {
-	wxString sortInfo = options_.get_string(optionID);
+	std::wstring sortInfo = options_.get_string(optionID);
 	if (!sortInfo.empty()) {
 		m_sortDirection = sortInfo[0] - '0';
 	}
@@ -802,7 +802,7 @@ template<class CFileData> void CFileListCtrl<CFileData>::InitSort(interfaceOptio
 		m_sortDirection = 0;
 	}
 
-	if (sortInfo.Len() == 3) {
+	if (sortInfo.size() == 3) {
 		m_sortColumn = sortInfo[2] - '0';
 		if (GetColumnVisibleIndex(m_sortColumn) == -1) {
 			m_sortColumn = 0;

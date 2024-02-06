@@ -192,7 +192,7 @@ void CClearPrivateDataDialog::RemoveXmlFile(std::wstring const& name)
 {
 	std::wstring const path = m_pMainFrame->GetOptions().get_string(OPTION_DEFAULT_SETTINGSDIR);
 	if (!name.empty() && !path.empty()) {
-		fz::remove_file(fz::to_native(path + name + L".xml"));
-		fz::remove_file(fz::to_native(path + name + L".xml~"));
+		fz::remove_file(fz::to_native(path + name + L".xml"), false);
+		fz::remove_file(fz::to_native(path + name + L".xml~"), false);
 	}
 }
