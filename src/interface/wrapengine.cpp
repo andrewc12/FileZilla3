@@ -1116,7 +1116,7 @@ void CWrapEngine::ClearCache()
 	CInterProcessMutex mutex(MUTEX_LAYOUT);
 	std::wstring const path = COptions::Get()->get_string(OPTION_DEFAULT_SETTINGSDIR);
 	if (!path.empty()) {
-		fz::remove_file(fz::to_native(path + L"layout.xml"));
+		fz::remove_file(fz::to_native(path + L"layout.xml"), false);
 	}
 }
 

@@ -160,7 +160,7 @@ void CEditHandler::RemoveTemporaryFilesInSpecificDir(std::wstring const& temp)
 			close(fd);
 		}
 #endif
-		fz::remove_file(fz::to_native(lockfile));
+		fz::remove_file(fz::to_native(lockfile), false);
 
 		if (wxFileName::FileExists(lockfile)) {
 			return;

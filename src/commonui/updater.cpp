@@ -540,7 +540,7 @@ UpdaterState CUpdater::ProcessFinishedDownload()
 		s = UpdaterState::newversion;
 	}
 	else if (!VerifyChecksum(temp, version_information_.available_.size_, version_information_.available_.hash_)) {
-		fz::remove_file(fz::to_native(temp));
+		fz::remove_file(fz::to_native(temp), false);
 		s = UpdaterState::newversion;
 	}
 	else {
@@ -550,7 +550,7 @@ UpdaterState CUpdater::ProcessFinishedDownload()
 
 		if (local_file.empty() || !fz::rename_file(fz::to_native(temp), fz::to_native(local_file))) {
 			s = UpdaterState::newversion;
-			fz::remove_file(fz::to_native(temp));
+			fz::remove_file(fz::to_native(temp), false);
 			fz::scoped_lock l(mtx_);
 			log_ += fz::sprintf(fztranslate("Could not create local file %s\n"), local_file);
 		}

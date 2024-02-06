@@ -132,7 +132,7 @@ pugi::xml_node CXmlFile::Load(bool overwriteInvalid)
 		}
 
 		// We no longer need the backup
-		fz::remove_file(fz::to_native(redirectedName + L"~"));
+		fz::remove_file(fz::to_native(redirectedName + L"~"), false);
 		m_error.clear();
 	}
 
@@ -360,7 +360,7 @@ bool CXmlFile::SaveXmlFile()
 
 	bool success = flushing_xml_writer::save(m_document, redirectedName);
 	if (!success) {
-		fz::remove_file(fz::to_native(redirectedName));
+		fz::remove_file(fz::to_native(redirectedName), false);
 		if (exists) {
 			rename_file(redirectedName + L"~", redirectedName);
 		}
@@ -369,7 +369,7 @@ bool CXmlFile::SaveXmlFile()
 	}
 
 	if (exists) {
-		fz::remove_file(fz::to_native(redirectedName + L"~"));
+		fz::remove_file(fz::to_native(redirectedName + L"~"), false);
 	}
 
 	return true;
