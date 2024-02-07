@@ -70,8 +70,8 @@ bool CFilterConditionsDialog::CreateListControl(int conditions)
 		sizeConditionTypes.Add(_("does not equal"));
 		sizeConditionTypes.Add(_("less than"));
 
-		attributeSetTypes.Add(_("is set"));
 		attributeSetTypes.Add(_("is unset"));
+		attributeSetTypes.Add(_("is set"));
 
 		attributeConditionTypes.Add(_("Archive"));
 		attributeConditionTypes.Add(_("Compressed"));
@@ -333,7 +333,7 @@ void CFilterConditionsDialog::UpdateControls(CFilterCondition const& condition, 
 	controls.pCondition->Select(condition.condition);
 
 	controls.pValue->SetValue(condition.strValue);
-	controls.pSet->Select(condition.strValue != _T("0") ? 0 : 1);
+	controls.pSet->Select(condition.strValue == _T("0") ? 0 : 1);
 
 	controls.pValue->Show(condition.type == filter_name || condition.type == filter_size || condition.type == filter_path || condition.type == filter_date);
 	controls.pSet->Show(!controls.pValue->IsShown());
