@@ -10,6 +10,12 @@ Legend:
     *nix: Unix (e.g BSD) and Unix-like systems (e.g. Linux)
     macOS/OS X: Apple macOS
 
+3.66.5 (2024-02-07)
+
+! Official binaries are now built againt GnuTLS 3.8.3
+- Updated to libfilezilla 0.46.0
+- MSW: Fixed tab navigation over message log
+
 3.66.4 (2023-12-20)
 
 ! SFTP: Address Terrapin protocol vulerability
