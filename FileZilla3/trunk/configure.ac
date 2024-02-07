@@ -1,4 +1,4 @@
-AC_INIT([FileZilla],[3.66.4], [tim.kosse@filezilla-project.org],[],[https://filezilla-project.org/])
+AC_INIT([FileZilla],[3.66.5], [tim.kosse@filezilla-project.org],[],[https://filezilla-project.org/])
 
 AH_TOP([
 #ifndef FILEZILLA_CONFIG_HEADER
@@ -186,7 +186,7 @@ if test "$buildmain" = "yes"; then
 
   # Find libfilezilla
   # -----------------
-  PKG_CHECK_MODULES(LIBFILEZILLA, [libfilezilla >= 0.45.0],, [
+  PKG_CHECK_MODULES(LIBFILEZILLA, [libfilezilla >= 0.46.0],, [
 	AC_MSG_ERROR([libfilezilla not found: $LIBFILEZILLA_PKG_ERRORS. You can download it from https://lib.filezilla-project.org/])
   ])
   AC_SUBST(LIBFILEZILLA_CFLAGS)
