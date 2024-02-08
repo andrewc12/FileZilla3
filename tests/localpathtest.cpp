@@ -12,7 +12,7 @@ class CLocalPathTest final : public CppUnit::TestFixture
 	CPPUNIT_TEST(testSetPath);
 	CPPUNIT_TEST(testChangePath);
 	CPPUNIT_TEST(testHasParent);
-#ifdef __WXMSW__
+#ifdef FZ_WINDOWS
 	CPPUNIT_TEST(testHasLogicalParent);
 #endif
 	CPPUNIT_TEST(testAddSegment);
@@ -25,7 +25,7 @@ public:
 	void testSetPath();
 	void testChangePath();
 	void testHasParent();
-#ifdef __WXMSW__
+#ifdef FZ_WINDOWS
 	void testHasLogicalParent();
 #endif
 	void testAddSegment();
@@ -37,7 +37,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(CLocalPathTest);
 
 void CLocalPathTest::testSetPath()
 {
-#ifdef __WXMSW__
+#ifdef FZ_WINDOWS
 	CPPUNIT_ASSERT(CLocalPath(L"\\").GetPath() == L"\\");
 
 	CPPUNIT_ASSERT(CLocalPath(L"C:").GetPath() == L"C:\\");
@@ -75,7 +75,7 @@ void CLocalPathTest::testSetPath()
 
 void CLocalPathTest::testChangePath()
 {
-#ifdef __WXMSW__
+#ifdef FZ_WINDOWS
 	CLocalPath p1(L"C:\\");
 	CPPUNIT_ASSERT(p1.ChangePath(L"\\") && p1.GetPath() == L"\\");
 	CPPUNIT_ASSERT(p1.ChangePath(L"C:") && p1.GetPath() == L"C:\\");
@@ -99,7 +99,7 @@ void CLocalPathTest::testChangePath()
 
 void CLocalPathTest::testHasParent()
 {
-#ifdef __WXMSW__
+#ifdef FZ_WINDOWS
 	CPPUNIT_ASSERT(!CLocalPath(L"\\").HasParent());
 
 	CPPUNIT_ASSERT(!CLocalPath(L"C:\\").HasParent());
@@ -115,7 +115,7 @@ void CLocalPathTest::testHasParent()
 #endif
 }
 
-#ifdef __WXMSW__
+#ifdef FZ_WINDOWS
 void CLocalPathTest::testHasLogicalParent()
 {
 	CPPUNIT_ASSERT(!CLocalPath(L"\\").HasLogicalParent());
@@ -131,7 +131,7 @@ void CLocalPathTest::testHasLogicalParent()
 
 void CLocalPathTest::testAddSegment()
 {
-#ifdef __WXMSW__
+#ifdef FZ_WINDOWS
 	CLocalPath a(L"c:\\foo");
 #else
 	CLocalPath a(L"/foo");

@@ -1445,10 +1445,9 @@ void CDirectoryListingParserTest::InitEntries()
 	int64_t size;
 	std::wstring permissions;
 	std::wstring ownerGroup;
-	int flags;
 	std::wstring target; // Set to linktarget it link is true
-
-	wxDateTime time;
+	fz::datetime time;
+	int flags;
 */
 
 	// Fix line endings
