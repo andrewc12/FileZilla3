@@ -2,6 +2,7 @@
 #include "../include/local_path.h"
 
 #include <libfilezilla/format.hpp>
+#include <libfilezilla/local_filesys.hpp>
 
 #ifndef FZ_WINDOWS
 #include <errno.h>
@@ -415,8 +416,11 @@ bool CLocalPath::ChangePath(std::wstring const& new_path, std::wstring* file)
 #endif
 }
 
-bool CLocalPath::Exists(std::wstring *error) const
+bool CLocalPath::Exists(std::wstring *error, bool * is_link) const
 {
+	if (is_link) {
+		*is_link = false;
+	}
 	if (m_path->empty()) {
 		if (error) {
 			*error = _("No path given");
@@ -480,6 +484,13 @@ bool CLocalPath::Exists(std::wstring *error) const
 		}
 		return false;
 	}
+
+	if (is_link) {
+		if (ret & FILE_ATTRIBUTE_REPARSE_POINT) {
+			*is_link = fz::local_filesys::get_file_type(path, false) == fz::local_filesys::link;
+		}
+	}
+
 
 	return true;
 #else

@@ -220,6 +220,8 @@ public:
 	fz::thread_pool & pool_;
 
 protected:
+	bool DoSetLocalDir(CLocalPath & dir, std::wstring *error, bool rememberPreviousSubdir);
+
 	void SetSite(Site const& site, CServerPath const& path = CServerPath());
 
 	void UpdateTitle();

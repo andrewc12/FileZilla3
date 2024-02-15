@@ -270,17 +270,40 @@ bool CState::SetLocalDir(std::wstring const& dir, std::wstring *error, bool reme
 		return false;
 	}
 
-	return SetLocalDir(p, error, rememberPreviousSubdir);
+	return DoSetLocalDir(p, error, rememberPreviousSubdir);
 }
 
 bool CState::SetLocalDir(CLocalPath const& dir, std::wstring *error, bool rememberPreviousSubdir)
+{
+	CLocalPath p(dir);
+	return DoSetLocalDir(p, error, rememberPreviousSubdir);
+}
+
+bool CState::DoSetLocalDir(CLocalPath & dir, std::wstring *error, bool rememberPreviousSubdir)
 {
 	if (m_changeDirFlags.syncbrowse) {
 		wxMessageBoxEx(_("Cannot change directory, there already is a synchronized browsing operation in progress."), _("Synchronized browsing"));
 		return false;
 	}
 
-	if (!dir.Exists(error)) {
+	size_t links{};
+	while (++links < 5) {
+		bool is_link{};
+		if (!dir.Exists(error, &is_link)) {
+			return false;
+		}
+		if (!is_link) {
+			break;
+		}
+
+		if (!dir.ChangePath(fz::to_native(fz::local_filesys::get_link_target(fz::to_native(dir.GetPath()))))) {
+			return false;
+		}
+	}
+	if (links >= 5) {
+		if (error) {
+			*error = _("Too many symbolic links");
+		}
 		return false;
 	}
 
