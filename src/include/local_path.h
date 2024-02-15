@@ -67,7 +67,7 @@ public:
 	bool IsWriteable() const;
 
 	// Checks if the directory exists.
-	bool Exists(std::wstring *error = nullptr) const;
+	bool Exists(std::wstring *error = nullptr, bool *is_link = nullptr) const;
 
 	static wchar_t const path_separator;
 
